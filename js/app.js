@@ -939,6 +939,37 @@
   }
 
   function renderLab() {
+    document.getElementById('laboratorio').innerHTML = `
+      <div class="page-heading">
+        <div>
+          <span class="eyebrow">WebR en GitHub Pages</span>
+          <h2>Laboratorio R ejecutable en línea</h2>
+          <p>Este módulo replica el patrón del aula ejemplo: un editor, botón Ejecutar, salida en pantalla y fichas cargables. El motor usa WebR y el dataset de salud del curso.</p>
+        </div>
+        <div class="practice-actions">
+          <a class="btn" href="laboratorio/index.html" target="_blank" rel="noopener">Abrir pantalla completa</a>
+          <a class="btn secondary" href="data/datasets/salud_muestra.csv" download>Descargar CSV</a>
+        </div>
+      </div>
+      <div class="lab-embed-card">
+        <iframe class="lab-frame" src="laboratorio/index.html?embed=1" title="Laboratorio WebR de R aplicado a la salud"></iframe>
+      </div>
+      <div class="grid two" style="margin-top:16px">
+        <div class="panel">
+          <h2>Qué se puede ejecutar</h2>
+          <p>Comandos base de R, lectura del CSV, tablas, resúmenes, pruebas t, chi-cuadrado, modelos <code>glm()</code> y generación de texto para RPubs.</p>
+          <div class="pill-row">
+            <button class="btn small secondary" type="button" onclick="RSaludApp.showSection('practicas')">Ver fichas</button>
+            <button class="btn small secondary" type="button" onclick="RSaludApp.showSection('proyecto')">Proyecto RPubs</button>
+          </div>
+        </div>
+        <div class="panel">
+          <h2>Alcance</h2>
+          <p>Para que cargue rápido y funcione en línea, el laboratorio prioriza R base. En RStudio local se pueden usar <code>tidyverse</code>, <code>janitor</code>, <code>broom</code> y <code>gtsummary</code>.</p>
+        </div>
+      </div>
+    `;
+    return;
     const code = `# Curso R aplicado a la salud
 library(tidyverse)
 library(janitor)
@@ -1072,6 +1103,7 @@ tidy(modelo, exponentiate = TRUE, conf.int = TRUE)`;
             ${renderMiniCode(step.code, `practice-code-${lab.id}-${safeStep}`)}
             <div class="pill-row">
               <button class="btn small secondary" type="button" onclick="RSaludApp.copyCodeById(${jsString(`practice-code-${lab.id}-${safeStep}`)})">Copiar código</button>
+              <a class="btn small" href="laboratorio/index.html?code=${encodeURIComponent(step.code)}" target="_blank" rel="noopener">Ejecutar en WebR</a>
               <a class="btn small secondary" href="${lab.dataset}" download>Descargar datos</a>
               <button class="btn small secondary" type="button" onclick="RSaludApp.prepareEvidence(${lab.unit}, ${jsString(step.title)})">Subir evidencia</button>
             </div>

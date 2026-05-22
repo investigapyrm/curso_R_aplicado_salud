@@ -1,5 +1,14 @@
 # Bitácora
 
+## 2026-05-22 - Laboratorio WebR desde archivos del ejemplo
+
+- Se adopto el patron del laboratorio ejecutable del curso ejemplo: editor, boton Ejecutar, salida en pantalla, fichas cargables y modo embebido.
+- Se reemplazo `laboratorio/index.html` por una version R pura con WebR, sin Python ni Pyodide, usando `data/datasets/salud_muestra.csv`.
+- Se reemplazo `practicas/index.html` por fichas guiadas adaptadas a salud con enlace directo para ejecutar cada bloque en WebR.
+- Se actualizo `dashboard.html` y `js/app.js` para embeber el laboratorio ejecutable dentro del aula.
+- Version de app/cache actualizada a `2026.05.22.4`.
+- Validacion viva local: Playwright ejecuto `1 + 1` en `laboratorio/index.html` y WebR devolvio `[1] 2`; el dashboard embebido cargo `.lab-frame` en la seccion Laboratorio.
+
 ## 2026-05-22 - Replica ampliada del aula ejemplo
 
 - Problema reportado: el aula seguia viendose pobre frente al curso ejemplo `analiticabigdata`.

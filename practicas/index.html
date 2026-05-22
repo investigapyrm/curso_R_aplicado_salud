@@ -4,58 +4,181 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Prácticas guiadas | R aplicado a la salud</title>
+  <meta name="description" content="Fichas paso a paso con código R ejecutable en WebR para datos de salud.">
   <link rel="stylesheet" href="../css/styles.css">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#116149">
+  <style>
+    body { min-height: 100vh; }
+    .embed-shell { max-width: 1120px; margin: 0 auto; padding: 20px; }
+    .embed-header { margin-bottom: 18px; }
+    .embed-header p { margin-top: 8px; color: var(--muted); max-width: 780px; line-height: 1.6; }
+  </style>
 </head>
 <body>
-  <main class="doc-page">
-    <header class="doc-header">
-      <img src="../icons/logo-r-salud.svg" alt="R aplicado a la salud">
-      <div>
-        <strong>Prácticas guiadas</strong>
-        <p class="footer-note">Secuencia corta para ejecutar en RStudio</p>
-      </div>
-    </header>
-    <article class="doc-content">
-      <h1>Prácticas guiadas</h1>
-      <ol>
-        <li>Crear proyecto `curso_r_salud`.</li>
-        <li>Crear carpetas `data`, `scripts`, `figuras` y `reportes`.</li>
-        <li>Guardar el CSV del aula dentro de `data`.</li>
-        <li>Ejecutar un script por unidad.</li>
-        <li>Crear el reporte final y renderizar a HTML.</li>
-      </ol>
-      <h2>Plantilla mínima de reporte</h2>
-      <div class="code-block"><pre><code>---
-title: "Primer análisis de datos de salud con R"
-author: "Tu nombre"
-output: html_document
----
-
-## Pregunta
-
-¿Cómo varía la glucosa según diagnóstico en la base de práctica?
-
-## Preparación
-
-```{r}
-library(tidyverse)
-salud <- read.csv("data/salud_muestra.csv")
-```
-
-## Resultados
-
-```{r}
-salud |>
-  group_by(diagnostico) |>
-  summarise(n = n(), glucosa_media = mean(glucosa_mg_dl))
-```
-
-## Interpretación
-
-Redacta dos párrafos con hallazgos, límites y próximos pasos.</code></pre></div>
-      <p><a class="btn" href="../dashboard.html">Volver al aula</a></p>
-    </article>
+  <main class="embed-shell">
+    <div class="embed-header">
+      <span class="eyebrow">Prácticas del aula</span>
+      <h1>Prácticas guiadas con R</h1>
+      <p>Fichas paso a paso con datos descargables, código R y enlace directo al laboratorio WebR para ejecutar cada bloque en línea.</p>
+    </div>
+    <div id="practiceRoot"></div>
   </main>
+
+  <script>
+    const LABS = [
+      {
+        id: 'lab_instalacion_salud',
+        title: 'Laboratorio 1 - RStudio listo para salud',
+        unit: 1,
+        dataset: '../data/datasets/salud_muestra.csv',
+        goal: 'Verificar comandos básicos, objetos y estructura de proyecto.',
+        steps: [
+          ['Verificar sesión', 'Confirma versión de R y carpeta de trabajo.', 'R.version.string\ngetwd()\nsessionInfo()'],
+          ['Crear carpetas', 'Organiza data, scripts y resultados como proyecto reproducible.', 'dir.create("data", showWarnings = FALSE)\ndir.create("scripts", showWarnings = FALSE)\ndir.create("resultados", showWarnings = FALSE)\nlist.files()'],
+          ['Primer objeto clínico', 'Crea vectores y calcula un promedio sencillo.', 'edad <- c(19, 21, 22, 30, 45)\nglucosa <- c(82, 91, 110, 145, 160)\nmean(glucosa)']
+        ]
+      },
+      {
+        id: 'lab_limpieza_salud',
+        title: 'Laboratorio 2 - Importación, limpieza y ética',
+        unit: 2,
+        dataset: '../data/datasets/salud_muestra.csv',
+        goal: 'Leer la base, revisar estructura y preparar variables para análisis.',
+        steps: [
+          ['Leer datos', 'Importa el CSV y mira dimensiones, nombres y primeras filas.', 'salud <- read.csv("/data/salud_muestra.csv")\ndim(salud)\nnames(salud)\nhead(salud)'],
+          ['Recodificar variables', 'Convierte variables de texto en factores.', 'salud <- read.csv("/data/salud_muestra.csv")\nsalud$diagnostico <- factor(salud$diagnostico)\nsalud$tabaquismo <- factor(salud$tabaquismo)\nstr(salud[, c("diagnostico", "tabaquismo")])'],
+          ['Diccionario simple', 'Documenta tipo de variable y posible sensibilidad.', 'salud <- read.csv("/data/salud_muestra.csv")\ndata.frame(variable = names(salud), tipo = sapply(salud, class))']
+        ]
+      },
+      {
+        id: 'lab_descriptiva_salud',
+        title: 'Laboratorio 3 - Descriptiva y gráficos clínicos',
+        unit: 3,
+        dataset: '../data/datasets/salud_muestra.csv',
+        goal: 'Crear tablas descriptivas y lecturas claras de resultados.',
+        steps: [
+          ['Tabla por diagnóstico', 'Calcula medias clínicas por grupo diagnóstico.', 'salud <- read.csv("/data/salud_muestra.csv")\naggregate(cbind(edad, imc, glucosa_mg_dl) ~ diagnostico, data = salud, FUN = mean)'],
+          ['Frecuencias', 'Cuenta diagnósticos y calcula porcentajes.', 'salud <- read.csv("/data/salud_muestra.csv")\ntabla <- table(salud$diagnostico)\ntabla\nround(prop.table(tabla) * 100, 1)'],
+          ['Hallazgo narrado', 'Genera una frase breve con n y promedio.', 'salud <- read.csv("/data/salud_muestra.csv")\ncat("n =", nrow(salud), "\\n")\ncat("Glucosa media =", round(mean(salud$glucosa_mg_dl), 1), "mg/dl\\n")']
+        ]
+      },
+      {
+        id: 'lab_inferencia_salud',
+        title: 'Laboratorio 4 - Inferencia básica con R',
+        unit: 4,
+        dataset: '../data/datasets/salud_muestra.csv',
+        goal: 'Calcular intervalos, comparar grupos y reportar incertidumbre.',
+        steps: [
+          ['Intervalo de confianza', 'Calcula IC para glucosa media.', 'salud <- read.csv("/data/salud_muestra.csv")\nt.test(salud$glucosa_mg_dl)'],
+          ['Comparación entre grupos', 'Compara glucosa por tabaquismo.', 'salud <- read.csv("/data/salud_muestra.csv")\ntapply(salud$glucosa_mg_dl, salud$tabaquismo, mean)\nt.test(glucosa_mg_dl ~ tabaquismo, data = salud)'],
+          ['Chi-cuadrado', 'Cruza dos variables categóricas.', 'salud <- read.csv("/data/salud_muestra.csv")\ntabla <- table(salud$tabaquismo, salud$diagnostico)\ntabla\nchisq.test(tabla)']
+        ]
+      },
+      {
+        id: 'lab_modelos_salud',
+        title: 'Laboratorio 5 - Modelo simple',
+        unit: 5,
+        dataset: '../data/datasets/salud_muestra.csv',
+        goal: 'Ajustar una regresión logística sencilla y leer odds ratio.',
+        steps: [
+          ['Variable respuesta', 'Crea una respuesta binaria para diabetes probable.', 'salud <- read.csv("/data/salud_muestra.csv")\nsalud$diabetes_probable <- salud$diagnostico == "Diabetes probable"\ntable(salud$diabetes_probable)'],
+          ['Ajustar modelo', 'Estima un modelo logístico básico.', 'salud <- read.csv("/data/salud_muestra.csv")\nsalud$diabetes_probable <- salud$diagnostico == "Diabetes probable"\nmodelo <- glm(diabetes_probable ~ edad + imc + tabaquismo, data = salud, family = binomial)\nsummary(modelo)'],
+          ['Odds ratio', 'Convierte coeficientes a OR aproximados.', 'exp(coef(modelo))']
+        ]
+      },
+      {
+        id: 'lab_rpubs_salud',
+        title: 'Laboratorio 6 - Reporte RPubs',
+        unit: 6,
+        dataset: '../data/datasets/salud_muestra.csv',
+        goal: 'Preparar fragmentos que luego irán al reporte R Markdown.',
+        steps: [
+          ['Pregunta', 'Define una pregunta analítica concreta.', 'pregunta <- "¿Cómo varía la glucosa según diagnóstico en esta muestra?"\ncat(pregunta)'],
+          ['Resultados reproducibles', 'Genera tabla para insertar en el informe.', 'salud <- read.csv("/data/salud_muestra.csv")\naggregate(glucosa_mg_dl ~ diagnostico, data = salud, FUN = mean)'],
+          ['Cierre prudente', 'Redacta límite metodológico.', 'cat("Este análisis usa una base de práctica y describe asociaciones simples; no establece causalidad.\\n")']
+        ]
+      }
+    ];
+
+    let lab = LABS.find(item => `#${item.id}` === location.hash) || LABS[0];
+    let step = 0;
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function labUrl(code) {
+      return `../laboratorio/index.html?code=${encodeURIComponent(code)}`;
+    }
+
+    function render() {
+      const current = lab.steps[step];
+      document.getElementById('practiceRoot').innerHTML = `
+        <div class="practice-grid" style="margin-bottom:16px">
+          ${LABS.map(item => `
+            <button class="practice-card" style="text-align:left;cursor:pointer" onclick="selectLab('${item.id}')">
+              <span class="pill">Unidad ${item.unit}</span>
+              <h3 style="margin-top:10px">${escapeHtml(item.title)}</h3>
+              <p>${escapeHtml(item.goal)}</p>
+            </button>
+          `).join('')}
+        </div>
+
+        <div class="practice-detail-shell">
+          <div class="unit-detail-header">
+            <div>
+              <span class="eyebrow">Unidad ${lab.unit}</span>
+              <h2>${escapeHtml(lab.title)}</h2>
+              <p>${escapeHtml(lab.goal)}</p>
+            </div>
+            <div class="practice-actions">
+              <a class="btn secondary" href="${lab.dataset}" download>Descargar CSV</a>
+              <a class="btn" href="${labUrl(current[2])}" target="_blank" rel="noopener">Ejecutar ficha</a>
+            </div>
+          </div>
+          <div class="practice-stepper">
+            ${lab.steps.map((_, index) => `<button class="${index === step ? 'active' : ''}" onclick="step=${index};render()">${index + 1}</button>`).join('')}
+          </div>
+          <div class="practice-detail">
+            <div class="practice-main">
+              <span class="pill">Ficha ${step + 1} de ${lab.steps.length}</span>
+              <h3>${escapeHtml(current[0])}</h3>
+              <div class="concept-box">${escapeHtml(current[1])}</div>
+              <pre class="code-block"><code>${escapeHtml(current[2])}</code></pre>
+              <div class="practice-actions">
+                <button class="btn secondary" onclick="navigator.clipboard?.writeText(${JSON.stringify(current[2])})">Copiar código</button>
+                <a class="btn" href="${labUrl(current[2])}" target="_blank" rel="noopener">Ejecutar en WebR</a>
+                <button class="btn secondary" onclick="step=Math.max(0,step-1);render()" ${step === 0 ? 'disabled' : ''}>Anterior</button>
+                <button class="btn secondary" onclick="step=Math.min(lab.steps.length-1,step+1);render()" ${step === lab.steps.length - 1 ? 'disabled' : ''}>Siguiente</button>
+              </div>
+            </div>
+            <aside class="practice-task">
+              <h3>Producto de la ficha</h3>
+              <p>Ejecuta el código, interpreta la salida y registra evidencia o reflexión en el aula principal.</p>
+              <a class="btn secondary" href="../dashboard.html#evidencias">Subir evidencia</a>
+            </aside>
+          </div>
+        </div>
+      `;
+    }
+
+    function selectLab(id) {
+      lab = LABS.find(item => item.id === id) || LABS[0];
+      step = 0;
+      history.replaceState(null, '', `#${lab.id}`);
+      render();
+    }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('../sw.js').catch(() => {});
+    }
+
+    render();
+  </script>
 </body>
 </html>
-

@@ -1,6 +1,6 @@
 window.RSALUD_CONFIG = {
   appName: 'R aplicado a la salud',
-  appVersion: '2026.05.22.3',
+  appVersion: '2026.05.22.4',
   repositoryUrl: 'https://github.com/investigapyrm/curso_R_aplicado_salud',
   pagesUrl: 'https://investigapyrm.github.io/curso_R_aplicado_salud/',
   sheetId: '1mlgNE-pDQZuAuUNj524dHn-zF9cbYvv6a6shvTDDtTg',

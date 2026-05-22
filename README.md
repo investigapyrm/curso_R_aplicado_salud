@@ -33,7 +33,7 @@ Guiar a una persona sin experiencia previa desde la instalación de R y RStudio 
 - Foros por subnivel registrados en la hoja `FOROS`.
 - Cuestionarios autocorregibles con registro en `CALIFICACIONES`.
 - Carga de evidencias, imágenes y archivos hacia Google Drive.
-- Laboratorio R con scripts copiables y dataset ficticio de salud.
+- Laboratorio R ejecutable en línea con WebR, editor, botón Ejecutar, salida en pantalla y dataset ficticio de salud.
 - Panel de administración para preparar el libro, revisar configuración y exportar progreso.
 - Funcionamiento instalable tipo PWA con `manifest.json` y `sw.js`.
 

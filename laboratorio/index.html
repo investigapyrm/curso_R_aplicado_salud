@@ -3,76 +3,453 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Laboratorio R | R aplicado a la salud</title>
+  <title>Laboratorio WebR | R aplicado a la salud</title>
+  <meta name="description" content="Laboratorio ejecutable con WebR para practicar R aplicado a datos de salud.">
   <link rel="stylesheet" href="../css/styles.css">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#116149">
+  <style>
+    body {
+      min-height: 100vh;
+      background:
+        linear-gradient(120deg, rgba(231,245,239,.96), rgba(246,251,249,.98) 52%, rgba(255,246,217,.72)),
+        #f6fbf9;
+    }
+
+    .lab-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .lab-header,
+    .lab-layout,
+    .lab-toolbar,
+    .lab-datasets,
+    .lab-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .lab-header {
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .lab-header p {
+      max-width: 780px;
+      margin-top: 8px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .lab-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      align-items: start;
+    }
+
+    .lab-panel {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .lab-toolbar,
+    .lab-actions {
+      flex-wrap: wrap;
+      align-items: center;
+      margin: 14px 0;
+    }
+
+    .lab-editor {
+      width: 100%;
+      min-height: 360px;
+      resize: vertical;
+      border: 1px solid #123f34;
+      border-radius: var(--radius);
+      background: #102b25;
+      color: #e6fff7;
+      font-family: Consolas, "Liberation Mono", monospace;
+      font-size: .9rem;
+      line-height: 1.55;
+      padding: 16px;
+      outline: none;
+    }
+
+    .lab-output {
+      min-height: 190px;
+      max-height: 420px;
+      overflow: auto;
+      white-space: pre-wrap;
+      border: 1px solid #263244;
+      border-radius: var(--radius);
+      background: #111827;
+      color: #e5e7eb;
+      font-family: Consolas, "Liberation Mono", monospace;
+      font-size: .86rem;
+      line-height: 1.55;
+      padding: 16px;
+    }
+
+    .lab-status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface-2);
+      color: var(--muted);
+      font-weight: 900;
+      font-size: .82rem;
+    }
+
+    .lab-status.loading {
+      background: var(--accent-soft);
+      color: #73540a;
+    }
+
+    .lab-status.ready {
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+    }
+
+    .lab-status.error {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .lab-exercise {
+      border-top: 1px solid var(--line);
+      padding: 14px 0;
+    }
+
+    .lab-exercise:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .lab-exercise p,
+    .lab-small {
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+
+    .lab-datasets {
+      flex-direction: column;
+      margin-top: 10px;
+    }
+
+    body.lab-embedded {
+      background: transparent;
+      min-height: auto;
+    }
+
+    body.lab-embedded .lab-shell {
+      max-width: none;
+      padding: 0;
+    }
+
+    body.lab-embedded .lab-header {
+      display: none;
+    }
+
+    body.lab-embedded .lab-layout {
+      display: block;
+    }
+
+    body.lab-embedded aside {
+      display: none;
+    }
+
+    body.lab-embedded .lab-panel {
+      box-shadow: none;
+    }
+
+    body.lab-embedded .lab-editor {
+      min-height: 240px;
+    }
+
+    @media (max-width: 900px) {
+      .lab-header {
+        flex-direction: column;
+      }
+
+      .lab-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-  <main class="doc-page">
-    <header class="doc-header">
-      <img src="../icons/logo-r-salud.svg" alt="R aplicado a la salud">
+  <main class="lab-shell">
+    <header class="lab-header">
       <div>
-        <strong>Laboratorio R</strong>
-        <p class="footer-note">Scripts base para trabajar con el dataset ficticio</p>
+        <span class="eyebrow">Laboratorio ejecutable</span>
+        <h1>R en línea con WebR</h1>
+        <p>
+          Ejecuta comandos de R directamente en el navegador, sin instalar nada para esta práctica.
+          El motor carga el dataset <strong>salud_muestra.csv</strong> y mantiene los objetos creados durante la sesión.
+        </p>
       </div>
+      <a class="btn secondary" href="../dashboard.html#laboratorio">Volver al aula</a>
     </header>
-    <article class="doc-content">
-      <h1>Laboratorio R</h1>
-      <p>Ejecuta estos bloques en RStudio dentro de un proyecto local.</p>
 
-      <h2>1. Preparar paquetes</h2>
-      <div class="code-block"><pre><code>install.packages(c("tidyverse", "janitor", "broom", "gtsummary"))
-library(tidyverse)
-library(janitor)
-library(broom)
-library(gtsummary)</code></pre></div>
+    <section class="lab-layout">
+      <div class="lab-panel">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <div>
+            <h2>Consola didáctica de R</h2>
+            <p class="lab-small">Usa R base para explorar datos, crear tablas, probar inferencia y preparar tu informe RPubs.</p>
+          </div>
+          <span class="lab-status" id="runtimeStatus">Sin iniciar</span>
+        </div>
 
-      <h2>2. Leer datos</h2>
-      <div class="code-block"><pre><code>salud <- read.csv("../data/datasets/salud_muestra.csv")
-glimpse(salud)
-tabyl(salud$diagnostico)</code></pre></div>
+        <div class="lab-toolbar">
+          <button class="btn" type="button" onclick="runCurrentCode()">Ejecutar</button>
+          <button class="btn secondary" type="button" onclick="loadStarterCode()">Restaurar ejemplo</button>
+          <button class="btn secondary" type="button" onclick="copyCode()">Copiar código</button>
+          <button class="btn secondary" type="button" onclick="clearOutput()">Limpiar salida</button>
+        </div>
 
-      <h2>3. Preparar variables</h2>
-      <div class="code-block"><pre><code>salud <- salud |>
-  mutate(
-    sexo = factor(sexo),
-    diagnostico = factor(diagnostico),
-    tabaquismo = factor(tabaquismo),
-    actividad_fisica = factor(actividad_fisica),
-    diabetes_probable = diagnostico == "Diabetes probable"
-  )</code></pre></div>
+        <textarea class="lab-editor" id="codeEditor" spellcheck="false"></textarea>
 
-      <h2>4. Describir y graficar</h2>
-      <div class="code-block"><pre><code>salud |>
-  group_by(diagnostico) |>
-  summarise(
-    n = n(),
-    edad_media = mean(edad),
-    imc_media = mean(imc),
-    glucosa_media = mean(glucosa_mg_dl),
-    .groups = "drop"
-  )
+        <h3 style="margin:16px 0 8px">Salida</h3>
+        <pre class="lab-output" id="labOutput">Selecciona Ejecutar para cargar WebR y correr el código.</pre>
+      </div>
 
-ggplot(salud, aes(x = diagnostico, y = glucosa_mg_dl, fill = diagnostico)) +
-  geom_boxplot(show.legend = FALSE) +
-  labs(
-    title = "Glucosa por diagnóstico",
-    x = "Diagnóstico",
-    y = "Glucosa (mg/dl)"
-  ) +
-  theme_minimal()</code></pre></div>
+      <aside class="lab-panel">
+        <h2>Fichas rápidas</h2>
+        <div id="exerciseList"></div>
 
-      <h2>5. Modelo sencillo</h2>
-      <div class="code-block"><pre><code>modelo <- glm(
-  diabetes_probable ~ edad + imc + tabaquismo,
+        <div class="lab-exercise">
+          <h3>Datos disponibles</h3>
+          <p class="lab-small">El CSV se copia al sistema virtual de WebR como <code>/data/salud_muestra.csv</code>.</p>
+          <div class="lab-datasets">
+            <a class="btn secondary small" href="../data/datasets/salud_muestra.csv" download>Descargar salud_muestra.csv</a>
+          </div>
+        </div>
+
+        <div class="lab-exercise">
+          <h3>Notas</h3>
+          <p class="lab-small">
+            Este laboratorio prioriza comandos base de R para que cargue rápido en GitHub Pages.
+            Para paquetes pesados como tidyverse, usa RStudio local en el proyecto final.
+          </p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script type="module">
+    import { WebR, ChannelType } from 'https://webr.r-wasm.org/latest/webr.mjs';
+
+    const DATASETS = [
+      ['salud_muestra.csv', '../data/datasets/salud_muestra.csv']
+    ];
+
+    const params = new URLSearchParams(location.search);
+    const embedMode = params.get('embed') === '1';
+    const customCode = params.get('code') || '';
+    if (embedMode) document.body.classList.add('lab-embedded');
+
+    const STARTER = `# R aplicado a salud - laboratorio en línea
+salud <- read.csv("/data/salud_muestra.csv")
+
+# 1. Primer vistazo
+head(salud)
+str(salud)
+
+# 2. Resumen clínico por diagnóstico
+aggregate(
+  cbind(edad, imc, glucosa_mg_dl, colesterol_mg_dl) ~ diagnostico,
   data = salud,
-  family = binomial
+  FUN = mean
 )
 
-tidy(modelo, exponentiate = TRUE, conf.int = TRUE)</code></pre></div>
+# 3. Tabla de frecuencias
+table(salud$diagnostico)
+prop.table(table(salud$diagnostico))
 
-      <p><a class="btn" href="../dashboard.html#laboratorio">Volver al aula</a></p>
-    </article>
-  </main>
+# 4. Inferencia sencilla
+t.test(salud$glucosa_mg_dl)
+`;
+
+    const EXERCISES = [
+      {
+        title: 'Leer e inspeccionar',
+        goal: 'Carga la base, revisa dimensiones y mira las primeras filas.',
+        code: `salud <- read.csv("/data/salud_muestra.csv")
+dim(salud)
+names(salud)
+head(salud, 8)`
+      },
+      {
+        title: 'Tabla por diagnóstico',
+        goal: 'Calcula medias clínicas por grupo diagnóstico.',
+        code: `salud <- read.csv("/data/salud_muestra.csv")
+aggregate(
+  cbind(edad, imc, glucosa_mg_dl, presion_sistolica) ~ diagnostico,
+  data = salud,
+  FUN = mean
+)`
+      },
+      {
+        title: 'Comparar grupos',
+        goal: 'Compara glucosa entre personas con y sin tabaquismo.',
+        code: `salud <- read.csv("/data/salud_muestra.csv")
+tapply(salud$glucosa_mg_dl, salud$tabaquismo, mean)
+t.test(glucosa_mg_dl ~ tabaquismo, data = salud)`
+      },
+      {
+        title: 'Asociación categórica',
+        goal: 'Cruza tabaquismo y diagnóstico con chi-cuadrado.',
+        code: `salud <- read.csv("/data/salud_muestra.csv")
+tabla <- table(salud$tabaquismo, salud$diagnostico)
+tabla
+chisq.test(tabla)`
+      },
+      {
+        title: 'Modelo logístico simple',
+        goal: 'Ajusta un modelo para diabetes probable e interpreta OR aproximados.',
+        code: `salud <- read.csv("/data/salud_muestra.csv")
+salud$diabetes_probable <- salud$diagnostico == "Diabetes probable"
+modelo <- glm(diabetes_probable ~ edad + imc + tabaquismo, data = salud, family = binomial)
+summary(modelo)
+exp(coef(modelo))`
+      },
+      {
+        title: 'Texto para RPubs',
+        goal: 'Genera una frase breve que puedas adaptar a tu informe.',
+        code: `salud <- read.csv("/data/salud_muestra.csv")
+media_glucosa <- mean(salud$glucosa_mg_dl)
+n <- nrow(salud)
+cat("En esta muestra de", n, "registros, la glucosa media fue", round(media_glucosa, 1), "mg/dl.\\n")
+cat("Este resultado describe una base de práctica y no debe interpretarse como evidencia clínica real.\\n")`
+      }
+    ];
+
+    let webR = null;
+    let ready = false;
+
+    const editor = document.getElementById('codeEditor');
+    const output = document.getElementById('labOutput');
+    const status = document.getElementById('runtimeStatus');
+
+    function setStatus(text, tone = '') {
+      status.textContent = text;
+      status.className = `lab-status ${tone}`;
+    }
+
+    function writeOutput(text) {
+      output.textContent = text || '(sin salida)';
+    }
+
+    async function fetchDatasets() {
+      const loaded = [];
+      for (const [name, url] of DATASETS) {
+        const text = await fetch(url, { cache: 'no-store' }).then(response => {
+          if (!response.ok) throw new Error(`No se pudo cargar ${name}`);
+          return response.text();
+        });
+        loaded.push([name, text]);
+      }
+      return loaded;
+    }
+
+    async function ensureR() {
+      if (ready) return;
+      setStatus('Cargando WebR...', 'loading');
+      webR = new WebR({ channelType: ChannelType.PostMessage });
+      await webR.init();
+      try {
+        await webR.FS.mkdir('/data');
+      } catch (error) {
+        // La carpeta puede existir si WebR reusa la sesión.
+      }
+      for (const [name, text] of await fetchDatasets()) {
+        await webR.FS.writeFile(`/data/${name}`, new TextEncoder().encode(text));
+      }
+      ready = true;
+      setStatus('R listo', 'ready');
+    }
+
+    async function runR(code) {
+      await ensureR();
+      const wrapped = `
+.__curso_code <- ${JSON.stringify(code)}
+.__curso_output <- capture.output({
+  tryCatch({
+    .__curso_expr <- parse(text = .__curso_code)
+    .__curso_value <- withVisible(eval(.__curso_expr, envir = .GlobalEnv))
+    if (.__curso_value$visible) print(.__curso_value$value)
+  }, warning = function(w) {
+    message("Advertencia: ", conditionMessage(w))
+  }, error = function(e) {
+    message("Error: ", conditionMessage(e))
+  })
+})
+paste(.__curso_output, collapse = "\\n")
+`;
+      const result = await webR.evalR(wrapped);
+      const text = await result.toString();
+      result.destroy?.();
+      return text;
+    }
+
+    window.runCurrentCode = async function () {
+      writeOutput('Ejecutando...');
+      try {
+        const code = editor.value;
+        localStorage.setItem('rSaludLabLastCode', code);
+        const text = await runR(code);
+        writeOutput(text);
+      } catch (error) {
+        setStatus('Error', 'error');
+        writeOutput(error && error.stack ? error.stack : String(error));
+      }
+    };
+
+    window.loadStarterCode = function () {
+      editor.value = customCode || localStorage.getItem('rSaludLabLastCode') || STARTER;
+    };
+
+    window.copyCode = function () {
+      navigator.clipboard?.writeText(editor.value);
+    };
+
+    window.clearOutput = function () {
+      writeOutput('');
+    };
+
+    window.loadExercise = function (index) {
+      const exercise = EXERCISES[index];
+      if (!exercise) return;
+      editor.value = exercise.code;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    function renderExercises() {
+      document.getElementById('exerciseList').innerHTML = EXERCISES.map((item, index) => `
+        <div class="lab-exercise">
+          <h3>${item.title}</h3>
+          <p>${item.goal}</p>
+          <button class="btn secondary small" type="button" onclick="loadExercise(${index})">Cargar código</button>
+        </div>
+      `).join('');
+    }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('../sw.js').catch(() => {});
+    }
+
+    renderExercises();
+    window.loadStarterCode();
+  </script>
 </body>
 </html>
-

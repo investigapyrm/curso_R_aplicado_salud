@@ -1475,6 +1475,23 @@ th {
   margin-top: 14px;
 }
 
+.lab-embed-card {
+  margin-top: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.lab-frame {
+  display: block;
+  width: 100%;
+  min-height: 690px;
+  border: 0;
+  background: #fff;
+}
+
 .flashcard-filter {
   grid-template-columns: repeat(7, minmax(42px, auto));
   align-items: center;
