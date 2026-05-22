@@ -1,5 +1,10 @@
 # Bitácora
 
+## 2026-05-22 - Reintento de publicacion
+
+- Commit de reconfiguracion subido: `a4182a4 Reconfigurar aula R salud avanzada`.
+- Publicacion GitHub: `origin/main` quedo sincronizado con la rama local tras reintentar el push.
+
 ## 2026-05-22
 
 - Objetivo: duplicar la idea del aula web `analiticabigdata` y adaptarla a un curso autogestionado de R aplicado a salud.
