@@ -19,42 +19,41 @@
         <img src="icons/logo-r-salud.svg" alt="R aplicado a la salud">
         <div>
           <strong>R aplicado a la salud</strong>
-          <span>Aula virtual autogestionada</span>
+          <span>Aula conectada a Google Sheets</span>
         </div>
       </div>
 
       <div class="hero-copy">
-        <span class="eyebrow">Medicina · datos · publicación</span>
-        <h1>Aprender R desde cero con datos de salud</h1>
+        <span class="eyebrow">Medicina · R · RPubs</span>
+        <h1>Un aula completa, secuencial y trazable</h1>
         <p>
-          Un recorrido guiado para instalar R, ordenar datos clínicos ficticios,
-          crear gráficos, aplicar inferencia básica y publicar un primer ensayo
-          reproducible en RPubs.
+          Ruta por unidades, progreso, calendario, foros, cuestionarios,
+          evidencias en Drive y registro en Google Sheets mediante Apps Script.
         </p>
         <div class="hero-steps" aria-label="Ruta de aprendizaje">
           <div class="hero-step">
-            <strong>1. Preparar</strong>
-            <span>Instalación, RStudio, proyectos y paquetes esenciales.</span>
+            <strong>1. Aprender</strong>
+            <span>Subniveles guiados con contenidos, prácticas y tareas.</span>
           </div>
           <div class="hero-step">
-            <strong>2. Analizar</strong>
-            <span>Datos de salud, descriptiva, gráficos e inferencia.</span>
+            <strong>2. Participar</strong>
+            <span>Foros por subnivel, calendario y evidencias del proceso.</span>
           </div>
           <div class="hero-step">
             <strong>3. Publicar</strong>
-            <span>Reporte reproducible, revisión final y RPubs.</span>
+            <span>Ensayo reproducible con R y enlace final en RPubs.</span>
           </div>
         </div>
       </div>
 
       <p class="footer-note">
-        Primera versión curricular: 2026-05-22. Datos de práctica ficticios y sin información personal real.
+        Backend: Google Sheet + Apps Script + Drive. Datos de práctica ficticios.
       </p>
     </section>
 
     <section class="login-panel" aria-label="Acceso">
       <h2>Ingresar al aula</h2>
-      <p>Usa las credenciales de práctica o carga usuarios propios en <code>data/usuarios.json</code>.</p>
+      <p>El login intenta validar primero contra Apps Script y usa usuarios locales solo como respaldo de prueba.</p>
 
       <form id="loginForm" novalidate>
         <div class="form-field">
@@ -69,62 +68,69 @@
       </form>
 
       <div class="status-box" id="loginStatus">
-        Acceso demo: <strong>estudiante</strong> / <strong>r-salud</strong>. Docente demo: <strong>docente</strong> / <strong>docente-r</strong>.
+        Demo: <strong>estudiante</strong> / <strong>r-salud</strong>. Docente: <strong>docente</strong> / <strong>docente-r</strong>.
       </div>
 
       <button class="btn secondary" id="installBtn" type="button" hidden>Instalar aula</button>
     </section>
   </main>
 
+  <script src="config.js"></script>
+  <script src="js/api.js"></script>
   <script>
-    const fallbackUsers = [
-      { usuario: 'estudiante', password: 'r-salud', nombre: 'Estudiante de prueba', rol: 'estudiante', activo: true },
-      { usuario: 'docente', password: 'docente-r', nombre: 'Docente demo', rol: 'docente', activo: true }
-    ];
-
     const statusBox = document.getElementById('loginStatus');
     const form = document.getElementById('loginForm');
-
-    async function loadUsers() {
-      try {
-        const response = await fetch('data/usuarios.json', { cache: 'no-store' });
-        if (!response.ok) throw new Error('No se pudo leer usuarios.json');
-        return await response.json();
-      } catch (error) {
-        return fallbackUsers;
-      }
-    }
 
     form.addEventListener('submit', async event => {
       event.preventDefault();
       const usuario = form.usuario.value.trim();
       const password = form.password.value;
-      const users = await loadUsers();
-      const found = users.find(user => user.usuario === usuario && user.password === password && user.activo);
-
-      if (!found) {
+      if (!usuario || !password) {
         statusBox.className = 'status-box error';
-        statusBox.textContent = 'Usuario o contraseña incorrectos. Verifica las credenciales de práctica o el archivo data/usuarios.json.';
+        statusBox.textContent = 'Ingresá usuario y contraseña.';
         return;
       }
 
-      const session = {
-        usuario: found.usuario,
-        nombre: found.nombre,
-        rol: found.rol,
-        startedAt: new Date().toISOString()
-      };
-      sessionStorage.setItem('rSaludSession', JSON.stringify(session));
-      localStorage.setItem('rSaludLastUser', found.usuario);
-      statusBox.className = 'status-box ok';
-      statusBox.textContent = 'Acceso correcto. Cargando aula...';
-      window.location.href = 'dashboard.html';
+      statusBox.className = 'status-box';
+      statusBox.textContent = 'Validando acceso...';
+
+      try {
+        const user = await window.RSaludAPI.login(usuario, password);
+        const session = {
+          usuario: user.usuario,
+          nombre: user.nombre || user.usuario,
+          rol: user.rol || 'estudiante',
+          email: user.email || '',
+          source: user.source || 'backend',
+          sessionId: `sess-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+          startedAt: new Date().toISOString()
+        };
+        sessionStorage.setItem(window.RSALUD_CONFIG.localSessionKey, JSON.stringify(session));
+        localStorage.setItem('rSaludLastUser', user.usuario);
+        await window.RSaludAPI.write('evento', {
+          evento: 'login_exitoso',
+          usuario: session.usuario,
+          nombre: session.nombre,
+          rol: session.rol,
+          session_id: session.sessionId,
+          detalle: { source: session.source }
+        });
+        statusBox.className = 'status-box ok';
+        statusBox.textContent = 'Acceso correcto. Abriendo aula...';
+        window.location.href = 'dashboard.html#inicio';
+      } catch (error) {
+        statusBox.className = 'status-box error';
+        statusBox.textContent = error.message || 'No se pudo validar el acceso.';
+        window.RSaludAPI.write('evento', {
+          evento: 'login_fallido',
+          usuario,
+          detalle: error.message || 'login_error'
+        });
+      }
     });
 
     const lastUser = localStorage.getItem('rSaludLastUser');
-    if (lastUser) {
-      document.getElementById('usuario').value = lastUser;
-    }
+    if (lastUser) document.getElementById('usuario').value = lastUser;
 
     let installPrompt = null;
     const installBtn = document.getElementById('installBtn');

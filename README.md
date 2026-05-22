@@ -23,14 +23,16 @@ Guiar a una persona sin experiencia previa desde la instalación de R y RStudio 
 
 ## Funcionalidades
 
-- Login local de práctica con roles `estudiante` y `docente`.
-- Progreso guardado en el navegador con `localStorage`.
-- Seis unidades con contenidos, actividades, tareas y proyecto integrador.
-- Cuestionarios autocorregibles con retroalimentación inmediata.
-- Laboratorio R con scripts copiable y dataset ficticio de salud.
+- Login con validación Apps Script/Google Sheets y respaldo local de práctica.
+- Ruta secuencial con unidades, subniveles, bloqueos pedagógicos y productos.
+- Progreso local/offline con cola de sincronización hacia Google Sheets.
+- Calendario de materiales, quizzes y entrega final.
+- Foros por subnivel registrados en la hoja `FOROS`.
+- Cuestionarios autocorregibles con registro en `CALIFICACIONES`.
+- Carga de evidencias, imágenes y archivos hacia Google Drive.
+- Laboratorio R con scripts copiables y dataset ficticio de salud.
+- Panel de administración para preparar el libro, revisar configuración y exportar progreso.
 - Funcionamiento instalable tipo PWA con `manifest.json` y `sw.js`.
-- Diseño responsive para celular, tablet y escritorio.
-- Documentación mínima en `docs/`.
 
 ## Acceso de prueba
 
@@ -47,6 +49,13 @@ Estas credenciales son de demostración para un sitio público estático. No deb
 .
 ├── index.html
 ├── dashboard.html
+├── config.js
+├── js/
+│   ├── api.js
+│   └── app.js
+├── apps-script/
+│   ├── Code.js
+│   └── appsscript.json
 ├── manifest.json
 ├── sw.js
 ├── css/
@@ -61,6 +70,15 @@ Estas credenciales son de demostración para un sitio público estático. No deb
 └── unidades/
 ```
 
+## Backend configurado
+
+- Google Sheet: <https://docs.google.com/spreadsheets/d/1mlgNE-pDQZuAuUNj524dHn-zF9cbYvv6a6shvTDDtTg/edit>
+- Apps Script: <https://script.google.com/home/projects/12qxXJci0JxfJTPEdxPfMw_bTlUTHBUHK2rtcRenpF-RbODAg8FhCYWwC/edit>
+- Web app actual en `config.js`: `https://script.google.com/macros/s/AKfycbxxKpSzXV1u5bhOTMd9Z716MtcGS7naJ2bLsdCx_F2ScDlIPDhdnaiCWvGLcaa7-jRu/exec`
+- Drive evidencias: <https://drive.google.com/drive/folders/1g5rmr_z3wo2JbkPD4GGl3EhvC-Jq1E6v>
+
+El libro ya tiene pestañas técnicas (`CONFIG`, `USUARIOS`, `PROGRESO`, `CALIFICACIONES`, `EVENTOS`, `FOROS`, `CALENDARIO`, `EVIDENCIAS`, `ERRORES`, `VERSIONES`). Si el endpoint Apps Script devuelve acceso denegado al abrir el Sheet, hay que conceder permiso de edición a la cuenta que ejecuta el deployment o desplegar el web app desde una cuenta con acceso al libro.
+
 ## Publicación
 
 1. Confirmar que GitHub Pages esté activo desde la rama `main`.
@@ -71,4 +89,3 @@ Estas credenciales son de demostración para un sitio público estático. No deb
 ## Inspiración académica
 
 El diseño curricular toma como punto de partida el enfoque de inferencia con R y reportes reproducibles usado en materiales previos publicados en RPubs por Diego Meza, adaptándolo a un curso breve, autogestionado y centrado en datos de salud.
-

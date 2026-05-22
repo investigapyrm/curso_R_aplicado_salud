@@ -1,13 +1,17 @@
-const CACHE_NAME = 'r-salud-v20260522';
+const CACHE_NAME = 'r-salud-v20260522-2';
 
 const APP_SHELL = [
   './',
   './index.html',
   './dashboard.html',
+  './config.js',
+  './js/api.js',
+  './js/app.js',
   './css/styles.css',
   './manifest.json',
   './icons/logo-r-salud.svg',
   './data/usuarios.json',
+  './data/course.json',
   './data/datasets/salud_muestra.csv',
   './data/quizzes/quiz_u1.json',
   './data/quizzes/quiz_u2.json',
@@ -52,4 +56,3 @@ self.addEventListener('fetch', event => {
     })
   );
 });
-

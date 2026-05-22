@@ -1,0 +1,278 @@
+{
+  "title": "R aplicado a la salud",
+  "subtitle": "Aula virtual autogestionada para estudiantes de medicina",
+  "version": "2026.05.22.2",
+  "duration": "6 semanas",
+  "finalProduct": "Ensayo reproducible publicado en RPubs",
+  "units": [
+    {
+      "id": 1,
+      "title": "Instalación, RStudio y alfabetización en R",
+      "shortTitle": "Inicio en R",
+      "color": "#116149",
+      "weeks": "Semana 1",
+      "product": "Proyecto RStudio y script inicial",
+      "outcomes": [
+        "Instalar R y RStudio en el equipo propio.",
+        "Crear un proyecto reproducible con carpetas ordenadas.",
+        "Ejecutar comandos básicos y guardar un script."
+      ],
+      "sublevels": [
+        {
+          "id": "1.1",
+          "title": "Qué es R y para qué sirve en salud",
+          "duration": "25 min",
+          "resource": "unidades/unidad1/material.html",
+          "practice": "Identificar tres preguntas de salud que podrían responderse con datos.",
+          "forumPrompt": "Comparte una pregunta clínica o de salud pública que te gustaría responder con R."
+        },
+        {
+          "id": "1.2",
+          "title": "Instalación de R, RStudio y paquetes",
+          "duration": "35 min",
+          "resource": "unidades/unidad1/orientaciones.html",
+          "practice": "Instalar R, RStudio y cargar tidyverse.",
+          "forumPrompt": "Cuenta qué sistema operativo usas y qué dificultad encontraste al instalar."
+        },
+        {
+          "id": "1.3",
+          "title": "Proyecto, scripts y primeros objetos",
+          "duration": "45 min",
+          "resource": "unidades/unidad1/actividad.html",
+          "practice": "Crear 01_instalacion.R y ejecutar sessionInfo().",
+          "forumPrompt": "Publica una captura o describe cómo organizaste tu proyecto local."
+        }
+      ],
+      "quiz": "data/quizzes/quiz_u1.json",
+      "taskUrl": "unidades/unidad1/tarea.html"
+    },
+    {
+      "id": 2,
+      "title": "Datos de salud, ética y limpieza básica",
+      "shortTitle": "Datos limpios",
+      "color": "#1d7a8c",
+      "weeks": "Semana 2",
+      "product": "Dataset importado y diccionario de variables",
+      "outcomes": [
+        "Importar una base CSV en R.",
+        "Distinguir variables numéricas y categóricas.",
+        "Reconocer privacidad, anonimización y límites de una base de salud."
+      ],
+      "sublevels": [
+        {
+          "id": "2.1",
+          "title": "Estructura de una base de salud",
+          "duration": "30 min",
+          "resource": "unidades/unidad2/material.html",
+          "practice": "Leer salud_muestra.csv y revisar filas, columnas y tipos.",
+          "forumPrompt": "Elige una variable del dataset y explica qué significa en términos de salud."
+        },
+        {
+          "id": "2.2",
+          "title": "Calidad, faltantes y recodificación",
+          "duration": "45 min",
+          "resource": "unidades/unidad2/actividad.html",
+          "practice": "Convertir variables categóricas a factor y guardar salud_limpia.csv.",
+          "forumPrompt": "¿Qué error de calidad sería grave si esta base fuera real?"
+        },
+        {
+          "id": "2.3",
+          "title": "Ética y datos sensibles",
+          "duration": "30 min",
+          "resource": "unidades/unidad2/orientaciones.html",
+          "practice": "Redactar tres reglas de publicación segura.",
+          "forumPrompt": "Propón una medida para evitar exponer información de pacientes."
+        }
+      ],
+      "quiz": "data/quizzes/quiz_u2.json",
+      "taskUrl": "unidades/unidad2/tarea.html"
+    },
+    {
+      "id": 3,
+      "title": "Descripción y visualización de datos clínicos",
+      "shortTitle": "Descriptiva",
+      "color": "#9a6a13",
+      "weeks": "Semana 3",
+      "product": "Tabla descriptiva y gráficos interpretados",
+      "outcomes": [
+        "Calcular medias, medianas, proporciones y tablas por grupo.",
+        "Construir gráficos con ggplot2.",
+        "Interpretar descriptivos con lenguaje clínico claro."
+      ],
+      "sublevels": [
+        {
+          "id": "3.1",
+          "title": "Resumen numérico y categórico",
+          "duration": "45 min",
+          "resource": "unidades/unidad3/material.html",
+          "practice": "Crear una tabla por diagnóstico con edad, IMC y glucosa.",
+          "forumPrompt": "Comparte un hallazgo descriptivo y aclara por qué es relevante."
+        },
+        {
+          "id": "3.2",
+          "title": "Gráficos con ggplot2",
+          "duration": "50 min",
+          "resource": "unidades/unidad3/actividad.html",
+          "practice": "Crear un boxplot y un gráfico de barras.",
+          "forumPrompt": "Sube o describe un gráfico y explica qué decisión visual tomaste."
+        },
+        {
+          "id": "3.3",
+          "title": "Narrativa de resultados",
+          "duration": "35 min",
+          "resource": "unidades/unidad3/tarea.html",
+          "practice": "Escribir tres hallazgos sin exagerar la evidencia.",
+          "forumPrompt": "Reescribe un resultado técnico en lenguaje comprensible para un equipo clínico."
+        }
+      ],
+      "quiz": "data/quizzes/quiz_u3.json",
+      "taskUrl": "unidades/unidad3/tarea.html"
+    },
+    {
+      "id": 4,
+      "title": "Inferencia básica aplicada a salud",
+      "shortTitle": "Inferencia",
+      "color": "#7c3aed",
+      "weeks": "Semana 4",
+      "product": "Pruebas, intervalos y conclusiones prudentes",
+      "outcomes": [
+        "Explicar incertidumbre muestral.",
+        "Calcular intervalos de confianza.",
+        "Aplicar prueba t y chi-cuadrado en casos sencillos."
+      ],
+      "sublevels": [
+        {
+          "id": "4.1",
+          "title": "Intervalos de confianza",
+          "duration": "40 min",
+          "resource": "unidades/unidad4/material.html",
+          "practice": "Calcular IC para glucosa media.",
+          "forumPrompt": "Explica con tus palabras qué no significa un intervalo de confianza."
+        },
+        {
+          "id": "4.2",
+          "title": "Comparación entre grupos",
+          "duration": "50 min",
+          "resource": "unidades/unidad4/actividad.html",
+          "practice": "Comparar glucosa entre personas con y sin tabaquismo.",
+          "forumPrompt": "Comparte una conclusión que use 'en esta muestra' de forma correcta."
+        },
+        {
+          "id": "4.3",
+          "title": "Asociación entre variables categóricas",
+          "duration": "45 min",
+          "resource": "unidades/unidad4/tarea.html",
+          "practice": "Crear tabla de contingencia y chi-cuadrado.",
+          "forumPrompt": "¿Qué dato adicional necesitarías para interpretar mejor una asociación?"
+        }
+      ],
+      "quiz": "data/quizzes/quiz_u4.json",
+      "taskUrl": "unidades/unidad4/tarea.html"
+    },
+    {
+      "id": 5,
+      "title": "Modelos sencillos para preguntas de salud",
+      "shortTitle": "Modelos",
+      "color": "#b42318",
+      "weeks": "Semana 5",
+      "product": "Modelo lineal o logístico interpretado",
+      "outcomes": [
+        "Definir variable respuesta y variables explicativas.",
+        "Ajustar modelos simples con lm() y glm().",
+        "Interpretar coeficientes y odds ratio sin confundir asociación con causalidad."
+      ],
+      "sublevels": [
+        {
+          "id": "5.1",
+          "title": "Pregunta modelable",
+          "duration": "30 min",
+          "resource": "unidades/unidad5/orientaciones.html",
+          "practice": "Escribir una pregunta con respuesta binaria o continua.",
+          "forumPrompt": "Propón una pregunta modelable y define su variable respuesta."
+        },
+        {
+          "id": "5.2",
+          "title": "Regresión lineal y logística",
+          "duration": "60 min",
+          "resource": "unidades/unidad5/material.html",
+          "practice": "Ajustar un glm binomial para diabetes probable.",
+          "forumPrompt": "Explica un odds ratio como si hablaras con un compañero de guardia."
+        },
+        {
+          "id": "5.3",
+          "title": "Evaluación e interpretación responsable",
+          "duration": "40 min",
+          "resource": "unidades/unidad5/actividad.html",
+          "practice": "Redactar dos interpretaciones y una limitación.",
+          "forumPrompt": "¿Qué riesgo hay en convertir un modelo simple en una recomendación clínica?"
+        }
+      ],
+      "quiz": "data/quizzes/quiz_u5.json",
+      "taskUrl": "unidades/unidad5/tarea.html"
+    },
+    {
+      "id": 6,
+      "title": "Reporte reproducible y publicación en RPubs",
+      "shortTitle": "RPubs",
+      "color": "#2563eb",
+      "weeks": "Semana 6",
+      "product": "Ensayo HTML publicado",
+      "outcomes": [
+        "Crear un reporte R Markdown o Quarto.",
+        "Integrar narrativa, tablas, gráficos y código.",
+        "Publicar un informe en RPubs y compartir el enlace."
+      ],
+      "sublevels": [
+        {
+          "id": "6.1",
+          "title": "Estructura de un ensayo reproducible",
+          "duration": "40 min",
+          "resource": "unidades/unidad6/material.html",
+          "practice": "Crear reporte_final.Rmd con título, pregunta y setup.",
+          "forumPrompt": "Comparte el título tentativo de tu ensayo final."
+        },
+        {
+          "id": "6.2",
+          "title": "Renderizar y revisar el HTML",
+          "duration": "50 min",
+          "resource": "unidades/unidad6/actividad.html",
+          "practice": "Renderizar HTML y corregir errores de rutas.",
+          "forumPrompt": "¿Qué error apareció al renderizar y cómo lo resolviste?"
+        },
+        {
+          "id": "6.3",
+          "title": "Publicar en RPubs",
+          "duration": "35 min",
+          "resource": "unidades/unidad6/tarea.html",
+          "practice": "Publicar y registrar el enlace en el aula.",
+          "forumPrompt": "Comparte tu enlace RPubs y una limitación de tu análisis."
+        }
+      ],
+      "quiz": "data/quizzes/quiz_u6.json",
+      "taskUrl": "unidades/unidad6/tarea.html"
+    }
+  ],
+  "calendar": [
+    { "id": "u1_material", "unit": 1, "type": "material", "title": "Unidad 1: instalación y primeros pasos", "start": "2026-06-01", "due": "2026-06-07", "resource": "dashboard.html#unidad" },
+    { "id": "u1_quiz", "unit": 1, "type": "quiz", "title": "Quiz Unidad 1", "start": "2026-06-06", "due": "2026-06-07", "resource": "dashboard.html#cuestionarios" },
+    { "id": "u2_material", "unit": 2, "type": "material", "title": "Unidad 2: datos de salud", "start": "2026-06-08", "due": "2026-06-14", "resource": "dashboard.html#unidad" },
+    { "id": "u2_quiz", "unit": 2, "type": "quiz", "title": "Quiz Unidad 2", "start": "2026-06-13", "due": "2026-06-14", "resource": "dashboard.html#cuestionarios" },
+    { "id": "u3_material", "unit": 3, "type": "material", "title": "Unidad 3: descriptiva y gráficos", "start": "2026-06-15", "due": "2026-06-21", "resource": "dashboard.html#unidad" },
+    { "id": "u3_quiz", "unit": 3, "type": "quiz", "title": "Quiz Unidad 3", "start": "2026-06-20", "due": "2026-06-21", "resource": "dashboard.html#cuestionarios" },
+    { "id": "u4_material", "unit": 4, "type": "material", "title": "Unidad 4: inferencia básica", "start": "2026-06-22", "due": "2026-06-28", "resource": "dashboard.html#unidad" },
+    { "id": "u4_quiz", "unit": 4, "type": "quiz", "title": "Quiz Unidad 4", "start": "2026-06-27", "due": "2026-06-28", "resource": "dashboard.html#cuestionarios" },
+    { "id": "u5_material", "unit": 5, "type": "material", "title": "Unidad 5: modelos sencillos", "start": "2026-06-29", "due": "2026-07-05", "resource": "dashboard.html#unidad" },
+    { "id": "u5_quiz", "unit": 5, "type": "quiz", "title": "Quiz Unidad 5", "start": "2026-07-04", "due": "2026-07-05", "resource": "dashboard.html#cuestionarios" },
+    { "id": "u6_material", "unit": 6, "type": "material", "title": "Unidad 6: reporte y RPubs", "start": "2026-07-06", "due": "2026-07-12", "resource": "dashboard.html#proyecto" },
+    { "id": "final_rpubs", "unit": 6, "type": "entrega", "title": "Entrega final: enlace RPubs", "start": "2026-07-10", "due": "2026-07-12", "resource": "dashboard.html#proyecto" }
+  ],
+  "badges": [
+    { "id": "primer_script", "name": "Primer script", "criteria": "Completar Unidad 1" },
+    { "id": "datos_limpios", "name": "Datos limpios", "criteria": "Completar Unidad 2" },
+    { "id": "graficador", "name": "Graficador clínico", "criteria": "Completar Unidad 3" },
+    { "id": "inferencial", "name": "Inferencia prudente", "criteria": "Completar Unidad 4" },
+    { "id": "modelador", "name": "Modelo simple", "criteria": "Completar Unidad 5" },
+    { "id": "publicador", "name": "Publicado en RPubs", "criteria": "Registrar enlace final" }
+  ]
+}
+
