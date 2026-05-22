@@ -1,4 +1,4 @@
-const CACHE_NAME = 'r-salud-v20260522-2';
+const CACHE_NAME = 'r-salud-v20260522-3';
 
 const APP_SHELL = [
   './',
@@ -10,6 +10,22 @@ const APP_SHELL = [
   './css/styles.css',
   './manifest.json',
   './icons/logo-r-salud.svg',
+  './assets/pedagogical/edu_u1s2_rstudio.svg',
+  './assets/pedagogical/edu_u1s2d_tipos_objetos_r.svg',
+  './assets/pedagogical/edu_u2s2_boxplot.svg',
+  './assets/pedagogical/edu_u2s2d_distribuciones.svg',
+  './assets/pedagogical/edu_u2s3_correlacion.svg',
+  './assets/pedagogical/edu_u4s2_rmarkdown.svg',
+  './assets/pedagogical/gen_education.svg',
+  './assets/pedagogical/u1_data.svg',
+  './assets/pedagogical/u1_developer.svg',
+  './assets/pedagogical/u2_charts.svg',
+  './assets/pedagogical/u2_research.svg',
+  './assets/pedagogical/u2_statistics.svg',
+  './assets/pedagogical/u3_data_reports.svg',
+  './assets/pedagogical/u4_data_report.svg',
+  './assets/pedagogical/u4_presentation.svg',
+  './assets/pedagogical/u4_sharing.svg',
   './data/usuarios.json',
   './data/course.json',
   './data/datasets/salud_muestra.csv',

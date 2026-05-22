@@ -1,5 +1,17 @@
 # Bitácora
 
+## 2026-05-22 - Replica ampliada del aula ejemplo
+
+- Problema reportado: el aula seguia viendose pobre frente al curso ejemplo `analiticabigdata`.
+- Se incorporo un modo de unidad tipo cuaderno de aprendizaje: hero visual, tabs por unidad, secuencia por subniveles, microclase, foro guiado, codigo R, evidencia esperada y enlaces a practica.
+- Se agregaron modulos nuevos en el dashboard: `Prácticas guiadas`, `Flashcards` y `Clasificador`.
+- Se amplio `data/course.json` con figuras pedagogicas, 6 laboratorios guiados, 18 fichas practicas, 12 flashcards y 3 clasificadores conceptuales.
+- Se copiaron y cachearon laminas SVG pedagogicas desde el proyecto ejemplo en `assets/pedagogical/`.
+- Se actualizo version de app/cache a `2026.05.22.3`.
+- Validaciones ejecutadas: `node --check js/app.js`, parseo JSON de `data/course.json`, `node --check sw.js`, HTTP 200 en `http://localhost:8765/dashboard.html`.
+- Validacion visual local con Playwright: capturas QA de Inicio, Unidad activa, Practicas, Flashcards y Clasificador renderizaron selectores esperados.
+- Pendiente externo: el Apps Script sigue requiriendo permiso efectivo sobre la planilla para que el backend remoto deje de responder acceso denegado.
+
 ## 2026-05-22 - Reintento de publicacion
 
 - Commit de reconfiguracion subido: `a4182a4 Reconfigurar aula R salud avanzada`.

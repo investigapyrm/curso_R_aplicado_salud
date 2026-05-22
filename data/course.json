@@ -1,7 +1,7 @@
 {
   "title": "R aplicado a la salud",
   "subtitle": "Aula virtual autogestionada para estudiantes de medicina",
-  "version": "2026.05.22.2",
+  "version": "2026.05.22.3",
   "duration": "6 semanas",
   "finalProduct": "Ensayo reproducible publicado en RPubs",
   "units": [
@@ -272,7 +272,282 @@
     { "id": "graficador", "name": "Graficador clínico", "criteria": "Completar Unidad 3" },
     { "id": "inferencial", "name": "Inferencia prudente", "criteria": "Completar Unidad 4" },
     { "id": "modelador", "name": "Modelo simple", "criteria": "Completar Unidad 5" },
-    { "id": "publicador", "name": "Publicado en RPubs", "criteria": "Registrar enlace final" }
+    { "id": "publicador", "name": "Publicado en RPubs", "criteria": "Registrar enlace final" },
+    { "id": "practicante_r", "name": "Prácticas R completas", "criteria": "Completar las fichas guiadas" },
+    { "id": "repaso_activo", "name": "Repaso activo", "criteria": "Revisar flashcards y clasificador" }
+  ],
+  "figures": {
+    "units": {
+      "1": "assets/pedagogical/u1_developer.svg",
+      "2": "assets/pedagogical/u1_data.svg",
+      "3": "assets/pedagogical/u2_charts.svg",
+      "4": "assets/pedagogical/u2_research.svg",
+      "5": "assets/pedagogical/u3_data_reports.svg",
+      "6": "assets/pedagogical/u4_sharing.svg"
+    },
+    "sublevels": {
+      "1.1": "assets/pedagogical/gen_education.svg",
+      "1.2": "assets/pedagogical/edu_u1s2_rstudio.svg",
+      "1.3": "assets/pedagogical/edu_u1s2d_tipos_objetos_r.svg",
+      "2.1": "assets/pedagogical/u2_statistics.svg",
+      "2.2": "assets/pedagogical/edu_u2s2d_distribuciones.svg",
+      "2.3": "assets/pedagogical/u2_research.svg",
+      "3.1": "assets/pedagogical/u2_statistics.svg",
+      "3.2": "assets/pedagogical/edu_u2s2_boxplot.svg",
+      "3.3": "assets/pedagogical/u3_data_reports.svg",
+      "4.1": "assets/pedagogical/edu_u2s3_correlacion.svg",
+      "4.2": "assets/pedagogical/edu_u2s2_boxplot.svg",
+      "4.3": "assets/pedagogical/edu_u2s3_correlacion.svg",
+      "5.1": "assets/pedagogical/u2_research.svg",
+      "5.2": "assets/pedagogical/u3_data_reports.svg",
+      "5.3": "assets/pedagogical/u4_data_report.svg",
+      "6.1": "assets/pedagogical/edu_u4s2_rmarkdown.svg",
+      "6.2": "assets/pedagogical/u4_presentation.svg",
+      "6.3": "assets/pedagogical/u4_sharing.svg"
+    }
+  },
+  "practices": [
+    {
+      "id": "lab_instalacion_salud",
+      "unit": 1,
+      "title": "Laboratorio 1 - RStudio listo para salud",
+      "dataset": "data/datasets/salud_muestra.csv",
+      "embed": "laboratorio/index.html",
+      "goal": "Instalar, abrir un proyecto y dejar evidencia reproducible de la sesión de trabajo.",
+      "steps": [
+        {
+          "title": "Ficha 1 - Verificar instalación",
+          "concept": "Antes de analizar datos conviene confirmar versiones, rutas y paquetes instalados.",
+          "code": "R.version.string\ngetwd()\ninstall.packages(c(\"tidyverse\", \"janitor\", \"broom\"))\nlibrary(tidyverse)\nsessionInfo()",
+          "task": "Guarda una captura de RStudio con sessionInfo() visible."
+        },
+        {
+          "title": "Ficha 2 - Crear proyecto reproducible",
+          "concept": "Un proyecto ordena datos, scripts y resultados para que otra persona pueda repetir el flujo.",
+          "code": "dir.create(\"data\", showWarnings = FALSE)\ndir.create(\"scripts\", showWarnings = FALSE)\ndir.create(\"resultados\", showWarnings = FALSE)\nwriteLines(\"# Mi primer proyecto de salud con R\", \"README_proyecto.txt\")",
+          "task": "Sube como evidencia la estructura de carpetas o describe cómo quedó organizada."
+        },
+        {
+          "title": "Ficha 3 - Primer objeto de salud",
+          "concept": "Los objetos permiten guardar valores clínicos, cohortes o tablas para reutilizarlos.",
+          "code": "edad <- c(19, 21, 22, 30, 45)\nglucosa <- c(82, 91, 110, 145, 160)\npromedio_glucosa <- mean(glucosa)\npromedio_glucosa",
+          "task": "Explica en una línea qué representa promedio_glucosa."
+        }
+      ]
+    },
+    {
+      "id": "lab_limpieza_salud",
+      "unit": 2,
+      "title": "Laboratorio 2 - Importación, limpieza y ética",
+      "dataset": "data/datasets/salud_muestra.csv",
+      "embed": "laboratorio/index.html",
+      "goal": "Leer la base de práctica, revisar estructura, recodificar variables y documentar privacidad.",
+      "steps": [
+        {
+          "title": "Ficha 1 - Leer y mirar la base",
+          "concept": "La inspección inicial evita analizar variables con nombres, tipos o rangos incorrectos.",
+          "code": "library(tidyverse)\nlibrary(janitor)\nsalud <- read_csv(\"data/datasets/salud_muestra.csv\") |> clean_names()\nglimpse(salud)\nsummary(salud)",
+          "task": "Anota cuántas filas, columnas y variables numéricas tiene la base."
+        },
+        {
+          "title": "Ficha 2 - Recodificar factores",
+          "concept": "Las categorías deben quedar explícitas para tablas, gráficos y modelos.",
+          "code": "salud <- salud |>\n  mutate(\n    diagnostico = factor(diagnostico),\n    sexo = factor(sexo),\n    tabaquismo = factor(tabaquismo),\n    diabetes_probable = diagnostico == \"Diabetes probable\"\n  )\ncount(salud, diagnostico)",
+          "task": "Identifica la categoría de diagnóstico más frecuente."
+        },
+        {
+          "title": "Ficha 3 - Regla de publicación segura",
+          "concept": "Un reporte público no debe revelar identidad ni combinaciones de variables identificables.",
+          "code": "diccionario <- tibble(\n  variable = names(salud),\n  tipo = map_chr(salud, ~ class(.x)[1])\n)\ndiccionario",
+          "task": "Redacta tres reglas de anonimización para tu informe final."
+        }
+      ]
+    },
+    {
+      "id": "lab_descriptiva_salud",
+      "unit": 3,
+      "title": "Laboratorio 3 - Descriptiva y gráficos clínicos",
+      "dataset": "data/datasets/salud_muestra.csv",
+      "embed": "laboratorio/index.html",
+      "goal": "Construir tablas y gráficos que puedan incluirse en un ensayo reproducible.",
+      "steps": [
+        {
+          "title": "Ficha 1 - Tabla por diagnóstico",
+          "concept": "Las tablas descriptivas convierten datos crudos en una primera lectura clínica.",
+          "code": "salud |>\n  group_by(diagnostico) |>\n  summarise(\n    n = n(),\n    edad_media = mean(edad),\n    imc_media = mean(imc),\n    glucosa_media = mean(glucosa_mg_dl),\n    .groups = \"drop\"\n  )",
+          "task": "Señala qué grupo tiene glucosa media más alta."
+        },
+        {
+          "title": "Ficha 2 - Boxplot de glucosa",
+          "concept": "El boxplot compara mediana, dispersión y valores extremos entre grupos.",
+          "code": "ggplot(salud, aes(diagnostico, glucosa_mg_dl, fill = diagnostico)) +\n  geom_boxplot(show.legend = FALSE) +\n  labs(title = \"Glucosa por diagnóstico\", x = \"Diagnóstico\", y = \"Glucosa mg/dl\") +\n  theme_minimal()",
+          "task": "Exporta el gráfico o sube una captura como evidencia."
+        },
+        {
+          "title": "Ficha 3 - Hallazgo narrado",
+          "concept": "Un hallazgo útil evita exagerar y aclara que describe esta muestra.",
+          "code": "salud |>\n  count(diagnostico) |>\n  mutate(porcentaje = round(n / sum(n) * 100, 1))",
+          "task": "Escribe un párrafo breve con n, porcentaje y límite de interpretación."
+        }
+      ]
+    },
+    {
+      "id": "lab_inferencia_salud",
+      "unit": 4,
+      "title": "Laboratorio 4 - Inferencia básica con R",
+      "dataset": "data/datasets/salud_muestra.csv",
+      "embed": "laboratorio/index.html",
+      "goal": "Calcular intervalos, comparar grupos y reportar incertidumbre de forma prudente.",
+      "steps": [
+        {
+          "title": "Ficha 1 - Intervalo de confianza",
+          "concept": "El intervalo expresa incertidumbre alrededor de una estimación muestral.",
+          "code": "t.test(salud$glucosa_mg_dl)\nmedia <- mean(salud$glucosa_mg_dl)\nmedia",
+          "task": "Interpreta el intervalo sin decir que contiene al promedio individual de cada paciente."
+        },
+        {
+          "title": "Ficha 2 - Comparación entre grupos",
+          "concept": "La prueba t compara medias cuando la pregunta es numérica y hay dos grupos.",
+          "code": "t.test(glucosa_mg_dl ~ tabaquismo, data = salud)\nsalud |>\n  group_by(tabaquismo) |>\n  summarise(n = n(), media = mean(glucosa_mg_dl), .groups = \"drop\")",
+          "task": "Redacta una conclusión que empiece con 'En esta muestra...'."
+        },
+        {
+          "title": "Ficha 3 - Asociación categórica",
+          "concept": "Chi-cuadrado evalúa asociación entre dos variables categóricas.",
+          "code": "tabla <- table(salud$tabaquismo, salud$diagnostico)\ntabla\nchisq.test(tabla)",
+          "task": "Aclara qué información faltaría para hablar de causalidad."
+        }
+      ]
+    },
+    {
+      "id": "lab_modelos_salud",
+      "unit": 5,
+      "title": "Laboratorio 5 - Modelo simple para una pregunta de salud",
+      "dataset": "data/datasets/salud_muestra.csv",
+      "embed": "laboratorio/index.html",
+      "goal": "Ajustar una regresión logística sencilla e interpretar odds ratio sin sobregeneralizar.",
+      "steps": [
+        {
+          "title": "Ficha 1 - Definir respuesta",
+          "concept": "La variable respuesta decide el tipo de modelo y la interpretación.",
+          "code": "salud <- salud |>\n  mutate(diabetes_probable = diagnostico == \"Diabetes probable\")\ncount(salud, diabetes_probable)",
+          "task": "Explica por qué diabetes_probable es una respuesta binaria."
+        },
+        {
+          "title": "Ficha 2 - Ajustar glm binomial",
+          "concept": "La regresión logística estima probabilidades cuando el resultado es sí/no.",
+          "code": "library(broom)\nmodelo <- glm(diabetes_probable ~ edad + imc + tabaquismo,\n              data = salud,\n              family = binomial)\ntidy(modelo, exponentiate = TRUE, conf.int = TRUE)",
+          "task": "Identifica una variable asociada y una variable con incertidumbre amplia."
+        },
+        {
+          "title": "Ficha 3 - Interpretar con límite",
+          "concept": "Un modelo simple apoya una lectura, pero no reemplaza diseño, validación ni juicio clínico.",
+          "code": "salud$prob <- predict(modelo, type = \"response\")\nsalud |>\n  select(edad, imc, tabaquismo, diabetes_probable, prob) |>\n  arrange(desc(prob)) |>\n  head(8)",
+          "task": "Escribe dos interpretaciones y una limitación metodológica."
+        }
+      ]
+    },
+    {
+      "id": "lab_rpubs_salud",
+      "unit": 6,
+      "title": "Laboratorio 6 - Ensayo reproducible y RPubs",
+      "dataset": "data/datasets/salud_muestra.csv",
+      "embed": "laboratorio/index.html",
+      "goal": "Armar el archivo R Markdown, renderizarlo y publicar un HTML en RPubs.",
+      "steps": [
+        {
+          "title": "Ficha 1 - Crear reporte_final.Rmd",
+          "concept": "El informe reproducible une narrativa, código y resultados en un mismo documento.",
+          "code": "---\ntitle: \"Análisis sencillo de datos de salud\"\nauthor: \"Tu nombre\"\noutput: html_document\n---\n\n```{r setup, message=FALSE, warning=FALSE}\nlibrary(tidyverse)\nlibrary(janitor)\n```\n\n## Pregunta\n¿Que patrón de salud se observa en esta muestra?",
+          "task": "Crea el archivo y completa título, autor y pregunta."
+        },
+        {
+          "title": "Ficha 2 - Insertar tabla y gráfico",
+          "concept": "Los resultados deben generarse desde el código, no pegarse manualmente.",
+          "code": "```{r datos}\nsalud <- read_csv(\"data/datasets/salud_muestra.csv\") |> clean_names()\ncount(salud, diagnostico)\n```\n\n```{r grafico}\nggplot(salud, aes(diagnostico, glucosa_mg_dl)) +\n  geom_boxplot() +\n  theme_minimal()\n```",
+          "task": "Renderiza el HTML y corrige rutas si aparece error."
+        },
+        {
+          "title": "Ficha 3 - Publicar y registrar",
+          "concept": "RPubs permite compartir el informe, pero debes revisar privacidad antes de publicar.",
+          "code": "# En RStudio:\n# 1. Knit / Render\n# 2. Preview HTML\n# 3. Publish\n# 4. Copiar enlace RPubs",
+          "task": "Pega el enlace en Proyecto RPubs y sube una evidencia del HTML."
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    { "unit": 1, "front": "¿Qué diferencia hay entre R y RStudio?", "back": "R es el lenguaje y motor de cálculo; RStudio es el entorno que facilita escribir scripts, ver objetos, gráficos y archivos." },
+    { "unit": 1, "front": "¿Por qué conviene trabajar dentro de un proyecto?", "back": "Porque fija una carpeta raíz, ordena rutas relativas y hace más fácil reproducir el análisis en otro equipo." },
+    { "unit": 2, "front": "¿Qué es una variable categórica?", "back": "Una variable que clasifica casos en grupos, como sexo, diagnóstico, tabaquismo o grupo etario." },
+    { "unit": 2, "front": "¿Qué significa anonimizar una base de salud?", "back": "Reducir el riesgo de identificar personas eliminando o transformando identificadores directos e indirectos." },
+    { "unit": 3, "front": "¿Cuándo usarías un boxplot?", "back": "Cuando quieres comparar distribución, mediana, dispersión y valores extremos de una variable numérica entre grupos." },
+    { "unit": 3, "front": "¿Qué debe tener un hallazgo descriptivo?", "back": "Medida, grupo, dirección del resultado y un límite claro: describe esta muestra, no prueba causalidad." },
+    { "unit": 4, "front": "¿Qué comunica un intervalo de confianza?", "back": "La incertidumbre de una estimación muestral bajo un procedimiento estadístico, no la variabilidad individual de todos los pacientes." },
+    { "unit": 4, "front": "¿Para qué sirve chi-cuadrado?", "back": "Para evaluar asociación entre dos variables categóricas mediante una tabla de contingencia." },
+    { "unit": 5, "front": "¿Cuándo usarías glm(..., family = binomial)?", "back": "Cuando la variable respuesta es binaria, por ejemplo diabetes probable sí/no." },
+    { "unit": 5, "front": "¿Qué es un odds ratio?", "back": "Una razón de odds asociada a un predictor; debe interpretarse con intervalo de confianza y contexto clínico." },
+    { "unit": 6, "front": "¿Qué aporta R Markdown o Quarto?", "back": "Permite combinar texto, código y salidas en un reporte reproducible que puede renderizarse a HTML." },
+    { "unit": 6, "front": "¿Qué revisar antes de publicar en RPubs?", "back": "Privacidad, rutas, gráficos legibles, interpretación prudente, límites y que el HTML abra correctamente." }
+  ],
+  "classifiers": [
+    {
+      "id": "variables_salud",
+      "unit": 2,
+      "title": "Clasificar variables de salud",
+      "prompt": "Toca una tarjeta y luego la categoría correcta. Sirve para decidir cómo limpiar, resumir y graficar.",
+      "categories": [
+        { "id": "numerica", "label": "Numérica", "definition": "Medición o conteo que permite promedios, rangos o modelos." },
+        { "id": "categorica", "label": "Categórica", "definition": "Etiqueta de grupo, diagnóstico, exposición o condición." },
+        { "id": "identificador", "label": "Identificador", "definition": "Código usado para rastrear casos; no se interpreta como cantidad." },
+        { "id": "sensible", "label": "Sensible", "definition": "Dato que exige cuidado especial de privacidad o anonimización." }
+      ],
+      "items": [
+        { "label": "edad", "category": "numerica", "hint": "Se puede calcular media o mediana." },
+        { "label": "glucosa_mg_dl", "category": "numerica", "hint": "Es una medición clínica." },
+        { "label": "diagnostico", "category": "categorica", "hint": "Agrupa a las personas." },
+        { "label": "tabaquismo", "category": "categorica", "hint": "Describe exposición o condición." },
+        { "label": "id_paciente", "category": "identificador", "hint": "No debe promediarse." },
+        { "label": "combinación edad + distrito + diagnóstico", "category": "sensible", "hint": "Podría reidentificar en bases pequeñas." }
+      ]
+    },
+    {
+      "id": "pruebas_inferencia",
+      "unit": 4,
+      "title": "Elegir prueba o lectura inferencial",
+      "prompt": "Ubica cada necesidad de análisis en la herramienta más razonable.",
+      "categories": [
+        { "id": "estimacion", "label": "Estimación", "definition": "Resumir un parámetro con incertidumbre." },
+        { "id": "comparacion", "label": "Comparación", "definition": "Contrastar medidas entre grupos." },
+        { "id": "asociacion", "label": "Asociación", "definition": "Evaluar relación entre variables categóricas." },
+        { "id": "cautela", "label": "Cautela", "definition": "Evitar interpretaciones causales o sobregeneralizadas." }
+      ],
+      "items": [
+        { "label": "IC 95% para glucosa media", "category": "estimacion", "hint": "Estima una media con incertidumbre." },
+        { "label": "t.test(glucosa ~ tabaquismo)", "category": "comparacion", "hint": "Compara una variable numérica entre dos grupos." },
+        { "label": "chisq.test(tabla)", "category": "asociacion", "hint": "Trabaja con tabla de contingencia." },
+        { "label": "En esta muestra...", "category": "cautela", "hint": "Limita el alcance de la conclusión." },
+        { "label": "No prueba causalidad", "category": "cautela", "hint": "Es una advertencia de interpretación." }
+      ]
+    },
+    {
+      "id": "reporte_rpubs",
+      "unit": 6,
+      "title": "Componentes del informe RPubs",
+      "prompt": "Organiza cada elemento del ensayo final antes de publicarlo.",
+      "categories": [
+        { "id": "pregunta", "label": "Pregunta", "definition": "Define qué se quiere responder." },
+        { "id": "metodo", "label": "Método reproducible", "definition": "Código, paquetes, datos y procedimiento." },
+        { "id": "resultado", "label": "Resultado", "definition": "Tabla, gráfico o prueba interpretada." },
+        { "id": "etica", "label": "Ética y límites", "definition": "Privacidad, alcance y advertencias." }
+      ],
+      "items": [
+        { "label": "¿La glucosa difiere según tabaquismo?", "category": "pregunta", "hint": "Formula el problema." },
+        { "label": "library(tidyverse)", "category": "metodo", "hint": "Hace explícito el entorno." },
+        { "label": "Boxplot de glucosa por diagnóstico", "category": "resultado", "hint": "Presenta evidencia visual." },
+        { "label": "No usar datos identificables", "category": "etica", "hint": "Es criterio de publicación segura." },
+        { "label": "Limitación: muestra simulada", "category": "etica", "hint": "Avisa el alcance del análisis." }
+      ]
+    }
   ]
 }
-

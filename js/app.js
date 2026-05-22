@@ -22,7 +22,18 @@
     notes: '',
     calendarDone: {},
     badges: [],
-    evidenceLocal: []
+    evidenceLocal: [],
+    practiceDone: {},
+    activePractice: '',
+    activePracticeStep: 0,
+    flashcardIndex: 0,
+    flashcardFlipped: false,
+    flashcardFilter: 'todas',
+    flashcardsSeen: {},
+    classifierId: '',
+    classifierSelected: '',
+    classifierPlacements: {},
+    classifierChecked: false
   };
   let progress = loadProgress();
 
@@ -34,6 +45,9 @@
     ['foros', 'Foros'],
     ['cuestionarios', 'Cuestionarios'],
     ['laboratorio', 'Laboratorio R'],
+    ['practicas', 'Prácticas guiadas'],
+    ['flashcards', 'Flashcards'],
+    ['clasificador', 'Clasificador'],
     ['evidencias', 'Evidencias'],
     ['proyecto', 'Proyecto RPubs'],
     ['progreso', 'Mi progreso'],
@@ -156,6 +170,17 @@
         if (badge) badges.add(badge.id);
       }
     });
+    if (practices().length && practices().every(lab => practiceProgress(lab).done >= lab.steps.length)) {
+      badges.add('practicante_r');
+    }
+    const seenCards = Object.keys(progress.flashcardsSeen || {}).length;
+    const classifierComplete = classifiers().some(activity => {
+      const placements = progress.classifierPlacements?.[activity.id] || {};
+      return activity.items.every(item => placements[item.label] === item.category);
+    });
+    if (seenCards >= Math.min(6, (course.flashcards || []).length) && classifierComplete) {
+      badges.add('repaso_activo');
+    }
     if (progress.rpubsUrl) badges.add('publicador');
     progress.badges = Array.from(badges);
   }
@@ -277,17 +302,101 @@
     `;
   }
 
+  function practices() {
+    return course.practices || [];
+  }
+
+  function unitPractice(unitId) {
+    return practices().find(lab => Number(lab.unit) === Number(unitId));
+  }
+
+  function figureFor(unit, sublevel = null) {
+    const figures = course.figures || {};
+    if (sublevel && figures.sublevels && figures.sublevels[sublevel.id]) return figures.sublevels[sublevel.id];
+    if (figures.units && figures.units[String(unit.id)]) return figures.units[String(unit.id)];
+    return 'assets/pedagogical/gen_education.svg';
+  }
+
+  function practiceDoneSet(labId) {
+    return new Set((progress.practiceDone && progress.practiceDone[labId]) || []);
+  }
+
+  function isPracticeStepDone(labId, stepIndex) {
+    return practiceDoneSet(labId).has(Number(stepIndex));
+  }
+
+  function practiceProgress(lab) {
+    const done = practiceDoneSet(lab.id).size;
+    const total = lab.steps.length;
+    return { done, total, percent: Math.round((done / total) * 100) };
+  }
+
+  function lessonForSublevel(unit, sublevel, index) {
+    const lab = unitPractice(unit.id);
+    const step = lab && lab.steps[index] ? lab.steps[index] : null;
+    const summary = step ? step.concept : sublevel.practice;
+    const code = step ? step.code : '';
+    return {
+      figure: figureFor(unit, sublevel),
+      summary,
+      code,
+      task: step ? step.task : sublevel.practice,
+      lab
+    };
+  }
+
+  function renderMiniCode(code, id) {
+    if (!code) return '';
+    return `
+      <div class="mini-code">
+        <button class="btn small secondary" type="button" onclick="RSaludApp.copyCodeById(${jsString(id)})">Copiar</button>
+        <pre><code id="${escapeHtml(id)}">${escapeHtml(code)}</code></pre>
+      </div>
+    `;
+  }
+
+  function renderEvidencePrompt(unit, sublevel, lesson) {
+    return `
+      <div class="evidence-callout">
+        <strong>Evidencia esperada</strong>
+        <span>${escapeHtml(lesson.task || sublevel.practice)}</span>
+        <button class="btn small secondary" type="button" onclick="RSaludApp.prepareEvidence(${unit.id}, ${jsString(sublevel.title)})">Subir evidencia</button>
+      </div>
+    `;
+  }
+
+  function flashcardsForFilter() {
+    const cards = course.flashcards || [];
+    if (progress.flashcardFilter === 'todas') return cards;
+    return cards.filter(card => String(card.unit) === String(progress.flashcardFilter));
+  }
+
+  function classifiers() {
+    return course.classifiers || [];
+  }
+
+  function activeClassifier() {
+    const list = classifiers();
+    if (!list.length) return null;
+    return list.find(item => item.id === progress.classifierId) || list[0];
+  }
+
   function renderHome() {
     const summary = progressSummary();
     const action = nextAction();
+    const completedLabs = practices().filter(lab => practiceProgress(lab).done >= lab.steps.length).length;
+    const totalPracticeSteps = practices().reduce((sum, lab) => sum + lab.steps.length, 0);
+    const completedPracticeSteps = practices().reduce((sum, lab) => sum + practiceProgress(lab).done, 0);
+    const seenCards = Object.keys(progress.flashcardsSeen || {}).length;
     document.getElementById('inicio').innerHTML = `
       <div class="hero-dashboard">
         <div>
           <span class="eyebrow">Aula virtual conectada</span>
-          <h2>Aprendizaje secuencial con trazabilidad real</h2>
+          <h2>Ruta tipo aula completa: estudio, práctica, comunidad y entrega</h2>
           <p>
-            Este tablero conserva el potencial del aula ejemplo: ruta por unidades,
-            calendario, foros, cuestionarios, evidencias y sincronización con Google Sheets.
+            Este tablero recupera la lógica del curso ejemplo: ruta bloqueada por unidades,
+            cuaderno de aprendizaje por subniveles, prácticas guiadas, flashcards,
+            clasificador, foros, calendario, evidencias y sincronización con Google Sheets.
           </p>
           <div class="pill-row">
             <button class="btn" type="button" onclick="RSaludApp.goNext()">${escapeHtml(action.label)}</button>
@@ -303,8 +412,35 @@
       <div class="grid four" style="margin-top:16px">
         <div class="stat-card"><span>XP</span><strong>${summary.xp}</strong></div>
         <div class="stat-card"><span>Quizzes</span><strong>${summary.quizzesDone}/6</strong></div>
-        <div class="stat-card"><span>Promedio</span><strong>${summary.quizAverage}%</strong></div>
-        <div class="stat-card"><span>Logros</span><strong>${progress.badges.length}</strong></div>
+        <div class="stat-card"><span>Prácticas</span><strong>${completedLabs}/${practices().length}</strong></div>
+        <div class="stat-card"><span>Flashcards</span><strong>${seenCards}/${(course.flashcards || []).length}</strong></div>
+      </div>
+      <div class="module-strip" style="margin-top:16px">
+        <button type="button" onclick="RSaludApp.showSection('ruta')">
+          <strong>Ruta secuencial</strong><span>6 unidades bloqueadas por avance</span>
+        </button>
+        <button type="button" onclick="RSaludApp.showSection('practicas')">
+          <strong>Prácticas guiadas</strong><span>${completedPracticeSteps}/${totalPracticeSteps} fichas R completadas</span>
+        </button>
+        <button type="button" onclick="RSaludApp.showSection('flashcards')">
+          <strong>Repaso activo</strong><span>Tarjetas por unidad antes del quiz</span>
+        </button>
+        <button type="button" onclick="RSaludApp.showSection('clasificador')">
+          <strong>Clasificador</strong><span>Variables, pruebas e informe RPubs</span>
+        </button>
+      </div>
+      <div class="home-learning-map" style="margin-top:16px">
+        ${course.units.map(unit => {
+          const p = unitProgress(unit);
+          return `
+            <button type="button" class="${unit.id === Number(progress.activeUnit) ? 'active' : ''}" onclick="RSaludApp.setActiveUnit(${unit.id})">
+              <img src="${figureFor(unit)}" alt="" loading="lazy">
+              <span>Unidad ${unit.id}</span>
+              <strong>${escapeHtml(unit.shortTitle)}</strong>
+              <em>${p.percent}%</em>
+            </button>
+          `;
+        }).join('')}
       </div>
       <div class="grid two" style="margin-top:16px">
         <div class="panel">
@@ -333,12 +469,18 @@
           const complete = isUnitComplete(unit);
           return `
             <article class="path-card ${locked ? 'locked' : ''} ${complete ? 'complete' : ''}">
+              <div class="path-media"><img src="${figureFor(unit)}" alt="" loading="lazy"></div>
               <div class="path-top">
                 <span class="unit-number" style="background:${unit.color}">${unit.id}</span>
                 <span class="pill ${locked ? '' : 'info'}">${locked ? 'Bloqueada' : complete ? 'Completa' : 'Disponible'}</span>
               </div>
               <h3>${unit.title}</h3>
               <p>${unit.product}</p>
+              <div class="path-mini">
+                ${unit.sublevels.map((sublevel, index) => `<span class="${isStepDone(unit, sublevel) ? 'done' : ''}">${index + 1}</span>`).join('')}
+                <span class="${isTaskDone(unit) ? 'done' : ''}">T</span>
+                <span class="${isQuizDone(unit) ? 'done' : ''}">Q</span>
+              </div>
               <div class="progress-bar"><div class="progress-fill" style="width:${p.percent}%;background:${unit.color}"></div></div>
               <p class="footer-note">${p.done}/${p.total} hitos · ${unit.weeks}</p>
               <button class="btn small ${locked ? 'secondary' : ''}" type="button" ${locked ? 'disabled' : ''} onclick="RSaludApp.setActiveUnit(${unit.id})">Abrir unidad</button>
@@ -349,7 +491,130 @@
     `;
   }
 
+  function renderUnitRich() {
+    const unit = course.units.find(item => item.id === Number(progress.activeUnit)) || course.units[0];
+    const unlocked = isUnitUnlocked(unit);
+    const p = unitProgress(unit);
+    const lab = unitPractice(unit.id);
+    const labProgress = lab ? practiceProgress(lab) : { done: 0, total: 0, percent: 0 };
+    document.getElementById('unidad').innerHTML = `
+      <div class="learning-tabs">
+        ${course.units.map(item => `
+          <button type="button" class="${item.id === unit.id ? 'active' : ''}" onclick="RSaludApp.setActiveUnit(${item.id})">
+            <span>U${item.id}</span>
+            <strong>${escapeHtml(item.shortTitle)}</strong>
+          </button>
+        `).join('')}
+      </div>
+      <section class="learning-hero" style="--unit-color:${unit.color}">
+        <div class="learning-hero-copy">
+          <span class="eyebrow">Unidad ${unit.id} · ${unit.weeks}</span>
+          <h2>${escapeHtml(unit.title)}</h2>
+          <p>${escapeHtml(unit.product)}</p>
+          <div class="pill-row">
+            <span class="pill">${p.percent}% de avance</span>
+            <span class="pill info">${lab ? `${labProgress.done}/${labProgress.total} fichas` : 'Sin laboratorio'}</span>
+            <span class="pill warn">${isQuizDone(unit) ? 'Quiz aprobado' : 'Quiz pendiente'}</span>
+          </div>
+        </div>
+        <div class="learning-hero-visual">
+          <img src="${figureFor(unit)}" alt="" loading="lazy">
+        </div>
+        <div class="learning-hero-meter">
+          <strong>${p.percent}%</strong>
+          <span>${p.done}/${p.total} hitos</span>
+        </div>
+      </section>
+      ${!unlocked ? `
+        <div class="status-box error">Esta unidad se desbloquea al completar la unidad anterior. Podés revisar el mapa, pero el avance recomendado es secuencial.</div>
+      ` : ''}
+      <div class="learning-layout">
+        <aside class="learning-aside">
+          <div class="panel">
+            <h3>Resultados</h3>
+            <ul>${unit.outcomes.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>
+            <div class="progress-bar"><div class="progress-fill" style="width:${p.percent}%;background:${unit.color}"></div></div>
+            <p class="footer-note">${p.done}/${p.total} hitos completados</p>
+          </div>
+          <div class="panel">
+            <h3>Producto</h3>
+            <p>${escapeHtml(unit.product)}</p>
+            <div class="pill-row">
+              <a class="btn small secondary" href="${unit.taskUrl}">Ver tarea</a>
+              <button class="btn small" type="button" onclick="RSaludApp.markTask(${unit.id})">${isTaskDone(unit) ? 'Tarea registrada' : 'Marcar tarea'}</button>
+              <button class="btn small warn" type="button" onclick="RSaludApp.startQuiz(${unit.id})">Rendir quiz</button>
+            </div>
+            <div id="unitQuizMount"></div>
+          </div>
+          ${lab ? `
+            <div class="panel">
+              <h3>Laboratorio asociado</h3>
+              <p>${escapeHtml(lab.title)}</p>
+              <div class="progress-bar"><div class="progress-fill" style="width:${labProgress.percent}%"></div></div>
+              <p class="footer-note">${labProgress.done}/${labProgress.total} fichas listas</p>
+              <button class="btn small secondary" type="button" onclick="RSaludApp.openPractice(${jsString(lab.id)}, 0)">Abrir práctica</button>
+            </div>
+          ` : ''}
+        </aside>
+        <div class="learning-main">
+          <div class="learning-sequence">
+            ${unit.sublevels.map(sublevel => `
+              <button type="button" class="${isStepDone(unit, sublevel) ? 'done' : ''}" onclick="document.getElementById('lesson-${sublevel.id.replace('.', '-')}')?.scrollIntoView({behavior:'smooth', block:'start'})">
+                <span>${escapeHtml(sublevel.id)}</span>
+                <strong>${escapeHtml(sublevel.title)}</strong>
+              </button>
+            `).join('')}
+          </div>
+          ${unit.sublevels.map((sublevel, index) => {
+            const lesson = lessonForSublevel(unit, sublevel, index);
+            const previousDone = index === 0 || isStepDone(unit, unit.sublevels[index - 1]);
+            const lockedStep = unlocked && !previousDone;
+            const codeId = `code-${unit.id}-${index}`;
+            return `
+              <article id="lesson-${sublevel.id.replace('.', '-')}" class="learning-card ${isStepDone(unit, sublevel) ? 'complete' : ''} ${lockedStep || !unlocked ? 'locked' : ''}">
+                <div class="learning-card-media">
+                  <img src="${lesson.figure}" alt="" loading="lazy">
+                  <span>${escapeHtml(sublevel.duration)}</span>
+                </div>
+                <div class="learning-card-body">
+                  <div class="learning-card-head">
+                    <span class="sublevel-index">${escapeHtml(sublevel.id)}</span>
+                    <div>
+                      <h3>${escapeHtml(sublevel.title)}</h3>
+                      <p>${escapeHtml(lesson.summary)}</p>
+                    </div>
+                  </div>
+                  <div class="learning-microgrid">
+                    <div>
+                      <strong>Microclase</strong>
+                      <p>${escapeHtml(sublevel.practice)}</p>
+                    </div>
+                    <div>
+                      <strong>Foro guiado</strong>
+                      <p>${escapeHtml(sublevel.forumPrompt)}</p>
+                    </div>
+                  </div>
+                  ${renderMiniCode(lesson.code, codeId)}
+                  ${renderEvidencePrompt(unit, sublevel, lesson)}
+                  <div class="pill-row">
+                    <a class="btn small secondary" href="${sublevel.resource}">Abrir material</a>
+                    ${lesson.lab ? `<button class="btn small secondary" type="button" onclick="RSaludApp.openPractice(${jsString(lesson.lab.id)}, ${index})">Ficha práctica</button>` : ''}
+                    <button class="btn small" type="button" ${lockedStep || !unlocked ? 'disabled' : ''} onclick="RSaludApp.markStep(${unit.id}, ${jsString(sublevel.id)})">
+                      ${isStepDone(unit, sublevel) ? 'Completado' : 'Completar subnivel'}
+                    </button>
+                    <button class="btn small secondary" type="button" onclick="RSaludApp.openForumPrompt(${unit.id}, ${jsString(sublevel.id)})">Abrir foro</button>
+                  </div>
+                </div>
+              </article>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  }
+
   function renderUnit() {
+    return renderUnitRich();
     const unit = course.units.find(item => item.id === Number(progress.activeUnit)) || course.units[0];
     const unlocked = isUnitUnlocked(unit);
     const p = unitProgress(unit);
@@ -679,7 +944,7 @@ library(tidyverse)
 library(janitor)
 library(broom)
 
-salud <- read.csv("data/salud_muestra.csv")
+salud <- read.csv("data/datasets/salud_muestra.csv")
 glimpse(salud)
 
 salud <- salud |>
@@ -725,6 +990,359 @@ tidy(modelo, exponentiate = TRUE, conf.int = TRUE)`;
         <pre><code>${escapeHtml(code)}</code></pre>
       </div>
     `;
+  }
+
+  function renderPractices() {
+    const labs = practices();
+    const active = labs.find(lab => lab.id === progress.activePractice);
+    if (active) {
+      renderPracticeDetail(active);
+      return;
+    }
+
+    const completed = labs.filter(lab => practiceProgress(lab).done >= lab.steps.length).length;
+    const totalSteps = labs.reduce((sum, lab) => sum + lab.steps.length, 0);
+    const doneSteps = labs.reduce((sum, lab) => sum + practiceProgress(lab).done, 0);
+    document.getElementById('practicas').innerHTML = `
+      <div class="page-heading">
+        <div>
+          <span class="eyebrow">Aprender haciendo</span>
+          <h2>Prácticas guiadas con datos de salud</h2>
+          <p>Fichas paso a paso con concepto, código R, tarea y evidencia. El avance queda local y se sincroniza cuando el backend está disponible.</p>
+        </div>
+        <div class="practice-actions">
+          <a class="btn secondary" href="laboratorio/index.html">Abrir laboratorio</a>
+          <a class="btn secondary" href="data/datasets/salud_muestra.csv" download>Descargar CSV</a>
+        </div>
+      </div>
+      <div class="grid three" style="margin-top:16px">
+        <div class="stat-card"><span>Laboratorios completos</span><strong>${completed}/${labs.length}</strong></div>
+        <div class="stat-card"><span>Fichas</span><strong>${doneSteps}/${totalSteps}</strong></div>
+        <div class="stat-card"><span>Dataset</span><strong>CSV salud</strong></div>
+      </div>
+      <div class="practice-grid" style="margin-top:16px">
+        ${labs.map(lab => {
+          const p = practiceProgress(lab);
+          const unit = course.units.find(item => item.id === Number(lab.unit));
+          return `
+            <article class="practice-card">
+              <img src="${unit ? figureFor(unit) : 'assets/pedagogical/gen_education.svg'}" alt="" loading="lazy">
+              <div>
+                <span class="pill">Unidad ${lab.unit}</span>
+                <h3>${escapeHtml(lab.title)}</h3>
+                <p>${escapeHtml(lab.goal)}</p>
+                <div class="progress-bar"><div class="progress-fill" style="width:${p.percent}%"></div></div>
+                <p class="footer-note">${p.done}/${p.total} fichas completadas</p>
+                <button class="btn small" type="button" onclick="RSaludApp.openPractice(${jsString(lab.id)}, 0)">Abrir práctica</button>
+              </div>
+            </article>
+          `;
+        }).join('')}
+      </div>
+    `;
+  }
+
+  function renderPracticeDetail(lab) {
+    const safeStep = Math.max(0, Math.min(Number(progress.activePracticeStep || 0), lab.steps.length - 1));
+    progress.activePracticeStep = safeStep;
+    const step = lab.steps[safeStep];
+    const unit = course.units.find(item => item.id === Number(lab.unit)) || course.units[0];
+    const p = practiceProgress(lab);
+    const completed = isPracticeStepDone(lab.id, safeStep);
+    document.getElementById('practicas').innerHTML = `
+      <div class="practice-detail-shell">
+        <div class="unit-detail-header">
+          <button class="btn small secondary" type="button" onclick="RSaludApp.closePractice()">Volver</button>
+          <div>
+            <span class="eyebrow">Unidad ${lab.unit} · ficha ${safeStep + 1}/${lab.steps.length}</span>
+            <h2>${escapeHtml(lab.title)}</h2>
+            <p>${escapeHtml(lab.goal)}</p>
+          </div>
+        </div>
+        <div class="practice-stepper">
+          ${lab.steps.map((item, index) => `
+            <button type="button" class="${index === safeStep ? 'active' : ''} ${isPracticeStepDone(lab.id, index) ? 'done' : ''}" onclick="RSaludApp.openPractice(${jsString(lab.id)}, ${index})">${index + 1}</button>
+          `).join('')}
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${p.percent}%;background:${unit.color}"></div></div>
+        <div class="practice-detail">
+          <main class="practice-main">
+            <h3>${escapeHtml(step.title)}</h3>
+            <div class="concept-box">${escapeHtml(step.concept)}</div>
+            ${renderMiniCode(step.code, `practice-code-${lab.id}-${safeStep}`)}
+            <div class="pill-row">
+              <button class="btn small secondary" type="button" onclick="RSaludApp.copyCodeById(${jsString(`practice-code-${lab.id}-${safeStep}`)})">Copiar código</button>
+              <a class="btn small secondary" href="${lab.dataset}" download>Descargar datos</a>
+              <button class="btn small secondary" type="button" onclick="RSaludApp.prepareEvidence(${lab.unit}, ${jsString(step.title)})">Subir evidencia</button>
+            </div>
+          </main>
+          <aside class="practice-task">
+            <h3>Tarea de la ficha</h3>
+            <p>${escapeHtml(step.task)}</p>
+            <button class="btn" type="button" onclick="RSaludApp.markPracticeStep(${jsString(lab.id)}, ${safeStep})">${completed ? 'Ficha completada' : 'Marcar ficha completa'}</button>
+            <div class="practice-nav">
+              <button class="btn small secondary" type="button" ${safeStep === 0 ? 'disabled' : ''} onclick="RSaludApp.openPractice(${jsString(lab.id)}, ${safeStep - 1})">Anterior</button>
+              <button class="btn small secondary" type="button" ${safeStep === lab.steps.length - 1 ? 'disabled' : ''} onclick="RSaludApp.openPractice(${jsString(lab.id)}, ${safeStep + 1})">Siguiente</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    `;
+  }
+
+  function openPractice(labId, stepIndex = 0) {
+    progress.activePractice = labId;
+    progress.activePracticeStep = Number(stepIndex) || 0;
+    saveLocalProgress();
+    renderPractices();
+    showSection('practicas');
+  }
+
+  function closePractice() {
+    progress.activePractice = '';
+    progress.activePracticeStep = 0;
+    saveLocalProgress();
+    renderPractices();
+  }
+
+  async function markPracticeStep(labId, stepIndex) {
+    const lab = practices().find(item => item.id === labId);
+    if (!lab) return;
+    const done = practiceDoneSet(labId);
+    done.add(Number(stepIndex));
+    progress.practiceDone = progress.practiceDone || {};
+    progress.practiceDone[labId] = Array.from(done).sort((a, b) => a - b);
+    updateBadges();
+    debounceProgressSync(`practica_${labId}`);
+    await API.write('calificacion', {
+      unidad: lab.unit,
+      actividad: lab.title,
+      tipo: 'practica_guiada',
+      puntaje: practiceProgress(lab).percent,
+      porcentaje: practiceProgress(lab).percent,
+      correctas: practiceProgress(lab).done,
+      total: lab.steps.length,
+      detalle: { laboratorio: lab.id, ficha: stepIndex + 1 }
+    });
+    renderPractices();
+    renderHome();
+  }
+
+  function renderFlashcards() {
+    const filters = ['todas', ...new Set((course.flashcards || []).map(card => String(card.unit)))];
+    const cards = flashcardsForFilter();
+    if (!cards.length) {
+      document.getElementById('flashcards').innerHTML = '<div class="status-box">No hay flashcards cargadas.</div>';
+      return;
+    }
+    const index = Math.max(0, Math.min(Number(progress.flashcardIndex || 0), cards.length - 1));
+    progress.flashcardIndex = index;
+    const card = cards[index];
+    const cardKey = `${card.unit}-${card.front}`;
+    progress.flashcardsSeen = progress.flashcardsSeen || {};
+    progress.flashcardsSeen[cardKey] = true;
+    saveLocalProgress();
+    const seenCards = Object.keys(progress.flashcardsSeen || {}).length;
+    document.getElementById('flashcards').innerHTML = `
+      <div class="page-heading">
+        <div>
+          <span class="eyebrow">Repaso activo</span>
+          <h2>Flashcards del curso</h2>
+          <p>Usa estas tarjetas antes de cada quiz. La respuesta se revela al voltear y el avance queda guardado en este navegador.</p>
+        </div>
+        <div class="flashcard-filter">
+          ${filters.map(filter => `
+            <button type="button" class="${String(progress.flashcardFilter) === String(filter) ? 'active' : ''}" onclick="RSaludApp.setFlashcardFilter(${jsString(filter)})">
+              ${filter === 'todas' ? 'Todas' : `U${filter}`}
+            </button>
+          `).join('')}
+        </div>
+      </div>
+      <div class="flashcard-shell">
+        <button class="flashcard-card ${progress.flashcardFlipped ? 'flipped' : ''}" type="button" onclick="RSaludApp.flipFlashcard()">
+          <span>Unidad ${card.unit} · tarjeta ${index + 1}/${cards.length}</span>
+          <strong>${escapeHtml(progress.flashcardFlipped ? card.back : card.front)}</strong>
+          <em>${progress.flashcardFlipped ? 'Toca para volver a la pregunta' : 'Toca para ver la respuesta'}</em>
+        </button>
+        <div class="flashcard-controls">
+          <button class="btn secondary" type="button" onclick="RSaludApp.prevFlashcard()">Anterior</button>
+          <button class="btn" type="button" onclick="RSaludApp.flipFlashcard()">Voltear</button>
+          <button class="btn secondary" type="button" onclick="RSaludApp.nextFlashcard()">Siguiente</button>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${Math.round(((index + 1) / cards.length) * 100)}%"></div></div>
+        <p class="footer-note">${seenCards}/${(course.flashcards || []).length} tarjetas vistas en total.</p>
+      </div>
+    `;
+    updateBadges();
+  }
+
+  function setFlashcardFilter(filter) {
+    progress.flashcardFilter = filter;
+    progress.flashcardIndex = 0;
+    progress.flashcardFlipped = false;
+    saveLocalProgress();
+    renderFlashcards();
+  }
+
+  function flipFlashcard() {
+    progress.flashcardFlipped = !progress.flashcardFlipped;
+    saveLocalProgress();
+    renderFlashcards();
+  }
+
+  function nextFlashcard() {
+    const cards = flashcardsForFilter();
+    progress.flashcardIndex = ((Number(progress.flashcardIndex) || 0) + 1) % Math.max(cards.length, 1);
+    progress.flashcardFlipped = false;
+    debounceProgressSync('flashcards');
+    renderFlashcards();
+  }
+
+  function prevFlashcard() {
+    const cards = flashcardsForFilter();
+    progress.flashcardIndex = ((Number(progress.flashcardIndex) || 0) - 1 + cards.length) % Math.max(cards.length, 1);
+    progress.flashcardFlipped = false;
+    saveLocalProgress();
+    renderFlashcards();
+  }
+
+  function renderClassifier() {
+    const activity = activeClassifier();
+    if (!activity) {
+      document.getElementById('clasificador').innerHTML = '<div class="status-box">No hay clasificadores cargados.</div>';
+      return;
+    }
+    progress.classifierId = activity.id;
+    const placements = progress.classifierPlacements?.[activity.id] || {};
+    const selected = progress.classifierSelected || '';
+    const placed = activity.items.filter(item => placements[item.label]).length;
+    const correct = activity.items.filter(item => placements[item.label] === item.category).length;
+    const checked = Boolean(progress.classifierChecked);
+    document.getElementById('clasificador').innerHTML = `
+      <div class="page-heading">
+        <div>
+          <span class="eyebrow">Actividad interactiva</span>
+          <h2>${escapeHtml(activity.title)}</h2>
+          <p>${escapeHtml(activity.prompt)}</p>
+        </div>
+        <div class="flashcard-filter">
+          ${classifiers().map(item => `
+            <button type="button" class="${item.id === activity.id ? 'active' : ''}" onclick="RSaludApp.setClassifier(${jsString(item.id)})">U${item.unit}</button>
+          `).join('')}
+        </div>
+      </div>
+      <div class="classifier-score ${checked ? (correct === activity.items.length ? 'ok' : 'warn') : ''}">
+        <strong>${checked ? `${correct}/${activity.items.length} correctas` : `${placed}/${activity.items.length} ubicadas`}</strong>
+        <span>${selected ? `Seleccionado: ${escapeHtml(selected)}` : 'Selecciona una tarjeta y luego una categoría.'}</span>
+      </div>
+      <div class="classifier-board">
+        <section class="classifier-pool">
+          <h3>Banco de tarjetas</h3>
+          <div class="classifier-items">
+            ${activity.items.map(item => {
+              const status = checked ? (placements[item.label] === item.category ? 'correct' : placements[item.label] ? 'incorrect' : '') : '';
+              return `
+                <button type="button" class="${selected === item.label ? 'selected' : ''} ${status}" onclick="RSaludApp.selectClassifierItem(${jsString(item.label)})">
+                  <strong>${escapeHtml(item.label)}</strong>
+                  <span>${placements[item.label] ? `Ubicada en ${escapeHtml(categoryLabel(activity, placements[item.label]))}` : 'Sin ubicar'}</span>
+                  ${status === 'incorrect' ? `<em>${escapeHtml(item.hint)}</em>` : ''}
+                </button>
+              `;
+            }).join('')}
+          </div>
+        </section>
+        <section class="classifier-zones">
+          ${activity.categories.map(category => `
+            <button type="button" class="classifier-zone" onclick="RSaludApp.placeClassifierItem(${jsString(category.id)})">
+              <strong>${escapeHtml(category.label)}</strong>
+              <span>${escapeHtml(category.definition)}</span>
+              <em>${activity.items.filter(item => placements[item.label] === category.id).length}</em>
+            </button>
+          `).join('')}
+        </section>
+      </div>
+      <div class="pill-row" style="margin-top:16px">
+        <button class="btn" type="button" onclick="RSaludApp.checkClassifier()">Verificar</button>
+        <button class="btn secondary" type="button" onclick="RSaludApp.resetClassifier()">Reiniciar</button>
+        <button class="btn secondary" type="button" onclick="RSaludApp.showClassifierSolution()">Ver solución</button>
+      </div>
+    `;
+  }
+
+  function categoryLabel(activity, id) {
+    return activity.categories.find(category => category.id === id)?.label || id;
+  }
+
+  function setClassifier(id) {
+    progress.classifierId = id;
+    progress.classifierSelected = '';
+    progress.classifierChecked = false;
+    saveLocalProgress();
+    renderClassifier();
+  }
+
+  function selectClassifierItem(label) {
+    progress.classifierSelected = label;
+    saveLocalProgress();
+    renderClassifier();
+  }
+
+  function placeClassifierItem(categoryId) {
+    const activity = activeClassifier();
+    if (!activity || !progress.classifierSelected) return;
+    progress.classifierPlacements = progress.classifierPlacements || {};
+    progress.classifierPlacements[activity.id] = progress.classifierPlacements[activity.id] || {};
+    progress.classifierPlacements[activity.id][progress.classifierSelected] = categoryId;
+    progress.classifierSelected = '';
+    progress.classifierChecked = false;
+    debounceProgressSync(`clasificador_${activity.id}`);
+    renderClassifier();
+  }
+
+  async function checkClassifier() {
+    const activity = activeClassifier();
+    if (!activity) return;
+    progress.classifierChecked = true;
+    const placements = progress.classifierPlacements?.[activity.id] || {};
+    const correct = activity.items.filter(item => placements[item.label] === item.category).length;
+    updateBadges();
+    debounceProgressSync(`clasificador_${activity.id}`);
+    await API.write('calificacion', {
+      unidad: activity.unit,
+      actividad: activity.title,
+      tipo: 'clasificador',
+      puntaje: Math.round(correct / activity.items.length * 100),
+      porcentaje: Math.round(correct / activity.items.length * 100),
+      correctas: correct,
+      total: activity.items.length,
+      detalle: { clasificador: activity.id }
+    });
+    renderClassifier();
+    renderHome();
+  }
+
+  function resetClassifier() {
+    const activity = activeClassifier();
+    if (!activity) return;
+    progress.classifierPlacements = progress.classifierPlacements || {};
+    progress.classifierPlacements[activity.id] = {};
+    progress.classifierSelected = '';
+    progress.classifierChecked = false;
+    saveLocalProgress();
+    renderClassifier();
+  }
+
+  function showClassifierSolution() {
+    const activity = activeClassifier();
+    if (!activity) return;
+    progress.classifierPlacements = progress.classifierPlacements || {};
+    progress.classifierPlacements[activity.id] = {};
+    activity.items.forEach(item => {
+      progress.classifierPlacements[activity.id][item.label] = item.category;
+    });
+    progress.classifierChecked = true;
+    saveLocalProgress();
+    renderClassifier();
   }
 
   function renderEvidence() {
@@ -966,6 +1584,23 @@ tidy(modelo, exponentiate = TRUE, conf.int = TRUE)`;
     });
   }
 
+  function copyCodeById(id) {
+    const code = document.getElementById(id)?.innerText || '';
+    navigator.clipboard.writeText(code).then(() => {
+      const status = document.getElementById('syncPanel');
+      if (status) renderSyncPanel();
+    });
+  }
+
+  function prepareEvidence(unitId, title) {
+    showSection('evidencias');
+    renderEvidence();
+    const unit = document.getElementById('evidenceUnit');
+    const input = document.getElementById('evidenceTitle');
+    if (unit) unit.value = String(unitId);
+    if (input) input.value = title;
+  }
+
   function downloadProgress() {
     const blob = new Blob([JSON.stringify(progress, null, 2)], { type: 'application/json' });
     const link = document.createElement('a');
@@ -991,6 +1626,9 @@ tidy(modelo, exponentiate = TRUE, conf.int = TRUE)`;
     renderCalendar();
     renderQuizzes();
     renderLab();
+    renderPractices();
+    renderFlashcards();
+    renderClassifier();
     renderEvidence();
     renderProject();
     renderProgress();
@@ -1017,16 +1655,32 @@ tidy(modelo, exponentiate = TRUE, conf.int = TRUE)`;
   }
 
   window.RSaludApp = {
+    checkClassifier,
+    closePractice,
     copyCode,
+    copyCodeById,
     downloadProgress,
+    flipFlashcard,
     goNext,
     markCalendar,
+    markPracticeStep,
     markStep,
     markTask,
+    nextFlashcard,
     openForumPrompt,
+    openPractice,
+    placeClassifierItem,
+    prepareEvidence,
+    prevFlashcard,
     resetProgress,
+    resetClassifier,
     saveRpubs,
+    selectClassifierItem,
+    setClassifier,
     setActiveUnit,
+    setFlashcardFilter,
+    showClassifierSolution,
+    showSection,
     setupWorkbook,
     startQuiz,
     syncNow

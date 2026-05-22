@@ -25,6 +25,9 @@ Guiar a una persona sin experiencia previa desde la instalación de R y RStudio 
 
 - Login con validación Apps Script/Google Sheets y respaldo local de práctica.
 - Ruta secuencial con unidades, subniveles, bloqueos pedagógicos y productos.
+- Unidad activa tipo cuaderno de aprendizaje: hero visual, microclase, código R, práctica, evidencia y foro por subnivel.
+- Prácticas guiadas con 6 laboratorios y 18 fichas paso a paso sobre datos de salud.
+- Flashcards y clasificadores interactivos para repaso activo antes de cuestionarios.
 - Progreso local/offline con cola de sincronización hacia Google Sheets.
 - Calendario de materiales, quizzes y entrega final.
 - Foros por subnivel registrados en la hoja `FOROS`.
@@ -56,6 +59,8 @@ Estas credenciales son de demostración para un sitio público estático. No deb
 ├── apps-script/
 │   ├── Code.js
 │   └── appsscript.json
+├── assets/
+│   └── pedagogical/
 ├── manifest.json
 ├── sw.js
 ├── css/
