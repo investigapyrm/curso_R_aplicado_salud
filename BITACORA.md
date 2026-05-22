@@ -8,6 +8,7 @@
 - Se actualizo `dashboard.html` y `js/app.js` para embeber el laboratorio ejecutable dentro del aula.
 - Version de app/cache actualizada a `2026.05.22.4`.
 - Validacion viva local: Playwright ejecuto `1 + 1` en `laboratorio/index.html` y WebR devolvio `[1] 2`; el dashboard embebido cargo `.lab-frame` en la seccion Laboratorio.
+- Validacion publica: GitHub Pages sirvio la version `20260522-4` y Playwright ejecuto `1 + 1` en `https://investigapyrm.github.io/curso_R_aplicado_salud/laboratorio/index.html`, devolviendo `[1] 2`.
 
 ## 2026-05-22 - Replica ampliada del aula ejemplo
 
