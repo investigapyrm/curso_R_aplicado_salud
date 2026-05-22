@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">R aplicado a la salud</title>
+  <desc id="desc">Marca del curso con una letra R y una cruz sanitaria.</desc>
+  <rect width="512" height="512" rx="104" fill="#116149"/>
+  <circle cx="256" cy="256" r="184" fill="#e7f5ef"/>
+  <path d="M160 332V176h116c38 0 70 28 70 64 0 25-15 47-38 58l54 34h-74l-45-29h-23v29h-60Zm60-79h51c13 0 24-8 24-20s-11-20-24-20h-51v40Z" fill="#116149"/>
+  <path d="M349 169h42v42h42v48h-42v42h-42v-42h-42v-48h42v-42Z" fill="#d6a93a"/>
+  <path d="M144 366h224" stroke="#116149" stroke-width="24" stroke-linecap="round"/>
+</svg>
+

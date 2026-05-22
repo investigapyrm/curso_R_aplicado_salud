@@ -1,0 +1,28 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Unidad 6 Material</title><link rel="stylesheet" href="../../css/styles.css"></head><body><main class="doc-page"><article class="doc-content"><h1>Material Unidad 6</h1><h2>Plantilla R Markdown</h2><div class="code-block"><pre><code>---
+title: "Análisis de datos de salud con R"
+author: "Tu nombre"
+output: html_document
+---
+
+```{r setup, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(broom)
+salud <- read.csv("data/salud_muestra.csv")
+```
+
+## Pregunta
+
+Escribe una pregunta simple y medible.
+
+## Resultados
+
+```{r}
+salud |>
+  group_by(diagnostico) |>
+  summarise(n = n(), glucosa_media = mean(glucosa_mg_dl))
+```
+
+## Conclusiones
+
+Redacta hallazgos y limitaciones.</code></pre></div><h2>Publicar en RPubs</h2><ol><li>Renderizar el documento a HTML en RStudio.</li><li>Usar el botón Publish.</li><li>Iniciar sesión o crear cuenta RPubs.</li><li>Copiar el enlace final y registrarlo en el aula.</li></ol><p><a class="btn" href="../../dashboard.html#unidades">Volver al aula</a></p></article></main></body></html>
+

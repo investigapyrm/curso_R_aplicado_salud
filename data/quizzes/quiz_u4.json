@@ -1,0 +1,31 @@
+{
+  "unidad": 4,
+  "titulo": "Inferencia básica",
+  "preguntas": [
+    {
+      "texto": "¿Qué expresa un intervalo de confianza?",
+      "opciones": ["Un rango plausible para un parámetro poblacional", "La certeza absoluta de una muestra", "La contraseña de la base", "El tamaño del archivo"],
+      "correcta": 0,
+      "explicacion": "El intervalo cuantifica incertidumbre alrededor de una estimación."
+    },
+    {
+      "texto": "¿Qué prueba se usa frecuentemente para asociación entre variables categóricas?",
+      "opciones": ["Chi-cuadrado", "Media aritmética", "read.csv", "geom_point"],
+      "correcta": 0,
+      "explicacion": "La prueba chi-cuadrado evalúa independencia entre categorías."
+    },
+    {
+      "texto": "En salud, ¿qué conviene reportar junto al p-valor?",
+      "opciones": ["Tamaño del efecto e intervalo de confianza", "Solo el color del gráfico", "La ruta local del archivo", "La cantidad de ventanas abiertas"],
+      "correcta": 0,
+      "explicacion": "El p-valor no reemplaza la magnitud ni la incertidumbre del efecto."
+    },
+    {
+      "texto": "¿Cuál es una interpretación prudente?",
+      "opciones": ["Los resultados sugieren evidencia, no causalidad automática", "Todo p menor a 0.05 prueba causalidad", "La muestra siempre representa a toda la población", "Los datos faltantes no importan"],
+      "correcta": 0,
+      "explicacion": "La inferencia debe reconocer diseño, sesgos y límites de los datos."
+    }
+  ]
+}
+

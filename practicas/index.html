@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prácticas guiadas | R aplicado a la salud</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <main class="doc-page">
+    <header class="doc-header">
+      <img src="../icons/logo-r-salud.svg" alt="R aplicado a la salud">
+      <div>
+        <strong>Prácticas guiadas</strong>
+        <p class="footer-note">Secuencia corta para ejecutar en RStudio</p>
+      </div>
+    </header>
+    <article class="doc-content">
+      <h1>Prácticas guiadas</h1>
+      <ol>
+        <li>Crear proyecto `curso_r_salud`.</li>
+        <li>Crear carpetas `data`, `scripts`, `figuras` y `reportes`.</li>
+        <li>Guardar el CSV del aula dentro de `data`.</li>
+        <li>Ejecutar un script por unidad.</li>
+        <li>Crear el reporte final y renderizar a HTML.</li>
+      </ol>
+      <h2>Plantilla mínima de reporte</h2>
+      <div class="code-block"><pre><code>---
+title: "Primer análisis de datos de salud con R"
+author: "Tu nombre"
+output: html_document
+---
+
+## Pregunta
+
+¿Cómo varía la glucosa según diagnóstico en la base de práctica?
+
+## Preparación
+
+```{r}
+library(tidyverse)
+salud <- read.csv("data/salud_muestra.csv")
+```
+
+## Resultados
+
+```{r}
+salud |>
+  group_by(diagnostico) |>
+  summarise(n = n(), glucosa_media = mean(glucosa_mg_dl))
+```
+
+## Interpretación
+
+Redacta dos párrafos con hallazgos, límites y próximos pasos.</code></pre></div>
+      <p><a class="btn" href="../dashboard.html">Volver al aula</a></p>
+    </article>
+  </main>
+</body>
+</html>
+

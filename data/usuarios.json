@@ -1,0 +1,17 @@
+[
+  {
+    "usuario": "estudiante",
+    "password": "r-salud",
+    "nombre": "Estudiante de prueba",
+    "rol": "estudiante",
+    "activo": true
+  },
+  {
+    "usuario": "docente",
+    "password": "docente-r",
+    "nombre": "Docente demo",
+    "rol": "docente",
+    "activo": true
+  }
+]
+

@@ -1,0 +1,13 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Unidad 5 Material</title><link rel="stylesheet" href="../../css/styles.css"></head><body><main class="doc-page"><article class="doc-content"><h1>Material Unidad 5</h1><h2>Regresión lineal</h2><div class="code-block"><pre><code>modelo_lineal <- lm(glucosa_mg_dl ~ edad + imc, data = salud)
+summary(modelo_lineal)</code></pre></div><h2>Regresión logística</h2><div class="code-block"><pre><code>salud <- salud |>
+  mutate(diabetes_probable = diagnostico == "Diabetes probable")
+
+modelo_logistico <- glm(
+  diabetes_probable ~ edad + imc + tabaquismo,
+  data = salud,
+  family = binomial
+)
+
+summary(modelo_logistico)
+broom::tidy(modelo_logistico, exponentiate = TRUE, conf.int = TRUE)</code></pre></div><p>Los odds ratio mayores a 1 sugieren aumento de odds; menores a 1 sugieren reducción, siempre bajo las limitaciones del modelo.</p><p><a class="btn" href="../../dashboard.html#unidades">Volver al aula</a></p></article></main></body></html>
+

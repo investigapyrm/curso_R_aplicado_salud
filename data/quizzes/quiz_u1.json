@@ -1,0 +1,31 @@
+{
+  "unidad": 1,
+  "titulo": "Instalación y primeros pasos",
+  "preguntas": [
+    {
+      "texto": "¿Cuál es el orden recomendado para preparar el entorno de trabajo?",
+      "opciones": ["Instalar R, instalar RStudio y crear un proyecto", "Abrir RPubs antes de instalar R", "Crear gráficos sin guardar scripts", "Instalar paquetes antes de instalar R"],
+      "correcta": 0,
+      "explicacion": "R es el motor de cálculo; RStudio organiza el trabajo y el proyecto mantiene archivos reproducibles."
+    },
+    {
+      "texto": "¿Para qué sirve un proyecto de RStudio?",
+      "opciones": ["Para ordenar scripts, datos y salidas en una carpeta de trabajo", "Para reemplazar la base de datos", "Para ejecutar código sin instalar R", "Para publicar automáticamente en revistas"],
+      "correcta": 0,
+      "explicacion": "El proyecto evita rutas confusas y facilita que otra persona reproduzca el análisis."
+    },
+    {
+      "texto": "¿Qué comando instala paquetes desde CRAN?",
+      "opciones": ["install.packages()", "library()", "read.csv()", "summary()"],
+      "correcta": 0,
+      "explicacion": "install.packages() instala; library() carga el paquete ya instalado."
+    },
+    {
+      "texto": "¿Qué archivo conviene usar para guardar instrucciones de análisis?",
+      "opciones": ["Un script .R o un documento .Rmd/.qmd", "Una imagen PNG", "Solo la consola", "Una captura de pantalla"],
+      "correcta": 0,
+      "explicacion": "El script o documento reproducible conserva el proceso analítico."
+    }
+  ]
+}
+

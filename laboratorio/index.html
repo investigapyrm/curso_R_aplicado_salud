@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laboratorio R | R aplicado a la salud</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <main class="doc-page">
+    <header class="doc-header">
+      <img src="../icons/logo-r-salud.svg" alt="R aplicado a la salud">
+      <div>
+        <strong>Laboratorio R</strong>
+        <p class="footer-note">Scripts base para trabajar con el dataset ficticio</p>
+      </div>
+    </header>
+    <article class="doc-content">
+      <h1>Laboratorio R</h1>
+      <p>Ejecuta estos bloques en RStudio dentro de un proyecto local.</p>
+
+      <h2>1. Preparar paquetes</h2>
+      <div class="code-block"><pre><code>install.packages(c("tidyverse", "janitor", "broom", "gtsummary"))
+library(tidyverse)
+library(janitor)
+library(broom)
+library(gtsummary)</code></pre></div>
+
+      <h2>2. Leer datos</h2>
+      <div class="code-block"><pre><code>salud <- read.csv("../data/datasets/salud_muestra.csv")
+glimpse(salud)
+tabyl(salud$diagnostico)</code></pre></div>
+
+      <h2>3. Preparar variables</h2>
+      <div class="code-block"><pre><code>salud <- salud |>
+  mutate(
+    sexo = factor(sexo),
+    diagnostico = factor(diagnostico),
+    tabaquismo = factor(tabaquismo),
+    actividad_fisica = factor(actividad_fisica),
+    diabetes_probable = diagnostico == "Diabetes probable"
+  )</code></pre></div>
+
+      <h2>4. Describir y graficar</h2>
+      <div class="code-block"><pre><code>salud |>
+  group_by(diagnostico) |>
+  summarise(
+    n = n(),
+    edad_media = mean(edad),
+    imc_media = mean(imc),
+    glucosa_media = mean(glucosa_mg_dl),
+    .groups = "drop"
+  )
+
+ggplot(salud, aes(x = diagnostico, y = glucosa_mg_dl, fill = diagnostico)) +
+  geom_boxplot(show.legend = FALSE) +
+  labs(
+    title = "Glucosa por diagnóstico",
+    x = "Diagnóstico",
+    y = "Glucosa (mg/dl)"
+  ) +
+  theme_minimal()</code></pre></div>
+
+      <h2>5. Modelo sencillo</h2>
+      <div class="code-block"><pre><code>modelo <- glm(
+  diabetes_probable ~ edad + imc + tabaquismo,
+  data = salud,
+  family = binomial
+)
+
+tidy(modelo, exponentiate = TRUE, conf.int = TRUE)</code></pre></div>
+
+      <p><a class="btn" href="../dashboard.html#laboratorio">Volver al aula</a></p>
+    </article>
+  </main>
+</body>
+</html>
+

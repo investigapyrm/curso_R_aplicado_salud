@@ -1,0 +1,31 @@
+{
+  "unidad": 3,
+  "titulo": "Descriptiva y visualización",
+  "preguntas": [
+    {
+      "texto": "¿Qué estadístico resume el centro de una variable numérica?",
+      "opciones": ["Media o mediana", "Color de fondo", "Nombre del archivo", "Ruta del proyecto"],
+      "correcta": 0,
+      "explicacion": "Media y mediana son medidas de tendencia central."
+    },
+    {
+      "texto": "¿Qué gráfico es útil para comparar glucosa entre diagnósticos?",
+      "opciones": ["Boxplot por grupo", "Captura de pantalla", "Tabla sin ordenar", "Logo del curso"],
+      "correcta": 0,
+      "explicacion": "El boxplot permite comparar distribución, mediana y posibles valores extremos."
+    },
+    {
+      "texto": "¿Qué paquete se usa ampliamente para gráficos en R?",
+      "opciones": ["ggplot2", "readxl", "base64enc", "renv"],
+      "correcta": 0,
+      "explicacion": "ggplot2 implementa una gramática de gráficos muy usada en análisis reproducible."
+    },
+    {
+      "texto": "¿Qué debe acompañar a una tabla descriptiva en salud?",
+      "opciones": ["Interpretación clínica breve y clara", "Solo código sin explicación", "Conclusiones no relacionadas", "Datos identificables"],
+      "correcta": 0,
+      "explicacion": "La tabla aporta valor cuando se interpreta en relación con la pregunta."
+    }
+  ]
+}
+

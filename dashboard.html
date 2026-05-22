@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>R aplicado a la salud | Aula virtual</title>
+  <meta name="description" content="Dashboard del curso autogestionado R aplicado a la salud.">
+  <meta name="theme-color" content="#116149">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="mobile-nav">
+    <select id="mobileSelect" aria-label="Navegación del aula"></select>
+  </div>
+
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Menú principal">
+      <div class="brand">
+        <img src="icons/logo-r-salud.svg" alt="R aplicado a la salud">
+        <div>
+          <strong>R aplicado a la salud</strong>
+          <span>Curso autogestionado</span>
+        </div>
+      </div>
+      <nav class="nav-list" id="navList"></nav>
+      <div class="sidebar-footer">
+        <strong>Meta final</strong><br>
+        Publicar un ensayo breve en RPubs con una pregunta de salud, análisis en R y conclusiones prudentes.
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1 id="pageTitle">Inicio</h1>
+          <p class="footer-note" id="pageSubtitle">Ruta de aprendizaje 100% autogestionada.</p>
+        </div>
+        <div class="user-chip">
+          <span id="userLabel">Usuario</span>
+          <button class="btn secondary small" id="logoutBtn" type="button">Salir</button>
+        </div>
+      </header>
+
+      <section class="section active" id="inicio" data-title="Inicio" data-subtitle="Resumen del curso y próximos pasos."></section>
+      <section class="section" id="ruta" data-title="Ruta del Curso" data-subtitle="Unidades, productos y criterios de avance."></section>
+      <section class="section" id="unidades" data-title="Unidades" data-subtitle="Contenidos, actividades y tareas por módulo."></section>
+      <section class="section" id="actividades" data-title="Actividades y Tareas" data-subtitle="Checklist autogestionado para completar el aula."></section>
+      <section class="section" id="cuestionarios" data-title="Cuestionarios" data-subtitle="Autoevaluaciones con retroalimentación inmediata."></section>
+      <section class="section" id="laboratorio" data-title="Laboratorio R" data-subtitle="Scripts base para practicar con datos de salud."></section>
+      <section class="section" id="proyecto" data-title="Proyecto RPubs" data-subtitle="Ensayo final publicable y reproducible."></section>
+      <section class="section" id="progreso" data-title="Progreso" data-subtitle="Avance local guardado en este navegador."></section>
+      <section class="section" id="administracion" data-title="Administración" data-subtitle="Herramientas locales para docentes y revisión."></section>
+      <section class="section" id="ayuda" data-title="Ayuda" data-subtitle="Guías rápidas, enlaces y solución de problemas."></section>
+    </main>
+  </div>
+
+  <script>
+    const COURSE = {
+      name: 'R aplicado a la salud',
+      version: '2026.05.22',
+      repo: 'https://github.com/investigapyrm/curso_R_aplicado_salud',
+      pages: 'https://investigapyrm.github.io/curso_R_aplicado_salud/',
+      rpubsReference: 'https://rpubs.com/diegomeza/inferencia_con_R',
+      dataset: 'data/datasets/salud_muestra.csv',
+      units: [
+        {
+          id: 1,
+          title: 'Instalación de R, RStudio y primeros pasos',
+          product: 'Entorno configurado y script inicial',
+          weeks: 'Semana 1',
+          focus: 'Preparar el espacio de trabajo y ejecutar comandos básicos sin miedo a la consola.',
+          contents: ['Qué es R y por qué usarlo en salud', 'Instalación de R y RStudio', 'Proyectos, scripts y paquetes', 'Primeros objetos, funciones y ayuda'],
+          activities: ['Instalar R y RStudio', 'Crear el proyecto curso_r_salud', 'Ejecutar un script de verificación', 'Guardar captura o nota de instalación'],
+          task: 'Subir o conservar un script llamado 01_instalacion.R con sesión, paquetes cargados y primer cálculo.',
+          links: ['unidades/unidad1/orientaciones.html', 'unidades/unidad1/material.html', 'unidades/unidad1/actividad.html', 'unidades/unidad1/tarea.html']
+        },
+        {
+          id: 2,
+          title: 'Datos de salud, ética y limpieza básica',
+          product: 'Dataset importado, revisado y documentado',
+          weeks: 'Semana 2',
+          focus: 'Entender una base de salud ficticia, reconocer variables y preparar datos para analizar.',
+          contents: ['Datos clínicos y datos epidemiológicos', 'Privacidad y anonimización', 'Importación de CSV', 'Valores faltantes, tipos de variable y recodificación'],
+          activities: ['Importar salud_muestra.csv', 'Crear un diccionario de variables', 'Revisar valores faltantes', 'Guardar una base limpia'],
+          task: 'Crear 02_limpieza.R con lectura, estructura, recodificación y exportación de datos limpios.',
+          links: ['unidades/unidad2/orientaciones.html', 'unidades/unidad2/material.html', 'unidades/unidad2/actividad.html', 'unidades/unidad2/tarea.html']
+        },
+        {
+          id: 3,
+          title: 'Descripción y visualización de datos clínicos',
+          product: 'Tabla descriptiva y gráficos con ggplot2',
+          weeks: 'Semana 3',
+          focus: 'Responder qué muestra la base antes de hacer inferencia.',
+          contents: ['Medidas de tendencia central y dispersión', 'Tablas por diagnóstico', 'Gráficos de barras, histogramas y boxplots', 'Lectura clínica de visualizaciones'],
+          activities: ['Calcular medias y proporciones', 'Construir tabla por diagnóstico', 'Crear tres gráficos', 'Escribir hallazgos en lenguaje simple'],
+          task: 'Crear 03_descriptiva.R y una imagen PNG de un gráfico principal.',
+          links: ['unidades/unidad3/orientaciones.html', 'unidades/unidad3/material.html', 'unidades/unidad3/actividad.html', 'unidades/unidad3/tarea.html']
+        },
+        {
+          id: 4,
+          title: 'Inferencia básica aplicada a salud',
+          product: 'Intervalos, pruebas y conclusiones prudentes',
+          weeks: 'Semana 4',
+          focus: 'Usar inferencia básica para comparar grupos sin sobreinterpretar resultados.',
+          contents: ['Muestras, población e incertidumbre', 'Intervalos de confianza', 'Prueba t y chi-cuadrado', 'Riesgo, odds ratio e interpretación'],
+          activities: ['Comparar glucosa entre grupos', 'Explorar tabaquismo y diagnóstico', 'Calcular un intervalo de confianza', 'Redactar limitaciones'],
+          task: 'Crear 04_inferencia.R con al menos dos pruebas y una interpretación breve.',
+          links: ['unidades/unidad4/orientaciones.html', 'unidades/unidad4/material.html', 'unidades/unidad4/actividad.html', 'unidades/unidad4/tarea.html']
+        },
+        {
+          id: 5,
+          title: 'Modelos sencillos para preguntas de salud',
+          product: 'Modelo lineal o logístico interpretado',
+          weeks: 'Semana 5',
+          focus: 'Construir modelos simples y leer coeficientes con criterio clínico.',
+          contents: ['Variable respuesta y explicativas', 'Regresión lineal para variables continuas', 'Regresión logística para respuesta binaria', 'Predicción, asociación y límites'],
+          activities: ['Definir una pregunta modelable', 'Ajustar glm binomial', 'Convertir coeficientes a odds ratio', 'Evaluar errores frecuentes'],
+          task: 'Crear 05_modelo.R con un modelo simple, tabla de coeficientes e interpretación.',
+          links: ['unidades/unidad5/orientaciones.html', 'unidades/unidad5/material.html', 'unidades/unidad5/actividad.html', 'unidades/unidad5/tarea.html']
+        },
+        {
+          id: 6,
+          title: 'Reporte reproducible y publicación en RPubs',
+          product: 'Ensayo HTML publicado',
+          weeks: 'Semana 6',
+          focus: 'Transformar el análisis en un informe breve, claro y publicable.',
+          contents: ['R Markdown y Quarto', 'Estructura IMRyD breve', 'Tablas y gráficos en un reporte', 'Publicación en RPubs y revisión final'],
+          activities: ['Crear reporte .Rmd o .qmd', 'Renderizar HTML', 'Revisar reproducibilidad', 'Publicar en RPubs'],
+          task: 'Publicar el ensayo final en RPubs y registrar el enlace en el checklist.',
+          links: ['unidades/unidad6/orientaciones.html', 'unidades/unidad6/material.html', 'unidades/unidad6/actividad.html', 'unidades/unidad6/tarea.html']
+        }
+      ]
+    };
+
+    const NAV = [
+      ['inicio', 'Inicio'],
+      ['ruta', 'Ruta del curso'],
+      ['unidades', 'Unidades'],
+      ['actividades', 'Actividades'],
+      ['cuestionarios', 'Cuestionarios'],
+      ['laboratorio', 'Laboratorio R'],
+      ['proyecto', 'Proyecto RPubs'],
+      ['progreso', 'Progreso'],
+      ['administracion', 'Administración'],
+      ['ayuda', 'Ayuda']
+    ];
+
+    const session = JSON.parse(sessionStorage.getItem('rSaludSession') || 'null');
+    if (!session) window.location.href = 'index.html';
+
+    const storageKey = `rSaludProgress:${session?.usuario || 'anon'}`;
+    const defaultProgress = {
+      checks: {},
+      quizResults: {},
+      rpubsUrl: '',
+      notes: ''
+    };
+    let progress = loadProgress();
+
+    function loadProgress() {
+      try {
+        return { ...defaultProgress, ...JSON.parse(localStorage.getItem(storageKey) || '{}') };
+      } catch (error) {
+        return { ...defaultProgress };
+      }
+    }
+
+    function saveProgress() {
+      localStorage.setItem(storageKey, JSON.stringify(progress));
+      renderStats();
+      renderProgress();
+    }
+
+    function getAllCheckIds() {
+      return COURSE.units.flatMap(unit => [
+        `u${unit.id}_material`,
+        `u${unit.id}_actividad`,
+        `u${unit.id}_tarea`,
+        `u${unit.id}_quiz`
+      ]);
+    }
+
+    function percentComplete() {
+      const ids = getAllCheckIds();
+      const done = ids.filter(id => progress.checks[id]).length;
+      return Math.round((done / ids.length) * 100);
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function initNavigation() {
+      const nav = document.getElementById('navList');
+      const mobile = document.getElementById('mobileSelect');
+      nav.innerHTML = '';
+      mobile.innerHTML = '';
+
+      NAV.forEach(([id, label]) => {
+        if (id === 'administracion' && !['docente', 'admin'].includes(session.rol)) return;
+
+        const btn = document.createElement('button');
+        btn.className = 'nav-btn';
+        btn.type = 'button';
+        btn.dataset.target = id;
+        btn.innerHTML = `<span class="nav-mark"></span><span>${label}</span>`;
+        btn.addEventListener('click', () => showSection(id));
+        nav.appendChild(btn);
+
+        const opt = document.createElement('option');
+        opt.value = id;
+        opt.textContent = label;
+        mobile.appendChild(opt);
+      });
+
+      mobile.addEventListener('change', event => showSection(event.target.value));
+    }
+
+    function showSection(id) {
+      if (!document.getElementById(id)) id = 'inicio';
+      document.querySelectorAll('.section').forEach(section => section.classList.toggle('active', section.id === id));
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.target === id));
+      document.getElementById('mobileSelect').value = id;
+      const section = document.getElementById(id);
+      document.getElementById('pageTitle').textContent = section.dataset.title;
+      document.getElementById('pageSubtitle').textContent = section.dataset.subtitle;
+      location.hash = id;
+    }
+
+    function renderStats() {
+      const complete = percentComplete();
+      const quizScores = Object.values(progress.quizResults).map(result => result.score);
+      const quizAvg = quizScores.length ? Math.round(quizScores.reduce((a, b) => a + b, 0) / quizScores.length) : 0;
+      const stats = document.getElementById('statsGrid');
+      if (!stats) return;
+      stats.innerHTML = `
+        <div class="stat-card"><span>Avance total</span><strong>${complete}%</strong></div>
+        <div class="stat-card"><span>Unidades</span><strong>${COURSE.units.length}</strong></div>
+        <div class="stat-card"><span>Quizzes rendidos</span><strong>${quizScores.length}/6</strong></div>
+        <div class="stat-card"><span>Promedio quiz</span><strong>${quizAvg}%</strong></div>
+      `;
+      document.getElementById('overallProgress').style.width = `${complete}%`;
+      document.getElementById('overallProgressLabel').textContent = `${complete}% completado`;
+    }
+
+    function renderHome() {
+      document.getElementById('inicio').innerHTML = `
+        <div class="grid two">
+          <div class="panel">
+            <span class="eyebrow">Primera idea del aula</span>
+            <h2>De cero a un ensayo publicado en RPubs</h2>
+            <p>
+              Este curso está pensado para estudiantes de medicina que necesitan aprender lo esencial
+              de R sin perderse en teoría de programación. Cada unidad produce una pieza del trabajo final.
+            </p>
+            <div class="progress-bar" aria-label="Avance total">
+              <div class="progress-fill" id="overallProgress"></div>
+            </div>
+            <p class="footer-note" id="overallProgressLabel">0% completado</p>
+            <div class="pill-row">
+              <a class="btn" href="guia_didactica/index.html">Abrir guía didáctica</a>
+              <a class="btn secondary" href="${COURSE.dataset}" download>Descargar dataset</a>
+            </div>
+          </div>
+          <div class="panel">
+            <h2>Cómo usar el aula</h2>
+            <ul>
+              <li>Lee la orientación de cada unidad.</li>
+              <li>Ejecuta el script R propuesto en el laboratorio.</li>
+              <li>Completa la actividad y la tarea.</li>
+              <li>Rinde el cuestionario y revisa la retroalimentación.</li>
+              <li>Al final, publica tu reporte HTML en RPubs.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="grid four" id="statsGrid" style="margin-top:16px"></div>
+        <div class="panel" style="margin-top:16px">
+          <h2>Producto final</h2>
+          <p>
+            Un informe breve con pregunta de salud, descripción del dataset, análisis en R,
+            dos gráficos, una prueba o modelo sencillo, interpretación y limitaciones.
+          </p>
+        </div>
+      `;
+    }
+
+    function renderRoute() {
+      document.getElementById('ruta').innerHTML = `
+        <div class="panel">
+          <h2>Mapa curricular</h2>
+          <p>Cada semana agrega una pieza al reporte final. La evaluación es formativa y autocorregible.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Unidad</th><th>Foco</th><th>Producto</th><th>Evidencia</th></tr>
+              </thead>
+              <tbody>
+                ${COURSE.units.map(unit => `
+                  <tr>
+                    <td><strong>${unit.id}. ${unit.title}</strong><br><span class="pill">${unit.weeks}</span></td>
+                    <td>${unit.focus}</td>
+                    <td>${unit.product}</td>
+                    <td>${unit.task}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderUnits() {
+      document.getElementById('unidades').innerHTML = `
+        <div class="grid two">
+          ${COURSE.units.map(unit => `
+            <article class="unit-card">
+              <div class="unit-head">
+                <div>
+                  <span class="unit-number">${unit.id}</span>
+                  <h3>${unit.title}</h3>
+                  <p>${unit.focus}</p>
+                </div>
+                <span class="pill warn">${unit.weeks}</span>
+              </div>
+              <div>
+                <strong>Contenidos</strong>
+                <ul>${unit.contents.map(item => `<li>${item}</li>`).join('')}</ul>
+              </div>
+              <div>
+                <strong>Recursos</strong>
+                <div class="pill-row" style="margin-top:10px">
+                  <a class="btn small secondary" href="${unit.links[0]}">Orientaciones</a>
+                  <a class="btn small secondary" href="${unit.links[1]}">Material</a>
+                  <a class="btn small secondary" href="${unit.links[2]}">Actividad</a>
+                  <a class="btn small secondary" href="${unit.links[3]}">Tarea</a>
+                </div>
+              </div>
+            </article>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function renderActivities() {
+      document.getElementById('actividades').innerHTML = `
+        <div class="grid two">
+          ${COURSE.units.map(unit => `
+            <article class="activity-card">
+              <h3>Unidad ${unit.id}: ${unit.title}</h3>
+              <p>${unit.task}</p>
+              <ul class="checklist">
+                <li><label><input type="checkbox" data-check="u${unit.id}_material"> Leí el material y orientaciones.</label></li>
+                <li><label><input type="checkbox" data-check="u${unit.id}_actividad"> Completé la práctica guiada.</label></li>
+                <li><label><input type="checkbox" data-check="u${unit.id}_tarea"> Guardé la tarea o evidencia local.</label></li>
+                <li><label><input type="checkbox" data-check="u${unit.id}_quiz"> Rindí el cuestionario de la unidad.</label></li>
+              </ul>
+            </article>
+          `).join('')}
+        </div>
+      `;
+      bindChecks();
+    }
+
+    function bindChecks() {
+      document.querySelectorAll('[data-check]').forEach(input => {
+        input.checked = Boolean(progress.checks[input.dataset.check]);
+        input.addEventListener('change', event => {
+          progress.checks[event.target.dataset.check] = event.target.checked;
+          saveProgress();
+        });
+      });
+    }
+
+    function renderQuizzes() {
+      document.getElementById('cuestionarios').innerHTML = `
+        <div class="grid two">
+          ${COURSE.units.map(unit => {
+            const result = progress.quizResults[`u${unit.id}`];
+            return `
+              <article class="quiz-card" id="quizCard${unit.id}">
+                <h3>Quiz Unidad ${unit.id}</h3>
+                <p>${unit.title}</p>
+                <div class="pill-row">
+                  <span class="pill ${result ? 'info' : ''}">${result ? `Último resultado: ${result.score}%` : 'Pendiente'}</span>
+                </div>
+                <button class="btn small" type="button" onclick="startQuiz(${unit.id})">Iniciar quiz</button>
+                <div id="quizMount${unit.id}"></div>
+              </article>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    async function startQuiz(unitId) {
+      const mount = document.getElementById(`quizMount${unitId}`);
+      mount.innerHTML = '<div class="status-box">Cargando preguntas...</div>';
+      try {
+        const response = await fetch(`data/quizzes/quiz_u${unitId}.json`, { cache: 'no-store' });
+        if (!response.ok) throw new Error('No se pudo cargar el cuestionario');
+        const quiz = await response.json();
+        mount.innerHTML = `
+          <form id="quizForm${unitId}">
+            ${quiz.preguntas.map((question, qIndex) => `
+              <fieldset class="panel" style="box-shadow:none;margin-top:14px">
+                <legend><strong>${qIndex + 1}. ${question.texto}</strong></legend>
+                <div class="quiz-options">
+                  ${question.opciones.map((option, oIndex) => `
+                    <label>
+                      <input type="radio" name="q${qIndex}" value="${oIndex}" required>
+                      <span>${option}</span>
+                    </label>
+                  `).join('')}
+                </div>
+              </fieldset>
+            `).join('')}
+            <button class="btn small" type="submit">Corregir</button>
+          </form>
+          <div class="quiz-feedback" id="quizFeedback${unitId}"></div>
+        `;
+
+        document.getElementById(`quizForm${unitId}`).addEventListener('submit', event => {
+          event.preventDefault();
+          let correct = 0;
+          const explanations = quiz.preguntas.map((question, qIndex) => {
+            const selected = Number(new FormData(event.target).get(`q${qIndex}`));
+            const ok = selected === question.correcta;
+            if (ok) correct += 1;
+            return `<li><strong>Pregunta ${qIndex + 1}:</strong> ${ok ? 'Correcta' : 'Revisar'}. ${question.explicacion}</li>`;
+          });
+          const score = Math.round((correct / quiz.preguntas.length) * 100);
+          progress.quizResults[`u${unitId}`] = { score, date: new Date().toISOString() };
+          progress.checks[`u${unitId}_quiz`] = true;
+          saveProgress();
+          const feedback = document.getElementById(`quizFeedback${unitId}`);
+          feedback.className = 'quiz-feedback visible';
+          feedback.innerHTML = `
+            <h3>Resultado: ${score}%</h3>
+            <p>${score >= 70 ? 'Buen avance. Puedes continuar con la siguiente unidad.' : 'Conviene repasar el material y volver a intentar.'}</p>
+            <ul>${explanations.join('')}</ul>
+          `;
+          document.getElementById(`quizCard${unitId}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      } catch (error) {
+        mount.innerHTML = '<div class="status-box error">No se pudo cargar el cuestionario. Revisa la conexión o los archivos JSON.</div>';
+      }
+    }
+
+    function renderLab() {
+      const script = `# Script base del curso R aplicado a la salud
+install.packages(c("tidyverse", "janitor", "gtsummary", "broom"))
+
+library(tidyverse)
+library(janitor)
+library(broom)
+
+salud <- read.csv("data/datasets/salud_muestra.csv")
+glimpse(salud)
+
+salud <- salud |>
+  mutate(
+    sexo = factor(sexo),
+    diagnostico = factor(diagnostico),
+    tabaquismo = factor(tabaquismo),
+    diabetes_probable = diagnostico == "Diabetes probable"
+  )
+
+salud |>
+  group_by(diagnostico) |>
+  summarise(
+    n = n(),
+    edad_media = mean(edad),
+    glucosa_media = mean(glucosa_mg_dl),
+    .groups = "drop"
+  )
+
+ggplot(salud, aes(x = diagnostico, y = glucosa_mg_dl, fill = diagnostico)) +
+  geom_boxplot(show.legend = FALSE) +
+  labs(x = "Diagnóstico", y = "Glucosa (mg/dl)", title = "Glucosa por diagnóstico") +
+  theme_minimal()
+
+modelo <- glm(diabetes_probable ~ edad + imc + tabaquismo, data = salud, family = binomial)
+tidy(modelo, exponentiate = TRUE, conf.int = TRUE)`;
+
+      document.getElementById('laboratorio').innerHTML = `
+        <div class="grid two">
+          <div class="panel">
+            <h2>Laboratorio R</h2>
+            <p>Abre RStudio, crea un proyecto y copia este script para empezar. El dataset está disponible dentro del aula y también puede descargarse.</p>
+            <div class="pill-row">
+              <a class="btn" href="laboratorio/index.html">Abrir laboratorio completo</a>
+              <a class="btn secondary" href="${COURSE.dataset}" download>Descargar CSV</a>
+            </div>
+          </div>
+          <div class="panel">
+            <h2>Paquetes base</h2>
+            <p>El curso usa principalmente <code>tidyverse</code>, <code>janitor</code>, <code>gtsummary</code> y <code>broom</code>. Todo el análisis está planteado en R.</p>
+          </div>
+        </div>
+        <div class="code-block">
+          <button class="btn small warn" type="button" onclick="copyCode(this)">Copiar</button>
+          <pre><code>${escapeHtml(script)}</code></pre>
+        </div>
+      `;
+    }
+
+    function renderProject() {
+      document.getElementById('proyecto').innerHTML = `
+        <div class="grid two">
+          <div class="panel">
+            <h2>Consigna del ensayo final</h2>
+            <p>
+              Redacta un informe HTML de 800 a 1200 palabras con una pregunta de salud,
+              análisis en R y conclusiones prudentes. Publica el resultado en RPubs.
+            </p>
+            <ol>
+              <li>Pregunta: una comparación o asociación simple.</li>
+              <li>Métodos: dataset, variables y funciones R usadas.</li>
+              <li>Resultados: tabla descriptiva, dos gráficos y una prueba o modelo.</li>
+              <li>Discusión: interpretación, limitaciones y uso responsable.</li>
+              <li>Publicación: enlace RPubs funcional.</li>
+            </ol>
+          </div>
+          <div class="panel">
+            <h2>Registrar enlace RPubs</h2>
+            <div class="form-field">
+              <label for="rpubsUrl">URL publicada</label>
+              <input id="rpubsUrl" placeholder="https://rpubs.com/usuario/reporte" value="${escapeHtml(progress.rpubsUrl || '')}">
+            </div>
+            <button class="btn small" type="button" id="saveRpubs">Guardar enlace</button>
+            <p class="footer-note">Referencia inspiradora: <a href="${COURSE.rpubsReference}" target="_blank" rel="noopener">Inferencia Estadística con R</a>.</p>
+          </div>
+        </div>
+      `;
+      document.getElementById('saveRpubs').addEventListener('click', () => {
+        progress.rpubsUrl = document.getElementById('rpubsUrl').value.trim();
+        saveProgress();
+      });
+    }
+
+    function renderProgress() {
+      const total = percentComplete();
+      const rows = COURSE.units.map(unit => {
+        const items = ['material', 'actividad', 'tarea', 'quiz'];
+        const done = items.filter(item => progress.checks[`u${unit.id}_${item}`]).length;
+        const quiz = progress.quizResults[`u${unit.id}`];
+        return `
+          <tr>
+            <td>Unidad ${unit.id}</td>
+            <td>${unit.title}</td>
+            <td>${done}/4</td>
+            <td>${quiz ? `${quiz.score}%` : 'Pendiente'}</td>
+          </tr>
+        `;
+      }).join('');
+
+      document.getElementById('progreso').innerHTML = `
+        <div class="panel">
+          <h2>Avance local: ${total}%</h2>
+          <div class="progress-bar"><div class="progress-fill" style="width:${total}%"></div></div>
+          <p class="footer-note">Este avance queda guardado solamente en este navegador.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Unidad</th><th>Tema</th><th>Checklist</th><th>Quiz</th></tr></thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAdmin() {
+      document.getElementById('administracion').innerHTML = `
+        <div class="grid two">
+          <div class="admin-box">
+            <h2>Resumen técnico</h2>
+            <p>Versión: ${COURSE.version}</p>
+            <p>Repositorio: <a href="${COURSE.repo}" target="_blank" rel="noopener">${COURSE.repo}</a></p>
+            <p>GitHub Pages esperado: <a href="${COURSE.pages}" target="_blank" rel="noopener">${COURSE.pages}</a></p>
+          </div>
+          <div class="admin-box">
+            <h2>Exportar progreso</h2>
+            <p>Descarga un JSON local para revisar avance del usuario actual.</p>
+            <button class="btn small" type="button" onclick="downloadProgress()">Descargar JSON</button>
+            <button class="btn small secondary" type="button" onclick="resetProgress()">Reiniciar progreso</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderHelp() {
+      document.getElementById('ayuda').innerHTML = `
+        <div class="grid two">
+          <div class="panel">
+            <h2>Documentación</h2>
+            <div class="resource-row">
+              <div><strong>Manual de usuario</strong><p>Uso del aula, login, progreso y publicación.</p></div>
+              <a class="btn small secondary" href="docs/manual_usuario.md">Abrir</a>
+            </div>
+            <div class="resource-row">
+              <div><strong>Manual técnico</strong><p>Estructura de archivos y publicación en GitHub Pages.</p></div>
+              <a class="btn small secondary" href="docs/manual_tecnico.md">Abrir</a>
+            </div>
+            <div class="resource-row">
+              <div><strong>Diccionario de datos</strong><p>Variables del dataset ficticio de salud.</p></div>
+              <a class="btn small secondary" href="docs/diccionario_datos.md">Abrir</a>
+            </div>
+          </div>
+          <div class="panel">
+            <h2>Problemas comunes</h2>
+            <ul>
+              <li>Si el login falla, prueba <code>estudiante</code> / <code>r-salud</code>.</li>
+              <li>Si no carga un quiz, verifica que el archivo JSON esté publicado.</li>
+              <li>Si RPubs no publica, revisa que el reporte HTML haya sido generado desde RStudio.</li>
+              <li>Si el avance desaparece, probablemente se borró el almacenamiento local del navegador.</li>
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+
+    function copyCode(button) {
+      const code = button.parentElement.querySelector('code').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        button.textContent = 'Copiado';
+        setTimeout(() => button.textContent = 'Copiar', 1400);
+      });
+    }
+
+    function downloadProgress() {
+      const blob = new Blob([JSON.stringify(progress, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `progreso_${session.usuario}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function resetProgress() {
+      if (!confirm('¿Reiniciar el progreso local de este usuario?')) return;
+      progress = { ...defaultProgress };
+      saveProgress();
+      renderAll();
+    }
+
+    function renderAll() {
+      renderHome();
+      renderRoute();
+      renderUnits();
+      renderActivities();
+      renderQuizzes();
+      renderLab();
+      renderProject();
+      renderProgress();
+      renderAdmin();
+      renderHelp();
+      renderStats();
+    }
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      sessionStorage.removeItem('rSaludSession');
+      window.location.href = 'index.html';
+    });
+
+    document.getElementById('userLabel').textContent = `${session.nombre} · ${session.rol}`;
+    initNavigation();
+    renderAll();
+    showSection(location.hash?.replace('#', '') || 'inicio');
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "unidad": 5,
+  "titulo": "Modelos sencillos",
+  "preguntas": [
+    {
+      "texto": "¿Qué modelo es natural para una variable respuesta binaria?",
+      "opciones": ["Regresión logística", "Media simple", "Histograma", "RStudio Project"],
+      "correcta": 0,
+      "explicacion": "La regresión logística estima probabilidades u odds para resultados binarios."
+    },
+    {
+      "texto": "¿Qué significa ajustar un modelo con glm(..., family = binomial)?",
+      "opciones": ["Estimar una regresión logística en R", "Instalar RStudio", "Crear un PDF sin datos", "Calcular solo una mediana"],
+      "correcta": 0,
+      "explicacion": "glm con familia binomial es la forma estándar de ajustar modelos logísticos en R base."
+    },
+    {
+      "texto": "¿Qué precaución es clave al comunicar modelos clínicos simples?",
+      "opciones": ["Separar asociación, predicción e interpretación causal", "Prometer diagnóstico definitivo", "Ocultar variables usadas", "Eliminar resultados no significativos"],
+      "correcta": 0,
+      "explicacion": "Un modelo sencillo ayuda a explorar relaciones, pero no reemplaza juicio clínico ni diseño causal."
+    },
+    {
+      "texto": "¿Qué función resume coeficientes de un modelo en R?",
+      "opciones": ["summary()", "setwd()", "write.csv()", "install.packages()"],
+      "correcta": 0,
+      "explicacion": "summary(modelo) muestra estimaciones, errores estándar y pruebas del modelo."
+    }
+  ]
+}
+

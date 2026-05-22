@@ -1,0 +1,31 @@
+{
+  "unidad": 2,
+  "titulo": "Datos de salud y limpieza",
+  "preguntas": [
+    {
+      "texto": "¿Cuál es una buena práctica antes de analizar datos de salud?",
+      "opciones": ["Revisar diccionario de datos, variables y valores faltantes", "Eliminar columnas sin mirarlas", "Cambiar valores para que el resultado sea significativo", "Publicar la base cruda con datos identificables"],
+      "correcta": 0,
+      "explicacion": "La revisión inicial protege la calidad del análisis y la privacidad."
+    },
+    {
+      "texto": "¿Qué función muestra una vista rápida de las primeras filas?",
+      "opciones": ["head()", "install.packages()", "mean()", "hist()"],
+      "correcta": 0,
+      "explicacion": "head() permite inspeccionar la estructura inicial sin imprimir toda la tabla."
+    },
+    {
+      "texto": "¿Qué representa NA en R?",
+      "opciones": ["Un valor faltante", "Un valor duplicado", "Una variable categórica", "Una contraseña"],
+      "correcta": 0,
+      "explicacion": "NA indica ausencia de dato y debe ser tratado explícitamente."
+    },
+    {
+      "texto": "¿Qué principio ético aplica a una base de pacientes?",
+      "opciones": ["Minimizar datos identificables y proteger privacidad", "Compartir nombres completos para validar resultados", "Usar cualquier dato si el gráfico se ve bien", "Ignorar consentimiento si la muestra es pequeña"],
+      "correcta": 0,
+      "explicacion": "El análisis de salud exige confidencialidad y uso responsable de la información."
+    }
+  ]
+}
+

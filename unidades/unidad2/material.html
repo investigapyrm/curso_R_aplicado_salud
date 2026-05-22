@@ -1,0 +1,7 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Unidad 2 Material</title><link rel="stylesheet" href="../../css/styles.css"></head><body><main class="doc-page"><article class="doc-content"><h1>Material Unidad 2</h1><h2>Importar datos</h2><div class="code-block"><pre><code>library(tidyverse)
+salud <- read.csv("data/salud_muestra.csv")
+glimpse(salud)
+head(salud)</code></pre></div><h2>Revisar calidad</h2><div class="code-block"><pre><code>colSums(is.na(salud))
+table(salud$diagnostico)
+summary(salud[, c("edad", "imc", "glucosa_mg_dl")])</code></pre></div><h2>Ética mínima</h2><p>Si los datos fueran reales, antes de publicar habría que retirar identificadores, revisar permisos y reportar resultados agregados.</p><p><a class="btn" href="../../dashboard.html#unidades">Volver al aula</a></p></article></main></body></html>
+

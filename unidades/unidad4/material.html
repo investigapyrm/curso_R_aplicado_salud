@@ -1,0 +1,4 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Unidad 4 Material</title><link rel="stylesheet" href="../../css/styles.css"></head><body><main class="doc-page"><article class="doc-content"><h1>Material Unidad 4</h1><h2>Intervalo de confianza para la media</h2><div class="code-block"><pre><code>t.test(salud$glucosa_mg_dl)</code></pre></div><h2>Comparación de medias</h2><div class="code-block"><pre><code>t.test(glucosa_mg_dl ~ tabaquismo, data = salud)</code></pre></div><h2>Asociación entre categorías</h2><div class="code-block"><pre><code>tabla <- table(salud$tabaquismo, salud$diagnostico)
+tabla
+chisq.test(tabla)</code></pre></div><p>Interpretar siempre con cautela porque el dataset es pequeño y ficticio.</p><p><a class="btn" href="../../dashboard.html#unidades">Volver al aula</a></p></article></main></body></html>
+

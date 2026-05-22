@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>R aplicado a la salud | Login</title>
+  <meta name="description" content="Aula virtual autogestionada para aprender R con datos de salud.">
+  <meta name="theme-color" content="#116149">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="login-page">
+  <main class="login-shell">
+    <section class="login-hero" aria-label="Presentación del curso">
+      <div class="brand">
+        <img src="icons/logo-r-salud.svg" alt="R aplicado a la salud">
+        <div>
+          <strong>R aplicado a la salud</strong>
+          <span>Aula virtual autogestionada</span>
+        </div>
+      </div>
+
+      <div class="hero-copy">
+        <span class="eyebrow">Medicina · datos · publicación</span>
+        <h1>Aprender R desde cero con datos de salud</h1>
+        <p>
+          Un recorrido guiado para instalar R, ordenar datos clínicos ficticios,
+          crear gráficos, aplicar inferencia básica y publicar un primer ensayo
+          reproducible en RPubs.
+        </p>
+        <div class="hero-steps" aria-label="Ruta de aprendizaje">
+          <div class="hero-step">
+            <strong>1. Preparar</strong>
+            <span>Instalación, RStudio, proyectos y paquetes esenciales.</span>
+          </div>
+          <div class="hero-step">
+            <strong>2. Analizar</strong>
+            <span>Datos de salud, descriptiva, gráficos e inferencia.</span>
+          </div>
+          <div class="hero-step">
+            <strong>3. Publicar</strong>
+            <span>Reporte reproducible, revisión final y RPubs.</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="footer-note">
+        Primera versión curricular: 2026-05-22. Datos de práctica ficticios y sin información personal real.
+      </p>
+    </section>
+
+    <section class="login-panel" aria-label="Acceso">
+      <h2>Ingresar al aula</h2>
+      <p>Usa las credenciales de práctica o carga usuarios propios en <code>data/usuarios.json</code>.</p>
+
+      <form id="loginForm" novalidate>
+        <div class="form-field">
+          <label for="usuario">Usuario</label>
+          <input id="usuario" name="usuario" autocomplete="username" required placeholder="estudiante">
+        </div>
+        <div class="form-field">
+          <label for="password">Contraseña</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required placeholder="r-salud">
+        </div>
+        <button class="btn" type="submit">Ingresar</button>
+      </form>
+
+      <div class="status-box" id="loginStatus">
+        Acceso demo: <strong>estudiante</strong> / <strong>r-salud</strong>. Docente demo: <strong>docente</strong> / <strong>docente-r</strong>.
+      </div>
+
+      <button class="btn secondary" id="installBtn" type="button" hidden>Instalar aula</button>
+    </section>
+  </main>
+
+  <script>
+    const fallbackUsers = [
+      { usuario: 'estudiante', password: 'r-salud', nombre: 'Estudiante de prueba', rol: 'estudiante', activo: true },
+      { usuario: 'docente', password: 'docente-r', nombre: 'Docente demo', rol: 'docente', activo: true }
+    ];
+
+    const statusBox = document.getElementById('loginStatus');
+    const form = document.getElementById('loginForm');
+
+    async function loadUsers() {
+      try {
+        const response = await fetch('data/usuarios.json', { cache: 'no-store' });
+        if (!response.ok) throw new Error('No se pudo leer usuarios.json');
+        return await response.json();
+      } catch (error) {
+        return fallbackUsers;
+      }
+    }
+
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      const usuario = form.usuario.value.trim();
+      const password = form.password.value;
+      const users = await loadUsers();
+      const found = users.find(user => user.usuario === usuario && user.password === password && user.activo);
+
+      if (!found) {
+        statusBox.className = 'status-box error';
+        statusBox.textContent = 'Usuario o contraseña incorrectos. Verifica las credenciales de práctica o el archivo data/usuarios.json.';
+        return;
+      }
+
+      const session = {
+        usuario: found.usuario,
+        nombre: found.nombre,
+        rol: found.rol,
+        startedAt: new Date().toISOString()
+      };
+      sessionStorage.setItem('rSaludSession', JSON.stringify(session));
+      localStorage.setItem('rSaludLastUser', found.usuario);
+      statusBox.className = 'status-box ok';
+      statusBox.textContent = 'Acceso correcto. Cargando aula...';
+      window.location.href = 'dashboard.html';
+    });
+
+    const lastUser = localStorage.getItem('rSaludLastUser');
+    if (lastUser) {
+      document.getElementById('usuario').value = lastUser;
+    }
+
+    let installPrompt = null;
+    const installBtn = document.getElementById('installBtn');
+    window.addEventListener('beforeinstallprompt', event => {
+      event.preventDefault();
+      installPrompt = event;
+      installBtn.hidden = false;
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (!installPrompt) return;
+      installPrompt.prompt();
+      await installPrompt.userChoice;
+      installPrompt = null;
+      installBtn.hidden = true;
+    });
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
+    }
+  </script>
+</body>
+</html>
+

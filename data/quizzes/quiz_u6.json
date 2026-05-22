@@ -1,0 +1,31 @@
+{
+  "unidad": 6,
+  "titulo": "Reporte y RPubs",
+  "preguntas": [
+    {
+      "texto": "¿Qué ventaja tiene un reporte reproducible?",
+      "opciones": ["Integra datos, código, resultados y narrativa", "Oculta el método usado", "Evita revisar los datos", "Funciona solo sin internet"],
+      "correcta": 0,
+      "explicacion": "Un reporte reproducible permite auditar y actualizar el análisis."
+    },
+    {
+      "texto": "¿Qué formato es apropiado para publicar en RPubs desde RStudio?",
+      "opciones": ["HTML generado desde R Markdown o Quarto", "Archivo temporal sin guardar", "Foto de la pantalla", "Contraseña en texto plano"],
+      "correcta": 0,
+      "explicacion": "RPubs publica documentos HTML generados por R Markdown/Quarto."
+    },
+    {
+      "texto": "¿Qué debe incluir el ensayo final?",
+      "opciones": ["Pregunta, métodos, resultados, interpretación y limitaciones", "Solo una tabla sin título", "Datos personales de pacientes", "Código sin contexto"],
+      "correcta": 0,
+      "explicacion": "La estructura científica básica ayuda a comunicar hallazgos de forma clara."
+    },
+    {
+      "texto": "¿Qué práctica mejora la transparencia del análisis?",
+      "opciones": ["Mostrar código relevante y describir decisiones", "Cambiar datos sin explicar", "Eliminar limitaciones", "Copiar gráficos sin fuente"],
+      "correcta": 0,
+      "explicacion": "La transparencia permite que otra persona entienda y evalúe el trabajo."
+    }
+  ]
+}
+

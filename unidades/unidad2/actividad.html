@@ -1,0 +1,5 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Unidad 2 Actividad</title><link rel="stylesheet" href="../../css/styles.css"></head><body><main class="doc-page"><article class="doc-content"><h1>Actividad Unidad 2</h1><ol><li>Descarga `salud_muestra.csv` desde el aula.</li><li>Guárdalo en la carpeta `data` de tu proyecto.</li><li>Importa la base y revisa estructura con `glimpse()`.</li><li>Convierte `sexo`, `diagnostico`, `tabaquismo` y `actividad_fisica` en factores.</li><li>Guarda `salud_limpia.csv`.</li></ol><div class="code-block"><pre><code>salud_limpia <- salud |>
+  mutate(across(c(sexo, diagnostico, tabaquismo, actividad_fisica), factor))
+
+write.csv(salud_limpia, "data/salud_limpia.csv", row.names = FALSE)</code></pre></div><p><a class="btn" href="../../dashboard.html#actividades">Volver al checklist</a></p></article></main></body></html>
+

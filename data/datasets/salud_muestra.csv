@@ -1,0 +1,32 @@
+id,edad,sexo,peso_kg,talla_cm,imc,presion_sistolica,presion_diastolica,glucosa_mg_dl,colesterol_mg_dl,tabaquismo,actividad_fisica,diagnostico,seguimiento
+1,22,F,58,162,22.1,108,70,84,165,No,Alta,Sano,Control anual
+2,45,M,86,174,28.4,132,84,101,210,Si,Media,Riesgo cardiometabolico,Consejeria
+3,63,F,72,158,28.8,148,92,129,238,No,Baja,Diabetes probable,Derivar
+4,38,F,64,166,23.2,116,76,91,178,No,Alta,Sano,Control anual
+5,57,M,92,171,31.5,154,96,142,251,Si,Baja,Diabetes probable,Derivar
+6,29,F,61,160,23.8,112,72,88,169,No,Media,Sano,Control anual
+7,51,M,79,168,28.0,138,86,112,219,No,Baja,Riesgo cardiometabolico,Consejeria
+8,34,F,69,164,25.7,122,78,96,188,No,Media,Sano,Control anual
+9,70,M,83,169,29.1,160,98,151,260,Si,Baja,Diabetes probable,Derivar
+10,41,F,76,161,29.3,130,82,104,202,No,Baja,Riesgo cardiometabolico,Consejeria
+11,26,M,73,178,23.0,118,74,89,171,No,Alta,Sano,Control anual
+12,62,F,80,155,33.3,146,90,135,232,No,Baja,Diabetes probable,Derivar
+13,49,M,88,176,28.4,136,84,110,215,Si,Media,Riesgo cardiometabolico,Consejeria
+14,31,F,55,159,21.8,106,68,82,158,No,Alta,Sano,Control anual
+15,55,F,77,163,29.0,142,88,118,225,No,Baja,Riesgo cardiometabolico,Consejeria
+16,43,M,90,180,27.8,128,80,99,196,No,Media,Sano,Control anual
+17,67,F,74,157,30.0,152,94,146,244,No,Baja,Diabetes probable,Derivar
+18,36,M,82,173,27.4,124,78,94,182,No,Media,Sano,Control anual
+19,59,M,95,172,32.1,158,96,153,268,Si,Baja,Diabetes probable,Derivar
+20,47,F,70,165,25.7,134,84,108,207,No,Media,Riesgo cardiometabolico,Consejeria
+21,24,F,52,158,20.8,102,66,78,150,No,Alta,Sano,Control anual
+22,53,M,84,170,29.1,140,88,121,230,Si,Baja,Riesgo cardiometabolico,Consejeria
+23,65,F,81,156,33.3,150,92,138,241,No,Baja,Diabetes probable,Derivar
+24,39,M,77,175,25.1,120,76,92,176,No,Alta,Sano,Control anual
+25,44,F,68,162,25.9,126,80,100,192,No,Media,Sano,Control anual
+26,61,M,89,168,31.5,156,94,149,255,Si,Baja,Diabetes probable,Derivar
+27,28,F,60,167,21.5,110,70,85,160,No,Alta,Sano,Control anual
+28,50,F,79,160,30.9,144,90,124,226,No,Baja,Riesgo cardiometabolico,Consejeria
+29,33,M,75,181,22.9,116,74,87,168,No,Alta,Sano,Control anual
+30,58,F,73,159,28.9,138,86,115,218,No,Media,Riesgo cardiometabolico,Consejeria
+
