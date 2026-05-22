@@ -10,6 +10,8 @@
 - Se actualizo version de app/cache a `2026.05.22.3`.
 - Validaciones ejecutadas: `node --check js/app.js`, parseo JSON de `data/course.json`, `node --check sw.js`, HTTP 200 en `http://localhost:8765/dashboard.html`.
 - Validacion visual local con Playwright: capturas QA de Inicio, Unidad activa, Practicas, Flashcards y Clasificador renderizaron selectores esperados.
+- Commit publicado: `eb0d016 Enriquecer aula R salud tipo curso ejemplo`.
+- GitHub Pages verificado: `dashboard.html`, `js/app.js`, `data/course.json` y `assets/pedagogical/edu_u1s2_rstudio.svg` responden 200 con el contenido nuevo.
 - Pendiente externo: el Apps Script sigue requiriendo permiso efectivo sobre la planilla para que el backend remoto deje de responder acceso denegado.
 
 ## 2026-05-22 - Reintento de publicacion
