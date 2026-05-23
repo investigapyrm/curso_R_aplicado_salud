@@ -1,31 +1,16 @@
 {
   "unidad": 4,
-  "titulo": "Inferencia básica",
+  "titulo": "Limpieza y preparacion de datos clinicos",
   "preguntas": [
-    {
-      "texto": "¿Qué expresa un intervalo de confianza?",
-      "opciones": ["Un rango plausible para un parámetro poblacional", "La certeza absoluta de una muestra", "La contraseña de la base", "El tamaño del archivo"],
-      "correcta": 0,
-      "explicacion": "El intervalo cuantifica incertidumbre alrededor de una estimación."
-    },
-    {
-      "texto": "¿Qué prueba se usa frecuentemente para asociación entre variables categóricas?",
-      "opciones": ["Chi-cuadrado", "Media aritmética", "read.csv", "geom_point"],
-      "correcta": 0,
-      "explicacion": "La prueba chi-cuadrado evalúa independencia entre categorías."
-    },
-    {
-      "texto": "En salud, ¿qué conviene reportar junto al p-valor?",
-      "opciones": ["Tamaño del efecto e intervalo de confianza", "Solo el color del gráfico", "La ruta local del archivo", "La cantidad de ventanas abiertas"],
-      "correcta": 0,
-      "explicacion": "El p-valor no reemplaza la magnitud ni la incertidumbre del efecto."
-    },
-    {
-      "texto": "¿Cuál es una interpretación prudente?",
-      "opciones": ["Los resultados sugieren evidencia, no causalidad automática", "Todo p menor a 0.05 prueba causalidad", "La muestra siempre representa a toda la población", "Los datos faltantes no importan"],
-      "correcta": 0,
-      "explicacion": "La inferencia debe reconocer diseño, sesgos y límites de los datos."
-    }
+    { "texto": "mutate() en dplyr sirve para:", "opciones": ["Crear o modificar columnas", "Leer paginas web", "Publicar en RPubs", "Cambiar contrasenas"], "correcta": 0, "explicacion": "mutate es central para transformar variables." },
+    { "texto": "filter() sirve para:", "opciones": ["Seleccionar filas segun condiciones", "Seleccionar paquetes", "Calcular odds ratio", "Escribir YAML"], "correcta": 0, "explicacion": "filter mantiene filas que cumplen una condicion." },
+    { "texto": "select() sirve para:", "opciones": ["Seleccionar columnas", "Eliminar usuarios", "Crear graficos", "Medir p-valores"], "correcta": 0, "explicacion": "select trabaja sobre columnas." },
+    { "texto": "case_when() es util para:", "opciones": ["Crear categorias con multiples condiciones", "Instalar R", "Abrir Google Drive", "Publicar HTML"], "correcta": 0, "explicacion": "case_when permite reglas condicionales multiples." },
+    { "texto": "na_if(edad, 999) hace:", "opciones": ["Convierte el valor 999 en NA", "Elimina la columna edad", "Calcula la media", "Crea un grafico"], "correcta": 0, "explicacion": "na_if reemplaza un valor especifico por NA." },
+    { "texto": "El IMC se calcula como:", "opciones": ["peso kg / talla m al cuadrado", "talla / peso", "peso + talla", "edad / glucosa"], "correcta": 0, "explicacion": "La talla debe estar en metros." },
+    { "texto": "Por que documentar cada cambio?", "opciones": ["Para reproducibilidad y transparencia", "Para ocultar errores", "Para evitar escribir codigo", "Para cambiar resultados"], "correcta": 0, "explicacion": "La bitacora permite auditar decisiones." },
+    { "texto": "Una bitacora minima debe decir:", "opciones": ["Que se cambio, por que y cuantos casos afecto", "Solo el nombre del estudiante", "Un color de tabla", "La contrasena"], "correcta": 0, "explicacion": "Debe explicar decision y magnitud del cambio." },
+    { "texto": "Imputar significa:", "opciones": ["Reemplazar faltantes con valores estimados bajo criterio", "Borrar todo el dataset", "Instalar paquetes", "Publicar en RPubs"], "correcta": 0, "explicacion": "La imputacion debe justificarse." },
+    { "texto": "El entregable de la unidad es:", "opciones": ["Base limpia, script y bitacora", "Solo un histograma", "Un usuario nuevo", "Una pagina sin datos"], "correcta": 0, "explicacion": "La unidad cierra con datos preparados y trazabilidad." }
   ]
 }
-

@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="css/styles-template.css?v=20260522-7">
+    <link rel="stylesheet" href="css/styles-template.css?v=20260523-1">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
 </head>
@@ -63,29 +63,57 @@
                     <span class="nav-item-icon nav-unit-icon" style="background:var(--u1-color)">
                       <img src="icons/unit-1.svg" width="16" height="16" alt="U1">
                     </span>
-                    <span>Unidad 1 — Inicio en R</span>
+                    <span>Unidad 1 - Inicio en R</span>
                     <span class="nav-unit-indicator" style="background:var(--u1-color)"></span>
                 </div>
                 <div class="nav-item" onclick="showUnit(2)" id="nav-u2">
                     <span class="nav-item-icon nav-unit-icon" style="background:var(--u2-color)">
                       <img src="icons/unit-2.svg" width="16" height="16" alt="U2">
                     </span>
-                    <span>Unidad 2 — Datos de salud</span>
+                    <span>Unidad 2 - Instalacion</span>
                     <span class="nav-unit-indicator" style="background:var(--u2-color)"></span>
                 </div>
                 <div class="nav-item" onclick="showUnit(3)" id="nav-u3">
                     <span class="nav-item-icon nav-unit-icon" style="background:var(--u3-color)">
                       <img src="icons/unit-3.svg" width="16" height="16" alt="U3">
                     </span>
-                    <span>Unidad 3 — Inferencia</span>
+                    <span>Unidad 3 - Exploracion</span>
                     <span class="nav-unit-indicator" style="background:var(--u3-color)"></span>
                 </div>
                 <div class="nav-item" onclick="showUnit(4)" id="nav-u4">
                     <span class="nav-item-icon nav-unit-icon" style="background:var(--u4-color)">
                       <img src="icons/unit-4.svg" width="16" height="16" alt="U4">
                     </span>
-                    <span>Unidad 4 — Publicación</span>
+                    <span>Unidad 4 - Limpieza</span>
                     <span class="nav-unit-indicator" style="background:var(--u4-color)"></span>
+                </div>
+                <div class="nav-item" onclick="showUnit(5)" id="nav-u5">
+                    <span class="nav-item-icon nav-unit-icon" style="background:var(--u5-color)">
+                      <img src="icons/unit-1.svg" width="16" height="16" alt="U5">
+                    </span>
+                    <span>Unidad 5 - Descriptiva</span>
+                    <span class="nav-unit-indicator" style="background:var(--u5-color)"></span>
+                </div>
+                <div class="nav-item" onclick="showUnit(6)" id="nav-u6">
+                    <span class="nav-item-icon nav-unit-icon" style="background:var(--u6-color)">
+                      <img src="icons/unit-2.svg" width="16" height="16" alt="U6">
+                    </span>
+                    <span>Unidad 6 - Inferencia</span>
+                    <span class="nav-unit-indicator" style="background:var(--u6-color)"></span>
+                </div>
+                <div class="nav-item" onclick="showUnit(7)" id="nav-u7">
+                    <span class="nav-item-icon nav-unit-icon" style="background:var(--u7-color)">
+                      <img src="icons/unit-3.svg" width="16" height="16" alt="U7">
+                    </span>
+                    <span>Unidad 7 - Modelos</span>
+                    <span class="nav-unit-indicator" style="background:var(--u7-color)"></span>
+                </div>
+                <div class="nav-item" onclick="showUnit(8)" id="nav-u8">
+                    <span class="nav-item-icon nav-unit-icon" style="background:var(--u8-color)">
+                      <img src="icons/unit-4.svg" width="16" height="16" alt="U8">
+                    </span>
+                    <span>Unidad 8 - RPubs</span>
+                    <span class="nav-unit-indicator" style="background:var(--u8-color)"></span>
                 </div>
 
                 <span class="nav-section-label">Herramientas</span>
@@ -217,9 +245,9 @@
             sheetsWebAppUrl: 'https://script.google.com/macros/s/AKfycbxxKpSzXV1u5bhOTMd9Z716MtcGS7naJ2bLsdCx_F2ScDlIPDhdnaiCWvGLcaa7-jRu/exec'
         };
 
-        const NOTEBOOKLM_INDEX_URL = '';
-        const NOTEBOOK_CONTENT_URL = '';
-        const APP_VERSION = 'r-salud-template-20260522-7';
+        const NOTEBOOKLM_INDEX_URL = 'recursos/notebooklm/indice.json';
+        const NOTEBOOK_CONTENT_URL = 'recursos/notebooklm/contenido_fichas.json';
+        const APP_VERSION = 'r-salud-template-20260523-1';
 
         const NOTEBOOK_STAGE_CONFIG = [
             {
@@ -286,6 +314,267 @@
                 checks: ['Responde todas las preguntas.', 'Lee la retroalimentacion.', 'Registra el resultado antes de avanzar.']
             }
         ];
+
+        const NOTEBOOK_UNITS = [
+            {
+                id: 1,
+                title: 'Inicio: R para estudiantes de medicina',
+                shortTitle: 'Inicio en R',
+                subtitle: 'Por que R importa para leer y producir evidencia clinica',
+                icon: 'R',
+                color: 'var(--u1-color)',
+                desc: 'Comprende el valor de R en medicina, distingue descriptiva e inferencia y formula una primera pregunta con datos.',
+                url: 'https://docs.google.com/document/d/195tFTFbST0_fzQ2UtbNHdlr-AjX-e66O_jddzkzfj-U/edit',
+                sourceId: '195tFTFbST0_fzQ2UtbNHdlr-AjX-e66O_jddzkzfj-U',
+                deliverable: 'Mapa mental y reflexion breve sobre R en la practica medica',
+                practiceGoal: 'Traducir una inquietud clinica a variables, objetos y una lectura reproducible.',
+                sublevels: [
+                    makeNotebookSublevel('u1s1', 'R en medicina basada en datos', 'Reconocer situaciones clinicas donde R aporta trazabilidad y criterio.', ['R permite repetir analisis y revisar decisiones.', 'Excel ayuda a mirar datos, R ayuda a reproducir resultados.', 'La pregunta clinica guia el analisis.'], 'pregunta + variable + metodo = respuesta interpretable', 'situaciones <- c("auditoria", "investigacion", "reporte")\nsituaciones', 'Escribe una situacion de tu carrera donde un analisis con R seria util.'),
+                    makeNotebookSublevel('u1s2', 'Descriptiva, inferencia y reproducibilidad', 'Distinguir describir una muestra, inferir con incertidumbre y documentar el proceso.', ['Describir no es probar.', 'Inferir exige incertidumbre y cautela.', 'Reproducir significa que otro puede llegar al mismo resultado.'], 'datos + codigo + contexto = ciencia verificable', 'conceptos <- c("descriptiva", "inferencia", "reproducibilidad")\ndata.frame(conceptos)', 'Clasifica tres afirmaciones como descriptivas o inferenciales.'),
+                    makeNotebookSublevel('u1s3', 'Pregunta clinica inicial', 'Convertir una duda medica en una pregunta analizable con datos ficticios.', ['Toda variable debe tener significado clinico.', 'La asociacion no prueba causalidad.', 'La interpretacion debe respetar el diseno del dato.'], 'problema + poblacion + variable = pregunta', 'pregunta <- "Los pacientes con diabetes tienen mas dias de internacion?"\npregunta', 'Redacta tu primera pregunta de salud para el foro.')
+                ],
+                practiceSteps: [
+                    makePracticeStep('Caso y pregunta', 'Define una pregunta medica pequena antes de tocar codigo.', 'pregunta <- "Los pacientes con diabetes tienen mas dias de internacion?"\nvariables <- c("diabetes", "dias_internacion")\nvariables', 'Publica una pregunta y las variables que necesitarias.'),
+                    makePracticeStep('Primeros objetos', 'Los objetos guardan valores que luego se pueden revisar y transformar.', 'edad <- c(19, 24, 31, 46, 62)\nglucosa <- c(82, 91, 110, 145, 160)\nmean(glucosa)\nmedian(glucosa)', 'Explica que representa la media de glucosa.'),
+                    makePracticeStep('Lectura prudente', 'Una salida numerica requiere contexto clinico.', 'resultado <- data.frame(indicador = c("media", "mediana"), valor = c(mean(glucosa), median(glucosa)))\nresultado', 'Escribe una frase que no exagere el resultado.')
+                ]
+            },
+            {
+                id: 2,
+                title: 'Instalacion y primeros comandos',
+                shortTitle: 'Instalacion',
+                subtitle: 'R, RStudio, proyectos, objetos, vectores y paquetes',
+                icon: 'I',
+                color: 'var(--u2-color)',
+                desc: 'Prepara el entorno de trabajo, identifica paneles de RStudio y ejecuta un script inicial con objetos de salud.',
+                url: 'https://docs.google.com/document/d/1Cb6_oArzr329zKuP_HlIq2wyipjjKnSb9FkFAm4eA-c/edit',
+                sourceId: '1Cb6_oArzr329zKuP_HlIq2wyipjjKnSb9FkFAm4eA-c',
+                deliverable: 'Script .R comentado con al menos 10 operaciones basicas',
+                practiceGoal: 'Dejar R listo y demostrar que se pueden crear objetos, vectores y data frames.',
+                sublevels: [
+                    makeNotebookSublevel('u2s1', 'Instalar R y RStudio', 'Separar motor de calculo, entorno de trabajo y proyecto reproducible.', ['R ejecuta calculos.', 'RStudio organiza consola, scripts, entorno y archivos.', 'El proyecto evita rutas fragiles.'], 'R + RStudio + proyecto = entorno listo', 'R.version.string\ngetwd()\nsessionInfo()', 'Registra version de R y sistema operativo.'),
+                    makeNotebookSublevel('u2s2', 'Objetos, vectores y data frames', 'Crear objetos clinicos sencillos y organizarlos como tabla.', ['Un vector guarda valores de una variable.', 'Un data frame combina variables por filas.', 'Los tipos de datos importan para analizar.'], 'vector + vector = data.frame', 'edad <- c(20, 34, 51)\nsexo <- c("F", "M", "F")\ndata.frame(edad, sexo)', 'Crea una tabla con edad, glucosa y sexo.'),
+                    makeNotebookSublevel('u2s3', 'Paquetes y script inicial', 'Instalar, cargar y documentar paquetes sin depender solo de la consola.', ['install.packages instala.', 'library carga.', 'El script conserva los pasos.'], 'instalar + cargar + comentar = script usable', 'paquetes <- c("tidyverse", "janitor", "broom")\npaquetes', 'Entrega un script comentado con operaciones basicas.')
+                ],
+                practiceSteps: [
+                    makePracticeStep('Verificar entorno', 'Documenta version, carpeta y sesion de trabajo.', 'R.version.string\ngetwd()\nsessionInfo()', 'Guarda evidencia de la sesion.'),
+                    makePracticeStep('Crear objetos clinicos', 'Practica asignacion y calculos simples.', 'edad <- c(19, 21, 22, 30, 45)\nglucosa <- c(82, 91, 110, 145, 160)\nsummary(glucosa)', 'Interpreta el resumen.'),
+                    makePracticeStep('Data frame inicial', 'Construye una tabla reproducible.', 'pacientes <- data.frame(id = 1:5, edad, glucosa)\nstr(pacientes)\npacientes', 'Indica tipo y tamano de la tabla.')
+                ]
+            },
+            {
+                id: 3,
+                title: 'Carga y exploracion de datos de salud',
+                shortTitle: 'Exploracion',
+                subtitle: 'Importar, mirar estructura, detectar faltantes e inconsistencias',
+                icon: 'E',
+                color: 'var(--u3-color)',
+                desc: 'Importa CSV/Excel, explora estructura, identifica tipos de variables, NA, outliers y errores clinicos.',
+                url: 'https://docs.google.com/document/d/1UjzfVpYybpZ0djZugWCnAktZAzMHAgdlTH80gqWBMIQ/edit',
+                sourceId: '1UjzfVpYybpZ0djZugWCnAktZAzMHAgdlTH80gqWBMIQ',
+                deliverable: 'Reporte de exploracion inicial de una base de salud',
+                practiceGoal: 'Leer una base simulada y producir un diagnostico inicial antes de limpiarla.',
+                sublevels: [
+                    makeNotebookSublevel('u3s1', 'Importar datos', 'Leer una base y confirmar filas, columnas y nombres.', ['Importar no es analizar.', 'Primero se mira estructura.', 'Los nombres claros evitan errores posteriores.'], 'archivo -> tabla -> estructura', 'salud <- read.csv("/data/salud_muestra.csv")\ndim(salud)\nnames(salud)', 'Reporta filas, columnas y variables clave.'),
+                    makeNotebookSublevel('u3s2', 'Exploracion inicial', 'Usar funciones de inspeccion para entender rangos y tipos.', ['str muestra tipos.', 'summary resume distribuciones.', 'head permite mirar casos concretos.'], 'mirar + resumir + preguntar = EDA', 'str(salud)\nsummary(salud)\nhead(salud)', 'Identifica una variable numerica y una categorica.'),
+                    makeNotebookSublevel('u3s3', 'Faltantes, outliers e inconsistencias', 'Detectar problemas antes de calcular resultados.', ['Los NA pueden sesgar resultados.', 'Un outlier puede ser error o caso real.', 'El contexto clinico decide la accion.'], 'problema + criterio = decision documentada', 'colSums(is.na(salud))\nrange(salud$glucosa_mg_dl, na.rm = TRUE)', 'Describe un posible error y como lo verificarias.')
+                ],
+                practiceSteps: [
+                    makePracticeStep('Importar base', 'Abre el CSV del curso y mira su estructura.', 'salud <- read.csv("/data/salud_muestra.csv")\ndim(salud)\nstr(salud)', 'Anota filas y columnas.'),
+                    makePracticeStep('Explorar variables', 'Revisa resumen numerico y categorias.', 'summary(salud)\ntable(salud$diagnostico)\ntable(salud$sexo)', 'Identifica una variable con mayor variacion.'),
+                    makePracticeStep('Buscar alertas', 'Ubica faltantes y rangos sospechosos.', 'colSums(is.na(salud))\nrange(salud$edad, na.rm = TRUE)\nrange(salud$glucosa_mg_dl, na.rm = TRUE)', 'Propone una alerta de calidad.')
+                ]
+            },
+            {
+                id: 4,
+                title: 'Limpieza y preparacion de datos clinicos',
+                shortTitle: 'Limpieza',
+                subtitle: 'Del dato bruto al dato listo para analizar',
+                icon: 'L',
+                color: 'var(--u4-color)',
+                desc: 'Limpia categorias, maneja faltantes, crea variables derivadas y documenta cada cambio.',
+                url: 'https://docs.google.com/document/d/11nv4ZVDW9D9SzAPtMgHA9PXEb7VnoANxyZ7ADtfH684/edit',
+                sourceId: '11nv4ZVDW9D9SzAPtMgHA9PXEb7VnoANxyZ7ADtfH684',
+                deliverable: 'Base limpia, script de limpieza y bitacora de cambios',
+                practiceGoal: 'Aplicar un pipeline de limpieza con criterio clinico y trazabilidad.',
+                sublevels: [
+                    makeNotebookSublevel('u4s1', 'Pipeline de limpieza', 'Ordenar pasos de limpieza con una secuencia reproducible.', ['clean_names estandariza nombres.', 'filter selecciona filas.', 'mutate crea o modifica variables.'], 'datos |> limpiar |> transformar |> guardar', 'salud <- read.csv("/data/salud_muestra.csv")\nnames(salud) <- tolower(names(salud))\nnames(salud)', 'Escribe el orden de tu pipeline.'),
+                    makeNotebookSublevel('u4s2', 'Faltantes y categorias', 'Unificar codificaciones y decidir que hacer con NA.', ['case_when permite categorias multiples.', 'na_if convierte codigos de no dato.', 'Cada cambio debe justificarse.'], 'categoria inconsistente -> categoria unica', 'salud$sexo <- factor(salud$sexo)\ntable(salud$sexo, useNA = "always")', 'Documenta una decision sobre faltantes.'),
+                    makeNotebookSublevel('u4s3', 'Variables derivadas y bitacora', 'Crear IMC, grupos de edad u otras variables con justificacion.', ['Una variable derivada debe ser clinicamente interpretable.', 'La bitacora dice que, por que y cuantos casos.', 'La base final se guarda aparte.'], 'variable nueva = datos originales + regla clinica', 'salud$imc_categoria <- cut(salud$imc, c(0, 18.5, 25, 30, Inf))\ntable(salud$imc_categoria)', 'Entrega una bitacora de cambios.')
+                ],
+                practiceSteps: [
+                    makePracticeStep('Estandarizar nombres', 'Prepara nombres y tipos para trabajar.', 'salud <- read.csv("/data/salud_muestra.csv")\nnames(salud) <- tolower(names(salud))\nstr(salud)', 'Registra que cambio aplicaste.'),
+                    makePracticeStep('Crear categorias', 'Convierte medidas a categorias utiles.', 'salud$imc_categoria <- cut(salud$imc, c(0, 18.5, 25, 30, Inf), labels = c("bajo", "normal", "sobrepeso", "obesidad"))\ntable(salud$imc_categoria)', 'Justifica el uso de puntos de corte.'),
+                    makePracticeStep('Bitacora', 'Guarda decisiones y conteos.', 'bitacora <- data.frame(cambio = "crear imc_categoria", motivo = "clasificacion OMS", casos = nrow(salud))\nbitacora', 'Entrega la bitacora.')
+                ]
+            },
+            {
+                id: 5,
+                title: 'Estadistica descriptiva aplicada a salud',
+                shortTitle: 'Tabla 1',
+                subtitle: 'La Tabla 1 que define tu estudio',
+                icon: 'T',
+                color: 'var(--u5-color)',
+                desc: 'Calcula medias, medianas, frecuencias, porcentajes, graficos y una Tabla 1 con interpretacion clinica.',
+                url: 'https://docs.google.com/document/d/1q76XK5VQbJiO6XItE1JGtzD6ygVhaR8aHlv7iVypeMA/edit',
+                sourceId: '1q76XK5VQbJiO6XItE1JGtzD6ygVhaR8aHlv7iVypeMA',
+                deliverable: 'Tabla 1 clinica, tres graficos e interpretaciones',
+                practiceGoal: 'Producir estadistica descriptiva publicable y graficos clinicos legibles.',
+                sublevels: [
+                    makeNotebookSublevel('u5s1', 'Medidas descriptivas', 'Elegir media, mediana, DS e IQR segun la distribucion.', ['La media es sensible a outliers.', 'La mediana resume distribuciones asimetricas.', 'Las categorias se reportan como n y porcentaje.'], 'variable -> distribucion -> resumen apropiado', 'mean(salud$glucosa_mg_dl)\nmedian(salud$glucosa_mg_dl)\nIQR(salud$glucosa_mg_dl)', 'Justifica media o mediana para una variable.'),
+                    makeNotebookSublevel('u5s2', 'Tabla 1', 'Resumir caracteristicas basales por grupo.', ['La Tabla 1 presenta la muestra.', 'Puede comparar grupos sin exagerar causalidad.', 'Las etiquetas deben ser claras.'], 'variables basales + grupos = Tabla 1', 'aggregate(cbind(edad, imc, glucosa_mg_dl) ~ diagnostico, data = salud, mean)', 'Describe una diferencia basal.'),
+                    makeNotebookSublevel('u5s3', 'Graficos comentados', 'Crear visualizaciones con titulo, ejes e interpretacion.', ['Un histograma muestra distribucion.', 'Un boxplot compara grupos.', 'Un grafico de barras resume categorias.'], 'grafico + comentario = resultado comunicable', 'boxplot(glucosa_mg_dl ~ diagnostico, data = salud, main = "Glucosa por diagnostico")', 'Entrega tres graficos y dos oraciones por grafico.')
+                ],
+                practiceSteps: [
+                    makePracticeStep('Descriptivos basicos', 'Calcula centro y dispersion.', 'salud <- read.csv("/data/salud_muestra.csv")\nsummary(salud$glucosa_mg_dl)\nIQR(salud$glucosa_mg_dl)', 'Elige media o mediana.'),
+                    makePracticeStep('Tabla por grupo', 'Resume variables por diagnostico.', 'aggregate(cbind(edad, imc, glucosa_mg_dl) ~ diagnostico, data = salud, mean)', 'Identifica un hallazgo basal.'),
+                    makePracticeStep('Grafico clinico', 'Construye un boxplot interpretable.', 'boxplot(glucosa_mg_dl ~ diagnostico, data = salud, main = "Glucosa por diagnostico", ylab = "mg/dl")', 'Comenta el grafico.')
+                ]
+            },
+            {
+                id: 6,
+                title: 'Inferencia basica con R',
+                shortTitle: 'Inferencia',
+                subtitle: 'Diferencia real o producto del azar',
+                icon: 'H',
+                color: 'var(--u6-color)',
+                desc: 'Formula hipotesis, elige pruebas, calcula p-valores, IC95% y distingue significancia estadistica de relevancia clinica.',
+                url: 'https://docs.google.com/document/d/1uLdonYKlpg7Il_YwA-Ch2ev2AXHduDzqdKmSnFEEHWY/edit',
+                sourceId: '1uLdonYKlpg7Il_YwA-Ch2ev2AXHduDzqdKmSnFEEHWY',
+                deliverable: 'Informe con tres pruebas e interpretacion clinica prudente',
+                practiceGoal: 'Aplicar pruebas comunes y reportarlas con incertidumbre y contexto medico.',
+                sublevels: [
+                    makeNotebookSublevel('u6s1', 'Hipotesis y seleccion de prueba', 'Vincular pregunta, tipo de variable y prueba estadistica.', ['H0 afirma ausencia de diferencia.', 'La prueba depende del tipo de variable.', 'La normalidad orienta prueba parametrica o no parametrica.'], 'pregunta + variables + supuestos = prueba', 'tabla_pruebas <- data.frame(caso = c("continua por grupo", "categorica por grupo"), prueba = c("t.test o wilcox", "chisq o fisher"))\ntabla_pruebas', 'Elige prueba para tres preguntas.'),
+                    makeNotebookSublevel('u6s2', 'p-valor, IC95% y efecto', 'Interpretar resultados sin reducir todo a p menor 0.05.', ['El p-valor no mide importancia clinica.', 'El IC95% comunica precision.', 'El efecto da magnitud.'], 'resultado = p + IC95 + efecto + contexto', 't.test(glucosa_mg_dl ~ tabaquismo, data = salud)', 'Explica p e IC con cautela.'),
+                    makeNotebookSublevel('u6s3', 'Informe de tres pruebas', 'Combinar prueba, grafico y conclusion clinica.', ['Una conclusion incluye metodo.', 'Debe declarar alcance.', 'El grafico ayuda a leer el resultado.'], 'prueba + grafico + interpretacion = informe', 'chisq.test(table(salud$tabaquismo, salud$diagnostico))', 'Entrega tres pruebas con interpretacion.')
+                ],
+                practiceSteps: [
+                    makePracticeStep('Prueba t', 'Compara medias entre dos grupos.', 'salud <- read.csv("/data/salud_muestra.csv")\nt.test(glucosa_mg_dl ~ tabaquismo, data = salud)', 'Interpreta p e IC.'),
+                    makePracticeStep('Chi-cuadrado', 'Evalua asociacion categorica.', 'tabla <- table(salud$tabaquismo, salud$diagnostico)\ntabla\nchisq.test(tabla)', 'Aclara el limite causal.'),
+                    makePracticeStep('Correlacion', 'Explora relacion entre dos continuas.', 'cor.test(salud$imc, salud$glucosa_mg_dl, method = "spearman")', 'Reporta direccion e intensidad.')
+                ]
+            },
+            {
+                id: 7,
+                title: 'Modelos sencillos en datos de salud',
+                shortTitle: 'Modelos',
+                subtitle: 'Regresion lineal y logistica para medicos',
+                icon: 'M',
+                color: 'var(--u7-color)',
+                desc: 'Ajusta modelos lineales y logisticos, interpreta coeficientes, OR, R2 y limitaciones.',
+                url: 'https://docs.google.com/document/d/1dh7biWi9x9RVhpQW0uQ3jEpYEvo5s4W-495Ni9jBC9w/edit',
+                sourceId: '1dh7biWi9x9RVhpQW0uQ3jEpYEvo5s4W-495Ni9jBC9w',
+                deliverable: 'Reporte de regresion con dos modelos y limitaciones',
+                practiceGoal: 'Ajustar modelos simples y explicar lo que si y no permiten concluir.',
+                sublevels: [
+                    makeNotebookSublevel('u7s1', 'Regresion lineal', 'Interpretar una pendiente como cambio promedio en una variable continua.', ['lm modela una respuesta continua.', 'La pendiente esta en unidades clinicas.', 'R2 indica variabilidad explicada.'], 'Y = b0 + b1X + error', 'modelo_lineal <- lm(glucosa_mg_dl ~ imc, data = salud)\nsummary(modelo_lineal)', 'Interpreta una pendiente.'),
+                    makeNotebookSublevel('u7s2', 'Regresion logistica', 'Usar glm binomial para una respuesta si/no e interpretar OR.', ['glm binomial modela probabilidades.', 'exp(coef) produce OR.', 'OR no es probabilidad.'], 'logit(p) -> OR = exp(beta)', 'salud$diabetes_probable <- salud$diagnostico == "Diabetes probable"\nmodelo <- glm(diabetes_probable ~ edad + imc, data = salud, family = binomial)\nexp(coef(modelo))', 'Interpreta un OR.'),
+                    makeNotebookSublevel('u7s3', 'Limitaciones del modelo', 'Reportar supuestos, confusores y cautela causal.', ['El modelo no es la realidad.', 'La causalidad exige diseno adecuado.', 'Los IC95% importan tanto como el estimado.'], 'modelo + supuestos + limites = lectura responsable', 'confint(modelo)\nsummary(modelo)', 'Escribe dos limitaciones especificas.')
+                ],
+                practiceSteps: [
+                    makePracticeStep('Modelo lineal', 'Ajusta una respuesta continua.', 'salud <- read.csv("/data/salud_muestra.csv")\nmodelo_lineal <- lm(glucosa_mg_dl ~ imc + edad, data = salud)\nsummary(modelo_lineal)', 'Reporta una pendiente.'),
+                    makePracticeStep('Modelo logistico', 'Ajusta respuesta binaria.', 'salud$diabetes_probable <- salud$diagnostico == "Diabetes probable"\nmodelo_log <- glm(diabetes_probable ~ edad + imc + tabaquismo, data = salud, family = binomial)\nexp(coef(modelo_log))', 'Interpreta un OR.'),
+                    makePracticeStep('Limitaciones', 'Evalua alcance y cautela.', 'summary(modelo_log)\nAIC(modelo_log)', 'Escribe por que no prueba causalidad.')
+                ]
+            },
+            {
+                id: 8,
+                title: 'Reporte reproducible y publicacion en RPubs',
+                shortTitle: 'RPubs',
+                subtitle: 'Tu primer informe cientifico con R',
+                icon: 'P',
+                color: 'var(--u8-color)',
+                desc: 'Crea un R Markdown con codigo, resultados, tablas, graficos y texto interpretativo, y publicalo en RPubs.',
+                url: 'https://docs.google.com/document/d/1_qjRUSshCqo-SG4HAe1jOOgWatqS4yFLH1cg4YIpz2U/edit',
+                sourceId: '1_qjRUSshCqo-SG4HAe1jOOgWatqS4yFLH1cg4YIpz2U',
+                deliverable: 'URL publica de RPubs con el informe final',
+                practiceGoal: 'Integrar todo el curso en un informe reproducible y publicable.',
+                sublevels: [
+                    makeNotebookSublevel('u8s1', 'R Markdown y YAML', 'Crear un documento que combine metadatos, texto y codigo.', ['YAML define titulo, autor y salida.', 'Los chunks ejecutan codigo.', 'Knit genera el HTML.'], 'YAML + texto + chunks = informe reproducible', 'cat("---\\ntitle: Analisis de salud\\noutput: html_document\\n---\\n")', 'Crea el esqueleto del Rmd.'),
+                    makeNotebookSublevel('u8s2', 'Informe cientifico breve', 'Estructurar introduccion, metodos, resultados, discusion y limitaciones.', ['La narrativa guia al lector.', 'Los metodos deben ser reproducibles.', 'Las limitaciones protegen la interpretacion.'], 'pregunta + metodo + resultado + limite = informe', 'secciones <- c("Introduccion", "Metodos", "Resultados", "Conclusiones")\nsecciones', 'Completa la estructura del informe.'),
+                    makeNotebookSublevel('u8s3', 'Publicacion en RPubs', 'Renderizar, revisar privacidad y compartir la URL final.', ['No se publica informacion identificable.', 'El HTML debe abrir sin errores.', 'El enlace final es la evidencia integradora.'], 'render + revisar + publicar + compartir', 'checklist <- c("HTML", "privacidad", "limitaciones", "URL RPubs")\ndata.frame(checklist)', 'Registra la URL de RPubs.')
+                ],
+                practiceSteps: [
+                    makePracticeStep('Esqueleto Rmd', 'Crea encabezado y secciones.', 'cat("---\\ntitle: Analisis sencillo de datos de salud\\nauthor: Tu nombre\\noutput: html_document\\n---\\n")', 'Completa titulo y pregunta.'),
+                    makePracticeStep('Tabla y figura', 'Incluye resultados desde codigo.', 'salud <- read.csv("/data/salud_muestra.csv")\ntable(salud$diagnostico)\nboxplot(glucosa_mg_dl ~ diagnostico, data = salud)', 'Renderiza una salida.'),
+                    makePracticeStep('Checklist RPubs', 'Revisa antes de publicar.', 'checklist <- data.frame(paso = 1:4, tarea = c("Knit", "privacidad", "limites", "publicar"))\nchecklist', 'Entrega enlace y limitacion.')
+                ]
+            }
+        ];
+
+        function makeNotebookSublevel(slug, title, focus, concepts, formulaValue, code, application) {
+            return {
+                slug,
+                title,
+                focus,
+                concepts,
+                dataset: 'data/datasets/salud_muestra.csv',
+                formulas: [{ label: 'Regla de trabajo', value: formulaValue, note: focus }],
+                functionCode: [{ label: 'R base/WebR', code }],
+                procedureCode: [{ label: 'R base/WebR', code }],
+                application: [application, 'Registra una conclusion breve y verificable.'],
+                assessment: ['Define el concepto central.', 'Ejecuta o lee el codigo.', 'Interpreta con prudencia.']
+            };
+        }
+
+        function makePracticeStep(title, concept, code, task) {
+            return { title, concept, code, task };
+        }
+
+        function notebookUnitIcon(unitId) {
+            return `icons/unit-${((Number(unitId) - 1) % 4) + 1}.svg`;
+        }
+
+        function buildNotebookCalendar() {
+            const start = Date.UTC(2026, 5, 1);
+            return NOTEBOOK_UNITS.flatMap(unit => {
+                const offset = (unit.id - 1) * 7;
+                const startIso = new Date(start + offset * 86400000).toISOString().slice(0, 10);
+                const dueIso = new Date(start + (offset + 6) * 86400000).toISOString().slice(0, 10);
+                return [
+                    { id: `u${unit.id}_actividad`, unit: unit.id, title: `U${unit.id} - ${unit.shortTitle}`, type: 'actividad', start: startIso, due: dueIso, resource: `dashboard.html#u${unit.id}` },
+                    { id: `u${unit.id}_quiz`, unit: unit.id, title: `Quiz U${unit.id} - ${unit.shortTitle}`, type: 'quiz', start: dueIso, due: dueIso, resource: `dashboard.html#u${unit.id}` }
+                ];
+            }).concat([
+                { id: 'final_rpubs', unit: 8, title: 'Entrega final - enlace RPubs', type: 'examen', start: '2026-07-24', due: '2026-07-26', resource: 'dashboard.html#u8' }
+            ]);
+        }
+
+        function buildNotebookPractice(unit) {
+            return {
+                id: `lab_u${unit.id}_notebooklm`,
+                title: `Laboratorio ${unit.id} - ${unit.shortTitle}`,
+                unit: unit.id,
+                dataset: 'data/datasets/salud_muestra.csv',
+                embed: 'laboratorio/index.html',
+                goal: unit.practiceGoal,
+                steps: unit.practiceSteps
+            };
+        }
+
+        function buildNotebookUnitFiles() {
+            return Object.fromEntries(NOTEBOOK_UNITS.map(unit => [String(unit.id), {
+                materiales: [
+                    { name: `Documento NotebookLM - Unidad ${unit.id}`, file: unit.url, type: 'html' },
+                    { name: 'Indice local NotebookLM', file: 'recursos/notebooklm/indice.json', type: 'json' }
+                ],
+                actividades: [
+                    { name: `Actividad autonoma - ${unit.shortTitle}`, file: unit.url, type: 'html' },
+                    { name: `Quiz Unidad ${unit.id}`, file: `data/quizzes/quiz_u${unit.id}.json`, type: 'json' }
+                ],
+                orientaciones: [
+                    { name: `Plan de estudio - Unidad ${unit.id}`, file: 'docs/plan_integracion_notebooklm.md', type: 'markdown' }
+                ]
+            }]));
+        }
+
+        function buildNotebookSublevelMap() {
+            return Object.fromEntries(NOTEBOOK_UNITS.map(unit => [String(unit.id), unit.sublevels.map(sublevel => ({
+                ...sublevel,
+                sourceUrl: unit.url,
+                practiceId: `lab_u${unit.id}_notebooklm`
+            }))]));
+        }
 
         const DEFAULT_SEMESTER_CONFIG = {
                   "semesterName": "Curso autogestionado 2026",
@@ -482,7 +771,7 @@
                   }
         ];
 
-        const TOTAL_UNITS = 4;
+        const TOTAL_UNITS = NOTEBOOK_UNITS.length;
 
         const UNITS = [
                   {
@@ -527,12 +816,36 @@
                   }
         ];
 
+        DEFAULT_SEMESTER_CONFIG.semesterName = 'Curso autogestionado 2026 - R aplicado a salud';
+        DEFAULT_SEMESTER_CONFIG.startDate = '2026-06-01';
+        DEFAULT_SEMESTER_CONFIG.endDate = '2026-07-26';
+        DEFAULT_SEMESTER_CONFIG.activities = buildNotebookCalendar();
+
+        PRACTICES.length = 0;
+        PRACTICES.push(...NOTEBOOK_UNITS.map(buildNotebookPractice));
+
+        UNITS.length = 0;
+        UNITS.push(...NOTEBOOK_UNITS.map(unit => ({
+            id: unit.id,
+            title: unit.shortTitle,
+            subtitle: unit.subtitle,
+            icon: unit.icon,
+            color: unit.color,
+            desc: unit.desc,
+            iconSrc: notebookUnitIcon(unit.id),
+            activities: 3
+        })));
+
         const PEDAGOGICAL_ILLUSTRATIONS = {
             hero: {
                 1: { file: 'gen_education.svg', alt: 'Ruta inicial de R aplicado a salud' },
-                2: { file: 'edu_u2s1_grammar_graficos.svg', alt: 'Grammar of Graphics aplicada a visualizacion de datos' },
-                3: { file: 'edu_u3s1_knn.svg', alt: 'KNN y aprendizaje supervisado visualizado' },
-                4: { file: 'edu_u4s1_shap.svg', alt: 'Valores SHAP e interpretacion de modelos' }
+                2: { file: 'edu_u1s2_rstudio.svg', alt: 'Instalacion, consola y proyecto de RStudio' },
+                3: { file: 'edu_u1s3_pipeline.svg', alt: 'Carga y exploracion inicial de datos de salud' },
+                4: { file: 'edu_u2s2d_distribuciones.svg', alt: 'Limpieza y preparacion de datos clinicos' },
+                5: { file: 'edu_u2s2_boxplot.svg', alt: 'Tabla 1 y graficos descriptivos' },
+                6: { file: 'edu_u2s3_correlacion.svg', alt: 'Inferencia basica con R' },
+                7: { file: 'edu_u3s2_sigmoide.svg', alt: 'Modelos logisticos y odds ratio' },
+                8: { file: 'edu_u4s2_rmarkdown.svg', alt: 'Reporte reproducible y RPubs' }
             },
             sublevels: {
                 '1.1': { diagram: 'gen_education.svg', concept: 'edu_u1s2d_tipos_objetos_r.svg', primary: 'u1_data.svg', secondary: 'u1_developer.svg', alt: 'Primeros pasos de R aplicado a salud', caption: 'Lamina tecnica: pregunta clinica, variable, comando y salida interpretable.', conceptAlt: 'Tipos de objetos en R: vector, factor, matriz, data frame y lista', conceptCaption: 'Figura conceptual: objetos basicos de R y cuando conviene usar cada tipo.' },
@@ -552,16 +865,44 @@
                 1: 'u1_data_processing.svg',
                 2: 'u2_dashboard.svg',
                 3: 'u3_predictive.svg',
-                4: 'u4_analyze.svg'
+                4: 'u4_analyze.svg',
+                5: 'u2_statistics.svg',
+                6: 'u2_data_trends.svg',
+                7: 'u3_data_reports.svg',
+                8: 'u4_sharing.svg'
             }
         };
+
+        Object.assign(PEDAGOGICAL_ILLUSTRATIONS.sublevels, {
+            '2.1': { diagram: 'edu_u1s2_rstudio.svg', concept: 'edu_u1s2d_tipos_objetos_r.svg', primary: 'u1_developer.svg', secondary: 'u1_cloud_hosting.svg', alt: 'Instalacion de R y RStudio', caption: 'Lamina tecnica: motor de R, IDE, proyecto y verificacion de sesion.', conceptAlt: 'Objetos basicos de R', conceptCaption: 'Figura conceptual: objetos y estructuras que apareceran en el curso.' },
+            '2.2': { diagram: 'edu_u1s2d_tipos_objetos_r.svg', concept: 'edu_u1s3_pipeline.svg', primary: 'u1_data.svg', secondary: 'u1_data_input.svg', alt: 'Objetos, vectores y data frames', caption: 'Lamina tecnica: variables clinicas organizadas como tabla.', conceptAlt: 'Pipeline minimo de analisis', conceptCaption: 'Figura conceptual: objeto, transformacion y salida reproducible.' },
+            '2.3': { diagram: 'edu_u1s3_pipeline.svg', primary: 'u1_developer.svg', secondary: 'u4_data_report.svg', alt: 'Paquetes y primer script', caption: 'Lamina tecnica: instalar, cargar, comentar y volver a ejecutar.' },
+            '3.1': { diagram: 'edu_u1s3_pipeline.svg', concept: 'u1_data_input.svg', primary: 'u1_data.svg', secondary: 'u1_data_processing.svg', alt: 'Importacion de datos de salud', caption: 'Lamina tecnica: archivo, tabla, estructura y nombres de variables.', conceptAlt: 'Entrada de datos', conceptCaption: 'Figura conceptual: de CSV a objeto R verificable.' },
+            '3.2': { diagram: 'edu_u2s2d_distribuciones.svg', concept: 'edu_u2s1d_guia_graficos.svg', primary: 'u2_statistics.svg', secondary: 'u2_data_trends.svg', alt: 'Exploracion inicial de variables', caption: 'Lamina tecnica: tipos, rangos, resumen y primeras preguntas.', conceptAlt: 'Guia visual de exploracion', conceptCaption: 'Figura conceptual: elegir resumen segun el tipo de variable.' },
+            '3.3': { diagram: 'u1_data_processing.svg', primary: 'u2_dashboard.svg', secondary: 'u4_analyze.svg', alt: 'Faltantes, outliers e inconsistencias', caption: 'Lamina tecnica: detectar problemas antes de interpretar resultados.' },
+            '4.1': { diagram: 'u1_data_processing.svg', concept: 'edu_u1s3_pipeline.svg', primary: 'u4_data_extraction.svg', secondary: 'u4_analyze.svg', alt: 'Pipeline de limpieza reproducible', caption: 'Lamina tecnica: limpiar nombres, filtrar, transformar y guardar.', conceptAlt: 'Secuencia reproducible', conceptCaption: 'Figura conceptual: cada decision queda documentada.' },
+            '4.2': { diagram: 'edu_u2s2d_distribuciones.svg', concept: 'u2_statistics.svg', primary: 'u1_data_processing.svg', secondary: 'u2_analytics.svg', alt: 'Faltantes y categorias clinicas', caption: 'Lamina tecnica: codificaciones, NA y criterios de decision.', conceptAlt: 'Distribuciones antes y despues', conceptCaption: 'Figura conceptual: la limpieza cambia la lectura estadistica.' },
+            '4.3': { diagram: 'u4_data_report.svg', primary: 'u4_presentation.svg', secondary: 'u4_knowledge.svg', alt: 'Variables derivadas y bitacora', caption: 'Lamina tecnica: variable derivada, regla clinica y registro de cambios.' },
+            '5.1': { diagram: 'edu_u2s2d_distribuciones.svg', concept: 'edu_u2s2_boxplot.svg', primary: 'u2_statistics.svg', secondary: 'u2_data_trends.svg', alt: 'Medidas descriptivas clinicas', caption: 'Lamina tecnica: media, mediana, desviacion, IQR y porcentaje.', conceptAlt: 'Boxplot e histograma', conceptCaption: 'Figura conceptual: escoger resumen segun distribucion.' },
+            '5.2': { diagram: 'u2_dashboard.svg', primary: 'u4_data_report.svg', secondary: 'u2_analytics.svg', alt: 'Tabla 1 por grupo clinico', caption: 'Lamina tecnica: variables basales, grupos y lectura prudente.' },
+            '5.3': { diagram: 'edu_u2s1_grammar_graficos.svg', concept: 'edu_u2s1d_guia_graficos.svg', primary: 'u2_charts.svg', secondary: 'u2_dashboard.svg', alt: 'Graficos comentados', caption: 'Lamina tecnica: titulo, ejes, unidades y conclusion breve.', conceptAlt: 'Seleccion de graficos', conceptCaption: 'Figura conceptual: cada grafico responde una pregunta.' },
+            '6.1': { diagram: 'edu_u2s3_correlacion.svg', primary: 'u2_research.svg', secondary: 'u2_statistics.svg', alt: 'Hipotesis y seleccion de prueba', caption: 'Lamina tecnica: pregunta, variables, supuestos y prueba.' },
+            '6.2': { diagram: 'edu_u2s2_boxplot.svg', concept: 'edu_u2s2d_distribuciones.svg', primary: 'u2_statistics.svg', secondary: 'u4_analyze.svg', alt: 'p-valor, IC95 y efecto', caption: 'Lamina tecnica: significancia, precision y relevancia clinica.', conceptAlt: 'Distribuciones comparadas', conceptCaption: 'Figura conceptual: mirar magnitud y no solo p menor 0.05.' },
+            '6.3': { diagram: 'u4_data_report.svg', primary: 'u4_presentation.svg', secondary: 'u4_knowledge.svg', alt: 'Informe de pruebas estadisticas', caption: 'Lamina tecnica: metodo, resultado, grafico y conclusion cauta.' },
+            '7.1': { diagram: 'edu_u2s3_correlacion.svg', primary: 'u3_data_reports.svg', secondary: 'u2_analytics.svg', alt: 'Regresion lineal aplicada', caption: 'Lamina tecnica: pendiente, unidades, R cuadrado y residuos.' },
+            '7.2': { diagram: 'edu_u3s2_sigmoide.svg', primary: 'u3_predictive.svg', secondary: 'u4_analyze.svg', alt: 'Regresion logistica y odds ratio', caption: 'Lamina tecnica: logit, OR, IC95 y probabilidades.' },
+            '7.3': { diagram: 'u4_security.svg', concept: 'u4_knowledge.svg', primary: 'u4_analyze.svg', secondary: 'u4_data_report.svg', alt: 'Limitaciones del modelo', caption: 'Lamina tecnica: supuestos, confusores, alcance y cautela causal.', conceptAlt: 'Lectura critica', conceptCaption: 'Figura conceptual: el modelo orienta, no reemplaza el criterio clinico.' },
+            '8.1': { diagram: 'edu_u4s2_rmarkdown.svg', primary: 'u4_presentation.svg', secondary: 'u1_developer.svg', alt: 'R Markdown y YAML', caption: 'Lamina tecnica: metadatos, chunks, texto y salida HTML.' },
+            '8.2': { diagram: 'u4_data_report.svg', primary: 'u4_knowledge.svg', secondary: 'u4_presentation.svg', alt: 'Informe cientifico breve', caption: 'Lamina tecnica: introduccion, metodos, resultados, limites y conclusion.' },
+            '8.3': { diagram: 'u4_sharing.svg', concept: 'u4_security.svg', primary: 'u4_cloud_hosting.svg', secondary: 'u4_presentation.svg', alt: 'Publicacion segura en RPubs', caption: 'Lamina tecnica: render, privacidad, revision y enlace final.', conceptAlt: 'Privacidad antes de publicar', conceptCaption: 'Figura conceptual: no compartir informacion identificable.' }
+        });
 
         const BADGES_DEF = [
             { id: 'first_login', emoji: '👋', name: 'Bienvenido', desc: 'Primer acceso a la plataforma' },
             { id: 'quiz_u1', emoji: '🎯', name: 'Base R en salud', desc: 'Completar quiz Unidad 1' },
-            { id: 'quiz_u2', emoji: '📊', name: 'Explorador Visual', desc: 'Completar quiz Unidad 2' },
-            { id: 'quiz_u3', emoji: '🤖', name: 'Modelador ML', desc: 'Completar quiz Unidad 3' },
-            { id: 'quiz_u4', emoji: '🔎', name: 'Intérprete', desc: 'Completar quiz Unidad 4' },
+            { id: 'quiz_u2', emoji: '📊', name: 'Entorno R listo', desc: 'Completar quiz Unidad 2' },
+            { id: 'quiz_u3', emoji: '🤖', name: 'Explorador de datos', desc: 'Completar quiz Unidad 3' },
+            { id: 'quiz_u4', emoji: '🔎', name: 'Preparador clinico', desc: 'Completar quiz Unidad 4' },
             { id: 'perfect_score', emoji: '💯', name: 'Perfecto', desc: 'Obtener 100% en cualquier quiz' },
             { id: 'all_units', emoji: '🏅', name: 'Analista R en salud', desc: 'Completar todos los quizzes' },
             { id: 'flashcard_master', emoji: '🃏', name: 'Flash Master', desc: 'Revisar todas las flashcards' },
@@ -570,6 +911,15 @@
             { id: 'calendar_ready', emoji: '📅', name: 'Agenda Clara', desc: 'Activar recordatorios del calendario' },
             { id: 'password_changed', emoji: '🔐', name: 'Cuenta Protegida', desc: 'Cambiar la contraseña inicial' },
         ];
+
+        NOTEBOOK_UNITS.filter(unit => unit.id > 4).forEach(unit => {
+            BADGES_DEF.splice(1 + unit.id - 1, 0, {
+                id: `quiz_u${unit.id}`,
+                emoji: '✓',
+                name: `Unidad ${unit.id} completa`,
+                desc: `Completar quiz Unidad ${unit.id}: ${unit.shortTitle}`
+            });
+        });
 
         // ================================================================
         // INIT
@@ -609,7 +959,7 @@
 
             const route = (window.location.hash || '').replace('#', '');
             if (['progress', 'badges', 'calendar', 'community', 'practices', 'lab', 'flashcards', 'matching', 'simulators', 'guia', 'account', 'admin'].includes(route)) showPage(route);
-            else if (/^u[1-4]$/.test(route)) showUnit(Number(route.slice(1)));
+            else if (/^u[1-8]$/.test(route)) showUnit(Number(route.slice(1)));
             else showPage('home');
             checkReminders();
             setInterval(() => checkReminders(), 60 * 60 * 1000);
@@ -680,7 +1030,7 @@
         };
 
         function updateMobileNav(target) {
-            const normalized = /^u[1-4]$/.test(String(target || '')) ? 'home' : target;
+            const normalized = /^u[1-8]$/.test(String(target || '')) ? 'home' : target;
             document.querySelectorAll('.mobile-nav-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`mobile-nav-${normalized}`)?.classList.add('active');
         }
@@ -756,7 +1106,7 @@
         }
 
         function openIntegratedToolInUnit(unitNum = 1, microKind = 'simulator') {
-            const unit = Math.max(1, Math.min(4, Number(unitNum) || 1));
+            const unit = Math.max(1, Math.min(TOTAL_UNITS, Number(unitNum) || 1));
             const slides = getUnitLearningPath(unit);
             const target = slides.findIndex(slide => slide.microKind === microKind);
             if (target >= 0) setCurrentUnitPathSlide(unit, target);
@@ -977,8 +1327,26 @@
         }
 
         function getNotebookUnit(unitNum) {
-            return (STATE.notebookLmIndex?.unidades || [])
+            const indexed = (STATE.notebookLmIndex?.unidades || [])
                 .find(item => Number(item.unit) === Number(unitNum));
+            if (indexed) return indexed;
+            const doc = (STATE.notebookLmIndex?.sourceDocuments || [])
+                .find(item => Number(item.order) === Number(unitNum) && item.role === 'unit');
+            if (!doc) return null;
+            const local = NOTEBOOK_UNITS.find(item => Number(item.id) === Number(unitNum));
+            return {
+                unit: unitNum,
+                titulo: doc.title,
+                sourceUrl: doc.url,
+                focus: doc.focus || local?.desc || '',
+                deliverable: doc.deliverable || local?.deliverable || '',
+                archivos: {
+                    documento_google_docs: doc.url,
+                    indice_local: 'recursos/notebooklm/indice.json',
+                    plan_integracion: 'docs/plan_integracion_notebooklm.md'
+                },
+                media: []
+            };
         }
 
         function buildNotebookSublevelSlides() {
@@ -1252,7 +1620,7 @@
                 window.open(resource, '_blank', 'noopener');
                 return;
             }
-            const routeMatch = resource.match(/^dashboard\.html#u([1-4])$/);
+            const routeMatch = resource.match(/^dashboard\.html#u([1-8])$/);
             if (routeMatch) {
                 showUnit(Number(routeMatch[1]));
                 return;
@@ -1261,7 +1629,7 @@
                 showPage('calendar');
                 return;
             }
-            const unitMatch = resource.match(/unidades\/unidad([1-4])\//);
+                const unitMatch = resource.match(/unidades\/unidad([1-8])\//);
             if (unitMatch) {
                 const unitNum = Number(unitMatch[1]);
                 const files = UNIT_FILES[unitNum];
@@ -2242,6 +2610,12 @@
                   ]
         };
 
+        Object.keys(UNIT_FILES).forEach(key => delete UNIT_FILES[key]);
+        Object.assign(UNIT_FILES, buildNotebookUnitFiles());
+
+        Object.keys(UNIT_SUBLEVELS).forEach(key => delete UNIT_SUBLEVELS[key]);
+        Object.assign(UNIT_SUBLEVELS, buildNotebookSublevelMap());
+
         function buildSublevelSlides(unitNum) {
             const notebookSlides = buildNotebookSublevelSlides(unitNum);
             if (notebookSlides.length) return notebookSlides;
@@ -2250,12 +2624,23 @@
                 const sublevelIndex = subIndex + 1;
                 const activityResource = `activity${Math.min(sublevelIndex, 3)}`;
                 const practiceStepIndex = Math.min(subIndex, 2);
+                const notebookSlug = sublevel.slug || `u${unitNum}s${sublevelIndex}`;
+                const resourceUrl = sublevel.sourceUrl || getNotebookUnit(unitNum)?.sourceUrl || '';
                 const base = {
                     sublevelIndex,
+                    sublevelCode: `${unitNum}.${sublevelIndex}`,
+                    slug: notebookSlug,
                     sublevelTitle: sublevel.title,
                     dataset: sublevel.dataset,
                     practiceId: sublevel.practiceId,
                     practiceStepIndex,
+                    notebookResource: resourceUrl ? {
+                        label: `Documento NotebookLM - Unidad ${unitNum}`,
+                        file: resourceUrl,
+                        type: notebookResourceType(resourceUrl),
+                        key: 'resumen'
+                    } : null,
+                    notebookSupport: getNotebookResourceContent(notebookSlug, 'resumen') || sublevel.notebookSupport || null,
                 };
                 return [
                     {
@@ -4228,12 +4613,25 @@
       <div class="card notebook-unit-card">
         <h3>Recursos de sintesis</h3>
         <p>Presentaciones PowerPoint, podcasts, videos y artefactos JSON de la unidad, listos para descargar o enlazar desde otros entornos.</p>
+        ${unitResources.focus ? `<p><strong>Foco:</strong> ${escapeHtml(unitResources.focus)}</p>` : ''}
+        ${unitResources.deliverable ? `<p><strong>Producto:</strong> ${escapeHtml(unitResources.deliverable)}</p>` : ''}
         <div class="notebook-resource-summary">
           <span><strong>${presentations}</strong> PPTX</span>
           <span><strong>${audios}</strong> podcasts</span>
           <span><strong>${videos}</strong> videos</span>
           <span><strong>${files.length}</strong> recursos JSON</span>
         </div>
+        ${unitResources.sourceUrl ? `
+          <div class="materials-list" style="margin-top:1rem">
+            <a class="material-item" href="${escapeHtml(unitResources.sourceUrl)}" target="_blank" rel="noopener">
+              <span class="material-icon">Doc</span>
+              <div class="material-info">
+                <h4>Documento completo generado con NotebookLM</h4>
+                <p>${escapeHtml(unitResources.sourceUrl)}</p>
+              </div>
+              <span class="material-badge badge-act">Google Docs</span>
+            </a>
+          </div>` : ''}
         ${media.length ? `
           <div class="notebook-media-grid">
             ${media.map(item => renderNotebookMediaItem(item)).join('')}
@@ -5104,6 +5502,217 @@
             }
         };
 
+        Object.assign(CLASSIFIER_ACTIVITIES, {
+            1: {
+                unit: 1,
+                title: 'Mapa inicial de analisis en salud',
+                subtitle: 'Distingue la pregunta, el dato, el metodo y el cuidado etico antes de tocar codigo.',
+                prompt: 'Ubica cada pieza en el lugar que ocuparia dentro de un primer analisis clinico reproducible.',
+                image: 'assets/pedagogical/gen_education.svg',
+                categories: [
+                    { id: 'pregunta', label: 'Pregunta clinica', short: 'Que se quiere saber', definition: 'Convierte una duda medica en una pregunta que pueda responderse con datos.', color: '#1d4ed8' },
+                    { id: 'dato', label: 'Dato de salud', short: 'Variable observable', definition: 'Representa una medicion, categoria o registro asociado a pacientes o servicios.', color: '#047857' },
+                    { id: 'descriptiva', label: 'Descriptiva', short: 'Resumir muestra', definition: 'Describe lo observado sin afirmar que ocurre en toda la poblacion.', color: '#b45309' },
+                    { id: 'inferencia', label: 'Inferencia', short: 'Incertidumbre', definition: 'Usa pruebas, intervalos y supuestos para generalizar con cautela.', color: '#7c3aed' },
+                    { id: 'etica', label: 'Reproducibilidad y etica', short: 'Auditable', definition: 'Protege privacidad y deja codigo, datos y decisiones revisables.', color: '#be123c' }
+                ],
+                items: [
+                    { id: 'u1_i01', label: 'Los pacientes con tabaquismo tienen mayor glucosa?', category: 'pregunta', hint: 'Formula una comparacion clinica.' },
+                    { id: 'u1_i02', label: 'Edad en anos', category: 'dato', hint: 'Es una variable numerica de salud.' },
+                    { id: 'u1_i03', label: 'Mediana de dias de internacion', category: 'descriptiva', hint: 'Resume una muestra observada.' },
+                    { id: 'u1_i04', label: 'IC95% de una diferencia de medias', category: 'inferencia', hint: 'Comunica precision e incertidumbre.' },
+                    { id: 'u1_i05', label: 'Anonimizar identificadores antes de publicar', category: 'etica', hint: 'Protege informacion sensible.' },
+                    { id: 'u1_i06', label: 'Sexo registrado como F/M', category: 'dato', hint: 'Es una categoria de la tabla.' },
+                    { id: 'u1_i07', label: 'Porcentaje de pacientes con hipertension', category: 'descriptiva', hint: 'Resume una proporcion muestral.' },
+                    { id: 'u1_i08', label: 'Guardar el script junto al resultado', category: 'etica', hint: 'Permite repetir el analisis.' },
+                    { id: 'u1_i09', label: 'Prueba t para dos grupos', category: 'inferencia', hint: 'Evalua una diferencia con supuestos.' },
+                    { id: 'u1_i10', label: 'Que variable responde mi duda?', category: 'pregunta', hint: 'La pregunta define la variable principal.' }
+                ]
+            },
+            2: {
+                unit: 2,
+                title: 'Entorno R y objetos basicos',
+                subtitle: 'Reconoce que corresponde a instalacion, objeto, tabla, paquete o script.',
+                prompt: 'Clasifica los pasos y conceptos necesarios para dejar listo un proyecto pequeno de R.',
+                image: 'assets/pedagogical/edu_u1s2_rstudio.svg',
+                categories: [
+                    { id: 'instalacion', label: 'Instalacion', short: 'Motor e IDE', definition: 'Pasos para disponer de R, RStudio y una sesion verificable.', color: '#1d4ed8' },
+                    { id: 'objeto', label: 'Objeto R', short: 'Valor nombrado', definition: 'Nombre que guarda numeros, textos, vectores o resultados.', color: '#047857' },
+                    { id: 'tabla', label: 'Data frame', short: 'Filas y columnas', definition: 'Estructura principal para bases de salud.', color: '#b45309' },
+                    { id: 'paquete', label: 'Paquete', short: 'Funciones extra', definition: 'Extension instalada y cargada para ampliar R.', color: '#7c3aed' },
+                    { id: 'script', label: 'Script', short: 'Codigo guardado', definition: 'Archivo que conserva comandos comentados y repetibles.', color: '#be123c' }
+                ],
+                items: [
+                    { id: 'u2_i01', label: 'sessionInfo()', category: 'instalacion', hint: 'Verifica la version y el entorno.' },
+                    { id: 'u2_i02', label: 'edad <- c(20, 34, 51)', category: 'objeto', hint: 'Crea un vector nombrado.' },
+                    { id: 'u2_i03', label: 'data.frame(edad, sexo, glucosa)', category: 'tabla', hint: 'Une variables por filas.' },
+                    { id: 'u2_i04', label: 'install.packages("janitor")', category: 'paquete', hint: 'Instala funciones adicionales.' },
+                    { id: 'u2_i05', label: 'analisis_glucosa.R', category: 'script', hint: 'Archivo donde queda el codigo.' },
+                    { id: 'u2_i06', label: 'library(tidyverse)', category: 'paquete', hint: 'Carga funciones para usarlas.' },
+                    { id: 'u2_i07', label: 'R.version.string', category: 'instalacion', hint: 'Muestra la version de R.' },
+                    { id: 'u2_i08', label: '# calcular resumen descriptivo', category: 'script', hint: 'Comentario que documenta intencion.' },
+                    { id: 'u2_i09', label: 'salud$imc', category: 'tabla', hint: 'Accede a una columna de la base.' },
+                    { id: 'u2_i10', label: 'diagnostico <- "diabetes probable"', category: 'objeto', hint: 'Guarda texto en un nombre.' }
+                ]
+            },
+            3: {
+                unit: 3,
+                title: 'Carga y exploracion de datos',
+                subtitle: 'Separa importacion, inspeccion, resumen, problemas y decision documentada.',
+                prompt: 'Ubica cada accion dentro del primer recorrido de una base de salud.',
+                image: 'assets/pedagogical/edu_u1s3_pipeline.svg',
+                categories: [
+                    { id: 'importar', label: 'Importar', short: 'Archivo a tabla', definition: 'Lee el origen y confirma que entro correctamente.', color: '#1d4ed8' },
+                    { id: 'estructura', label: 'Estructura', short: 'Tipos y nombres', definition: 'Revisa filas, columnas, nombres y clases.', color: '#047857' },
+                    { id: 'resumen', label: 'Resumen inicial', short: 'Primeras cifras', definition: 'Calcula descripciones basicas antes de concluir.', color: '#b45309' },
+                    { id: 'problema', label: 'Problema de calidad', short: 'NA o extremo', definition: 'Detecta faltantes, duplicados o valores improbables.', color: '#be123c' },
+                    { id: 'decision', label: 'Decision', short: 'Criterio clinico', definition: 'Explica que se hara y por que.', color: '#7c3aed' }
+                ],
+                items: [
+                    { id: 'u3_i01', label: 'read.csv("salud_muestra.csv")', category: 'importar', hint: 'Lee el archivo.' },
+                    { id: 'u3_i02', label: 'dim(salud)', category: 'estructura', hint: 'Cuenta filas y columnas.' },
+                    { id: 'u3_i03', label: 'summary(salud$glucosa_mg_dl)', category: 'resumen', hint: 'Resume una variable numerica.' },
+                    { id: 'u3_i04', label: 'colSums(is.na(salud))', category: 'problema', hint: 'Cuenta faltantes por columna.' },
+                    { id: 'u3_i05', label: 'Verificar glucosa de 900 mg/dL en ficha original', category: 'decision', hint: 'No se borra sin criterio.' },
+                    { id: 'u3_i06', label: 'names(salud)', category: 'estructura', hint: 'Muestra nombres de variables.' },
+                    { id: 'u3_i07', label: 'head(salud)', category: 'estructura', hint: 'Permite mirar casos concretos.' },
+                    { id: 'u3_i08', label: 'table(salud$diagnostico)', category: 'resumen', hint: 'Resume categorias.' },
+                    { id: 'u3_i09', label: 'duplicated(salud$id_paciente)', category: 'problema', hint: 'Busca identificadores repetidos.' },
+                    { id: 'u3_i10', label: 'Registrar en bitacora la accion tomada', category: 'decision', hint: 'Deja trazabilidad.' }
+                ]
+            },
+            4: {
+                unit: 4,
+                title: 'Limpieza y preparacion reproducible',
+                subtitle: 'Convierte una base desordenada en una tabla lista para describir, probar y reportar.',
+                prompt: 'Clasifica cada paso de limpieza segun su funcion en el pipeline.',
+                image: 'assets/pedagogical/u1_data_processing.svg',
+                categories: [
+                    { id: 'nombres', label: 'Nombres', short: 'Columnas claras', definition: 'Estandariza nombres para evitar errores de codigo.', color: '#1d4ed8' },
+                    { id: 'filas', label: 'Filtrar filas', short: 'Casos validos', definition: 'Selecciona registros que cumplen criterios definidos.', color: '#047857' },
+                    { id: 'categorias', label: 'Categorias', short: 'Codigos consistentes', definition: 'Unifica etiquetas, factores y niveles.', color: '#b45309' },
+                    { id: 'derivada', label: 'Variable derivada', short: 'Regla nueva', definition: 'Crea una variable interpretable desde datos existentes.', color: '#7c3aed' },
+                    { id: 'bitacora', label: 'Bitacora', short: 'Trazabilidad', definition: 'Documenta que cambio, por que y cuantos casos afecto.', color: '#be123c' }
+                ],
+                items: [
+                    { id: 'u4_i01', label: 'clean_names()', category: 'nombres', hint: 'Normaliza encabezados.' },
+                    { id: 'u4_i02', label: 'filter(!is.na(edad))', category: 'filas', hint: 'Selecciona casos con edad registrada.' },
+                    { id: 'u4_i03', label: 'sexo == "Femenino" y sexo == "F" a un solo nivel', category: 'categorias', hint: 'Unifica codificacion.' },
+                    { id: 'u4_i04', label: 'imc_categoria <- cut(imc, ...)', category: 'derivada', hint: 'Crea una categoria clinica.' },
+                    { id: 'u4_i05', label: 'Anotar 12 registros excluidos por edad imposible', category: 'bitacora', hint: 'Documenta impacto.' },
+                    { id: 'u4_i06', label: 'rename(glucosa = glucosa_mg_dl)', category: 'nombres', hint: 'Aclara una columna.' },
+                    { id: 'u4_i07', label: 'na_if(valor, 999)', category: 'categorias', hint: 'Convierte codigo tecnico en faltante.' },
+                    { id: 'u4_i08', label: 'mutate(grupo_edad = ...)', category: 'derivada', hint: 'Agrega una variable util.' },
+                    { id: 'u4_i09', label: 'Guardar salud_limpia.csv', category: 'bitacora', hint: 'Conserva producto final separado.' },
+                    { id: 'u4_i10', label: 'filter(edad >= 18)', category: 'filas', hint: 'Aplica criterio de inclusion.' }
+                ]
+            },
+            5: {
+                unit: 5,
+                title: 'Descriptiva aplicada',
+                subtitle: 'Elige el resumen o grafico adecuado para comunicar una muestra de salud.',
+                prompt: 'Clasifica cada recurso descriptivo segun el tipo de informacion que aporta.',
+                image: 'assets/pedagogical/edu_u2s2_boxplot.svg',
+                categories: [
+                    { id: 'centro', label: 'Centro', short: 'Valor tipico', definition: 'Media o mediana segun distribucion y outliers.', color: '#1d4ed8' },
+                    { id: 'dispersion', label: 'Dispersion', short: 'Variabilidad', definition: 'DS, rango o IQR para mostrar heterogeneidad.', color: '#047857' },
+                    { id: 'categoria', label: 'Categoria', short: 'n y %', definition: 'Frecuencias y proporciones para variables cualitativas.', color: '#b45309' },
+                    { id: 'tabla1', label: 'Tabla 1', short: 'Caracterizacion', definition: 'Presenta variables basales por grupo.', color: '#7c3aed' },
+                    { id: 'grafico', label: 'Grafico', short: 'Lectura visual', definition: 'Muestra forma, comparacion o composicion.', color: '#be123c' }
+                ],
+                items: [
+                    { id: 'u5_i01', label: 'median(glucosa)', category: 'centro', hint: 'Centro robusto.' },
+                    { id: 'u5_i02', label: 'sd(edad)', category: 'dispersion', hint: 'Variabilidad alrededor de la media.' },
+                    { id: 'u5_i03', label: 'table(diagnostico)', category: 'categoria', hint: 'Frecuencias por nivel.' },
+                    { id: 'u5_i04', label: 'Edad e IMC por diagnostico', category: 'tabla1', hint: 'Caracteriza grupos.' },
+                    { id: 'u5_i05', label: 'boxplot(glucosa ~ diagnostico)', category: 'grafico', hint: 'Compara distribuciones.' },
+                    { id: 'u5_i06', label: 'IQR(dias_internacion)', category: 'dispersion', hint: 'Dispersion robusta.' },
+                    { id: 'u5_i07', label: 'prop.table(table(sexo))', category: 'categoria', hint: 'Calcula porcentajes.' },
+                    { id: 'u5_i08', label: 'mean(presion_sistolica)', category: 'centro', hint: 'Promedio de variable continua.' },
+                    { id: 'u5_i09', label: 'hist(glucosa)', category: 'grafico', hint: 'Muestra la forma.' },
+                    { id: 'u5_i10', label: 'n, media y porcentaje en la misma tabla basal', category: 'tabla1', hint: 'Integra descripcion.' }
+                ]
+            },
+            6: {
+                unit: 6,
+                title: 'Inferencia basica con R',
+                subtitle: 'Relaciona pregunta, prueba, resultado e interpretacion clinica.',
+                prompt: 'Ubica cada elemento en el componente inferencial correcto.',
+                image: 'assets/pedagogical/edu_u2s3_correlacion.svg',
+                categories: [
+                    { id: 'hipotesis', label: 'Hipotesis', short: 'H0 y H1', definition: 'Plantea que se comparara antes de ver resultados.', color: '#1d4ed8' },
+                    { id: 'prueba', label: 'Prueba', short: 'Metodo estadistico', definition: 'Procedimiento elegido segun variables y supuestos.', color: '#047857' },
+                    { id: 'pvalor', label: 'p-valor', short: 'Evidencia contra H0', definition: 'Probabilidad bajo la hipotesis nula, no magnitud clinica.', color: '#b45309' },
+                    { id: 'ic', label: 'IC95%', short: 'Precision', definition: 'Rango plausible para el efecto estimado.', color: '#7c3aed' },
+                    { id: 'efecto', label: 'Efecto', short: 'Magnitud', definition: 'Diferencia, razon u otra medida interpretable.', color: '#be123c' }
+                ],
+                items: [
+                    { id: 'u6_i01', label: 'No hay diferencia de glucosa entre grupos', category: 'hipotesis', hint: 'Es una H0 posible.' },
+                    { id: 'u6_i02', label: 't.test(glucosa ~ tabaquismo)', category: 'prueba', hint: 'Compara medias.' },
+                    { id: 'u6_i03', label: 'p = 0.032', category: 'pvalor', hint: 'No dice magnitud por si solo.' },
+                    { id: 'u6_i04', label: 'IC95%: 4.1 a 18.7 mg/dL', category: 'ic', hint: 'Rango de precision.' },
+                    { id: 'u6_i05', label: 'Diferencia media de 11.4 mg/dL', category: 'efecto', hint: 'Magnitud interpretable.' },
+                    { id: 'u6_i06', label: 'chisq.test(table(sexo, diagnostico))', category: 'prueba', hint: 'Variables categoricas.' },
+                    { id: 'u6_i07', label: 'El intervalo incluye cero', category: 'ic', hint: 'Importa para interpretar.' },
+                    { id: 'u6_i08', label: 'Asociacion esperada antes del analisis', category: 'hipotesis', hint: 'Debe plantearse antes.' },
+                    { id: 'u6_i09', label: 'p < 0.001', category: 'pvalor', hint: 'Evidencia estadistica, no relevancia clinica automatica.' },
+                    { id: 'u6_i10', label: 'Razon de prevalencias', category: 'efecto', hint: 'Medida de asociacion.' }
+                ]
+            },
+            7: {
+                unit: 7,
+                title: 'Modelos de regresion',
+                subtitle: 'Diferencia modelo lineal, logistico, coeficientes y limites.',
+                prompt: 'Clasifica cada elemento segun su papel en un modelo sencillo de salud.',
+                image: 'assets/pedagogical/edu_u3s2_sigmoide.svg',
+                categories: [
+                    { id: 'lineal', label: 'Lineal', short: 'Y continua', definition: 'Modelo para respuestas numericas continuas.', color: '#1d4ed8' },
+                    { id: 'logistica', label: 'Logistica', short: 'Y si/no', definition: 'Modelo para desenlaces binarios.', color: '#047857' },
+                    { id: 'or', label: 'Odds ratio', short: 'exp(beta)', definition: 'Medida asociada a regresion logistica.', color: '#b45309' },
+                    { id: 'diagnostico', label: 'Diagnostico', short: 'Supuestos', definition: 'Revisa residuos, ajuste y observaciones influyentes.', color: '#7c3aed' },
+                    { id: 'limite', label: 'Limite', short: 'Cautela causal', definition: 'Reconoce confusores, diseno y alcance.', color: '#be123c' }
+                ],
+                items: [
+                    { id: 'u7_i01', label: 'lm(glucosa ~ imc)', category: 'lineal', hint: 'Respuesta continua.' },
+                    { id: 'u7_i02', label: 'glm(diabetes ~ edad + imc, family = binomial)', category: 'logistica', hint: 'Desenlace si/no.' },
+                    { id: 'u7_i03', label: 'exp(coef(modelo))', category: 'or', hint: 'Convierte beta en OR.' },
+                    { id: 'u7_i04', label: 'plot(modelo)', category: 'diagnostico', hint: 'Revisa residuos y ajuste.' },
+                    { id: 'u7_i05', label: 'Estudio transversal no prueba causalidad', category: 'limite', hint: 'Limita interpretacion.' },
+                    { id: 'u7_i06', label: 'Pendiente de 2 mg/dL por punto de IMC', category: 'lineal', hint: 'Cambio promedio.' },
+                    { id: 'u7_i07', label: 'OR = 1.35 por cada 10 anos', category: 'or', hint: 'Lectura multiplicativa.' },
+                    { id: 'u7_i08', label: 'Variable omitida puede confundir', category: 'limite', hint: 'Cuidado metodologico.' },
+                    { id: 'u7_i09', label: 'Probabilidad estimada de diabetes probable', category: 'logistica', hint: 'Salida de modelo binario.' },
+                    { id: 'u7_i10', label: 'Punto con alta influencia', category: 'diagnostico', hint: 'Debe revisarse.' }
+                ]
+            },
+            8: {
+                unit: 8,
+                title: 'Reporte reproducible y RPubs',
+                subtitle: 'Ordena los componentes de un informe R Markdown publicable.',
+                prompt: 'Clasifica cada pieza segun la fase del informe final.',
+                image: 'assets/pedagogical/edu_u4s2_rmarkdown.svg',
+                categories: [
+                    { id: 'yaml', label: 'YAML', short: 'Metadatos', definition: 'Titulo, autor, fecha y formato de salida.', color: '#1d4ed8' },
+                    { id: 'chunk', label: 'Chunk R', short: 'Codigo ejecutable', definition: 'Bloque que calcula tablas, graficos o modelos.', color: '#047857' },
+                    { id: 'metodos', label: 'Metodos', short: 'Como se analizo', definition: 'Describe datos, variables y procedimientos.', color: '#b45309' },
+                    { id: 'privacidad', label: 'Privacidad', short: 'No identificable', definition: 'Evita publicar datos sensibles o reidentificables.', color: '#be123c' },
+                    { id: 'rpubs', label: 'RPubs', short: 'Publicacion', definition: 'Renderiza, revisa y comparte la URL final.', color: '#7c3aed' }
+                ],
+                items: [
+                    { id: 'u8_i01', label: 'title: "Analisis de glucosa"', category: 'yaml', hint: 'Metadato del documento.' },
+                    { id: 'u8_i02', label: '```{r tabla1}', category: 'chunk', hint: 'Bloque ejecutable.' },
+                    { id: 'u8_i03', label: 'Se uso una base ficticia sin identificadores', category: 'metodos', hint: 'Describe fuente y alcance.' },
+                    { id: 'u8_i04', label: 'Eliminar nombre y cedula antes de publicar', category: 'privacidad', hint: 'Protege identidad.' },
+                    { id: 'u8_i05', label: 'Subir HTML final a RPubs', category: 'rpubs', hint: 'Paso de publicacion.' },
+                    { id: 'u8_i06', label: 'output: html_document', category: 'yaml', hint: 'Define salida.' },
+                    { id: 'u8_i07', label: 'summary(modelo)', category: 'chunk', hint: 'Genera resultado desde codigo.' },
+                    { id: 'u8_i08', label: 'Variables, pruebas y paquetes usados', category: 'metodos', hint: 'Hace reproducible el analisis.' },
+                    { id: 'u8_i09', label: 'Revisar que no haya datos individuales visibles', category: 'privacidad', hint: 'Control antes de publicar.' },
+                    { id: 'u8_i10', label: 'Guardar la URL como evidencia final', category: 'rpubs', hint: 'Producto integrador.' }
+                ]
+            }
+        });
+
         let classifierState = null;
         let classifierDragId = null;
         let classifierSelectedId = null;
@@ -5541,6 +6150,34 @@
                 subtitle: 'Revisa que tabla, figura, conclusion y limite metodologico esten listos antes de publicar.',
                 image: 'assets/pedagogical/edu_u4s2_rmarkdown.svg',
                 question: 'Que elemento revisarias antes de compartir el informe en RPubs?'
+            },
+            5: {
+                unit: 5,
+                title: 'Tabla 1 y distribuciones clinicas',
+                subtitle: 'Explora como cambia la lectura cuando hay asimetria, outliers y grupos clinicos.',
+                image: 'assets/pedagogical/edu_u2s2_boxplot.svg',
+                question: 'Cuando conviene reportar mediana e IQR en vez de media y DS?'
+            },
+            6: {
+                unit: 6,
+                title: 'Inferencia y relevancia clinica',
+                subtitle: 'Compara tamano de efecto, incertidumbre y decision clinica antes de mirar solo el p-valor.',
+                image: 'assets/pedagogical/edu_u2s3_correlacion.svg',
+                question: 'Que resultado puede ser significativo pero poco relevante?'
+            },
+            7: {
+                unit: 7,
+                title: 'Odds ratio e interpretacion de modelos',
+                subtitle: 'Simula umbrales y probabilidades para practicar una lectura prudente de modelos logisticos.',
+                image: 'assets/pedagogical/edu_u3s2_sigmoide.svg',
+                question: 'Por que un OR no debe presentarse como causalidad automatica?'
+            },
+            8: {
+                unit: 8,
+                title: 'Publicacion RPubs segura',
+                subtitle: 'Revisa privacidad, limites, claridad y reproducibilidad antes de publicar el informe final.',
+                image: 'assets/pedagogical/edu_u4s2_rmarkdown.svg',
+                question: 'Que debe verificarse antes de compartir una URL publica?'
             }
         };
 
@@ -5581,10 +6218,10 @@
             if (getU3SimulatorMode() === 'knn') return base;
             return {
                 ...base,
-                title: 'K-means: laboratorio de clustering',
-                subtitle: 'Explora aprendizaje no supervisado con centroides, WCSS, silueta y convergencia iterativa.',
+                title: 'Agrupar perfiles clinicos exploratorios',
+                subtitle: 'Explora como se forman grupos de pacientes al variar numero de perfiles, dispersion e iteraciones.',
                 image: 'assets/pedagogical/u3_ai.svg',
-                question: 'Como cambian WCSS y silueta cuando ajustas K, dispersion e iteraciones?'
+                question: 'Que ocurre con la separacion de perfiles cuando cambias K y dispersion?'
             };
         }
 
@@ -5963,8 +6600,8 @@
                 const modeSelect = `
       <label>Modo
         <select id="simU3Mode" onchange="setU3SimulatorMode(this.value)">
-          <option value="kmeans" ${mode === 'kmeans' ? 'selected' : ''}>K-means clustering</option>
-          <option value="knn" ${mode === 'knn' ? 'selected' : ''}>KNN clasificacion</option>
+          <option value="kmeans" ${mode === 'kmeans' ? 'selected' : ''}>Perfiles exploratorios</option>
+          <option value="knn" ${mode === 'knn' ? 'selected' : ''}>Clasificacion por vecinos</option>
         </select>
       </label>`;
                 if (mode === 'knn') return `${modeSelect}
@@ -5978,13 +6615,13 @@
       <label>Iteraciones <input id="simKMeansIter" type="number" value="9" min="2" max="18"></label>`;
             }
             return `
-      <label>Umbral % <input id="simThreshold" type="number" value="56" min="20" max="85"></label>
-      <label>Brecha inicial % <input id="simGap" type="number" value="16" min="0" max="40"></label>
+      <label>Umbral clinico % <input id="simThreshold" type="number" value="56" min="20" max="85"></label>
+      <label>Brecha por grupo % <input id="simGap" type="number" value="16" min="0" max="40"></label>
       <label>Estrategia
         <select id="simFairness">
-          <option value="same">Umbral unico</option>
-          <option value="group">Ajuste por grupo</option>
-          <option value="review">Revision humana</option>
+          <option value="same">Criterio unico</option>
+          <option value="group">Ajuste contextual</option>
+          <option value="review">Revision clinica</option>
         </select>
       </label>`;
         }
@@ -6158,7 +6795,7 @@
                 { label: 'Sensibilidad', value: `${Math.round(recall * 100)}%`, note: 'recall' },
                 { label: 'k', value: String(k), note: `solapamiento ${Math.round(overlap * 100)}%` }
             ]);
-            simDrawScatter('simCanvasA', points, 'Datos simulados y errores KNN');
+            simDrawScatter('simCanvasA', points, 'Casos simulados y errores de clasificacion');
             simDrawBars('simCanvasB', [
                 { label: 'Accuracy', value: accuracy * 100, text: `${Math.round(accuracy * 100)}%`, color: '#2d5f87' },
                 { label: 'Precision', value: precision * 100, text: `${Math.round(precision * 100)}%`, color: '#7c3aed' },
@@ -6300,8 +6937,8 @@
                 { label: 'Delta WCSS', value: frame.delta.toFixed(2), note: 'cambio ultimo paso' },
                 { label: 'Movimiento', value: frame.movement.toFixed(3), note: 'centroides' }
             ]);
-            simDrawKmeans('simCanvasA', frame, 'K-means: puntos, centroides y asignaciones');
-            simDrawConvergence('simCanvasB', history, 'Convergencia: WCSS y silueta');
+            simDrawKmeans('simCanvasA', frame, 'Perfiles: casos, centroides y asignaciones');
+            simDrawConvergence('simCanvasB', history, 'Convergencia: distancia interna y silueta');
             simulatorState.payload = {
                 tipo: 'kmeans',
                 k: frame.centroids.length,
@@ -6367,19 +7004,19 @@
             const tprGap = Math.abs(groupStats[0].tpr - groupStats[1].tpr);
             simSetMetrics([
                 { label: 'Umbral', value: `${Math.round(threshold * 100)}%`, note: strategy },
-                { label: 'Brecha aprobacion', value: `${Math.round(approvalGap * 100)} pp`, note: 'paridad demografica' },
-                { label: 'Brecha TPR', value: `${Math.round(tprGap * 100)} pp`, note: 'igualdad oportunidad' },
+                { label: 'Brecha deteccion', value: `${Math.round(approvalGap * 100)} pp`, note: 'urbano vs rural' },
+                { label: 'Brecha sensibilidad', value: `${Math.round(tprGap * 100)} pp`, note: 'verdaderos positivos' },
                 { label: 'Casos', value: String(rows.length), note: 'simulados' }
             ]);
-            simDrawHistogram('simCanvasA', rows.map(row => row.score), 'Distribucion de puntajes', '#65508d');
+            simDrawHistogram('simCanvasA', rows.map(row => row.score), 'Distribucion de puntajes clinicos', '#65508d');
             simDrawBars('simCanvasB', [
-                { label: 'Aprob. urbano', value: groupStats[0].approval * 100, text: `${Math.round(groupStats[0].approval * 100)}%`, color: '#2d5f87' },
-                { label: 'Aprob. rural', value: groupStats[1].approval * 100, text: `${Math.round(groupStats[1].approval * 100)}%`, color: '#b45309' },
-                { label: 'TPR urbano', value: groupStats[0].tpr * 100, text: `${Math.round(groupStats[0].tpr * 100)}%`, color: '#047857' },
-                { label: 'TPR rural', value: groupStats[1].tpr * 100, text: `${Math.round(groupStats[1].tpr * 100)}%`, color: '#be123c' }
-            ], 'Metricas por grupo');
+                { label: 'Detec. urbano', value: groupStats[0].approval * 100, text: `${Math.round(groupStats[0].approval * 100)}%`, color: '#2d5f87' },
+                { label: 'Detec. rural', value: groupStats[1].approval * 100, text: `${Math.round(groupStats[1].approval * 100)}%`, color: '#b45309' },
+                { label: 'Sens. urbano', value: groupStats[0].tpr * 100, text: `${Math.round(groupStats[0].tpr * 100)}%`, color: '#047857' },
+                { label: 'Sens. rural', value: groupStats[1].tpr * 100, text: `${Math.round(groupStats[1].tpr * 100)}%`, color: '#be123c' }
+            ], 'Metricas clinicas por grupo');
             simulatorState.payload = {
-                tipo: 'fairness',
+                tipo: 'umbral_clinico',
                 threshold,
                 gap,
                 strategy,

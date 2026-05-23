@@ -14,10 +14,14 @@ Guiar a una persona sin experiencia previa desde la instalación de R y RStudio 
 
 | Unidad | Tema | Producto |
 | --- | --- | --- |
-| 1 | Inicio en R | Entorno configurado, primeros comandos y lectura de la base de salud |
-| 2 | Datos de salud y descriptiva clínica | Base limpia, tablas, gráficos y control de calidad |
-| 3 | Inferencia y modelos sencillos | Comparaciones, asociaciones y regresión logística básica |
-| 4 | Reporte reproducible y publicación en RPubs | Ensayo HTML publicado con interpretación prudente |
+| 1 | Inicio: R para estudiantes de medicina | Mapa mental y reflexion breve |
+| 2 | Instalacion y primeros comandos | Script `.R` comentado |
+| 3 | Carga y exploracion de datos de salud | Reporte de exploracion inicial |
+| 4 | Limpieza y preparacion de datos clinicos | Base limpia, script y bitacora |
+| 5 | Estadistica descriptiva aplicada a salud | Tabla 1, graficos e interpretaciones |
+| 6 | Inferencia basica con R | Informe con tres pruebas |
+| 7 | Modelos sencillos en datos de salud | Reporte de regresion |
+| 8 | Reporte reproducible y publicacion en RPubs | URL publica del informe final |
 
 ## Funcionalidades
 
@@ -25,7 +29,8 @@ Guiar a una persona sin experiencia previa desde la instalación de R y RStudio 
 - Ruta secuencial con unidades, subniveles, bloqueos pedagógicos y productos.
 - Dashboard principal migrado desde la plantilla funcional del curso ejemplo, con sidebar, topbar, logros, calendario, comunidad, administración y tarjetas de seguimiento.
 - Unidad activa tipo presentación interactiva: diapositivas con transición, concepto, caso clínico, código R ejecutable en WebR, evidencia y foro por subnivel.
-- Prácticas guiadas con 4 laboratorios WebR y 12 subniveles paso a paso sobre datos de salud.
+- Prácticas guiadas con 8 laboratorios WebR y 24 subniveles paso a paso sobre datos de salud.
+- Recursos NotebookLM integrados como fuente canonica: 9 Google Docs, indice JSON local y fichas resumidas para diapositivas.
 - Flashcards y clasificadores interactivos para repaso activo antes de cuestionarios.
 - Progreso local/offline con cola de sincronización hacia Google Sheets.
 - Calendario de materiales, quizzes y entrega final.

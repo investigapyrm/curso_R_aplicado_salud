@@ -1,5 +1,23 @@
 # Bitácora
 
+## 2026-05-23 - Migracion operativa a 8 unidades NotebookLM
+
+- Objetivo: proceder con la integracion real de los recursos NotebookLM dentro del aula.
+- Se migro el dashboard de 4 unidades visuales a 8 unidades secuenciales alineadas con los documentos de Google Docs.
+- Se agrego la navegacion lateral para unidades 5 a 8 y se actualizaron rutas `#u1` a `#u8`.
+- Se activo `recursos/notebooklm/indice.json` y se creo `recursos/notebooklm/contenido_fichas.json` para alimentar ideas, ejemplos y fichas dentro de las diapositivas.
+- Se generaron 8 laboratorios WebR, uno por unidad, y 24 subniveles derivados del curriculo NotebookLM.
+- Se reemplazaron los cuestionarios por `quiz_u1.json` a `quiz_u8.json`, cada uno con 10 preguntas y retroalimentacion.
+- Se ajustaron las laminas pedagogicas visibles para que unidades 2 a 8 ya no hereden contenidos de ML/SHAP del curso ejemplo.
+- Se extendio el clasificador interactivo a las 8 unidades, con categorias y casos propios de R aplicado a salud.
+- Se actualizo `data/course.json`, `documentos.html`, `README.md`, `index.html`, `config.js`, `sw.js` y el CSS de la plantilla para reflejar 8 semanas, 24 subniveles y 8 quizzes.
+- Validaciones locales: sintaxis del JS inline de `dashboard.html`, `node --check sw.js`, `node --check js/app.js`, parseo de `data/course.json`, `indice.json`, `contenido_fichas.json` y `quiz_u1.json` a `quiz_u8.json`.
+- Validacion PWA local: `sw.js` no referencia archivos faltantes e incluye `quiz_u7.json`, `quiz_u8.json`, `indice.json` y `contenido_fichas.json`.
+- Validacion local viva con Chrome CDP: `dashboard.html#u8` cargo con 8 unidades en el menu, 3 subniveles en unidad 8, 24 fichas NotebookLM, recurso NotebookLM visible y contenido RPubs.
+- Validacion local de cuestionario: `startQuiz(8)` cargo `quiz_u8.json` con 10 preguntas.
+- Validacion local de clasificador: `renderMatching(8)` mostro 8 tabs, 10 casos y 5 zonas para "Reporte reproducible y RPubs".
+- Pendiente posterior al push: verificar la URL publica con cache-busting cuando GitHub Pages actualice el commit.
+
 ## 2026-05-22 - Revision de recursos NotebookLM
 
 - Problema reportado: revisar los recursos creados con NotebookLM y pensar como aprovecharlos en el curso.

@@ -1,31 +1,16 @@
 {
   "unidad": 1,
-  "titulo": "Instalación y primeros pasos",
+  "titulo": "Inicio: R para estudiantes de medicina",
   "preguntas": [
-    {
-      "texto": "¿Cuál es el orden recomendado para preparar el entorno de trabajo?",
-      "opciones": ["Instalar R, instalar RStudio y crear un proyecto", "Abrir RPubs antes de instalar R", "Crear gráficos sin guardar scripts", "Instalar paquetes antes de instalar R"],
-      "correcta": 0,
-      "explicacion": "R es el motor de cálculo; RStudio organiza el trabajo y el proyecto mantiene archivos reproducibles."
-    },
-    {
-      "texto": "¿Para qué sirve un proyecto de RStudio?",
-      "opciones": ["Para ordenar scripts, datos y salidas en una carpeta de trabajo", "Para reemplazar la base de datos", "Para ejecutar código sin instalar R", "Para publicar automáticamente en revistas"],
-      "correcta": 0,
-      "explicacion": "El proyecto evita rutas confusas y facilita que otra persona reproduzca el análisis."
-    },
-    {
-      "texto": "¿Qué comando instala paquetes desde CRAN?",
-      "opciones": ["install.packages()", "library()", "read.csv()", "summary()"],
-      "correcta": 0,
-      "explicacion": "install.packages() instala; library() carga el paquete ya instalado."
-    },
-    {
-      "texto": "¿Qué archivo conviene usar para guardar instrucciones de análisis?",
-      "opciones": ["Un script .R o un documento .Rmd/.qmd", "Una imagen PNG", "Solo la consola", "Una captura de pantalla"],
-      "correcta": 0,
-      "explicacion": "El script o documento reproducible conserva el proceso analítico."
-    }
+    { "texto": "Cual es la ventaja principal de usar R en un analisis de salud?", "opciones": ["Reproducir el analisis con el mismo codigo", "Evitar interpretar resultados", "Reemplazar el criterio clinico", "Publicar sin revisar datos"], "correcta": 0, "explicacion": "R permite documentar y repetir los pasos del analisis." },
+    { "texto": "Que significa que un analisis sea reproducible?", "opciones": ["Que otra persona pueda obtener los mismos resultados con los mismos datos y codigo", "Que solo funcione en una computadora", "Que no requiera datos", "Que use capturas de pantalla"], "correcta": 0, "explicacion": "La reproducibilidad integra datos, codigo y procedimiento." },
+    { "texto": "Una pregunta clinica analizable debe incluir al menos:", "opciones": ["Problema, poblacion o grupo, variable y metodo aproximado", "Solo un titulo atractivo", "Una conclusion previa", "Un grafico final"], "correcta": 0, "explicacion": "La pregunta guia que variables y metodos se necesitan." },
+    { "texto": "La estadistica descriptiva sirve para:", "opciones": ["Resumir como son los datos observados", "Probar causalidad", "Sustituir la limpieza", "Garantizar significancia"], "correcta": 0, "explicacion": "La descriptiva resume la muestra sin probar por si sola hipotesis causales." },
+    { "texto": "La inferencia estadistica se relaciona con:", "opciones": ["Incertidumbre y generalizacion desde una muestra", "Cambiar datos manualmente", "Ocultar codigo", "Eliminar contexto clinico"], "correcta": 0, "explicacion": "Inferir implica trabajar con incertidumbre y supuestos." },
+    { "texto": "Que afirmacion es mas prudente?", "opciones": ["En esta muestra se observa una asociacion", "Esto prueba causalidad definitiva", "El p-valor reemplaza al juicio medico", "La tabla confirma una verdad universal"], "correcta": 0, "explicacion": "La frase limita el alcance de la interpretacion." },
+    { "texto": "Un dataset es:", "opciones": ["Una tabla organizada de datos", "Un paquete de R", "Un boton de RStudio", "Una prueba estadistica"], "correcta": 0, "explicacion": "En el curso se trabaja con tablas de pacientes y variables." },
+    { "texto": "Por que se usan datos ficticios en el curso?", "opciones": ["Para practicar sin exponer informacion sensible", "Porque los datos reales no existen", "Para evitar aprender privacidad", "Para impedir reproducibilidad"], "correcta": 0, "explicacion": "Los datos simulados protegen la privacidad y permiten practicar." },
+    { "texto": "RStudio es:", "opciones": ["Un entorno para escribir codigo, ver objetos, archivos y graficos", "Un tipo de hospital", "Un formato de publicacion", "Un reemplazo de RPubs"], "correcta": 0, "explicacion": "RStudio facilita trabajar con R." },
+    { "texto": "El producto final del curso es:", "opciones": ["Un informe reproducible publicado en RPubs", "Una planilla sin codigo", "Una captura de consola", "Un examen oral solamente"], "correcta": 0, "explicacion": "La ruta termina con un informe HTML compartible." }
   ]
 }
-

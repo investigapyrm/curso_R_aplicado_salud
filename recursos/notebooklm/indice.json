@@ -7,7 +7,8 @@
     "audience": "Estudiantes de medicina sin experiencia previa en programacion",
     "finalProduct": "Informe reproducible publicado en RPubs",
     "sourceFolder": "R aplicado a la salud - Carpeta del Curso",
-    "recommendedUse": "Usar estos documentos como fuente canonica para generar unidades, slides, practicas, quizzes, rubricas, foros y checklists del aula web."
+    "recommendedUse": "Usar estos documentos como fuente canonica para generar unidades, slides, practicas, quizzes, rubricas, foros y checklists del aula web.",
+    "localContent": "recursos/notebooklm/contenido_fichas.json"
   },
   "sourceDocuments": [
     {

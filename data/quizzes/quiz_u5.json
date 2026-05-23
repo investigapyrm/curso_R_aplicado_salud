@@ -1,31 +1,16 @@
 {
   "unidad": 5,
-  "titulo": "Modelos sencillos",
+  "titulo": "Estadistica descriptiva aplicada a salud",
   "preguntas": [
-    {
-      "texto": "¿Qué modelo es natural para una variable respuesta binaria?",
-      "opciones": ["Regresión logística", "Media simple", "Histograma", "RStudio Project"],
-      "correcta": 0,
-      "explicacion": "La regresión logística estima probabilidades u odds para resultados binarios."
-    },
-    {
-      "texto": "¿Qué significa ajustar un modelo con glm(..., family = binomial)?",
-      "opciones": ["Estimar una regresión logística en R", "Instalar RStudio", "Crear un PDF sin datos", "Calcular solo una mediana"],
-      "correcta": 0,
-      "explicacion": "glm con familia binomial es la forma estándar de ajustar modelos logísticos en R base."
-    },
-    {
-      "texto": "¿Qué precaución es clave al comunicar modelos clínicos simples?",
-      "opciones": ["Separar asociación, predicción e interpretación causal", "Prometer diagnóstico definitivo", "Ocultar variables usadas", "Eliminar resultados no significativos"],
-      "correcta": 0,
-      "explicacion": "Un modelo sencillo ayuda a explorar relaciones, pero no reemplaza juicio clínico ni diseño causal."
-    },
-    {
-      "texto": "¿Qué función resume coeficientes de un modelo en R?",
-      "opciones": ["summary()", "setwd()", "write.csv()", "install.packages()"],
-      "correcta": 0,
-      "explicacion": "summary(modelo) muestra estimaciones, errores estándar y pruebas del modelo."
-    }
+    { "texto": "Si una variable es muy asimetrica, conviene resumirla con:", "opciones": ["Mediana e IQR", "Solo media", "Solo valor maximo", "OR"], "correcta": 0, "explicacion": "La mediana resiste outliers y asimetria." },
+    { "texto": "El IQR representa:", "opciones": ["Q3 menos Q1", "Media menos mediana", "p-valor", "Odds ratio"], "correcta": 0, "explicacion": "El rango intercuartilico contiene el 50% central." },
+    { "texto": "Una variable categorica se resume con:", "opciones": ["Frecuencia y porcentaje", "Media y DS siempre", "Regresion lineal", "YAML"], "correcta": 0, "explicacion": "Categorias se reportan como n y %." },
+    { "texto": "La Tabla 1 de un articulo medico presenta:", "opciones": ["Caracteristicas basales de la muestra", "Solo conclusiones", "Contrasenas", "Codigo oculto"], "correcta": 0, "explicacion": "La Tabla 1 describe quienes son los participantes." },
+    { "texto": "gtsummary::tbl_summary() se usa para:", "opciones": ["Generar tablas descriptivas", "Instalar RStudio", "Crear cuentas RPubs", "Borrar NA sin criterio"], "correcta": 0, "explicacion": "tbl_summary ayuda a producir tablas publicables." },
+    { "texto": "Un boxplot muestra principalmente:", "opciones": ["Mediana, dispersion y posibles extremos", "Solo correlacion", "Solo p-valor", "Solo texto"], "correcta": 0, "explicacion": "Es util para comparar distribuciones." },
+    { "texto": "Un histograma ayuda a evaluar:", "opciones": ["Forma de la distribucion", "Contrasena del usuario", "URL de GitHub", "Nombre del paquete"], "correcta": 0, "explicacion": "Permite ver simetria, colas y concentracion." },
+    { "texto": "Shapiro-Wilk se usa para:", "opciones": ["Evaluar normalidad", "Publicar en RPubs", "Crear un data frame", "Hacer login"], "correcta": 0, "explicacion": "Es una prueba de normalidad." },
+    { "texto": "Un buen grafico clinico debe tener:", "opciones": ["Titulo, ejes claros e interpretacion", "Solo colores intensos", "Sin unidades", "Sin contexto"], "correcta": 0, "explicacion": "La claridad importa mas que la decoracion." },
+    { "texto": "El entregable de la unidad es:", "opciones": ["Tabla 1, tres graficos e interpretaciones", "Solo codigo sin salida", "Modelo causal", "Cuenta nueva"], "correcta": 0, "explicacion": "El producto combina descriptiva y comunicacion." }
   ]
 }
-

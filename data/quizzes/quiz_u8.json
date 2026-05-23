@@ -1,0 +1,16 @@
+{
+  "unidad": 8,
+  "titulo": "Reporte reproducible y publicacion en RPubs",
+  "preguntas": [
+    { "texto": "Un archivo .Rmd combina:", "opciones": ["Texto, codigo R y resultados", "Solo imagenes", "Solo contrasenas", "Solo datos crudos"], "correcta": 0, "explicacion": "R Markdown integra narrativa y codigo." },
+    { "texto": "El YAML en R Markdown define:", "opciones": ["Metadatos y opciones de salida", "Solo una tabla", "El p-valor", "Un modelo logistico"], "correcta": 0, "explicacion": "Incluye titulo, autor, fecha y formato." },
+    { "texto": "Un chunk de codigo es:", "opciones": ["Bloque ejecutable dentro del documento", "Un usuario", "Una celda de Google Sheets", "Un enlace RPubs"], "correcta": 0, "explicacion": "Los chunks producen resultados dentro del informe." },
+    { "texto": "Knit significa:", "opciones": ["Ejecutar el documento y generar una salida como HTML", "Eliminar datos", "Instalar R", "Cambiar roles"], "correcta": 0, "explicacion": "Knit procesa texto y codigo." },
+    { "texto": "echo=FALSE hace que:", "opciones": ["Se oculte el codigo pero se muestre el resultado", "No se ejecute nada", "Se borre el HTML", "Se instale un paquete"], "correcta": 0, "explicacion": "Es util para informes enfocados en resultados." },
+    { "texto": "include=FALSE hace que:", "opciones": ["Se ejecute codigo sin mostrar codigo ni salida", "Se muestre todo", "Se publique en RPubs", "Se calcule OR"], "correcta": 0, "explicacion": "Suele usarse en setup." },
+    { "texto": "RPubs sirve para:", "opciones": ["Publicar informes R Markdown como paginas web", "Instalar paquetes", "Anonimizar automaticamente", "Calcular promedios"], "correcta": 0, "explicacion": "RPubs genera una URL publica." },
+    { "texto": "Antes de publicar en RPubs se debe revisar:", "opciones": ["Privacidad, rutas, limites e interpretacion", "Solo el color", "Solo el titulo", "Solo la cantidad de filas"], "correcta": 0, "explicacion": "Publicar implica responsabilidad." },
+    { "texto": "Un informe cientifico breve debe contener:", "opciones": ["Introduccion, metodos, resultados, conclusiones y limitaciones", "Solo codigo", "Solo graficos", "Solo contrasena"], "correcta": 0, "explicacion": "La estructura facilita lectura y evaluacion." },
+    { "texto": "El entregable final del curso es:", "opciones": ["URL publica de RPubs con informe reproducible", "Solo un CSV", "Una captura de consola", "Un comentario sin codigo"], "correcta": 0, "explicacion": "La URL demuestra publicacion del producto final." }
+  ]
+}

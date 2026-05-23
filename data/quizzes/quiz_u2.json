@@ -1,31 +1,16 @@
 {
   "unidad": 2,
-  "titulo": "Datos de salud y limpieza",
+  "titulo": "Instalacion y primeros comandos",
   "preguntas": [
-    {
-      "texto": "¿Cuál es una buena práctica antes de analizar datos de salud?",
-      "opciones": ["Revisar diccionario de datos, variables y valores faltantes", "Eliminar columnas sin mirarlas", "Cambiar valores para que el resultado sea significativo", "Publicar la base cruda con datos identificables"],
-      "correcta": 0,
-      "explicacion": "La revisión inicial protege la calidad del análisis y la privacidad."
-    },
-    {
-      "texto": "¿Qué función muestra una vista rápida de las primeras filas?",
-      "opciones": ["head()", "install.packages()", "mean()", "hist()"],
-      "correcta": 0,
-      "explicacion": "head() permite inspeccionar la estructura inicial sin imprimir toda la tabla."
-    },
-    {
-      "texto": "¿Qué representa NA en R?",
-      "opciones": ["Un valor faltante", "Un valor duplicado", "Una variable categórica", "Una contraseña"],
-      "correcta": 0,
-      "explicacion": "NA indica ausencia de dato y debe ser tratado explícitamente."
-    },
-    {
-      "texto": "¿Qué principio ético aplica a una base de pacientes?",
-      "opciones": ["Minimizar datos identificables y proteger privacidad", "Compartir nombres completos para validar resultados", "Usar cualquier dato si el gráfico se ve bien", "Ignorar consentimiento si la muestra es pequeña"],
-      "correcta": 0,
-      "explicacion": "El análisis de salud exige confidencialidad y uso responsable de la información."
-    }
+    { "texto": "Cual es el orden recomendado para empezar?", "opciones": ["Instalar R, instalar RStudio y crear un proyecto", "Crear graficos antes de instalar R", "Abrir RPubs primero", "Borrar la carpeta de datos"], "correcta": 0, "explicacion": "R es el motor, RStudio el entorno y el proyecto ordena el flujo." },
+    { "texto": "Que comando muestra informacion de la sesion?", "opciones": ["sessionInfo()", "mean()", "boxplot()", "read.csv()"], "correcta": 0, "explicacion": "sessionInfo documenta version y paquetes cargados." },
+    { "texto": "Que operador se usa habitualmente para asignar objetos en R?", "opciones": ["<-", "==", "!=", "%/%"], "correcta": 0, "explicacion": "El operador <- guarda un valor en un objeto." },
+    { "texto": "Un vector en R es:", "opciones": ["Una coleccion de valores del mismo tipo", "Una pagina web", "Un archivo PDF", "Un servidor"], "correcta": 0, "explicacion": "Edad o glucosa pueden guardarse como vectores numericos." },
+    { "texto": "Un data.frame sirve para:", "opciones": ["Organizar variables en columnas y casos en filas", "Instalar paquetes", "Cambiar contrasenas", "Publicar en RPubs"], "correcta": 0, "explicacion": "Es una estructura tabular central en analisis." },
+    { "texto": "install.packages() sirve para:", "opciones": ["Instalar paquetes desde repositorios como CRAN", "Cargar un CSV", "Crear un boxplot", "Calcular una media"], "correcta": 0, "explicacion": "Instalar y cargar son pasos distintos." },
+    { "texto": "library() sirve para:", "opciones": ["Cargar un paquete ya instalado", "Crear una carpeta", "Exportar un informe", "Cambiar el sistema operativo"], "correcta": 0, "explicacion": "library(tidyverse) activa funciones del paquete." },
+    { "texto": "Por que conviene usar un script .R?", "opciones": ["Porque guarda los pasos y comentarios del analisis", "Porque impide errores", "Porque reemplaza los datos", "Porque borra la consola"], "correcta": 0, "explicacion": "El script conserva la receta reproducible." },
+    { "texto": "Que funcion calcula el promedio?", "opciones": ["mean()", "median()", "table()", "factor()"], "correcta": 0, "explicacion": "mean calcula media aritmetica." },
+    { "texto": "Que evidencia corresponde a esta unidad?", "opciones": ["Script comentado con operaciones basicas", "Modelo logistico avanzado", "URL de RPubs final", "Base sin columnas"], "correcta": 0, "explicacion": "La unidad busca demostrar dominio inicial del entorno." }
   ]
 }
-

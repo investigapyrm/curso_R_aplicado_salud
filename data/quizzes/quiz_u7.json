@@ -1,0 +1,16 @@
+{
+  "unidad": 7,
+  "titulo": "Modelos sencillos en datos de salud",
+  "preguntas": [
+    { "texto": "lm() se usa principalmente para:", "opciones": ["Regresion lineal", "Regresion logistica binaria directamente", "Publicar HTML", "Crear usuario"], "correcta": 0, "explicacion": "lm ajusta modelos lineales para respuestas continuas." },
+    { "texto": "En PAS = 90 + 1.5 x IMC, el 1.5 representa:", "opciones": ["Cambio promedio de PAS por una unidad de IMC", "Probabilidad directa", "Numero de pacientes", "p-valor"], "correcta": 0, "explicacion": "Es la pendiente del modelo." },
+    { "texto": "R2 indica:", "opciones": ["Proporcion de variabilidad explicada por el modelo", "Odds ratio", "Numero de columnas", "Fecha de publicacion"], "correcta": 0, "explicacion": "R2 mide ajuste en modelos lineales." },
+    { "texto": "glm(..., family = binomial) se usa cuando:", "opciones": ["La respuesta es binaria", "La respuesta es texto libre", "No hay datos", "Solo hay fechas"], "correcta": 0, "explicacion": "Es la base de la regresion logistica." },
+    { "texto": "Para convertir coeficientes logisticos en OR se usa:", "opciones": ["exp(coeficiente)", "log(media)", "sqrt(p)", "read.csv"], "correcta": 0, "explicacion": "Exponenciar log-odds produce odds ratios." },
+    { "texto": "Un OR mayor que 1 sugiere:", "opciones": ["Mayores odds del evento asociado al predictor", "Causalidad garantizada", "Menor tamano muestral", "Error de sintaxis"], "correcta": 0, "explicacion": "OR se interpreta con IC y contexto." },
+    { "texto": "broom::tidy() ayuda a:", "opciones": ["Ordenar resultados de modelos en tablas", "Instalar R", "Cambiar contrasena", "Abrir Google Docs"], "correcta": 0, "explicacion": "Convierte salidas en data frames/tibbles." },
+    { "texto": "tbl_regression() de gtsummary sirve para:", "opciones": ["Presentar resultados de modelos", "Crear un vector", "Leer CSV", "Calcular medianas solamente"], "correcta": 0, "explicacion": "Da formato a tablas de regresion." },
+    { "texto": "Por que no se debe inferir causalidad automaticamente?", "opciones": ["Puede haber confusion residual y diseno observacional", "Porque R no calcula modelos", "Porque OR siempre es cero", "Porque los graficos no existen"], "correcta": 0, "explicacion": "El diseno del estudio condiciona la causalidad." },
+    { "texto": "El entregable de la unidad es:", "opciones": ["Reporte de regresion con modelos y limitaciones", "Solo una media", "Un login", "Una instalacion"], "correcta": 0, "explicacion": "Debe incluir modelo, tabla, grafico e interpretacion prudente." }
+  ]
+}

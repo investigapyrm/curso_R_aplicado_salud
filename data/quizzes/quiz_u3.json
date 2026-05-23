@@ -1,31 +1,16 @@
 {
   "unidad": 3,
-  "titulo": "Descriptiva y visualización",
+  "titulo": "Carga y exploracion de datos de salud",
   "preguntas": [
-    {
-      "texto": "¿Qué estadístico resume el centro de una variable numérica?",
-      "opciones": ["Media o mediana", "Color de fondo", "Nombre del archivo", "Ruta del proyecto"],
-      "correcta": 0,
-      "explicacion": "Media y mediana son medidas de tendencia central."
-    },
-    {
-      "texto": "¿Qué gráfico es útil para comparar glucosa entre diagnósticos?",
-      "opciones": ["Boxplot por grupo", "Captura de pantalla", "Tabla sin ordenar", "Logo del curso"],
-      "correcta": 0,
-      "explicacion": "El boxplot permite comparar distribución, mediana y posibles valores extremos."
-    },
-    {
-      "texto": "¿Qué paquete se usa ampliamente para gráficos en R?",
-      "opciones": ["ggplot2", "readxl", "base64enc", "renv"],
-      "correcta": 0,
-      "explicacion": "ggplot2 implementa una gramática de gráficos muy usada en análisis reproducible."
-    },
-    {
-      "texto": "¿Qué debe acompañar a una tabla descriptiva en salud?",
-      "opciones": ["Interpretación clínica breve y clara", "Solo código sin explicación", "Conclusiones no relacionadas", "Datos identificables"],
-      "correcta": 0,
-      "explicacion": "La tabla aporta valor cuando se interpreta en relación con la pregunta."
-    }
+    { "texto": "Que debe hacerse inmediatamente despues de importar una base?", "opciones": ["Explorar estructura, nombres, tipos y dimensiones", "Publicar resultados", "Eliminar filas al azar", "Ajustar un modelo final"], "correcta": 0, "explicacion": "La exploracion inicial evita errores posteriores." },
+    { "texto": "read.csv() sirve para:", "opciones": ["Leer archivos CSV", "Calcular odds ratio", "Publicar en RPubs", "Crear un usuario"], "correcta": 0, "explicacion": "read.csv importa archivos separados por comas." },
+    { "texto": "dim(datos) devuelve:", "opciones": ["Numero de filas y columnas", "Solo nombres de variables", "Un grafico", "Una prueba de hipotesis"], "correcta": 0, "explicacion": "dim muestra el tamano de la tabla." },
+    { "texto": "str(datos) ayuda a revisar:", "opciones": ["Tipos de variables y estructura", "El p-valor", "El enlace de RPubs", "La contrasena"], "correcta": 0, "explicacion": "str permite ver clases y ejemplos de columnas." },
+    { "texto": "summary(datos) permite:", "opciones": ["Obtener resumen numerico y categorias", "Garantizar causalidad", "Instalar R", "Crear un documento HTML"], "correcta": 0, "explicacion": "summary es una primera mirada descriptiva." },
+    { "texto": "Un valor faltante se representa frecuentemente como:", "opciones": ["NA", "OK", "TRUE siempre", "HTML"], "correcta": 0, "explicacion": "NA indica ausencia de dato." },
+    { "texto": "Un outlier en salud debe:", "opciones": ["Investigarse antes de excluirse", "Borrarse siempre", "Convertirse en cero", "Ignorarse"], "correcta": 0, "explicacion": "Puede ser error o un caso clinico real." },
+    { "texto": "clean_names() de janitor ayuda a:", "opciones": ["Estandarizar nombres de columnas", "Calcular medianas", "Publicar informes", "Crear contrasenas"], "correcta": 0, "explicacion": "Nombres limpios reducen errores de codigo." },
+    { "texto": "Una inconsistencia clinica posible seria:", "opciones": ["Edad 0 en adultos o glucosa negativa", "Una variable con nombre claro", "Un dataset con filas", "Un codigo comentado"], "correcta": 0, "explicacion": "Esos valores requieren revision." },
+    { "texto": "El entregable de la unidad es:", "opciones": ["Reporte de exploracion inicial", "Informe RPubs final", "Modelo causal", "Solo una captura"], "correcta": 0, "explicacion": "Se documenta estructura, faltantes y alertas." }
   ]
 }
-

@@ -949,7 +949,7 @@ data.frame(paso = seq_along(checklist), tarea = checklist)`
       </div>
       <div class="module-strip" style="margin-top:16px">
         <button type="button" onclick="RSaludApp.showSection('ruta')">
-          <strong>Ruta secuencial</strong><span>6 unidades bloqueadas por avance</span>
+          <strong>Ruta secuencial</strong><span>8 unidades bloqueadas por avance</span>
         </button>
         <button type="button" onclick="RSaludApp.showSection('practicas')">
           <strong>Prácticas guiadas</strong><span>${completedPracticeSteps}/${totalPracticeSteps} fichas R completadas</span>

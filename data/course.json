@@ -1,553 +1,151 @@
 {
   "title": "R aplicado a la salud",
   "subtitle": "Aula virtual autogestionada para estudiantes de medicina",
-  "version": "2026.05.22.7",
-  "duration": "6 semanas",
-  "finalProduct": "Ensayo reproducible publicado en RPubs",
+  "version": "2026.05.23.1",
+  "duration": "8 semanas",
+  "finalProduct": "Informe reproducible publicado en RPubs",
+  "notebookLmIndex": "recursos/notebooklm/indice.json",
+  "notebookLmContent": "recursos/notebooklm/contenido_fichas.json",
   "units": [
     {
       "id": 1,
-      "title": "Instalación, RStudio y alfabetización en R",
+      "title": "Inicio: R para estudiantes de medicina",
       "shortTitle": "Inicio en R",
-      "color": "#116149",
       "weeks": "Semana 1",
-      "product": "Proyecto RStudio y script inicial",
-      "outcomes": [
-        "Instalar R y RStudio en el equipo propio.",
-        "Crear un proyecto reproducible con carpetas ordenadas.",
-        "Ejecutar comandos básicos y guardar un script."
-      ],
-      "sublevels": [
-        {
-          "id": "1.1",
-          "title": "Qué es R y para qué sirve en salud",
-          "duration": "25 min",
-          "resource": "unidades/unidad1/material.html",
-          "practice": "Identificar tres preguntas de salud que podrían responderse con datos.",
-          "forumPrompt": "Comparte una pregunta clínica o de salud pública que te gustaría responder con R."
-        },
-        {
-          "id": "1.2",
-          "title": "Instalación de R, RStudio y paquetes",
-          "duration": "35 min",
-          "resource": "unidades/unidad1/orientaciones.html",
-          "practice": "Instalar R, RStudio y cargar tidyverse.",
-          "forumPrompt": "Cuenta qué sistema operativo usas y qué dificultad encontraste al instalar."
-        },
-        {
-          "id": "1.3",
-          "title": "Proyecto, scripts y primeros objetos",
-          "duration": "45 min",
-          "resource": "unidades/unidad1/actividad.html",
-          "practice": "Crear 01_instalacion.R y ejecutar sessionInfo().",
-          "forumPrompt": "Publica una captura o describe cómo organizaste tu proyecto local."
-        }
-      ],
+      "product": "Mapa mental y reflexion breve",
       "quiz": "data/quizzes/quiz_u1.json",
-      "taskUrl": "unidades/unidad1/tarea.html"
+      "sourceDoc": "https://docs.google.com/document/d/195tFTFbST0_fzQ2UtbNHdlr-AjX-e66O_jddzkzfj-U/edit",
+      "outcomes": ["Explicar por que R es util en medicina.", "Distinguir descriptiva e inferencia.", "Formular una primera pregunta de salud con datos."],
+      "sublevels": [
+        { "id": "1.1", "title": "R en medicina basada en datos", "practice": "Identificar situaciones clinicas analizables." },
+        { "id": "1.2", "title": "Descriptiva, inferencia y reproducibilidad", "practice": "Clasificar afirmaciones descriptivas e inferenciales." },
+        { "id": "1.3", "title": "Pregunta clinica inicial", "practice": "Redactar una pregunta para el foro." }
+      ]
     },
     {
       "id": 2,
-      "title": "Datos de salud, ética y limpieza básica",
-      "shortTitle": "Datos limpios",
-      "color": "#1d7a8c",
+      "title": "Instalacion y primeros comandos",
+      "shortTitle": "Instalacion",
       "weeks": "Semana 2",
-      "product": "Dataset importado y diccionario de variables",
-      "outcomes": [
-        "Importar una base CSV en R.",
-        "Distinguir variables numéricas y categóricas.",
-        "Reconocer privacidad, anonimización y límites de una base de salud."
-      ],
-      "sublevels": [
-        {
-          "id": "2.1",
-          "title": "Estructura de una base de salud",
-          "duration": "30 min",
-          "resource": "unidades/unidad2/material.html",
-          "practice": "Leer salud_muestra.csv y revisar filas, columnas y tipos.",
-          "forumPrompt": "Elige una variable del dataset y explica qué significa en términos de salud."
-        },
-        {
-          "id": "2.2",
-          "title": "Calidad, faltantes y recodificación",
-          "duration": "45 min",
-          "resource": "unidades/unidad2/actividad.html",
-          "practice": "Convertir variables categóricas a factor y guardar salud_limpia.csv.",
-          "forumPrompt": "¿Qué error de calidad sería grave si esta base fuera real?"
-        },
-        {
-          "id": "2.3",
-          "title": "Ética y datos sensibles",
-          "duration": "30 min",
-          "resource": "unidades/unidad2/orientaciones.html",
-          "practice": "Redactar tres reglas de publicación segura.",
-          "forumPrompt": "Propón una medida para evitar exponer información de pacientes."
-        }
-      ],
+      "product": "Script .R comentado",
       "quiz": "data/quizzes/quiz_u2.json",
-      "taskUrl": "unidades/unidad2/tarea.html"
+      "sourceDoc": "https://docs.google.com/document/d/1Cb6_oArzr329zKuP_HlIq2wyipjjKnSb9FkFAm4eA-c/edit",
+      "outcomes": ["Instalar R y RStudio.", "Crear objetos, vectores y data frames.", "Instalar/cargar paquetes y guardar scripts."],
+      "sublevels": [
+        { "id": "2.1", "title": "Instalar R y RStudio", "practice": "Documentar version y sesion." },
+        { "id": "2.2", "title": "Objetos, vectores y data frames", "practice": "Crear tabla de pacientes ficticios." },
+        { "id": "2.3", "title": "Paquetes y script inicial", "practice": "Entregar script comentado." }
+      ]
     },
     {
       "id": 3,
-      "title": "Descripción y visualización de datos clínicos",
-      "shortTitle": "Descriptiva",
-      "color": "#9a6a13",
+      "title": "Carga y exploracion de datos de salud",
+      "shortTitle": "Exploracion",
       "weeks": "Semana 3",
-      "product": "Tabla descriptiva y gráficos interpretados",
-      "outcomes": [
-        "Calcular medias, medianas, proporciones y tablas por grupo.",
-        "Construir gráficos con ggplot2.",
-        "Interpretar descriptivos con lenguaje clínico claro."
-      ],
-      "sublevels": [
-        {
-          "id": "3.1",
-          "title": "Resumen numérico y categórico",
-          "duration": "45 min",
-          "resource": "unidades/unidad3/material.html",
-          "practice": "Crear una tabla por diagnóstico con edad, IMC y glucosa.",
-          "forumPrompt": "Comparte un hallazgo descriptivo y aclara por qué es relevante."
-        },
-        {
-          "id": "3.2",
-          "title": "Gráficos con ggplot2",
-          "duration": "50 min",
-          "resource": "unidades/unidad3/actividad.html",
-          "practice": "Crear un boxplot y un gráfico de barras.",
-          "forumPrompt": "Sube o describe un gráfico y explica qué decisión visual tomaste."
-        },
-        {
-          "id": "3.3",
-          "title": "Narrativa de resultados",
-          "duration": "35 min",
-          "resource": "unidades/unidad3/tarea.html",
-          "practice": "Escribir tres hallazgos sin exagerar la evidencia.",
-          "forumPrompt": "Reescribe un resultado técnico en lenguaje comprensible para un equipo clínico."
-        }
-      ],
+      "product": "Reporte de exploracion inicial",
       "quiz": "data/quizzes/quiz_u3.json",
-      "taskUrl": "unidades/unidad3/tarea.html"
+      "sourceDoc": "https://docs.google.com/document/d/1UjzfVpYybpZ0djZugWCnAktZAzMHAgdlTH80gqWBMIQ/edit",
+      "outcomes": ["Importar bases CSV/Excel.", "Explorar estructura y tipos.", "Detectar NA, outliers e inconsistencias."],
+      "sublevels": [
+        { "id": "3.1", "title": "Importar datos", "practice": "Reportar filas, columnas y nombres." },
+        { "id": "3.2", "title": "Exploracion inicial", "practice": "Usar str, summary, head y table." },
+        { "id": "3.3", "title": "Faltantes, outliers e inconsistencias", "practice": "Describir alertas de calidad." }
+      ]
     },
     {
       "id": 4,
-      "title": "Inferencia básica aplicada a salud",
-      "shortTitle": "Inferencia",
-      "color": "#7c3aed",
+      "title": "Limpieza y preparacion de datos clinicos",
+      "shortTitle": "Limpieza",
       "weeks": "Semana 4",
-      "product": "Pruebas, intervalos y conclusiones prudentes",
-      "outcomes": [
-        "Explicar incertidumbre muestral.",
-        "Calcular intervalos de confianza.",
-        "Aplicar prueba t y chi-cuadrado en casos sencillos."
-      ],
-      "sublevels": [
-        {
-          "id": "4.1",
-          "title": "Intervalos de confianza",
-          "duration": "40 min",
-          "resource": "unidades/unidad4/material.html",
-          "practice": "Calcular IC para glucosa media.",
-          "forumPrompt": "Explica con tus palabras qué no significa un intervalo de confianza."
-        },
-        {
-          "id": "4.2",
-          "title": "Comparación entre grupos",
-          "duration": "50 min",
-          "resource": "unidades/unidad4/actividad.html",
-          "practice": "Comparar glucosa entre personas con y sin tabaquismo.",
-          "forumPrompt": "Comparte una conclusión que use 'en esta muestra' de forma correcta."
-        },
-        {
-          "id": "4.3",
-          "title": "Asociación entre variables categóricas",
-          "duration": "45 min",
-          "resource": "unidades/unidad4/tarea.html",
-          "practice": "Crear tabla de contingencia y chi-cuadrado.",
-          "forumPrompt": "¿Qué dato adicional necesitarías para interpretar mejor una asociación?"
-        }
-      ],
+      "product": "Base limpia, script y bitacora",
       "quiz": "data/quizzes/quiz_u4.json",
-      "taskUrl": "unidades/unidad4/tarea.html"
+      "sourceDoc": "https://docs.google.com/document/d/11nv4ZVDW9D9SzAPtMgHA9PXEb7VnoANxyZ7ADtfH684/edit",
+      "outcomes": ["Estandarizar categorias.", "Manejar faltantes con criterio.", "Crear variables derivadas y bitacora."],
+      "sublevels": [
+        { "id": "4.1", "title": "Pipeline de limpieza", "practice": "Ordenar pasos de limpieza." },
+        { "id": "4.2", "title": "Faltantes y categorias", "practice": "Documentar decisiones." },
+        { "id": "4.3", "title": "Variables derivadas y bitacora", "practice": "Crear IMC/categorias y registrar cambios." }
+      ]
     },
     {
       "id": 5,
-      "title": "Modelos sencillos para preguntas de salud",
-      "shortTitle": "Modelos",
-      "color": "#b42318",
+      "title": "Estadistica descriptiva aplicada a salud",
+      "shortTitle": "Tabla 1",
       "weeks": "Semana 5",
-      "product": "Modelo lineal o logístico interpretado",
-      "outcomes": [
-        "Definir variable respuesta y variables explicativas.",
-        "Ajustar modelos simples con lm() y glm().",
-        "Interpretar coeficientes y odds ratio sin confundir asociación con causalidad."
-      ],
-      "sublevels": [
-        {
-          "id": "5.1",
-          "title": "Pregunta modelable",
-          "duration": "30 min",
-          "resource": "unidades/unidad5/orientaciones.html",
-          "practice": "Escribir una pregunta con respuesta binaria o continua.",
-          "forumPrompt": "Propón una pregunta modelable y define su variable respuesta."
-        },
-        {
-          "id": "5.2",
-          "title": "Regresión lineal y logística",
-          "duration": "60 min",
-          "resource": "unidades/unidad5/material.html",
-          "practice": "Ajustar un glm binomial para diabetes probable.",
-          "forumPrompt": "Explica un odds ratio como si hablaras con un compañero de guardia."
-        },
-        {
-          "id": "5.3",
-          "title": "Evaluación e interpretación responsable",
-          "duration": "40 min",
-          "resource": "unidades/unidad5/actividad.html",
-          "practice": "Redactar dos interpretaciones y una limitación.",
-          "forumPrompt": "¿Qué riesgo hay en convertir un modelo simple en una recomendación clínica?"
-        }
-      ],
+      "product": "Tabla 1, tres graficos e interpretaciones",
       "quiz": "data/quizzes/quiz_u5.json",
-      "taskUrl": "unidades/unidad5/tarea.html"
+      "sourceDoc": "https://docs.google.com/document/d/1q76XK5VQbJiO6XItE1JGtzD6ygVhaR8aHlv7iVypeMA/edit",
+      "outcomes": ["Calcular medias, medianas, DS e IQR.", "Crear Tabla 1.", "Elegir y comentar graficos clinicos."],
+      "sublevels": [
+        { "id": "5.1", "title": "Medidas descriptivas", "practice": "Elegir media o mediana." },
+        { "id": "5.2", "title": "Tabla 1", "practice": "Resumir caracteristicas basales." },
+        { "id": "5.3", "title": "Graficos comentados", "practice": "Crear y comentar tres figuras." }
+      ]
     },
     {
       "id": 6,
-      "title": "Reporte reproducible y publicación en RPubs",
-      "shortTitle": "RPubs",
-      "color": "#2563eb",
+      "title": "Inferencia basica con R",
+      "shortTitle": "Inferencia",
       "weeks": "Semana 6",
-      "product": "Ensayo HTML publicado",
-      "outcomes": [
-        "Crear un reporte R Markdown o Quarto.",
-        "Integrar narrativa, tablas, gráficos y código.",
-        "Publicar un informe en RPubs y compartir el enlace."
-      ],
-      "sublevels": [
-        {
-          "id": "6.1",
-          "title": "Estructura de un ensayo reproducible",
-          "duration": "40 min",
-          "resource": "unidades/unidad6/material.html",
-          "practice": "Crear reporte_final.Rmd con título, pregunta y setup.",
-          "forumPrompt": "Comparte el título tentativo de tu ensayo final."
-        },
-        {
-          "id": "6.2",
-          "title": "Renderizar y revisar el HTML",
-          "duration": "50 min",
-          "resource": "unidades/unidad6/actividad.html",
-          "practice": "Renderizar HTML y corregir errores de rutas.",
-          "forumPrompt": "¿Qué error apareció al renderizar y cómo lo resolviste?"
-        },
-        {
-          "id": "6.3",
-          "title": "Publicar en RPubs",
-          "duration": "35 min",
-          "resource": "unidades/unidad6/tarea.html",
-          "practice": "Publicar y registrar el enlace en el aula.",
-          "forumPrompt": "Comparte tu enlace RPubs y una limitación de tu análisis."
-        }
-      ],
+      "product": "Informe con tres pruebas",
       "quiz": "data/quizzes/quiz_u6.json",
-      "taskUrl": "unidades/unidad6/tarea.html"
+      "sourceDoc": "https://docs.google.com/document/d/1uLdonYKlpg7Il_YwA-Ch2ev2AXHduDzqdKmSnFEEHWY/edit",
+      "outcomes": ["Formular H0/H1.", "Seleccionar pruebas apropiadas.", "Interpretar p, IC95% y efecto."],
+      "sublevels": [
+        { "id": "6.1", "title": "Hipotesis y seleccion de prueba", "practice": "Elegir prueba segun variables." },
+        { "id": "6.2", "title": "p-valor, IC95% y efecto", "practice": "Interpretar resultados con cautela." },
+        { "id": "6.3", "title": "Informe de tres pruebas", "practice": "Integrar metodo, grafico y conclusion." }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Modelos sencillos en datos de salud",
+      "shortTitle": "Modelos",
+      "weeks": "Semana 7",
+      "product": "Reporte de regresion",
+      "quiz": "data/quizzes/quiz_u7.json",
+      "sourceDoc": "https://docs.google.com/document/d/1dh7biWi9x9RVhpQW0uQ3jEpYEvo5s4W-495Ni9jBC9w/edit",
+      "outcomes": ["Ajustar lm y glm.", "Interpretar OR y R2.", "Declarar limitaciones y evitar causalidad indebida."],
+      "sublevels": [
+        { "id": "7.1", "title": "Regresion lineal", "practice": "Interpretar pendiente." },
+        { "id": "7.2", "title": "Regresion logistica", "practice": "Interpretar odds ratio." },
+        { "id": "7.3", "title": "Limitaciones del modelo", "practice": "Escribir limitaciones especificas." }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Reporte reproducible y publicacion en RPubs",
+      "shortTitle": "RPubs",
+      "weeks": "Semana 8",
+      "product": "URL publica de RPubs",
+      "quiz": "data/quizzes/quiz_u8.json",
+      "sourceDoc": "https://docs.google.com/document/d/1_qjRUSshCqo-SG4HAe1jOOgWatqS4yFLH1cg4YIpz2U/edit",
+      "outcomes": ["Crear un .Rmd con YAML y chunks.", "Integrar tablas, graficos e interpretacion.", "Publicar en RPubs con privacidad revisada."],
+      "sublevels": [
+        { "id": "8.1", "title": "R Markdown y YAML", "practice": "Crear esqueleto del informe." },
+        { "id": "8.2", "title": "Informe cientifico breve", "practice": "Completar secciones." },
+        { "id": "8.3", "title": "Publicacion en RPubs", "practice": "Registrar URL final." }
+      ]
     }
   ],
   "calendar": [
-    { "id": "u1_material", "unit": 1, "type": "material", "title": "Unidad 1: instalación y primeros pasos", "start": "2026-06-01", "due": "2026-06-07", "resource": "dashboard.html#unidad" },
-    { "id": "u1_quiz", "unit": 1, "type": "quiz", "title": "Quiz Unidad 1", "start": "2026-06-06", "due": "2026-06-07", "resource": "dashboard.html#cuestionarios" },
-    { "id": "u2_material", "unit": 2, "type": "material", "title": "Unidad 2: datos de salud", "start": "2026-06-08", "due": "2026-06-14", "resource": "dashboard.html#unidad" },
-    { "id": "u2_quiz", "unit": 2, "type": "quiz", "title": "Quiz Unidad 2", "start": "2026-06-13", "due": "2026-06-14", "resource": "dashboard.html#cuestionarios" },
-    { "id": "u3_material", "unit": 3, "type": "material", "title": "Unidad 3: descriptiva y gráficos", "start": "2026-06-15", "due": "2026-06-21", "resource": "dashboard.html#unidad" },
-    { "id": "u3_quiz", "unit": 3, "type": "quiz", "title": "Quiz Unidad 3", "start": "2026-06-20", "due": "2026-06-21", "resource": "dashboard.html#cuestionarios" },
-    { "id": "u4_material", "unit": 4, "type": "material", "title": "Unidad 4: inferencia básica", "start": "2026-06-22", "due": "2026-06-28", "resource": "dashboard.html#unidad" },
-    { "id": "u4_quiz", "unit": 4, "type": "quiz", "title": "Quiz Unidad 4", "start": "2026-06-27", "due": "2026-06-28", "resource": "dashboard.html#cuestionarios" },
-    { "id": "u5_material", "unit": 5, "type": "material", "title": "Unidad 5: modelos sencillos", "start": "2026-06-29", "due": "2026-07-05", "resource": "dashboard.html#unidad" },
-    { "id": "u5_quiz", "unit": 5, "type": "quiz", "title": "Quiz Unidad 5", "start": "2026-07-04", "due": "2026-07-05", "resource": "dashboard.html#cuestionarios" },
-    { "id": "u6_material", "unit": 6, "type": "material", "title": "Unidad 6: reporte y RPubs", "start": "2026-07-06", "due": "2026-07-12", "resource": "dashboard.html#proyecto" },
-    { "id": "final_rpubs", "unit": 6, "type": "entrega", "title": "Entrega final: enlace RPubs", "start": "2026-07-10", "due": "2026-07-12", "resource": "dashboard.html#proyecto" }
+    { "id": "u1_quiz", "unit": 1, "type": "quiz", "title": "Quiz Unidad 1", "start": "2026-06-01", "due": "2026-06-07", "resource": "dashboard.html#u1" },
+    { "id": "u2_quiz", "unit": 2, "type": "quiz", "title": "Quiz Unidad 2", "start": "2026-06-08", "due": "2026-06-14", "resource": "dashboard.html#u2" },
+    { "id": "u3_quiz", "unit": 3, "type": "quiz", "title": "Quiz Unidad 3", "start": "2026-06-15", "due": "2026-06-21", "resource": "dashboard.html#u3" },
+    { "id": "u4_quiz", "unit": 4, "type": "quiz", "title": "Quiz Unidad 4", "start": "2026-06-22", "due": "2026-06-28", "resource": "dashboard.html#u4" },
+    { "id": "u5_quiz", "unit": 5, "type": "quiz", "title": "Quiz Unidad 5", "start": "2026-06-29", "due": "2026-07-05", "resource": "dashboard.html#u5" },
+    { "id": "u6_quiz", "unit": 6, "type": "quiz", "title": "Quiz Unidad 6", "start": "2026-07-06", "due": "2026-07-12", "resource": "dashboard.html#u6" },
+    { "id": "u7_quiz", "unit": 7, "type": "quiz", "title": "Quiz Unidad 7", "start": "2026-07-13", "due": "2026-07-19", "resource": "dashboard.html#u7" },
+    { "id": "u8_quiz", "unit": 8, "type": "quiz", "title": "Quiz Unidad 8", "start": "2026-07-20", "due": "2026-07-26", "resource": "dashboard.html#u8" },
+    { "id": "final_rpubs", "unit": 8, "type": "entrega", "title": "Entrega final: enlace RPubs", "start": "2026-07-24", "due": "2026-07-26", "resource": "dashboard.html#u8" }
   ],
   "badges": [
-    { "id": "primer_script", "name": "Primer script", "criteria": "Completar Unidad 1" },
-    { "id": "datos_limpios", "name": "Datos limpios", "criteria": "Completar Unidad 2" },
-    { "id": "graficador", "name": "Graficador clínico", "criteria": "Completar Unidad 3" },
-    { "id": "inferencial", "name": "Inferencia prudente", "criteria": "Completar Unidad 4" },
-    { "id": "modelador", "name": "Modelo simple", "criteria": "Completar Unidad 5" },
-    { "id": "publicador", "name": "Publicado en RPubs", "criteria": "Registrar enlace final" },
-    { "id": "practicante_r", "name": "Prácticas R completas", "criteria": "Completar las fichas guiadas" },
-    { "id": "repaso_activo", "name": "Repaso activo", "criteria": "Revisar flashcards y clasificador" }
-  ],
-  "figures": {
-    "units": {
-      "1": "assets/pedagogical/u1_developer.svg",
-      "2": "assets/pedagogical/u1_data.svg",
-      "3": "assets/pedagogical/u2_charts.svg",
-      "4": "assets/pedagogical/u2_research.svg",
-      "5": "assets/pedagogical/u3_data_reports.svg",
-      "6": "assets/pedagogical/u4_sharing.svg"
-    },
-    "sublevels": {
-      "1.1": "assets/pedagogical/gen_education.svg",
-      "1.2": "assets/pedagogical/edu_u1s2_rstudio.svg",
-      "1.3": "assets/pedagogical/edu_u1s2d_tipos_objetos_r.svg",
-      "2.1": "assets/pedagogical/u2_statistics.svg",
-      "2.2": "assets/pedagogical/edu_u2s2d_distribuciones.svg",
-      "2.3": "assets/pedagogical/u2_research.svg",
-      "3.1": "assets/pedagogical/u2_statistics.svg",
-      "3.2": "assets/pedagogical/edu_u2s2_boxplot.svg",
-      "3.3": "assets/pedagogical/u3_data_reports.svg",
-      "4.1": "assets/pedagogical/edu_u2s3_correlacion.svg",
-      "4.2": "assets/pedagogical/edu_u2s2_boxplot.svg",
-      "4.3": "assets/pedagogical/edu_u2s3_correlacion.svg",
-      "5.1": "assets/pedagogical/u2_research.svg",
-      "5.2": "assets/pedagogical/u3_data_reports.svg",
-      "5.3": "assets/pedagogical/u4_data_report.svg",
-      "6.1": "assets/pedagogical/edu_u4s2_rmarkdown.svg",
-      "6.2": "assets/pedagogical/u4_presentation.svg",
-      "6.3": "assets/pedagogical/u4_sharing.svg"
-    }
-  },
-  "practices": [
-    {
-      "id": "lab_instalacion_salud",
-      "unit": 1,
-      "title": "Laboratorio 1 - RStudio listo para salud",
-      "dataset": "data/datasets/salud_muestra.csv",
-      "embed": "laboratorio/index.html",
-      "goal": "Instalar, abrir un proyecto y dejar evidencia reproducible de la sesión de trabajo.",
-      "steps": [
-        {
-          "title": "Ficha 1 - Verificar instalación",
-          "concept": "Antes de analizar datos conviene confirmar versiones, rutas y paquetes instalados.",
-          "code": "R.version.string\ngetwd()\ninstall.packages(c(\"tidyverse\", \"janitor\", \"broom\"))\nlibrary(tidyverse)\nsessionInfo()",
-          "task": "Guarda una captura de RStudio con sessionInfo() visible."
-        },
-        {
-          "title": "Ficha 2 - Crear proyecto reproducible",
-          "concept": "Un proyecto ordena datos, scripts y resultados para que otra persona pueda repetir el flujo.",
-          "code": "dir.create(\"data\", showWarnings = FALSE)\ndir.create(\"scripts\", showWarnings = FALSE)\ndir.create(\"resultados\", showWarnings = FALSE)\nwriteLines(\"# Mi primer proyecto de salud con R\", \"README_proyecto.txt\")",
-          "task": "Sube como evidencia la estructura de carpetas o describe cómo quedó organizada."
-        },
-        {
-          "title": "Ficha 3 - Primer objeto de salud",
-          "concept": "Los objetos permiten guardar valores clínicos, cohortes o tablas para reutilizarlos.",
-          "code": "edad <- c(19, 21, 22, 30, 45)\nglucosa <- c(82, 91, 110, 145, 160)\npromedio_glucosa <- mean(glucosa)\npromedio_glucosa",
-          "task": "Explica en una línea qué representa promedio_glucosa."
-        }
-      ]
-    },
-    {
-      "id": "lab_limpieza_salud",
-      "unit": 2,
-      "title": "Laboratorio 2 - Importación, limpieza y ética",
-      "dataset": "data/datasets/salud_muestra.csv",
-      "embed": "laboratorio/index.html",
-      "goal": "Leer la base de práctica, revisar estructura, recodificar variables y documentar privacidad.",
-      "steps": [
-        {
-          "title": "Ficha 1 - Leer y mirar la base",
-          "concept": "La inspección inicial evita analizar variables con nombres, tipos o rangos incorrectos.",
-          "code": "library(tidyverse)\nlibrary(janitor)\nsalud <- read_csv(\"data/datasets/salud_muestra.csv\") |> clean_names()\nglimpse(salud)\nsummary(salud)",
-          "task": "Anota cuántas filas, columnas y variables numéricas tiene la base."
-        },
-        {
-          "title": "Ficha 2 - Recodificar factores",
-          "concept": "Las categorías deben quedar explícitas para tablas, gráficos y modelos.",
-          "code": "salud <- salud |>\n  mutate(\n    diagnostico = factor(diagnostico),\n    sexo = factor(sexo),\n    tabaquismo = factor(tabaquismo),\n    diabetes_probable = diagnostico == \"Diabetes probable\"\n  )\ncount(salud, diagnostico)",
-          "task": "Identifica la categoría de diagnóstico más frecuente."
-        },
-        {
-          "title": "Ficha 3 - Regla de publicación segura",
-          "concept": "Un reporte público no debe revelar identidad ni combinaciones de variables identificables.",
-          "code": "diccionario <- tibble(\n  variable = names(salud),\n  tipo = map_chr(salud, ~ class(.x)[1])\n)\ndiccionario",
-          "task": "Redacta tres reglas de anonimización para tu informe final."
-        }
-      ]
-    },
-    {
-      "id": "lab_descriptiva_salud",
-      "unit": 3,
-      "title": "Laboratorio 3 - Descriptiva y gráficos clínicos",
-      "dataset": "data/datasets/salud_muestra.csv",
-      "embed": "laboratorio/index.html",
-      "goal": "Construir tablas y gráficos que puedan incluirse en un ensayo reproducible.",
-      "steps": [
-        {
-          "title": "Ficha 1 - Tabla por diagnóstico",
-          "concept": "Las tablas descriptivas convierten datos crudos en una primera lectura clínica.",
-          "code": "salud |>\n  group_by(diagnostico) |>\n  summarise(\n    n = n(),\n    edad_media = mean(edad),\n    imc_media = mean(imc),\n    glucosa_media = mean(glucosa_mg_dl),\n    .groups = \"drop\"\n  )",
-          "task": "Señala qué grupo tiene glucosa media más alta."
-        },
-        {
-          "title": "Ficha 2 - Boxplot de glucosa",
-          "concept": "El boxplot compara mediana, dispersión y valores extremos entre grupos.",
-          "code": "ggplot(salud, aes(diagnostico, glucosa_mg_dl, fill = diagnostico)) +\n  geom_boxplot(show.legend = FALSE) +\n  labs(title = \"Glucosa por diagnóstico\", x = \"Diagnóstico\", y = \"Glucosa mg/dl\") +\n  theme_minimal()",
-          "task": "Exporta el gráfico o sube una captura como evidencia."
-        },
-        {
-          "title": "Ficha 3 - Hallazgo narrado",
-          "concept": "Un hallazgo útil evita exagerar y aclara que describe esta muestra.",
-          "code": "salud |>\n  count(diagnostico) |>\n  mutate(porcentaje = round(n / sum(n) * 100, 1))",
-          "task": "Escribe un párrafo breve con n, porcentaje y límite de interpretación."
-        }
-      ]
-    },
-    {
-      "id": "lab_inferencia_salud",
-      "unit": 4,
-      "title": "Laboratorio 4 - Inferencia básica con R",
-      "dataset": "data/datasets/salud_muestra.csv",
-      "embed": "laboratorio/index.html",
-      "goal": "Calcular intervalos, comparar grupos y reportar incertidumbre de forma prudente.",
-      "steps": [
-        {
-          "title": "Ficha 1 - Intervalo de confianza",
-          "concept": "El intervalo expresa incertidumbre alrededor de una estimación muestral.",
-          "code": "t.test(salud$glucosa_mg_dl)\nmedia <- mean(salud$glucosa_mg_dl)\nmedia",
-          "task": "Interpreta el intervalo sin decir que contiene al promedio individual de cada paciente."
-        },
-        {
-          "title": "Ficha 2 - Comparación entre grupos",
-          "concept": "La prueba t compara medias cuando la pregunta es numérica y hay dos grupos.",
-          "code": "t.test(glucosa_mg_dl ~ tabaquismo, data = salud)\nsalud |>\n  group_by(tabaquismo) |>\n  summarise(n = n(), media = mean(glucosa_mg_dl), .groups = \"drop\")",
-          "task": "Redacta una conclusión que empiece con 'En esta muestra...'."
-        },
-        {
-          "title": "Ficha 3 - Asociación categórica",
-          "concept": "Chi-cuadrado evalúa asociación entre dos variables categóricas.",
-          "code": "tabla <- table(salud$tabaquismo, salud$diagnostico)\ntabla\nchisq.test(tabla)",
-          "task": "Aclara qué información faltaría para hablar de causalidad."
-        }
-      ]
-    },
-    {
-      "id": "lab_modelos_salud",
-      "unit": 5,
-      "title": "Laboratorio 5 - Modelo simple para una pregunta de salud",
-      "dataset": "data/datasets/salud_muestra.csv",
-      "embed": "laboratorio/index.html",
-      "goal": "Ajustar una regresión logística sencilla e interpretar odds ratio sin sobregeneralizar.",
-      "steps": [
-        {
-          "title": "Ficha 1 - Definir respuesta",
-          "concept": "La variable respuesta decide el tipo de modelo y la interpretación.",
-          "code": "salud <- salud |>\n  mutate(diabetes_probable = diagnostico == \"Diabetes probable\")\ncount(salud, diabetes_probable)",
-          "task": "Explica por qué diabetes_probable es una respuesta binaria."
-        },
-        {
-          "title": "Ficha 2 - Ajustar glm binomial",
-          "concept": "La regresión logística estima probabilidades cuando el resultado es sí/no.",
-          "code": "library(broom)\nmodelo <- glm(diabetes_probable ~ edad + imc + tabaquismo,\n              data = salud,\n              family = binomial)\ntidy(modelo, exponentiate = TRUE, conf.int = TRUE)",
-          "task": "Identifica una variable asociada y una variable con incertidumbre amplia."
-        },
-        {
-          "title": "Ficha 3 - Interpretar con límite",
-          "concept": "Un modelo simple apoya una lectura, pero no reemplaza diseño, validación ni juicio clínico.",
-          "code": "salud$prob <- predict(modelo, type = \"response\")\nsalud |>\n  select(edad, imc, tabaquismo, diabetes_probable, prob) |>\n  arrange(desc(prob)) |>\n  head(8)",
-          "task": "Escribe dos interpretaciones y una limitación metodológica."
-        }
-      ]
-    },
-    {
-      "id": "lab_rpubs_salud",
-      "unit": 6,
-      "title": "Laboratorio 6 - Ensayo reproducible y RPubs",
-      "dataset": "data/datasets/salud_muestra.csv",
-      "embed": "laboratorio/index.html",
-      "goal": "Armar el archivo R Markdown, renderizarlo y publicar un HTML en RPubs.",
-      "steps": [
-        {
-          "title": "Ficha 1 - Crear reporte_final.Rmd",
-          "concept": "El informe reproducible une narrativa, código y resultados en un mismo documento.",
-          "code": "---\ntitle: \"Análisis sencillo de datos de salud\"\nauthor: \"Tu nombre\"\noutput: html_document\n---\n\n```{r setup, message=FALSE, warning=FALSE}\nlibrary(tidyverse)\nlibrary(janitor)\n```\n\n## Pregunta\n¿Que patrón de salud se observa en esta muestra?",
-          "task": "Crea el archivo y completa título, autor y pregunta."
-        },
-        {
-          "title": "Ficha 2 - Insertar tabla y gráfico",
-          "concept": "Los resultados deben generarse desde el código, no pegarse manualmente.",
-          "code": "```{r datos}\nsalud <- read_csv(\"data/datasets/salud_muestra.csv\") |> clean_names()\ncount(salud, diagnostico)\n```\n\n```{r grafico}\nggplot(salud, aes(diagnostico, glucosa_mg_dl)) +\n  geom_boxplot() +\n  theme_minimal()\n```",
-          "task": "Renderiza el HTML y corrige rutas si aparece error."
-        },
-        {
-          "title": "Ficha 3 - Publicar y registrar",
-          "concept": "RPubs permite compartir el informe, pero debes revisar privacidad antes de publicar.",
-          "code": "# En RStudio:\n# 1. Knit / Render\n# 2. Preview HTML\n# 3. Publish\n# 4. Copiar enlace RPubs",
-          "task": "Pega el enlace en Proyecto RPubs y sube una evidencia del HTML."
-        }
-      ]
-    }
-  ],
-  "flashcards": [
-    { "unit": 1, "front": "¿Qué diferencia hay entre R y RStudio?", "back": "R es el lenguaje y motor de cálculo; RStudio es el entorno que facilita escribir scripts, ver objetos, gráficos y archivos." },
-    { "unit": 1, "front": "¿Por qué conviene trabajar dentro de un proyecto?", "back": "Porque fija una carpeta raíz, ordena rutas relativas y hace más fácil reproducir el análisis en otro equipo." },
-    { "unit": 2, "front": "¿Qué es una variable categórica?", "back": "Una variable que clasifica casos en grupos, como sexo, diagnóstico, tabaquismo o grupo etario." },
-    { "unit": 2, "front": "¿Qué significa anonimizar una base de salud?", "back": "Reducir el riesgo de identificar personas eliminando o transformando identificadores directos e indirectos." },
-    { "unit": 3, "front": "¿Cuándo usarías un boxplot?", "back": "Cuando quieres comparar distribución, mediana, dispersión y valores extremos de una variable numérica entre grupos." },
-    { "unit": 3, "front": "¿Qué debe tener un hallazgo descriptivo?", "back": "Medida, grupo, dirección del resultado y un límite claro: describe esta muestra, no prueba causalidad." },
-    { "unit": 4, "front": "¿Qué comunica un intervalo de confianza?", "back": "La incertidumbre de una estimación muestral bajo un procedimiento estadístico, no la variabilidad individual de todos los pacientes." },
-    { "unit": 4, "front": "¿Para qué sirve chi-cuadrado?", "back": "Para evaluar asociación entre dos variables categóricas mediante una tabla de contingencia." },
-    { "unit": 5, "front": "¿Cuándo usarías glm(..., family = binomial)?", "back": "Cuando la variable respuesta es binaria, por ejemplo diabetes probable sí/no." },
-    { "unit": 5, "front": "¿Qué es un odds ratio?", "back": "Una razón de odds asociada a un predictor; debe interpretarse con intervalo de confianza y contexto clínico." },
-    { "unit": 6, "front": "¿Qué aporta R Markdown o Quarto?", "back": "Permite combinar texto, código y salidas en un reporte reproducible que puede renderizarse a HTML." },
-    { "unit": 6, "front": "¿Qué revisar antes de publicar en RPubs?", "back": "Privacidad, rutas, gráficos legibles, interpretación prudente, límites y que el HTML abra correctamente." }
-  ],
-  "classifiers": [
-    {
-      "id": "variables_salud",
-      "unit": 2,
-      "title": "Clasificar variables de salud",
-      "prompt": "Toca una tarjeta y luego la categoría correcta. Sirve para decidir cómo limpiar, resumir y graficar.",
-      "categories": [
-        { "id": "numerica", "label": "Numérica", "definition": "Medición o conteo que permite promedios, rangos o modelos." },
-        { "id": "categorica", "label": "Categórica", "definition": "Etiqueta de grupo, diagnóstico, exposición o condición." },
-        { "id": "identificador", "label": "Identificador", "definition": "Código usado para rastrear casos; no se interpreta como cantidad." },
-        { "id": "sensible", "label": "Sensible", "definition": "Dato que exige cuidado especial de privacidad o anonimización." }
-      ],
-      "items": [
-        { "label": "edad", "category": "numerica", "hint": "Se puede calcular media o mediana." },
-        { "label": "glucosa_mg_dl", "category": "numerica", "hint": "Es una medición clínica." },
-        { "label": "diagnostico", "category": "categorica", "hint": "Agrupa a las personas." },
-        { "label": "tabaquismo", "category": "categorica", "hint": "Describe exposición o condición." },
-        { "label": "id_paciente", "category": "identificador", "hint": "No debe promediarse." },
-        { "label": "combinación edad + distrito + diagnóstico", "category": "sensible", "hint": "Podría reidentificar en bases pequeñas." }
-      ]
-    },
-    {
-      "id": "pruebas_inferencia",
-      "unit": 4,
-      "title": "Elegir prueba o lectura inferencial",
-      "prompt": "Ubica cada necesidad de análisis en la herramienta más razonable.",
-      "categories": [
-        { "id": "estimacion", "label": "Estimación", "definition": "Resumir un parámetro con incertidumbre." },
-        { "id": "comparacion", "label": "Comparación", "definition": "Contrastar medidas entre grupos." },
-        { "id": "asociacion", "label": "Asociación", "definition": "Evaluar relación entre variables categóricas." },
-        { "id": "cautela", "label": "Cautela", "definition": "Evitar interpretaciones causales o sobregeneralizadas." }
-      ],
-      "items": [
-        { "label": "IC 95% para glucosa media", "category": "estimacion", "hint": "Estima una media con incertidumbre." },
-        { "label": "t.test(glucosa ~ tabaquismo)", "category": "comparacion", "hint": "Compara una variable numérica entre dos grupos." },
-        { "label": "chisq.test(tabla)", "category": "asociacion", "hint": "Trabaja con tabla de contingencia." },
-        { "label": "En esta muestra...", "category": "cautela", "hint": "Limita el alcance de la conclusión." },
-        { "label": "No prueba causalidad", "category": "cautela", "hint": "Es una advertencia de interpretación." }
-      ]
-    },
-    {
-      "id": "reporte_rpubs",
-      "unit": 6,
-      "title": "Componentes del informe RPubs",
-      "prompt": "Organiza cada elemento del ensayo final antes de publicarlo.",
-      "categories": [
-        { "id": "pregunta", "label": "Pregunta", "definition": "Define qué se quiere responder." },
-        { "id": "metodo", "label": "Método reproducible", "definition": "Código, paquetes, datos y procedimiento." },
-        { "id": "resultado", "label": "Resultado", "definition": "Tabla, gráfico o prueba interpretada." },
-        { "id": "etica", "label": "Ética y límites", "definition": "Privacidad, alcance y advertencias." }
-      ],
-      "items": [
-        { "label": "¿La glucosa difiere según tabaquismo?", "category": "pregunta", "hint": "Formula el problema." },
-        { "label": "library(tidyverse)", "category": "metodo", "hint": "Hace explícito el entorno." },
-        { "label": "Boxplot de glucosa por diagnóstico", "category": "resultado", "hint": "Presenta evidencia visual." },
-        { "label": "No usar datos identificables", "category": "etica", "hint": "Es criterio de publicación segura." },
-        { "label": "Limitación: muestra simulada", "category": "etica", "hint": "Avisa el alcance del análisis." }
-      ]
-    }
+    { "id": "primer_script", "name": "Primer script", "criteria": "Completar Unidad 2" },
+    { "id": "explorador", "name": "Explorador de datos", "criteria": "Completar Unidad 3" },
+    { "id": "datos_limpios", "name": "Datos limpios", "criteria": "Completar Unidad 4" },
+    { "id": "tabla_uno", "name": "Tabla 1 lista", "criteria": "Completar Unidad 5" },
+    { "id": "inferencial", "name": "Inferencia prudente", "criteria": "Completar Unidad 6" },
+    { "id": "modelador", "name": "Modelo simple", "criteria": "Completar Unidad 7" },
+    { "id": "publicador", "name": "Publicado en RPubs", "criteria": "Registrar enlace final" }
   ]
 }

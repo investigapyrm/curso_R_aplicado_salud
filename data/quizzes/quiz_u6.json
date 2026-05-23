@@ -1,31 +1,16 @@
 {
   "unidad": 6,
-  "titulo": "Reporte y RPubs",
+  "titulo": "Inferencia basica con R",
   "preguntas": [
-    {
-      "texto": "¿Qué ventaja tiene un reporte reproducible?",
-      "opciones": ["Integra datos, código, resultados y narrativa", "Oculta el método usado", "Evita revisar los datos", "Funciona solo sin internet"],
-      "correcta": 0,
-      "explicacion": "Un reporte reproducible permite auditar y actualizar el análisis."
-    },
-    {
-      "texto": "¿Qué formato es apropiado para publicar en RPubs desde RStudio?",
-      "opciones": ["HTML generado desde R Markdown o Quarto", "Archivo temporal sin guardar", "Foto de la pantalla", "Contraseña en texto plano"],
-      "correcta": 0,
-      "explicacion": "RPubs publica documentos HTML generados por R Markdown/Quarto."
-    },
-    {
-      "texto": "¿Qué debe incluir el ensayo final?",
-      "opciones": ["Pregunta, métodos, resultados, interpretación y limitaciones", "Solo una tabla sin título", "Datos personales de pacientes", "Código sin contexto"],
-      "correcta": 0,
-      "explicacion": "La estructura científica básica ayuda a comunicar hallazgos de forma clara."
-    },
-    {
-      "texto": "¿Qué práctica mejora la transparencia del análisis?",
-      "opciones": ["Mostrar código relevante y describir decisiones", "Cambiar datos sin explicar", "Eliminar limitaciones", "Copiar gráficos sin fuente"],
-      "correcta": 0,
-      "explicacion": "La transparencia permite que otra persona entienda y evalúe el trabajo."
-    }
+    { "texto": "En una prueba t, la hipotesis nula usual afirma que:", "opciones": ["Las medias de los grupos son iguales", "El tratamiento siempre funciona", "La muestra no existe", "El grafico esta mal"], "correcta": 0, "explicacion": "H0 plantea ausencia de diferencia." },
+    { "texto": "Un p-valor es:", "opciones": ["Compatibilidad de los datos con H0 bajo supuestos", "Probabilidad de que el tratamiento cure", "Tamanho del efecto", "Una medida de privacidad"], "correcta": 0, "explicacion": "No mide importancia clinica." },
+    { "texto": "Si los datos continuos no son normales, una alternativa a t.test puede ser:", "opciones": ["wilcox.test()", "read.csv()", "library()", "sessionInfo()"], "correcta": 0, "explicacion": "Wilcoxon es no parametrica para comparaciones." },
+    { "texto": "chisq.test() se usa para:", "opciones": ["Asociacion entre variables categoricas", "Comparar dos medias normales", "Crear un YAML", "Instalar paquetes"], "correcta": 0, "explicacion": "Trabaja con tablas de contingencia." },
+    { "texto": "fisher.test() es especialmente util cuando:", "opciones": ["Hay celdas con conteos esperados pequenos", "La variable es continua normal", "Se quiere abrir RPubs", "No hay categorias"], "correcta": 0, "explicacion": "Fisher es exacta para tablas pequenas." },
+    { "texto": "Un IC95% que incluye 0 para diferencia de medias sugiere:", "opciones": ["Diferencia compatible con ausencia de efecto estadistico", "Causalidad segura", "Error de instalacion", "Grafico obligatorio"], "correcta": 0, "explicacion": "El cero es una diferencia nula." },
+    { "texto": "La relevancia clinica depende de:", "opciones": ["Magnitud, contexto, seguridad, costo y criterio medico", "Solo p menor 0.05", "Solo el color del grafico", "Solo nrow()"], "correcta": 0, "explicacion": "Significancia estadistica no basta." },
+    { "texto": "cor.test(method='spearman') evalua:", "opciones": ["Correlacion por rangos", "Prueba de chi-cuadrado", "Publicacion HTML", "Instalacion de R"], "correcta": 0, "explicacion": "Spearman es no parametrica." },
+    { "texto": "Un buen informe inferencial incluye:", "opciones": ["Hipotesis, prueba, p, IC, efecto e interpretacion", "Solo p-valor", "Solo una captura", "Solo titulo"], "correcta": 0, "explicacion": "Debe comunicar resultado y alcance." },
+    { "texto": "El entregable de la unidad es:", "opciones": ["Informe con tres pruebas e interpretacion clinica", "Script de instalacion", "Mapa mental inicial", "Solo Tabla 1"], "correcta": 0, "explicacion": "La unidad integra pruebas y lectura prudente." }
   ]
 }
-
