@@ -1,5 +1,13 @@
 # Bitácora
 
+## 2026-05-22 - Portada promocional del curso
+
+- Problema reportado: la portada antes del login promovía virtudes técnicas de la app web en vez del curso.
+- Se reescribió `index.html` para presentar la promesa académica: aprender R desde cero, analizar datos de salud y publicar un informe en RPubs.
+- Se retiró del primer impacto la mención a Google Sheets, Apps Script, Drive y trazabilidad; esos aspectos quedan dentro del aula o documentación técnica.
+- Se agregaron datos promocionales del curso: 6 unidades, 18 prácticas guiadas y proyecto final en RPubs.
+- Se actualizó cache/versionado a `2026.05.22.6`.
+
 ## 2026-05-22 - Ruta de unidades en diapositivas
 
 - Problema reportado: el aula mejoró, pero aún no replica la calidad, formas y estilos del ejemplo; el contenido debía avanzar como diapositivas con transición.

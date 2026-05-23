@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>R aplicado a la salud | Login</title>
-  <meta name="description" content="Aula virtual autogestionada para aprender R con datos de salud.">
+  <title>R aplicado a la salud | Curso autogestionado</title>
+  <meta name="description" content="Curso autogestionado para aprender R desde cero, analizar datos de salud y publicar un primer informe en RPubs.">
   <meta name="theme-color" content="#116149">
   <link rel="manifest" href="manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=20260522-6">
 </head>
 <body class="login-page">
   <main class="login-shell">
@@ -19,41 +19,47 @@
         <img src="icons/logo-r-salud.svg" alt="R aplicado a la salud">
         <div>
           <strong>R aplicado a la salud</strong>
-          <span>Aula conectada a Google Sheets</span>
+          <span>Curso autogestionado para medicina</span>
         </div>
       </div>
 
       <div class="hero-copy">
-        <span class="eyebrow">Medicina · R · RPubs</span>
-        <h1>Un aula completa, secuencial y trazable</h1>
+        <span class="eyebrow">Medicina · Datos · Investigación</span>
+        <h1>Aprendé R desde cero y publicá tu primer análisis de salud</h1>
         <p>
-          Ruta por unidades, progreso, calendario, foros, cuestionarios,
-          evidencias en Drive y registro en Google Sheets mediante Apps Script.
+          Un curso práctico para estudiantes de medicina que quieren pasar de la
+          instalación de R a tablas, gráficos, inferencia básica, modelos sencillos
+          y un informe reproducible publicado en RPubs.
         </p>
+        <div class="course-facts" aria-label="Datos principales del curso">
+          <span>6 unidades</span>
+          <span>18 prácticas guiadas</span>
+          <span>Proyecto final en RPubs</span>
+        </div>
         <div class="hero-steps" aria-label="Ruta de aprendizaje">
           <div class="hero-step">
-            <strong>1. Aprender</strong>
-            <span>Subniveles guiados con contenidos, prácticas y tareas.</span>
+            <strong>1. Empezar sin miedo</strong>
+            <span>Instalación de R y RStudio, proyectos, scripts y primeros comandos.</span>
           </div>
           <div class="hero-step">
-            <strong>2. Participar</strong>
-            <span>Foros por subnivel, calendario y evidencias del proceso.</span>
+            <strong>2. Analizar salud</strong>
+            <span>Datos clínicos ficticios, limpieza, descriptiva, gráficos e inferencia.</span>
           </div>
           <div class="hero-step">
             <strong>3. Publicar</strong>
-            <span>Ensayo reproducible con R y enlace final en RPubs.</span>
+            <span>Reporte reproducible con R Markdown o Quarto y enlace final en RPubs.</span>
           </div>
         </div>
       </div>
 
       <p class="footer-note">
-        Backend: Google Sheet + Apps Script + Drive. Datos de práctica ficticios.
+        Pensado para aprender haciendo: 6 unidades, prácticas guiadas, cuestionarios y proyecto final.
       </p>
     </section>
 
     <section class="login-panel" aria-label="Acceso">
       <h2>Ingresar al aula</h2>
-      <p>El login intenta validar primero contra Apps Script y usa usuarios locales solo como respaldo de prueba.</p>
+      <p>Accedé para continuar tu avance, resolver prácticas, rendir cuestionarios y registrar tu publicación final.</p>
 
       <form id="loginForm" novalidate>
         <div class="form-field">
@@ -75,8 +81,8 @@
     </section>
   </main>
 
-  <script src="config.js"></script>
-  <script src="js/api.js"></script>
+  <script src="config.js?v=20260522-6"></script>
+  <script src="js/api.js?v=20260522-6"></script>
   <script>
     const statusBox = document.getElementById('loginStatus');
     const form = document.getElementById('loginForm');
@@ -154,4 +160,3 @@
   </script>
 </body>
 </html>
-
