@@ -25,7 +25,7 @@ Guiar a una persona sin experiencia previa desde la instalación de R y RStudio 
 
 - Login con validación Apps Script/Google Sheets y respaldo local de práctica.
 - Ruta secuencial con unidades, subniveles, bloqueos pedagógicos y productos.
-- Unidad activa tipo cuaderno de aprendizaje: hero visual, microclase, código R, práctica, evidencia y foro por subnivel.
+- Unidad activa tipo presentación interactiva: diapositivas con transición, concepto, caso clínico, código R ejecutable en WebR, evidencia y foro por subnivel.
 - Prácticas guiadas con 6 laboratorios y 18 fichas paso a paso sobre datos de salud.
 - Flashcards y clasificadores interactivos para repaso activo antes de cuestionarios.
 - Progreso local/offline con cola de sincronización hacia Google Sheets.

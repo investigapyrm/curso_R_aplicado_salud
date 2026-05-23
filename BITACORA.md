@@ -1,5 +1,16 @@
 # Bitácora
 
+## 2026-05-22 - Ruta de unidades en diapositivas
+
+- Problema reportado: el aula mejoró, pero aún no replica la calidad, formas y estilos del ejemplo; el contenido debía avanzar como diapositivas con transición.
+- Se transformó la unidad activa en un deck pedagógico con transición horizontal: portada, concepto, caso clínico, práctica ejecutable, evidencia/foro y cierre.
+- Se agregaron 14 diapositivas por unidad, con avance secuencial, bloqueo por subnivel, contador, rail de navegación y estado completado.
+- Cada práctica ejecutable incluye código R base compatible con WebR, botón para ejecutar en pantalla completa y carga opcional de WebR dentro de la diapositiva.
+- Se mantuvieron tareas, cuestionarios, foros, evidencias y progreso existentes, evitando romper la estructura de backend y PWA.
+- Versión de app/cache actualizada a `2026.05.22.5`.
+- Validación local viva: Chrome headless vía CDP abrió `dashboard.html#unidad`, detectó 14 diapositivas, verificó cambio de `transform` al avanzar y cargó un iframe WebR dentro de la diapositiva de práctica ejecutable.
+- Validación móvil local: viewport 390x844 cargó la unidad con 14 diapositivas, ancho visible de slide 354 px y navegación móvil activa.
+
 ## 2026-05-22 - Laboratorio WebR desde archivos del ejemplo
 
 - Se adopto el patron del laboratorio ejecutable del curso ejemplo: editor, boton Ejecutar, salida en pantalla, fichas cargables y modo embebido.

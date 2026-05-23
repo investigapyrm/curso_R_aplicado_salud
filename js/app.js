@@ -18,6 +18,8 @@
     checks: {},
     quizResults: {},
     activeUnit: 1,
+    unitSlides: {},
+    slideDone: {},
     rpubsUrl: '',
     notes: '',
     calendarDone: {},
@@ -365,6 +367,536 @@
     `;
   }
 
+  const SUBLEVEL_SLIDE_LIBRARY = {
+    '1.1': {
+      concepts: ['R permite documentar cada calculo, no solo obtener un numero final.', 'En salud se usa para describir muestras, comparar grupos y reportar incertidumbre.', 'La primera habilidad es traducir una pregunta clinica a variables observables.'],
+      caseTitle: 'Caso de arranque',
+      caseText: 'Una estudiante quiere saber si la glucosa promedio de una muestra simulada cambia segun tabaquismo. Antes de probar nada, debe reconocer variables, grupos y limites de interpretacion.',
+      checkpoint: 'Escribe una pregunta que pueda responderse con edad, diagnostico, glucosa, IMC o tabaquismo.'
+    },
+    '1.2': {
+      concepts: ['R es el motor de calculo; RStudio es el entorno de trabajo.', 'Los paquetes amplian funciones, pero el curso conserva ejemplos ejecutables en R base.', 'La evidencia minima es demostrar que el entorno abre, ejecuta y registra la sesion.'],
+      caseTitle: 'Instalacion verificable',
+      caseText: 'Antes de entregar un analisis, otra persona debe poder saber con que version de R trabajaste y desde que carpeta corriste el script.',
+      checkpoint: 'Confirma version, carpeta de trabajo y una libreria cargada o documentada.'
+    },
+    '1.3': {
+      concepts: ['Un proyecto evita rutas rotas y archivos perdidos.', 'Un script convierte pasos manuales en un procedimiento repetible.', 'Los objetos guardan valores clinicos, tablas o modelos para reutilizarlos.'],
+      caseTitle: 'Primer script clinico',
+      caseText: 'La misma lista de glucosas puede servir para practicar media, mediana, rangos y escritura de resultados si queda guardada en un script.',
+      checkpoint: 'Crea un objeto, calcula una medida y explica que representa en lenguaje clinico.'
+    },
+    '2.1': {
+      concepts: ['Toda base debe revisarse antes de analizarse.', 'Las filas suelen ser pacientes, consultas o eventos; las columnas son variables.', 'El tipo de variable define la tabla, grafico o prueba estadistica posible.'],
+      caseTitle: 'Inspeccion de base',
+      caseText: 'El archivo salud_muestra.csv trae variables simuladas de pacientes. La tarea no es concluir de inmediato, sino inspeccionar estructura, nombres y rangos.',
+      checkpoint: 'Identifica una variable numerica, una categorica y un identificador.'
+    },
+    '2.2': {
+      concepts: ['Limpiar no significa cambiar resultados, sino hacer explicita la estructura.', 'Los factores facilitan tablas por grupo y modelos con categorias.', 'Los faltantes y rangos raros deben documentarse antes de publicar.'],
+      caseTitle: 'Calidad antes de resultados',
+      caseText: 'Si diagnostico aparece como texto libre o sexo con codigos mezclados, una tabla puede quedar fragmentada y llevar a errores.',
+      checkpoint: 'Deja una regla de limpieza y una decision que no tomarias sin consultar al equipo clinico.'
+    },
+    '2.3': {
+      concepts: ['Un dataset anonimo todavia puede ser sensible si combina muchas variables.', 'El reporte publico debe evitar identificadores directos e indirectos.', 'La etica del analisis tambien incluye reconocer limites de la muestra.'],
+      caseTitle: 'Publicacion segura',
+      caseText: 'Aunque la base sea ficticia, el habito correcto es pensar que cada fila podria representar a una persona real.',
+      checkpoint: 'Redacta tres reglas para publicar sin exponer datos personales.'
+    },
+    '3.1': {
+      concepts: ['La descriptiva resume la muestra sin afirmar causalidad.', 'Media y mediana responden preguntas distintas.', 'Las tablas por diagnostico ayudan a detectar patrones y tambien desbalances.'],
+      caseTitle: 'Tabla clinica inicial',
+      caseText: 'Un equipo de salud necesita una tabla compacta por diagnostico para discutir si hay diferencias visibles de edad, IMC y glucosa.',
+      checkpoint: 'Reporta n, media o mediana y una lectura prudente.'
+    },
+    '3.2': {
+      concepts: ['Un grafico debe responder una pregunta concreta.', 'El boxplot muestra mediana, dispersion y valores extremos.', 'La forma visual no reemplaza la lectura numerica ni el contexto clinico.'],
+      caseTitle: 'Grafico para reunion',
+      caseText: 'La pregunta no es si el grafico se ve bonito, sino si permite comparar glucosa entre diagnosticos sin confundir al lector.',
+      checkpoint: 'Explica por que elegiste boxplot, barras u otra figura.'
+    },
+    '3.3': {
+      concepts: ['La narrativa convierte salida de R en resultado interpretable.', 'Un buen resultado dice medida, grupo y alcance.', 'La frase "en esta muestra" protege contra conclusiones exageradas.'],
+      caseTitle: 'Resultado publicable',
+      caseText: 'El lector no necesita ver todo el codigo para entender el hallazgo, pero si debe poder reproducirlo desde el informe.',
+      checkpoint: 'Escribe un parrafo con n, porcentaje o media y una limitacion.'
+    },
+    '4.1': {
+      concepts: ['La inferencia agrega incertidumbre a una estimacion.', 'Un intervalo de confianza no describe a cada paciente individual.', 'El tamano muestral y la variabilidad condicionan la precision.'],
+      caseTitle: 'Glucosa media con incertidumbre',
+      caseText: 'Una media aislada puede sonar exacta; el intervalo muestra cuanta precision tiene esa estimacion en la muestra.',
+      checkpoint: 'Interpreta un intervalo sin decir que prueba una verdad absoluta.'
+    },
+    '4.2': {
+      concepts: ['Comparar grupos requiere definir variable resultado y grupo.', 'La prueba t evalua diferencias de medias bajo supuestos.', 'El valor p no mide importancia clinica.'],
+      caseTitle: 'Comparacion entre exposiciones',
+      caseText: 'La comparacion de glucosa segun tabaquismo puede sugerir una diferencia, pero no demuestra que fumar cause esa diferencia.',
+      checkpoint: 'Redacta la conclusion iniciando con "En esta muestra".'
+    },
+    '4.3': {
+      concepts: ['Chi-cuadrado trabaja con conteos en una tabla.', 'La asociacion estadistica no identifica direccion causal.', 'Las frecuencias esperadas pequenas pueden exigir cautela.'],
+      caseTitle: 'Diagnostico y exposicion',
+      caseText: 'Una tabla entre tabaquismo y diagnostico permite explorar asociacion, pero faltan diseno, temporalidad y control de confusores.',
+      checkpoint: 'Nombra un dato adicional necesario para interpretar mejor la asociacion.'
+    },
+    '5.1': {
+      concepts: ['Un modelo empieza por una pregunta bien delimitada.', 'La variable respuesta puede ser continua o binaria.', 'No conviene modelar antes de entender la calidad de datos.'],
+      caseTitle: 'Pregunta modelable',
+      caseText: 'Diabetes probable si/no permite una regresion logistica simple, siempre que la interpretacion quede limitada a asociacion.',
+      checkpoint: 'Define respuesta, predictores y una variable que podria confundir.'
+    },
+    '5.2': {
+      concepts: ['glm con familia binomial modela una respuesta si/no.', 'El odds ratio resume asociacion en escala multiplicativa.', 'El intervalo de confianza comunica precision de esa asociacion.'],
+      caseTitle: 'Modelo sencillo',
+      caseText: 'Edad, IMC y tabaquismo pueden entrar juntos en un modelo para explorar diabetes probable, sin convertirlo en una regla clinica.',
+      checkpoint: 'Interpreta un odds ratio con su intervalo y una advertencia.'
+    },
+    '5.3': {
+      concepts: ['La salida de un modelo requiere traduccion clinica.', 'Predicciones altas no son diagnostico automatico.', 'Un modelo simple necesita validacion antes de usarse para decidir.'],
+      caseTitle: 'Lectura responsable',
+      caseText: 'Ordenar probabilidades ayuda a entender el modelo, pero no autoriza decisiones individuales en pacientes reales.',
+      checkpoint: 'Escribe dos interpretaciones y una limitacion metodologica.'
+    },
+    '6.1': {
+      concepts: ['Un informe reproducible une pregunta, codigo, resultados y texto.', 'R Markdown o Quarto evita copiar y pegar salidas manuales.', 'La estructura IMRyD ayuda a escribir con orden cientifico.'],
+      caseTitle: 'Borrador de ensayo',
+      caseText: 'El reporte final debe poder abrirse, renderizarse y explicar que se hizo con datos anonimizados o simulados.',
+      checkpoint: 'Define titulo, pregunta, datos y primer bloque de codigo.'
+    },
+    '6.2': {
+      concepts: ['Renderizar prueba que rutas, paquetes y codigo funcionan.', 'El HTML debe leerse bien antes de publicarse.', 'Los errores de ruta son parte normal del aprendizaje reproducible.'],
+      caseTitle: 'HTML revisable',
+      caseText: 'Un informe que funciona en RStudio pero no renderiza todavia no es reproducible para otra persona.',
+      checkpoint: 'Corrige al menos un error o documenta que el render salio sin errores.'
+    },
+    '6.3': {
+      concepts: ['RPubs permite compartir un HTML generado desde RStudio.', 'La publicacion exige revisar privacidad, licencias y limites.', 'El enlace final es evidencia de cierre del curso.'],
+      caseTitle: 'Publicacion final',
+      caseText: 'El objetivo no es publicar un resultado perfecto, sino un analisis sencillo, honesto y reproducible.',
+      checkpoint: 'Comparte el enlace y declara una limitacion central.'
+    }
+  };
+
+  const R_CODE_SNIPPETS = {
+    '1.1': `cat("R ayuda a convertir preguntas de salud en analisis reproducibles.\\n")
+variables <- c("edad", "sexo", "glucosa_mg_dl", "diagnostico")
+variables`,
+    '1.2': `R.version.string
+getwd()
+sessionInfo()`,
+    '1.3': `edad <- c(19, 21, 22, 30, 45)
+glucosa <- c(82, 91, 110, 145, 160)
+mean(glucosa)
+median(glucosa)`,
+    '2.1': `salud <- read.csv("/data/salud_muestra.csv")
+dim(salud)
+str(salud)
+summary(salud)`,
+    '2.2': `salud <- read.csv("/data/salud_muestra.csv")
+salud$diagnostico <- factor(salud$diagnostico)
+salud$sexo <- factor(salud$sexo)
+salud$tabaquismo <- factor(salud$tabaquismo)
+table(salud$diagnostico)`,
+    '2.3': `salud <- read.csv("/data/salud_muestra.csv")
+data.frame(variable = names(salud), tipo = sapply(salud, class))
+cat("Regla: no publicar identificadores ni combinaciones que reidentifiquen.\\n")`,
+    '3.1': `salud <- read.csv("/data/salud_muestra.csv")
+aggregate(cbind(edad, imc, glucosa_mg_dl) ~ diagnostico, data = salud, mean)
+table(salud$diagnostico)`,
+    '3.2': `salud <- read.csv("/data/salud_muestra.csv")
+boxplot(glucosa_mg_dl ~ diagnostico, data = salud,
+        main = "Glucosa por diagnostico",
+        xlab = "Diagnostico", ylab = "Glucosa mg/dl",
+        col = c("#e7f5ef", "#fff6d9", "#e8f0ff"))`,
+    '3.3': `salud <- read.csv("/data/salud_muestra.csv")
+tabla <- table(salud$diagnostico)
+porcentaje <- round(prop.table(tabla) * 100, 1)
+data.frame(diagnostico = names(tabla), n = as.integer(tabla), porcentaje = as.numeric(porcentaje))`,
+    '4.1': `salud <- read.csv("/data/salud_muestra.csv")
+t.test(salud$glucosa_mg_dl)
+mean(salud$glucosa_mg_dl)`,
+    '4.2': `salud <- read.csv("/data/salud_muestra.csv")
+t.test(glucosa_mg_dl ~ tabaquismo, data = salud)
+aggregate(glucosa_mg_dl ~ tabaquismo, data = salud, mean)`,
+    '4.3': `salud <- read.csv("/data/salud_muestra.csv")
+tabla <- table(salud$tabaquismo, salud$diagnostico)
+tabla
+chisq.test(tabla)`,
+    '5.1': `salud <- read.csv("/data/salud_muestra.csv")
+salud$diabetes_probable <- salud$diagnostico == "Diabetes probable"
+table(salud$diabetes_probable)
+prop.table(table(salud$diabetes_probable))`,
+    '5.2': `salud <- read.csv("/data/salud_muestra.csv")
+salud$diabetes_probable <- salud$diagnostico == "Diabetes probable"
+modelo <- glm(diabetes_probable ~ edad + imc + tabaquismo, data = salud, family = binomial)
+summary(modelo)
+exp(coef(modelo))`,
+    '5.3': `salud <- read.csv("/data/salud_muestra.csv")
+salud$diabetes_probable <- salud$diagnostico == "Diabetes probable"
+modelo <- glm(diabetes_probable ~ edad + imc + tabaquismo, data = salud, family = binomial)
+salud$probabilidad <- predict(modelo, type = "response")
+head(salud[order(-salud$probabilidad), c("edad", "imc", "tabaquismo", "probabilidad")], 8)`,
+    '6.1': `cat("---\\ntitle: Analisis sencillo de datos de salud\\noutput: html_document\\n---\\n")
+cat("\\n## Pregunta\\n")
+cat("Que patron se observa en esta muestra simulada?\\n")`,
+    '6.2': `salud <- read.csv("/data/salud_muestra.csv")
+table(salud$diagnostico)
+boxplot(glucosa_mg_dl ~ diagnostico, data = salud,
+        main = "Figura para el informe")`,
+    '6.3': `checklist <- c("HTML renderizado", "Privacidad revisada", "Limitaciones escritas", "Enlace RPubs copiado")
+data.frame(paso = seq_along(checklist), tarea = checklist)`
+  };
+
+  function slideContentFor(sublevel) {
+    const fallback = {
+      concepts: [sublevel.practice, sublevel.forumPrompt, 'Conecta el resultado con una decision prudente de salud.'],
+      caseTitle: 'Caso guia',
+      caseText: 'Revisa el concepto con una base simulada y transforma la salida de R en una interpretacion breve.',
+      checkpoint: sublevel.practice
+    };
+    return { ...fallback, ...(SUBLEVEL_SLIDE_LIBRARY[sublevel.id] || {}) };
+  }
+
+  function unitSlideKey(unitId, slide) {
+    return `u${unitId}:${slide.id}`;
+  }
+
+  function isDeckSlideDone(unit, slide) {
+    if (slide.kind === 'activity' && slide.sublevel) return isStepDone(unit, slide.sublevel);
+    if (slide.kind === 'closure') return isTaskDone(unit) || isQuizDone(unit);
+    return Boolean(progress.slideDone && progress.slideDone[unitSlideKey(unit.id, slide)]);
+  }
+
+  function isDeckSlideLocked(unit, slide, unlocked) {
+    if (!unlocked) return true;
+    if (!slide.sublevel) return false;
+    const index = unit.sublevels.findIndex(item => item.id === slide.sublevel.id);
+    if (index <= 0) return false;
+    return !isStepDone(unit, unit.sublevels[index - 1]);
+  }
+
+  function unitSlideIndex(unitId, slides) {
+    const stored = Number(progress.unitSlides?.[unitId] ?? 0);
+    return Math.max(0, Math.min(Number.isFinite(stored) ? stored : 0, slides.length - 1));
+  }
+
+  function buildUnitSlides(unit) {
+    const slides = [{
+      id: `u${unit.id}-cover`,
+      kind: 'cover',
+      stage: 'Mapa de ruta',
+      title: unit.title,
+      lead: `Vas a avanzar por microdiapositivas: concepto, caso, codigo ejecutable y evidencia. El cierre de la unidad produce: ${unit.product}.`,
+      bullets: unit.outcomes,
+      figure: figureFor(unit),
+      duration: unit.weeks
+    }];
+
+    unit.sublevels.forEach((sublevel, index) => {
+      const lesson = lessonForSublevel(unit, sublevel, index);
+      const content = slideContentFor(sublevel);
+      const stepCode = R_CODE_SNIPPETS[sublevel.id] || lesson.code || '';
+      slides.push({
+        id: `${sublevel.id}-concepto`,
+        kind: 'concept',
+        stage: 'Concepto clave',
+        stepLabel: sublevel.id,
+        sublevel,
+        title: sublevel.title,
+        lead: lesson.summary,
+        bullets: content.concepts,
+        figure: lesson.figure,
+        duration: sublevel.duration
+      });
+      slides.push({
+        id: `${sublevel.id}-caso`,
+        kind: 'case',
+        stage: 'Caso clinico',
+        stepLabel: sublevel.id,
+        sublevel,
+        title: content.caseTitle,
+        lead: content.caseText,
+        bullets: [content.checkpoint, `Foro: ${sublevel.forumPrompt}`],
+        figure: lesson.figure,
+        duration: sublevel.duration
+      });
+      slides.push({
+        id: `${sublevel.id}-codigo`,
+        kind: 'execution',
+        stage: 'Practica ejecutable',
+        stepLabel: sublevel.id,
+        sublevel,
+        title: `Ejecuta en R: ${sublevel.title}`,
+        lead: 'Corre el bloque, observa la salida y conserva una frase de interpretacion para tu evidencia.',
+        code: stepCode,
+        figure: lesson.figure,
+        duration: sublevel.duration
+      });
+      slides.push({
+        id: `${sublevel.id}-evidencia`,
+        kind: 'activity',
+        stage: 'Evidencia y foro',
+        stepLabel: sublevel.id,
+        sublevel,
+        title: `Cierre del subnivel ${sublevel.id}`,
+        lead: sublevel.practice,
+        bullets: [lesson.task, content.checkpoint, sublevel.forumPrompt],
+        task: lesson.task,
+        forumPrompt: sublevel.forumPrompt,
+        figure: lesson.figure,
+        duration: sublevel.duration
+      });
+    });
+
+    slides.push({
+      id: `u${unit.id}-cierre`,
+      kind: 'closure',
+      stage: 'Cierre de unidad',
+      title: `Producto: ${unit.product}`,
+      lead: 'Integra lo aprendido, registra la tarea y completa el cuestionario antes de avanzar a la siguiente unidad.',
+      bullets: ['Revisa las diapositivas marcadas como pendientes.', `Entrega: ${unit.product}`, 'Aprueba el cuestionario con 70% o mas.'],
+      figure: figureFor(unit),
+      duration: unit.weeks
+    });
+
+    return slides;
+  }
+
+  function renderSlideBullets(items, className = 'slide-bullet-grid') {
+    return `<div class="${className}">${(items || []).map(item => `<div><span></span><p>${escapeHtml(item)}</p></div>`).join('')}</div>`;
+  }
+
+  function renderSlideSpecificContent(unit, slide, index, active) {
+    if (slide.kind === 'cover') {
+      return `
+        <div class="slide-outcomes">
+          ${renderSlideBullets(slide.bullets)}
+        </div>
+        <div class="slide-product-card">
+          <strong>Producto de unidad</strong>
+          <p>${escapeHtml(unit.product)}</p>
+        </div>
+      `;
+    }
+
+    if (slide.kind === 'concept') {
+      return `
+        ${renderSlideBullets(slide.bullets)}
+        <div class="slide-note">Lee esta diapositiva como una mini clase. La siguiente aterriza el concepto en un caso.</div>
+      `;
+    }
+
+    if (slide.kind === 'case') {
+      const [checkpoint, forum] = slide.bullets || [];
+      return `
+        <div class="clinical-case">
+          <strong>Tu decisión de lectura</strong>
+          <p>${escapeHtml(checkpoint || 'Identifica qué dato mirarías primero y por qué.')}</p>
+        </div>
+        ${renderSlideBullets([forum, 'En la siguiente diapositiva ejecutas un bloque de R y contrastas la salida con esta lectura.'].filter(Boolean), 'slide-check-grid')}
+      `;
+    }
+
+    if (slide.kind === 'execution') {
+      const codeId = `deck-code-${unit.id}-${index}`;
+      const src = `laboratorio/index.html?embed=1&code=${encodeURIComponent(slide.code || '')}`;
+      return `
+        ${renderMiniCode(slide.code, codeId)}
+        <div class="slide-exec-actions">
+          <a class="btn small" href="${escapeHtml(src)}" target="_blank" rel="noopener">Ejecutar en WebR</a>
+          <button class="btn small secondary" type="button" onclick="RSaludApp.loadSlideLab(${unit.id}, ${index})">Cargar WebR aqui</button>
+          <button class="btn small secondary" type="button" onclick="RSaludApp.prepareEvidence(${unit.id}, ${jsString(slide.title)})">Subir salida</button>
+        </div>
+        <div class="slide-lab-slot" id="slideLab-${unit.id}-${index}" data-lab-src="${escapeHtml(src)}">
+          ${active ? '<span>WebR se carga solo cuando lo solicitas para mantener rapida la ruta.</span>' : '<span>Avanza a esta diapositiva para ejecutar el bloque.</span>'}
+        </div>
+      `;
+    }
+
+    if (slide.kind === 'activity') {
+      return `
+        <div class="evidence-callout deck-evidence">
+          <strong>Evidencia esperada</strong>
+          <span>${escapeHtml(slide.task || slide.lead)}</span>
+          <button class="btn small secondary" type="button" onclick="RSaludApp.prepareEvidence(${unit.id}, ${jsString(slide.title)})">Subir evidencia</button>
+        </div>
+        <div class="forum-card">
+          <strong>Foro de esta diapositiva</strong>
+          <p>${escapeHtml(slide.forumPrompt)}</p>
+          <button class="btn small secondary" type="button" onclick="RSaludApp.openForumPrompt(${unit.id}, ${jsString(slide.sublevel.id)})">Abrir foro</button>
+        </div>
+      `;
+    }
+
+    return `
+      ${renderSlideBullets(slide.bullets)}
+      <div class="slide-exec-actions">
+        <a class="btn small secondary" href="${unit.taskUrl}">Ver tarea</a>
+        <button class="btn small" type="button" onclick="RSaludApp.markTask(${unit.id})">${isTaskDone(unit) ? 'Tarea registrada' : 'Marcar tarea'}</button>
+        <button class="btn small warn" type="button" onclick="RSaludApp.startQuiz(${unit.id})">Rendir quiz</button>
+      </div>
+    `;
+  }
+
+  function renderLearningDeckSlide(unit, slide, index, slides, current, unlocked) {
+    const active = index === current;
+    const done = isDeckSlideDone(unit, slide);
+    const locked = isDeckSlideLocked(unit, slide, unlocked);
+    const primaryLabel = done
+      ? (index >= slides.length - 1 ? 'Cierre registrado' : 'Continuar')
+      : (slide.kind === 'activity' ? 'Completar subnivel' : 'Completar diapositiva');
+    return `
+      <article class="deck-slide ${active ? 'is-active' : ''} ${done ? 'is-done' : ''} ${locked ? 'is-locked' : ''}" data-slide-index="${index}">
+        <div class="deck-slide-copy">
+          <div class="slide-kicker">
+            <span>${escapeHtml(slide.stepLabel || `U${unit.id}`)}</span>
+            <strong>${escapeHtml(slide.stage)}</strong>
+            <em>${index + 1}/${slides.length}</em>
+          </div>
+          <h3>${escapeHtml(slide.title)}</h3>
+          <p class="slide-lead">${escapeHtml(slide.lead)}</p>
+          ${renderSlideSpecificContent(unit, slide, index, active)}
+        </div>
+        <aside class="deck-slide-side">
+          <img src="${escapeHtml(slide.figure)}" alt="" loading="lazy">
+          <div class="slide-side-card">
+            <strong>${escapeHtml(slide.duration || unit.weeks)}</strong>
+            <span>${done ? 'Completada' : locked ? 'Bloqueada' : 'Disponible'}</span>
+          </div>
+          <div class="slide-side-actions">
+            <button class="btn small secondary" type="button" onclick="RSaludApp.moveUnitSlide(${unit.id}, -1)" data-deck-prev ${index === 0 ? 'disabled' : ''}>Anterior</button>
+            <button class="btn small" type="button" onclick="RSaludApp.completeUnitSlide(${unit.id}, ${index})" ${locked ? 'disabled' : ''}>${primaryLabel}</button>
+            <button class="btn small secondary" type="button" onclick="RSaludApp.moveUnitSlide(${unit.id}, 1)" data-deck-next ${index >= slides.length - 1 ? 'disabled' : ''}>Siguiente</button>
+          </div>
+        </aside>
+      </article>
+    `;
+  }
+
+  function renderLearningDeck(unit, unlocked) {
+    const slides = buildUnitSlides(unit);
+    const current = unitSlideIndex(unit.id, slides);
+    const completed = slides.filter(slide => isDeckSlideDone(unit, slide)).length;
+    return `
+      <section class="learning-deck" data-deck-unit="${unit.id}" data-active-index="${current}" style="--unit-color:${unit.color}">
+        <div class="deck-header">
+          <div>
+            <span class="eyebrow">Ruta tipo diapositivas</span>
+            <h3 id="deckActiveTitle">${escapeHtml(slides[current].title)}</h3>
+            <p>Avanza como una clase guiada: concepto, caso, ejecucion y evidencia. El cambio entre diapositivas usa transicion horizontal.</p>
+          </div>
+          <div class="deck-counter">
+            <strong data-slide-counter>${current + 1}/${slides.length}</strong>
+            <span>${completed} completadas</span>
+          </div>
+        </div>
+        <div class="deck-rail" aria-label="Navegacion de diapositivas">
+          ${slides.map((slide, index) => {
+            const done = isDeckSlideDone(unit, slide);
+            const locked = isDeckSlideLocked(unit, slide, unlocked);
+            return `
+              <button type="button" data-deck-dot="${index}" class="${index === current ? 'active' : ''} ${done ? 'done' : ''}" ${locked ? 'disabled' : ''} onclick="RSaludApp.goToUnitSlide(${unit.id}, ${index})">
+                <span>${String(index + 1).padStart(2, '0')}</span>
+                <em>${escapeHtml(slide.stepLabel || slide.stage)}</em>
+              </button>
+            `;
+          }).join('')}
+        </div>
+        <div class="deck-stage">
+          <div class="deck-track" style="transform: translateX(-${current * 100}%);">
+            ${slides.map((slide, index) => renderLearningDeckSlide(unit, slide, index, slides, current, unlocked)).join('')}
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  function updateUnitDeckDom(unit, slides, target) {
+    const deck = document.querySelector(`[data-deck-unit="${unit.id}"]`);
+    if (!deck) {
+      renderUnit();
+      return;
+    }
+    deck.dataset.activeIndex = String(target);
+    const track = deck.querySelector('.deck-track');
+    if (track) track.style.transform = `translateX(-${target * 100}%)`;
+    deck.querySelector('[data-slide-counter]').textContent = `${target + 1}/${slides.length}`;
+    const title = deck.querySelector('#deckActiveTitle');
+    if (title) title.textContent = slides[target].title;
+    deck.querySelectorAll('[data-slide-index]').forEach((slideEl, index) => {
+      const locked = isDeckSlideLocked(unit, slides[index], isUnitUnlocked(unit));
+      slideEl.classList.toggle('is-active', index === target);
+      slideEl.classList.toggle('is-done', isDeckSlideDone(unit, slides[index]));
+      slideEl.classList.toggle('is-locked', locked);
+    });
+    deck.querySelectorAll('[data-deck-dot]').forEach((dot, index) => {
+      const locked = isDeckSlideLocked(unit, slides[index], isUnitUnlocked(unit));
+      dot.classList.toggle('active', index === target);
+      dot.classList.toggle('done', isDeckSlideDone(unit, slides[index]));
+      dot.disabled = locked;
+    });
+    deck.querySelectorAll('[data-deck-prev]').forEach(btn => { btn.disabled = target === 0; });
+    deck.querySelectorAll('[data-deck-next]').forEach(btn => { btn.disabled = target >= slides.length - 1; });
+  }
+
+  function goToUnitSlide(unitId, slideIndex) {
+    const unit = course.units.find(item => item.id === Number(unitId));
+    if (!unit) return;
+    const slides = buildUnitSlides(unit);
+    const target = Math.max(0, Math.min(Number(slideIndex) || 0, slides.length - 1));
+    if (isDeckSlideLocked(unit, slides[target], isUnitUnlocked(unit))) return;
+    progress.unitSlides = progress.unitSlides || {};
+    progress.unitSlides[unit.id] = target;
+    saveLocalProgress();
+    updateUnitDeckDom(unit, slides, target);
+  }
+
+  function moveUnitSlide(unitId, delta) {
+    const unit = course.units.find(item => item.id === Number(unitId));
+    if (!unit) return;
+    const slides = buildUnitSlides(unit);
+    goToUnitSlide(unit.id, unitSlideIndex(unit.id, slides) + Number(delta || 0));
+  }
+
+  async function completeUnitSlide(unitId, slideIndex) {
+    const unit = course.units.find(item => item.id === Number(unitId));
+    if (!unit) return;
+    const slides = buildUnitSlides(unit);
+    const slide = slides[Math.max(0, Math.min(Number(slideIndex) || 0, slides.length - 1))];
+    if (!slide || isDeckSlideLocked(unit, slide, isUnitUnlocked(unit))) return;
+    progress.slideDone = progress.slideDone || {};
+    progress.slideDone[unitSlideKey(unit.id, slide)] = true;
+    if (slide.kind === 'activity' && slide.sublevel) {
+      progress.checks[stepKey(unit, slide.sublevel)] = true;
+    }
+    updateBadges();
+    const next = Math.min(slides.indexOf(slide) + 1, slides.length - 1);
+    progress.unitSlides = progress.unitSlides || {};
+    progress.unitSlides[unit.id] = next;
+    debounceProgressSync(`diapositiva_u${unit.id}`);
+    await API.write('evento', {
+      evento: slide.kind === 'activity' ? 'subnivel_completado' : 'diapositiva_completada',
+      unidad: unit.id,
+      recurso: slide.id,
+      detalle: slide.title
+    });
+    renderRoute();
+    renderHome();
+    renderProgress();
+    updateUnitDeckDom(unit, slides, next);
+  }
+
+  function loadSlideLab(unitId, slideIndex) {
+    const unit = course.units.find(item => item.id === Number(unitId));
+    if (!unit) return;
+    const slide = buildUnitSlides(unit)[Number(slideIndex)];
+    const slot = document.getElementById(`slideLab-${unitId}-${slideIndex}`);
+    if (!slide || !slot || !slide.code) return;
+    const src = `laboratorio/index.html?embed=1&code=${encodeURIComponent(slide.code)}`;
+    slot.innerHTML = `<iframe class="slide-lab-frame" src="${escapeHtml(src)}" title="WebR integrado ${escapeHtml(slide.title)}"></iframe>`;
+  }
+
   function flashcardsForFilter() {
     const cards = course.flashcards || [];
     if (progress.flashcardFilter === 'todas') return cards;
@@ -556,7 +1088,22 @@
             </div>
           ` : ''}
         </aside>
-        <div class="learning-main">
+        <div class="learning-main deck-main">
+          ${renderLearningDeck(unit, unlocked)}
+          <div class="deck-support-row">
+            <a class="support-tile" href="${unit.sublevels[0]?.resource || unit.taskUrl}">
+              <strong>Material base</strong>
+              <span>Lectura ampliada de la unidad</span>
+            </a>
+            <button class="support-tile" type="button" onclick="RSaludApp.openPractice(${jsString(lab?.id || '')}, 0)" ${lab ? '' : 'disabled'}>
+              <strong>Ficha guiada</strong>
+              <span>${lab ? escapeHtml(lab.title) : 'Sin practica asociada'}</span>
+            </button>
+            <button class="support-tile" type="button" onclick="RSaludApp.startQuiz(${unit.id})">
+              <strong>Cuestionario</strong>
+              <span>${isQuizDone(unit) ? 'Aprobado' : 'Pendiente'}</span>
+            </button>
+          </div>
           <div class="learning-sequence">
             ${unit.sublevels.map(sublevel => `
               <button type="button" class="${isStepDone(unit, sublevel) ? 'done' : ''}" onclick="document.getElementById('lesson-${sublevel.id.replace('.', '-')}')?.scrollIntoView({behavior:'smooth', block:'start'})">
@@ -1689,15 +2236,19 @@ tidy(modelo, exponentiate = TRUE, conf.int = TRUE)`;
   window.RSaludApp = {
     checkClassifier,
     closePractice,
+    completeUnitSlide,
     copyCode,
     copyCodeById,
     downloadProgress,
     flipFlashcard,
     goNext,
+    goToUnitSlide,
+    loadSlideLab,
     markCalendar,
     markPracticeStep,
     markStep,
     markTask,
+    moveUnitSlide,
     nextFlashcard,
     openForumPrompt,
     openPractice,
