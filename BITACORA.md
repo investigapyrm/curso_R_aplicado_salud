@@ -12,6 +12,8 @@
 - Se actualizaron `README.md`, `docs/manual_usuario.md` y `docs/manual_tecnico.md`.
 - Apps Script fue empujado con `clasp push -f` y el deployment activo quedo en `@6`; la URL publica del backend sigue devolviendo 403 de permisos de Google, por lo que el login queda resuelto por fallback local primero.
 - Validaciones locales: `node --check` en `js/api.js`, `sw.js` y `apps-script/Code.js`; parseo de `data/usuarios.json`; prueba automatizada de `RSaludAPI.login('admin', '123456')` confirmo `source: local` y rol `docente` sin llamada al backend.
+- Validacion publica con cache-busting: `index.html`, `config.js`, `js/api.js`, `data/usuarios.json` y `sw.js` respondieron 200 y mostraron los marcadores `admin`, `123456` y `20260523-2`.
+- Validacion publica automatizada: `RSaludAPI.login('admin', '123456')` cargo desde GitHub Pages y confirmo `source: local`, rol `docente` y cero llamadas al backend.
 
 ## 2026-05-23 - Migracion operativa a 8 unidades NotebookLM
 
