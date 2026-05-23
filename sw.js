@@ -1,4 +1,4 @@
-const CACHE_NAME = 'r-salud-v20260523-1';
+const CACHE_NAME = 'r-salud-v20260523-2';
 
 const APP_SHELL = [
   './',
@@ -100,6 +100,27 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
+
+  const requestUrl = new URL(event.request.url);
+  const networkFirst = event.request.mode === 'navigate'
+    || requestUrl.pathname.endsWith('/data/usuarios.json')
+    || requestUrl.pathname.endsWith('/config.js')
+    || requestUrl.pathname.endsWith('/js/api.js');
+
+  if (networkFirst || event.request.cache === 'no-store') {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          if (response && response.ok && event.request.cache !== 'no-store') {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+          }
+          return response;
+        })
+        .catch(() => caches.match(event.request).then(cached => cached || caches.match('./index.html')))
+    );
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request).then(cached => {

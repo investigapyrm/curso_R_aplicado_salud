@@ -41,14 +41,13 @@ Guiar a una persona sin experiencia previa desde la instalación de R y RStudio 
 - Panel de administración para preparar el libro, revisar configuración y exportar progreso.
 - Funcionamiento instalable tipo PWA con `manifest.json` y `sw.js`.
 
-## Acceso de prueba
+## Acceso inicial
 
 | Rol | Usuario | Contraseña |
 | --- | --- | --- |
-| Estudiante | `estudiante` | `r-salud` |
-| Docente | `docente` | `docente-r` |
+| Administrador | `admin` | `123456` |
 
-Estas credenciales son de demostración para un sitio público estático. No deben usarse para controlar información sensible.
+Esta credencial reinicia el acceso del aula y no depende del correo. Es una clave de demostración para un sitio público estático; no debe usarse para controlar información sensible.
 
 ## Estructura
 

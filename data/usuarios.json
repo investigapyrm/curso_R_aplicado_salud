@@ -1,17 +1,10 @@
 [
   {
-    "usuario": "estudiante",
-    "password": "r-salud",
-    "nombre": "Estudiante de prueba",
-    "rol": "estudiante",
-    "activo": true
-  },
-  {
-    "usuario": "docente",
-    "password": "docente-r",
-    "nombre": "Docente demo",
+    "usuario": "admin",
+    "password": "123456",
+    "nombre": "Administrador del curso",
     "rol": "docente",
+    "email": "",
     "activo": true
   }
 ]
-

@@ -2,10 +2,12 @@
 
 ## Acceso
 
-Abrir `index.html` o la URL de GitHub Pages. Usar las credenciales demo:
+Abrir `index.html` o la URL de GitHub Pages. Usar el acceso inicial reiniciado:
 
-- Usuario: `estudiante`
-- Contraseña: `r-salud`
+- Usuario: `admin`
+- Contraseña: `123456`
+
+Este acceso no depende del correo ni de recordatorios automáticos.
 
 ## Recorrido recomendado
 

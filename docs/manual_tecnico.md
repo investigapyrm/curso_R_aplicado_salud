@@ -49,7 +49,9 @@ Luego copiar la URL `/exec` nueva en `config.js`.
 
 ## Seguridad
 
-El login local es solo respaldo pedagógico. En producción, administrar usuarios desde la hoja `USUARIOS` con hash SHA-256 y evitar datos reales de pacientes. Las evidencias deben ser material académico o datos anonimizados.
+El login local es solo respaldo pedagógico. El acceso inicial publicado es `admin` / `123456`, sin dependencia del correo. Si se actualiza el backend de Apps Script y se quiere forzar la misma credencial en la hoja `USUARIOS`, ejecutar una vez `resetAdminAccess()` desde el editor de Apps Script.
+
+En producción, administrar usuarios desde la hoja `USUARIOS` con hash SHA-256 y evitar datos reales de pacientes. Las evidencias deben ser material académico o datos anonimizados.
 
 ## Actualización de contenidos
 

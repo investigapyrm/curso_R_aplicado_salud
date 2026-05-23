@@ -179,11 +179,24 @@
   }
 
   async function loadLocalUsers() {
-    const response = await fetch('data/usuarios.json', { cache: 'no-store' });
+    const version = encodeURIComponent(CONFIG.appVersion || Date.now());
+    const response = await fetch(`data/usuarios.json?v=${version}`, { cache: 'no-store' });
     return response.json();
   }
 
   async function login(usuario, password) {
+    const users = await loadLocalUsers();
+    const found = users.find(user => user.usuario === usuario && user.password === password && user.activo);
+    if (found) {
+      return {
+        usuario: found.usuario,
+        nombre: found.nombre,
+        rol: found.rol || 'estudiante',
+        email: found.email || '',
+        source: 'local'
+      };
+    }
+
     const passwordHash = await sha256Hex(password);
     if (backendReady()) {
       try {
@@ -196,16 +209,7 @@
       }
     }
 
-    const users = await loadLocalUsers();
-    const found = users.find(user => user.usuario === usuario && user.password === password && user.activo);
-    if (!found) throw new Error('Usuario o contraseña incorrectos');
-    return {
-      usuario: found.usuario,
-      nombre: found.nombre,
-      rol: found.rol || 'estudiante',
-      email: found.email || '',
-      source: 'local'
-    };
+    throw new Error('Usuario o contraseña incorrectos');
   }
 
   async function bootstrap() {
@@ -253,4 +257,3 @@
     write
   };
 })();
-

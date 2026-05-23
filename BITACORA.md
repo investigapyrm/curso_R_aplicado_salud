@@ -1,5 +1,18 @@
 # Bitácora
 
+## 2026-05-23 - Reinicio simple de acceso
+
+- Problema reportado: el flujo dependiente de correo no funciona y no llega nada al correo.
+- Decision operativa: reiniciar el aula con acceso directo `admin` / `123456`, sin depender de correo ni recordatorios.
+- Se actualizo `data/usuarios.json` para dejar solo el usuario local `admin` con rol docente.
+- Se actualizo la portada de login para mostrar `admin` / `123456` y evitar que un usuario anterior guardado en el navegador reemplace ese acceso inicial.
+- Se actualizo `js/api.js` para validar primero el usuario local, pedir `usuarios.json` con version de app y evitar credenciales viejas servidas desde cache.
+- Se actualizo `sw.js` a `r-salud-v20260523-2` y se agrego estrategia network-first para `index`, `config.js`, `js/api.js` y `data/usuarios.json`.
+- Se agrego `resetAdminAccess()` en `apps-script/Code.js` y se ajusto `seedUsers_()` para crear o reparar el usuario `admin` / `123456` en la hoja `USUARIOS` cuando se despliegue el backend.
+- Se actualizaron `README.md`, `docs/manual_usuario.md` y `docs/manual_tecnico.md`.
+- Apps Script fue empujado con `clasp push -f` y el deployment activo quedo en `@6`; la URL publica del backend sigue devolviendo 403 de permisos de Google, por lo que el login queda resuelto por fallback local primero.
+- Validaciones locales: `node --check` en `js/api.js`, `sw.js` y `apps-script/Code.js`; parseo de `data/usuarios.json`; prueba automatizada de `RSaludAPI.login('admin', '123456')` confirmo `source: local` y rol `docente` sin llamada al backend.
+
 ## 2026-05-23 - Migracion operativa a 8 unidades NotebookLM
 
 - Objetivo: proceder con la integracion real de los recursos NotebookLM dentro del aula.

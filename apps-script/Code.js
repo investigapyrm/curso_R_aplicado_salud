@@ -1,6 +1,6 @@
 const APP = {
   NAME: 'R aplicado a la salud',
-  VERSION: '2026.05.22.2',
+  VERSION: '2026.05.23.2',
   SHEET_ID: '1mlgNE-pDQZuAuUNj524dHn-zF9cbYvv6a6shvTDDtTg',
   DRIVE_FOLDER_ID: '1g5rmr_z3wo2JbkPD4GGl3EhvC-Jq1E6v',
   PAGES_URL: 'https://investigapyrm.github.io/curso_R_aplicado_salud/',
@@ -78,6 +78,20 @@ function setupWorkbook_() {
     detalle: 'setupWorkbook ejecutado'
   });
   return { status: 'ok', sheets: Object.keys(HEADERS), app: APP };
+}
+
+function resetAdminAccess() {
+  const ss = getSpreadsheet_();
+  ensureWorkbook_(ss);
+  const result = ensureAdminUser_(ss.getSheetByName('USUARIOS'), true);
+  appendEvent_({
+    usuario: 'admin',
+    nombre: 'Administrador del curso',
+    rol: 'docente',
+    evento: 'reset_admin_access',
+    detalle: 'Credencial reiniciada: admin / 123456'
+  });
+  return { status: 'ok', usuario: 'admin', password: '123456', result };
 }
 
 function getBootstrap_() {
@@ -378,12 +392,44 @@ function seedConfig_(ss) {
 
 function seedUsers_(ss) {
   const sheet = ss.getSheetByName('USUARIOS');
-  if (sheet.getLastRow() > 1) return;
-  const rows = [
-    ['estudiante', sha256Hex_('r-salud'), 'Estudiante de prueba', '', 'estudiante', 'TRUE', now_(), '', 'Usuario demo'],
-    ['docente', sha256Hex_('docente-r'), 'Docente demo', '', 'docente', 'TRUE', now_(), '', 'Usuario demo']
-  ];
-  sheet.getRange(2, 1, rows.length, HEADERS.USUARIOS.length).setValues(rows);
+  ensureAdminUser_(sheet, false);
+}
+
+function defaultAdminUser_() {
+  return {
+    usuario: 'admin',
+    password_hash: sha256Hex_('123456'),
+    nombre: 'Administrador del curso',
+    correo: '',
+    rol: 'docente',
+    activo: 'TRUE',
+    fecha_creacion: now_(),
+    ultimo_acceso: '',
+    observacion: 'Acceso inicial reiniciado: admin / 123456'
+  };
+}
+
+function ensureAdminUser_(sheet, force) {
+  const admin = defaultAdminUser_();
+  const rows = readObjects_(sheet);
+  const current = rows.find(row => String(row.usuario || '').trim().toLowerCase() === 'admin');
+  const rowValues = rowObject => HEADERS.USUARIOS.map(header => rowObject[header] !== undefined ? rowObject[header] : '');
+
+  if (!current) {
+    sheet.appendRow(rowValues(admin));
+    return { created: true, updated: false };
+  }
+
+  const needsUpdate = force
+    || String(current.password_hash || '').trim() !== admin.password_hash
+    || String(current.rol || '').trim() !== admin.rol
+    || String(current.activo || '').trim().toLowerCase() === 'false';
+
+  if (!needsUpdate) return { created: false, updated: false };
+
+  admin.fecha_creacion = current.fecha_creacion || admin.fecha_creacion;
+  sheet.getRange(current.__row, 1, 1, HEADERS.USUARIOS.length).setValues([rowValues(admin)]);
+  return { created: false, updated: true };
 }
 
 function seedCalendar_(ss) {
