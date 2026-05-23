@@ -1,0 +1,140 @@
+{
+  "course": {
+    "id": "r_aplicado_salud",
+    "title": "R aplicado a la salud",
+    "mode": "100% autogestionado",
+    "duration": "8 semanas",
+    "audience": "Estudiantes de medicina sin experiencia previa en programacion",
+    "finalProduct": "Informe reproducible publicado en RPubs",
+    "sourceFolder": "R aplicado a la salud - Carpeta del Curso",
+    "recommendedUse": "Usar estos documentos como fuente canonica para generar unidades, slides, practicas, quizzes, rubricas, foros y checklists del aula web."
+  },
+  "sourceDocuments": [
+    {
+      "order": 0,
+      "id": "1aFzYPCbZK-tiXXgBJnvhQuoXzufcq_jxCl7-hGIO0bM",
+      "title": "00 - Presentacion del Curso: R aplicado a la salud",
+      "url": "https://docs.google.com/document/d/1aFzYPCbZK-tiXXgBJnvhQuoXzufcq_jxCl7-hGIO0bM/edit",
+      "role": "syllabus",
+      "useInCourse": [
+        "portada academica",
+        "calendario",
+        "perfil de egreso",
+        "criterios de evaluacion",
+        "reglas de aprobacion"
+      ]
+    },
+    {
+      "order": 1,
+      "id": "195tFTFbST0_fzQ2UtbNHdlr-AjX-e66O_jddzkzfj-U",
+      "title": "Unidad 1 - Inicio: R para estudiantes de medicina",
+      "url": "https://docs.google.com/document/d/195tFTFbST0_fzQ2UtbNHdlr-AjX-e66O_jddzkzfj-U/edit",
+      "role": "unit",
+      "focus": "Motivacion, alfabetizacion en datos y valor de R para medicina",
+      "deliverable": "Mapa mental y reflexion breve",
+      "components": ["slides", "foro", "quiz", "rubrica", "glosario", "checklist"]
+    },
+    {
+      "order": 2,
+      "id": "1Cb6_oArzr329zKuP_HlIq2wyipjjKnSb9FkFAm4eA-c",
+      "title": "Unidad 2 - Instalacion y primeros comandos",
+      "url": "https://docs.google.com/document/d/1Cb6_oArzr329zKuP_HlIq2wyipjjKnSb9FkFAm4eA-c/edit",
+      "role": "unit",
+      "focus": "Instalacion de R/RStudio, objetos, vectores, data frames y paquetes",
+      "deliverable": "Script .R comentado con operaciones basicas",
+      "components": ["slides", "webr_lab", "foro_soporte", "quiz", "rubrica", "checklist"]
+    },
+    {
+      "order": 3,
+      "id": "1UjzfVpYybpZ0djZugWCnAktZAzMHAgdlTH80gqWBMIQ",
+      "title": "Unidad 3 - Carga y exploracion de datos de salud",
+      "url": "https://docs.google.com/document/d/1UjzfVpYybpZ0djZugWCnAktZAzMHAgdlTH80gqWBMIQ/edit",
+      "role": "unit",
+      "focus": "Importacion, estructura, tipos de variables, faltantes, outliers e inconsistencias",
+      "deliverable": "Reporte de exploracion inicial",
+      "components": ["slides", "dataset", "webr_lab", "foro", "quiz", "rubrica", "glosario", "checklist"]
+    },
+    {
+      "order": 4,
+      "id": "11nv4ZVDW9D9SzAPtMgHA9PXEb7VnoANxyZ7ADtfH684",
+      "title": "Unidad 4 - Limpieza y preparacion de datos clinicos",
+      "url": "https://docs.google.com/document/d/11nv4ZVDW9D9SzAPtMgHA9PXEb7VnoANxyZ7ADtfH684/edit",
+      "role": "unit",
+      "focus": "Limpieza con tidyverse, variables derivadas, criterios de exclusion y bitacora",
+      "deliverable": "Base limpia, script de limpieza y bitacora de cambios",
+      "components": ["slides", "webr_lab", "actividad", "foro", "quiz", "rubrica", "glosario", "checklist"]
+    },
+    {
+      "order": 5,
+      "id": "1q76XK5VQbJiO6XItE1JGtzD6ygVhaR8aHlv7iVypeMA",
+      "title": "Unidad 5 - Estadistica descriptiva aplicada a salud",
+      "url": "https://docs.google.com/document/d/1q76XK5VQbJiO6XItE1JGtzD6ygVhaR8aHlv7iVypeMA/edit",
+      "role": "unit",
+      "focus": "Tabla 1, media/mediana, frecuencias, gtsummary y ggplot2",
+      "deliverable": "Tabla 1 clinica, tres graficos e interpretaciones",
+      "components": ["slides", "webr_lab", "galeria", "foro", "quiz", "rubrica", "glosario", "checklist"]
+    },
+    {
+      "order": 6,
+      "id": "1uLdonYKlpg7Il_YwA-Ch2ev2AXHduDzqdKmSnFEEHWY",
+      "title": "Unidad 6 - Inferencia basica con R",
+      "url": "https://docs.google.com/document/d/1uLdonYKlpg7Il_YwA-Ch2ev2AXHduDzqdKmSnFEEHWY/edit",
+      "role": "unit",
+      "focus": "Hipotesis, p-valor, IC95%, t, Wilcoxon, chi-cuadrado y correlacion",
+      "deliverable": "Informe con tres pruebas e interpretacion clinica",
+      "components": ["slides", "selector_pruebas", "webr_lab", "foro", "quiz", "rubrica", "glosario", "checklist"]
+    },
+    {
+      "order": 7,
+      "id": "1dh7biWi9x9RVhpQW0uQ3jEpYEvo5s4W-495Ni9jBC9w",
+      "title": "Unidad 7 - Modelos sencillos en datos de salud",
+      "url": "https://docs.google.com/document/d/1dh7biWi9x9RVhpQW0uQ3jEpYEvo5s4W-495Ni9jBC9w/edit",
+      "role": "unit",
+      "focus": "Regresion lineal, regresion logistica, OR, R2, tablas y limitaciones",
+      "deliverable": "Reporte de regresion con dos modelos",
+      "components": ["slides", "webr_lab", "simulador_or_r2", "foro", "quiz", "rubrica", "glosario", "checklist"]
+    },
+    {
+      "order": 8,
+      "id": "1_qjRUSshCqo-SG4HAe1jOOgWatqS4yFLH1cg4YIpz2U",
+      "title": "Unidad 8 - Reporte reproducible y publicacion en RPubs",
+      "url": "https://docs.google.com/document/d/1_qjRUSshCqo-SG4HAe1jOOgWatqS4yFLH1cg4YIpz2U/edit",
+      "role": "unit",
+      "focus": "R Markdown, Knit, informe cientifico breve y publicacion en RPubs",
+      "deliverable": "URL publica del informe final en RPubs",
+      "components": ["slides", "plantilla_rmd", "foro_proyectos", "quiz", "rubrica_final", "glosario", "checklist_cierre"]
+    }
+  ],
+  "unitTemplate": {
+    "slideCountTarget": "12-18",
+    "requiredSections": [
+      "portada",
+      "resultados_de_aprendizaje",
+      "microclase",
+      "caso_clinico",
+      "codigo_r",
+      "laboratorio_webr",
+      "practica_guiada",
+      "actividad_autonoma",
+      "foro",
+      "cuestionario",
+      "rubrica",
+      "glosario",
+      "checklist"
+    ],
+    "progressionRule": "Cada unidad debe cerrar con evidencia, quiz >=70% y checklist antes de sugerir la siguiente unidad."
+  },
+  "technicalTargets": {
+    "dashboardUnits": 8,
+    "quizzes": 8,
+    "questionsPerQuiz": 10,
+    "webrPractices": 8,
+    "finalProject": "RPubs",
+    "googleSheetUse": ["usuarios", "progreso", "foros", "tareas", "quizzes", "rubricas", "logs"],
+    "notes": [
+      "El aula debe funcionar aunque los Google Docs no sean publicos.",
+      "Los Docs quedan como fuente editable; GitHub Pages debe usar copias locales generadas.",
+      "Todo el curso debe mantenerse enfocado en R, sin Python."
+    ]
+  }
+}

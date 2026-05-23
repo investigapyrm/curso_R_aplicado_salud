@@ -1,5 +1,16 @@
 # Bitácora
 
+## 2026-05-22 - Revision de recursos NotebookLM
+
+- Problema reportado: revisar los recursos creados con NotebookLM y pensar como aprovecharlos en el curso.
+- Se revisaron los 9 documentos de Google Docs: presentacion maestra y unidades 1 a 8.
+- Hallazgo principal: los documentos ya contienen una arquitectura curricular completa, con resultados medibles, microclase, codigo R, actividad autonoma, foro, quiz, respuestas, rubrica, glosario, checklist y recursos complementarios por unidad.
+- Decision pedagogica: usar estos documentos como fuente canonica del curso y no como anexos.
+- Decision tecnica: preparar migracion del aula de 4 unidades visuales a 8 unidades reales, con slides secuenciales, WebR, quizzes, rubricas, foros y tareas por unidad.
+- Se creo `docs/plan_integracion_notebooklm.md` con el mapa pedagogico-tecnico de integracion.
+- Se creo `recursos/notebooklm/indice.json` con el inventario estructurado de los documentos, sus enlaces, entregables y componentes esperados.
+- Pendiente recomendado: generar `contenido_fichas.json`, quizzes u1-u8 y migrar `dashboard.html`, `data/course.json` y `documentos.html` a la estructura de 8 unidades.
+
 ## 2026-05-22 - Migracion real desde plantilla del curso ejemplo
 
 - Problema reportado: el aula seguia sin aprovechar plenamente la calidad, estructura y potencialidades del curso ejemplo.
