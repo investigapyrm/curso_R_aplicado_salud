@@ -7,6 +7,7 @@
 - Se retiró del primer impacto la mención a Google Sheets, Apps Script, Drive y trazabilidad; esos aspectos quedan dentro del aula o documentación técnica.
 - Se agregaron datos promocionales del curso: 6 unidades, 18 prácticas guiadas y proyecto final en RPubs.
 - Se actualizó cache/versionado a `2026.05.22.6`.
+- Validación pública: `index.html` en GitHub Pages muestra el nuevo H1 del curso, los tres datos promocionales y no muestra menciones técnicas en la portada previa al login.
 
 ## 2026-05-22 - Ruta de unidades en diapositivas
 
