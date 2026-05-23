@@ -10,6 +10,7 @@
 - Versión de app/cache actualizada a `2026.05.22.5`.
 - Validación local viva: Chrome headless vía CDP abrió `dashboard.html#unidad`, detectó 14 diapositivas, verificó cambio de `transform` al avanzar y cargó un iframe WebR dentro de la diapositiva de práctica ejecutable.
 - Validación móvil local: viewport 390x844 cargó la unidad con 14 diapositivas, ancho visible de slide 354 px y navegación móvil activa.
+- Validación pública: GitHub Pages sirvió `dashboard.html`, `js/app.js`, `css/styles.css` y `sw.js` con `20260522-5`; Chrome headless abrió `https://investigapyrm.github.io/curso_R_aplicado_salud/dashboard.html#unidad`, detectó 14 diapositivas y verificó transición al avanzar.
 
 ## 2026-05-22 - Laboratorio WebR desde archivos del ejemplo
 
