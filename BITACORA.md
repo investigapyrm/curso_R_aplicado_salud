@@ -17,7 +17,11 @@
 - Validacion local de cuestionario: `startQuiz(8)` cargo `quiz_u8.json` con 10 preguntas.
 - Validacion local de clasificador: `renderMatching(8)` mostro 8 tabs, 10 casos y 5 zonas para "Reporte reproducible y RPubs".
 - Se agrego `.github/workflows/pages.yml` para publicar automaticamente el sitio estatico desde `main` mediante GitHub Pages Actions.
-- Pendiente posterior al push: verificar la URL publica con cache-busting cuando GitHub Pages actualice el commit.
+- Commit de migracion publicado: `45d13e5 Migrar aula a 8 unidades NotebookLM`.
+- Commit de despliegue publicado: `c4ff9af Agregar despliegue GitHub Pages`.
+- GitHub Actions/Pages: workflows de Pages completados con `success` para `c4ff9af`.
+- Validacion publica HTTP con cache-busting: `index.html`, `dashboard.html`, `documentos.html`, `sw.js`, `recursos/notebooklm/contenido_fichas.json` y `data/quizzes/quiz_u8.json` respondieron 200.
+- Validacion publica viva con Chrome CDP: `dashboard.html#u8` abrio en `https://investigapyrm.github.io/curso_R_aplicado_salud/`, mostro 8 unidades, cargo 24 fichas NotebookLM y `startQuiz(8)` cargo 10 preguntas.
 
 ## 2026-05-22 - Revision de recursos NotebookLM
 
