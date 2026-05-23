@@ -15,6 +15,9 @@
 - Validaciones locales: sintaxis del JS inline de `dashboard.html`, `node --check sw.js`, `node --check js/app.js`, parseo de `data/course.json`, service worker sin archivos faltantes.
 - Validacion local viva con Chrome CDP: `dashboard.html` cargo como "R aplicado a la salud", mostro calendario/comunidad/laboratorio, Unidad 1 renderizo 90 diapositivas, no mostro textos viejos de Big Data/Python y una diapositiva ejecutable cargo `laboratorio/index.html?embed=1&code=...`.
 - Validacion local del laboratorio: `laboratorio/index.html?embed=1&code=1%20%2B%201` abrio en modo embebido y cargo el codigo `1 + 1`.
+- Commit publicado: `78dd0c4 Migrar aula a plantilla del curso ejemplo`.
+- Validacion publica HTTP: `index.html`, `dashboard.html`, `css/styles-template.css`, `sw.js` y `documentos.html` respondieron 200 con marcadores `20260522-7`.
+- Validacion publica viva con Chrome CDP: `dashboard.html` en GitHub Pages cargo sidebar "R aplicado a la salud", las 4 unidades, 90 diapositivas en Unidad 1 y laboratorio embebido con `laboratorio/index.html?embed=1&code=...`, sin textos visibles de Big Data/Python.
 
 ## 2026-05-22 - Portada promocional del curso
 
