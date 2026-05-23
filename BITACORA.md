@@ -1,5 +1,14 @@
 # Bitácora
 
+## 2026-05-23 - Reset contra cache de acceso viejo
+
+- Problema reportado: el sitio muestra una pantalla que solo pide contrasena y responde "Contrasena incorrecta para el paquete de datos publicado" al usar `123456`.
+- Hallazgo: esa frase no existe en los archivos actuales del curso, por lo que probablemente viene de una version cacheada o de una capa heredada de la plantilla.
+- Se agrego `entrar.html` para limpiar `sessionStorage`, service workers y Cache Storage antes de redirigir al login actual.
+- Se actualizo `index.html` para aceptar `?reset=20260523-3`, reiniciar la sesion local y forzar usuario `admin`.
+- Se subio la version de frontend/cache a `2026.05.23.3` y `r-salud-v20260523-3`.
+- Se actualizaron `README.md` y `docs/manual_usuario.md` con la ruta de recuperacion.
+
 ## 2026-05-23 - Reinicio simple de acceso
 
 - Problema reportado: el flujo dependiente de correo no funciona y no llega nada al correo.

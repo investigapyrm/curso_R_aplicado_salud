@@ -49,6 +49,8 @@ Guiar a una persona sin experiencia previa desde la instalación de R y RStudio 
 
 Esta credencial reinicia el acceso del aula y no depende del correo. Es una clave de demostración para un sitio público estático; no debe usarse para controlar información sensible.
 
+Si el navegador conserva una pantalla anterior que solo pide contraseña, abrir `entrar.html` para limpiar caché y volver al login actual.
+
 ## Estructura
 
 ```text

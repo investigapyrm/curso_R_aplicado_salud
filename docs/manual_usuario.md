@@ -9,6 +9,8 @@ Abrir `index.html` o la URL de GitHub Pages. Usar el acceso inicial reiniciado:
 
 Este acceso no depende del correo ni de recordatorios automáticos.
 
+Si aparece una pantalla anterior que solo pide contraseña o muestra “paquete de datos publicado”, abrir `entrar.html` para limpiar la caché del aula y volver al acceso actual.
+
 ## Recorrido recomendado
 
 1. Ingresar al aula.

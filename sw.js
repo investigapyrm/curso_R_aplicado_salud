@@ -1,8 +1,9 @@
-const CACHE_NAME = 'r-salud-v20260523-2';
+const CACHE_NAME = 'r-salud-v20260523-3';
 
 const APP_SHELL = [
   './',
   './index.html',
+  './entrar.html',
   './dashboard.html',
   './documentos.html',
   './config.js',
