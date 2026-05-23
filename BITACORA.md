@@ -16,6 +16,7 @@
 - Validacion local viva con Chrome CDP: `dashboard.html#u8` cargo con 8 unidades en el menu, 3 subniveles en unidad 8, 24 fichas NotebookLM, recurso NotebookLM visible y contenido RPubs.
 - Validacion local de cuestionario: `startQuiz(8)` cargo `quiz_u8.json` con 10 preguntas.
 - Validacion local de clasificador: `renderMatching(8)` mostro 8 tabs, 10 casos y 5 zonas para "Reporte reproducible y RPubs".
+- Se agrego `.github/workflows/pages.yml` para publicar automaticamente el sitio estatico desde `main` mediante GitHub Pages Actions.
 - Pendiente posterior al push: verificar la URL publica con cache-busting cuando GitHub Pages actualice el commit.
 
 ## 2026-05-22 - Revision de recursos NotebookLM
