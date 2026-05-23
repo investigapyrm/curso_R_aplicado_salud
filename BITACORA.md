@@ -1,5 +1,21 @@
 # Bitácora
 
+## 2026-05-22 - Migracion real desde plantilla del curso ejemplo
+
+- Problema reportado: el aula seguia sin aprovechar plenamente la calidad, estructura y potencialidades del curso ejemplo.
+- Decision aplicada: usar el `dashboard.html` del proyecto `analiticabigdata` como plantilla real del aula, no solo como referencia visual.
+- Se migro la shell completa del ejemplo: sidebar, topbar, tarjetas de progreso, logros, calendario, comunidad, administracion, seguimiento docente, documentos y ruta secuencial tipo presentacion.
+- Se conservo la portada/login actual y se agrego puente de sesion `abd_user` para que la plantilla copiada reconozca al usuario autenticado.
+- Se adapto el dashboard a R aplicado a salud: configuracion del Sheet/AppScript/GitHub Pages, unidades, subniveles, practicas, laboratorio WebR, textos, enlaces y recursos oficiales.
+- Se desactivo el indice NotebookLM viejo del curso Big Data para evitar que aparecieran fichas antiguas de Python/Polars; la ruta usa ahora los subniveles nuevos de R salud y queda lista para cargar recursos NotebookLM propios.
+- Se convirtieron los comandos embebidos de las diapositivas a R base/WebR y se valido que el laboratorio embebido reciba codigo por URL.
+- Se agregaron `css/styles-template.css`, `documentos.html`, `css/documentos.css`, iconos de unidades y laminas SVG usadas por la plantilla.
+- Se limpio el copiado de recursos obsoletos no referenciados antes del commit.
+- Version de app/cache actualizada a `2026.05.22.7`.
+- Validaciones locales: sintaxis del JS inline de `dashboard.html`, `node --check sw.js`, `node --check js/app.js`, parseo de `data/course.json`, service worker sin archivos faltantes.
+- Validacion local viva con Chrome CDP: `dashboard.html` cargo como "R aplicado a la salud", mostro calendario/comunidad/laboratorio, Unidad 1 renderizo 90 diapositivas, no mostro textos viejos de Big Data/Python y una diapositiva ejecutable cargo `laboratorio/index.html?embed=1&code=...`.
+- Validacion local del laboratorio: `laboratorio/index.html?embed=1&code=1%20%2B%201` abrio en modo embebido y cargo el codigo `1 + 1`.
+
 ## 2026-05-22 - Portada promocional del curso
 
 - Problema reportado: la portada antes del login promovía virtudes técnicas de la app web en vez del curso.

@@ -14,19 +14,18 @@ Guiar a una persona sin experiencia previa desde la instalación de R y RStudio 
 
 | Unidad | Tema | Producto |
 | --- | --- | --- |
-| 1 | Instalación de R, RStudio y primeros pasos | Entorno configurado y script inicial |
-| 2 | Datos de salud, ética y limpieza básica | Dataset importado, limpiado y documentado |
-| 3 | Descripción y visualización de datos clínicos | Tabla descriptiva y gráficos en ggplot2 |
-| 4 | Inferencia básica aplicada a salud | Intervalos, pruebas y lectura clínica |
-| 5 | Modelos sencillos para preguntas de salud | Regresión lineal/logística interpretada |
-| 6 | Reporte reproducible y publicación en RPubs | Ensayo HTML publicado |
+| 1 | Inicio en R | Entorno configurado, primeros comandos y lectura de la base de salud |
+| 2 | Datos de salud y descriptiva clínica | Base limpia, tablas, gráficos y control de calidad |
+| 3 | Inferencia y modelos sencillos | Comparaciones, asociaciones y regresión logística básica |
+| 4 | Reporte reproducible y publicación en RPubs | Ensayo HTML publicado con interpretación prudente |
 
 ## Funcionalidades
 
 - Login con validación Apps Script/Google Sheets y respaldo local de práctica.
 - Ruta secuencial con unidades, subniveles, bloqueos pedagógicos y productos.
+- Dashboard principal migrado desde la plantilla funcional del curso ejemplo, con sidebar, topbar, logros, calendario, comunidad, administración y tarjetas de seguimiento.
 - Unidad activa tipo presentación interactiva: diapositivas con transición, concepto, caso clínico, código R ejecutable en WebR, evidencia y foro por subnivel.
-- Prácticas guiadas con 6 laboratorios y 18 fichas paso a paso sobre datos de salud.
+- Prácticas guiadas con 4 laboratorios WebR y 12 subniveles paso a paso sobre datos de salud.
 - Flashcards y clasificadores interactivos para repaso activo antes de cuestionarios.
 - Progreso local/offline con cola de sincronización hacia Google Sheets.
 - Calendario de materiales, quizzes y entrega final.
@@ -52,6 +51,7 @@ Estas credenciales son de demostración para un sitio público estático. No deb
 .
 ├── index.html
 ├── dashboard.html
+├── documentos.html
 ├── config.js
 ├── js/
 │   ├── api.js
@@ -64,6 +64,9 @@ Estas credenciales son de demostración para un sitio público estático. No deb
 ├── manifest.json
 ├── sw.js
 ├── css/
+│   ├── styles.css
+│   ├── styles-template.css
+│   └── documentos.css
 ├── data/
 │   ├── usuarios.json
 │   ├── datasets/
