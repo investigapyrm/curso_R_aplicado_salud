@@ -7366,3 +7366,387 @@ a:hover { text-decoration: underline; }
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Compact learning workspace: prioritize usable content over decorative chrome. */
+.page-content {
+  padding: 0.85rem 1rem;
+}
+
+.unit-tabs {
+  align-items: center;
+  background: rgba(255,255,255,0.94);
+  border: 1px solid rgba(148,163,184,0.32);
+  border-radius: 12px;
+  box-shadow: 0 8px 22px rgba(15,23,42,0.06);
+  display: flex;
+  gap: 0.2rem;
+  margin-bottom: 0.55rem;
+  padding: 0.28rem;
+}
+
+.unit-tab {
+  border: 1px solid transparent;
+  border-radius: 9px;
+  color: #475569;
+  font-size: 0.76rem;
+  font-weight: 800;
+  min-height: 34px;
+  padding: 0.38rem 0.62rem;
+}
+
+.unit-tab:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.unit-tab.active {
+  background: var(--unit-soft, #e8f2f8);
+  border-color: var(--unit-border, rgba(45,95,135,0.34));
+  color: var(--unit-color-dark, #173e5f);
+}
+
+.unit-tab-back {
+  background: #eef2f7;
+  color: #334155;
+}
+
+.learning-path-shell {
+  border-color: rgba(148,163,184,0.34);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(15,23,42,0.07);
+  height: calc(100dvh - 148px);
+  min-height: 560px;
+}
+
+.learning-path-head {
+  background: #ffffff;
+  border-bottom-color: rgba(148,163,184,0.28);
+  min-height: 42px;
+  padding: 0.36rem 0.58rem;
+}
+
+.learning-path-compact-title {
+  gap: 0.45rem;
+}
+
+.learning-path-compact-title span {
+  background: var(--sublevel-soft);
+  border: 1px solid var(--sublevel-border);
+  border-radius: 999px;
+  color: var(--sublevel-color-dark);
+  font-size: 0.62rem;
+  padding: 0.18rem 0.42rem;
+}
+
+.learning-path-compact-title strong {
+  font-size: 0.84rem;
+  max-width: min(34vw, 480px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.learning-path-compact-title em {
+  color: #64748b;
+  font-size: 0.72rem;
+}
+
+.learning-path-progress {
+  background: #f8fafc;
+  min-width: 82px;
+  padding: 0.28rem 0.52rem;
+}
+
+.unit-progress-bar {
+  height: 5px;
+}
+
+.learning-sublevels {
+  background: #f8fafc;
+  gap: 0.32rem;
+  padding: 0.35rem 0.55rem;
+}
+
+.learning-sublevel-card {
+  border-color: rgba(148,163,184,0.28);
+  border-radius: 10px;
+  box-shadow: none;
+  min-height: 34px;
+  padding: 0.26rem 0.48rem;
+}
+
+.learning-sublevel-thumb {
+  display: none;
+}
+
+.learning-sublevel-card span,
+.learning-sublevel-card em {
+  font-size: 0.6rem;
+}
+
+.learning-sublevel-card strong {
+  font-size: 0.72rem;
+  max-width: 180px;
+}
+
+.learning-stepper {
+  gap: 0.34rem;
+  padding: 0.38rem 0.55rem;
+}
+
+.learning-step {
+  border-color: rgba(148,163,184,0.26);
+  border-radius: 10px;
+  flex-basis: 118px;
+  min-height: 34px;
+  padding: 0.28rem 0.42rem;
+}
+
+.learning-step span {
+  flex-basis: 20px;
+  font-size: 0.66rem;
+  height: 20px;
+}
+
+.learning-step small {
+  font-size: 0.64rem;
+}
+
+.learning-card-stage {
+  background: #ffffff;
+  border-color: rgba(148,163,184,0.32);
+  border-radius: 10px;
+  box-shadow: none;
+  gap: 0.55rem;
+  height: calc(100dvh - 352px);
+  min-height: 360px;
+  padding: 0.55rem;
+}
+
+.learning-card-top {
+  background: #f8fafc;
+  border-color: rgba(148,163,184,0.28);
+  border-radius: 10px;
+  gap: 0.55rem;
+  min-height: 44px;
+  padding: 0.36rem 0.5rem;
+}
+
+.learning-slide-kicker span {
+  min-width: 34px;
+  padding: 0.18rem 0.42rem;
+}
+
+.learning-slide-kicker strong,
+.learning-slide-kicker em {
+  font-size: 0.7rem;
+}
+
+.learning-card-controls {
+  gap: 0.3rem;
+}
+
+.learning-card-controls .btn-primary,
+.learning-card-controls .btn-secondary {
+  font-size: 0.74rem;
+  min-height: 32px;
+  padding: 0.32rem 0.56rem;
+}
+
+.learning-card-canvas {
+  min-height: 0;
+}
+
+.learning-card-copy,
+.learning-card-execution {
+  background: #ffffff;
+  border-color: rgba(148,163,184,0.34);
+  border-radius: 10px;
+  box-shadow: none;
+  padding: 0.72rem;
+}
+
+.learning-focus-card {
+  gap: 0.55rem;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.learning-focus-card.has-art {
+  grid-template-columns: minmax(0, 1.22fr) minmax(280px, 0.78fr);
+}
+
+.learning-focus-main {
+  gap: 0.52rem;
+  min-height: 0;
+}
+
+.learning-focus-card.has-art .learning-pedagogical-figure {
+  background: #ffffff;
+  border-color: rgba(148,163,184,0.34);
+  border-radius: 10px;
+  height: 100%;
+  padding: 0.55rem;
+}
+
+.learning-focus-card.has-art .learning-pedagogical-img {
+  height: min(48vh, 430px);
+}
+
+.learning-pedagogical-figure figcaption {
+  font-size: 0.68rem;
+}
+
+.learning-card-eyebrow,
+.learning-card-definition span,
+.learning-card-example span,
+.learning-card-figure span,
+.learning-card-execution-copy span {
+  color: var(--sublevel-color-dark);
+  font-size: 0.62rem;
+}
+
+.learning-card-copy h3 {
+  font-size: clamp(1rem, 1.6vw, 1.32rem);
+  line-height: 1.15;
+  margin: 0.12rem 0 0.16rem;
+}
+
+.learning-card-lead {
+  color: #475569;
+  font-size: 0.86rem;
+  line-height: 1.38;
+  margin-bottom: 0.2rem;
+}
+
+.learning-preview-note {
+  font-size: 0.76rem;
+  margin-bottom: 0.25rem;
+  padding: 0.48rem 0.58rem;
+}
+
+.learning-card-definition,
+.learning-card-example,
+.learning-evidence-panel,
+.learning-flow-node,
+.learning-content-list div,
+.visual-orbit-node {
+  background: #f8fafc;
+  border-color: rgba(148,163,184,0.38);
+  border-radius: 9px;
+}
+
+.learning-card-definition {
+  background: color-mix(in srgb, var(--sublevel-soft) 72%, white);
+}
+
+.learning-card-definition p,
+.learning-card-example p {
+  color: #334155;
+  font-size: 0.84rem;
+  line-height: 1.35;
+}
+
+.learning-visual-card {
+  background: #ffffff;
+  border-color: rgba(148,163,184,0.34);
+  border-radius: 10px;
+  min-height: 0;
+}
+
+.learning-visual-card.concept-map {
+  align-items: stretch;
+  gap: 0.55rem;
+  grid-template-columns: 1fr;
+  padding: 0.58rem;
+}
+
+.visual-center {
+  align-items: center;
+  aspect-ratio: auto;
+  background: color-mix(in srgb, var(--sublevel-soft) 76%, white);
+  border: 1px solid var(--sublevel-border);
+  border-radius: 9px;
+  color: #0f172a;
+  flex-direction: row;
+  gap: 0.5rem;
+  justify-content: flex-start;
+  min-height: 38px;
+  padding: 0.42rem 0.55rem;
+  text-align: left;
+}
+
+.visual-center span {
+  background: var(--sublevel-color);
+  border: 0;
+  color: #fff;
+  font-size: 0.64rem;
+  margin: 0;
+  padding: 0.18rem 0.42rem;
+}
+
+.visual-center strong {
+  color: #1e293b;
+  font-size: 0.9rem;
+  line-height: 1.15;
+}
+
+.visual-orbit {
+  gap: 0.36rem;
+}
+
+.visual-orbit-node {
+  align-items: center;
+  padding: 0.42rem 0.52rem;
+}
+
+.visual-orbit-node em {
+  background: #e2e8f0;
+  color: #1e3a5f;
+}
+
+.visual-orbit-node p {
+  color: #334155;
+  font-size: 0.78rem;
+  line-height: 1.28;
+}
+
+.learning-card-points {
+  gap: 0.34rem;
+  margin-top: 0.36rem;
+}
+
+.learning-card-points div {
+  background: #f8fafc;
+  border-color: rgba(148,163,184,0.34);
+  border-radius: 9px;
+  padding: 0.46rem;
+}
+
+.learning-floating-nav {
+  bottom: 0.6rem;
+  padding: 0.35rem;
+}
+
+.learning-floating-nav .btn-primary,
+.learning-floating-nav .btn-secondary {
+  min-height: 34px;
+  padding: 0.42rem 0.78rem;
+}
+
+.learning-inline-resource iframe,
+.learning-notebook-resource iframe {
+  height: calc(100dvh - 285px);
+  min-height: 420px;
+}
+
+.resource-workspace {
+  height: calc(100dvh - 148px);
+  min-height: 620px;
+}
+
+.resource-reader-frame {
+  height: calc(100dvh - 208px);
+  min-height: 520px;
+}

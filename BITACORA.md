@@ -1,5 +1,17 @@
 # Bitácora
 
+## 2026-05-27 - Rediseño compacto de vistas del aula
+
+- Problema reportado: varias vistas desperdiciaban espacio vertical y horizontal con elementos redundantes, como el circulo conceptual gigante, el titulo de unidad repetido y bloques con bajo contraste.
+- Se elimino el encabezado grande de unidad dentro de la vista de detalle; la unidad ya queda indicada en el panel lateral.
+- Se compacto la barra de tabs de unidad y se acortaron etiquetas para reducir altura y ruido visual.
+- Se reemplazo el circulo conceptual gigante por una banda compacta con codigo de subnivel y titulo.
+- Se redistribuyeron las tarjetas con ilustracion para que el contenido textual tenga prioridad y la imagen quede como apoyo.
+- Se ajustaron alturas de ruta, tarjeta activa, recursos embebidos y lector para evitar scroll vertical de pantalla en la ruta secuencial.
+- Se mejoro contraste entre fondo, paneles, tarjetas de conceptos, definiciones y chips de terminos usando blancos, grises frios y bordes mas definidos.
+- Se actualizo cache/versionado a `2026.05.27.2`.
+- Validaciones locales: sintaxis del JS embebido en `dashboard.html`, parseo JSON y prueba headless autenticada en `dashboard.html#u1` con `bodyScroll: 0`, sin `unit-detail-header` y marcador visual de 38 px de alto.
+
 ## 2026-05-26 - Compactacion del lector y plan en HTML
 
 - Problema reportado: el plan de integracion seguia viendose como Markdown crudo dentro del aula (`#`, `##`, listas sin maquetar), y las barras/titulos de los lectores ocupaban demasiado espacio.
