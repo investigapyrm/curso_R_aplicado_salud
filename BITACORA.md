@@ -1,5 +1,15 @@
 # Bitácora
 
+## 2026-05-27 - Acceso por cuenta personal
+
+- Problema reportado: la app web mostraba una credencial publica `admin / 123456`, inadecuada para estudiantes.
+- Se elimino la credencial visible de la pantalla de acceso y se vacio la nomina publica `data/usuarios.json`.
+- Se agrego registro de cuenta personal desde `index.html`, con usuario, nombre, correo opcional, contraseña y frase de recuperacion.
+- Se agrego recuperacion de contraseña usando usuario, correo registrado si existe y frase de recuperacion.
+- El login ahora valida primero cuentas locales con contraseña hasheada en el navegador y conserva el progreso por usuario.
+- Se actualizaron README y manual de usuario para describir el nuevo flujo.
+- Se actualizo cache/versionado a `2026.05.27.10`.
+
 ## 2026-05-27 - Scroll libre y paneles redimensionables
 
 - Problema reportado: la navegacion con scroll fallaba en varias zonas y el usuario necesitaba ajustar anchos estirando bloques.

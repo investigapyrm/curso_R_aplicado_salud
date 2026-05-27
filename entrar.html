@@ -69,20 +69,20 @@
   <main>
     <h1>Acceso reiniciado</h1>
     <p>Se está limpiando la versión anterior del aula para abrir el login nuevo.</p>
-    <p>Usá <code>admin</code> como usuario y <code>123456</code> como contraseña.</p>
-    <a class="btn" id="continueLink" href="index.html?reset=20260523-3">Entrar al aula</a>
+    <p>En la nueva pantalla podés crear tu cuenta personal o ingresar con tu usuario.</p>
+    <a class="btn" id="continueLink" href="index.html?reset=20260527-10">Entrar al aula</a>
     <div class="status" id="status">Preparando acceso...</div>
   </main>
 
   <script>
     const statusBox = document.getElementById('status');
-    const nextUrl = 'index.html?reset=20260523-3';
+    const nextUrl = 'index.html?reset=20260527-10';
 
     async function clearOldAccess() {
       try {
         sessionStorage.removeItem('abd_user');
         sessionStorage.removeItem('rSaludSession');
-        localStorage.setItem('rSaludLastUser', 'admin');
+        localStorage.removeItem('rSaludLastUser');
 
         if ('serviceWorker' in navigator) {
           const registrations = await navigator.serviceWorker.getRegistrations();

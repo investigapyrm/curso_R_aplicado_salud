@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=20260527-9">
+  <link rel="stylesheet" href="css/styles.css?v=20260527-10">
 </head>
 <body class="login-page">
   <main class="login-shell">
@@ -59,75 +59,153 @@
 
     <section class="login-panel" aria-label="Acceso">
       <h2>Ingresar al aula</h2>
-      <p>Accedé para continuar tu avance, resolver prácticas, rendir cuestionarios y registrar tu publicación final.</p>
+      <p>Usa tu cuenta personal para continuar tu avance, resolver prácticas, rendir cuestionarios y registrar tu publicación final.</p>
 
-      <form id="loginForm" novalidate>
+      <div class="auth-tabs" role="tablist" aria-label="Opciones de acceso">
+        <button class="active" type="button" data-auth-tab="login">Ingresar</button>
+        <button type="button" data-auth-tab="register">Crear cuenta</button>
+        <button type="button" data-auth-tab="recover">Recuperar</button>
+      </div>
+
+      <form id="loginForm" class="auth-form active" data-auth-panel="login" novalidate>
         <div class="form-field">
           <label for="usuario">Usuario</label>
-          <input id="usuario" name="usuario" autocomplete="username" required placeholder="admin" value="admin">
+          <input id="usuario" name="usuario" autocomplete="username" required placeholder="tu usuario">
         </div>
         <div class="form-field">
           <label for="password">Contraseña</label>
-          <input id="password" name="password" type="password" autocomplete="current-password" required placeholder="123456">
+          <input id="password" name="password" type="password" autocomplete="current-password" required placeholder="tu contraseña">
         </div>
         <button class="btn" type="submit">Ingresar</button>
       </form>
 
-      <div class="status-box" id="loginStatus">
-        Acceso reiniciado: <strong>admin</strong> / <strong>123456</strong>. No depende del correo.
-      </div>
+      <form id="registerForm" class="auth-form" data-auth-panel="register" novalidate>
+        <div class="form-field">
+          <label for="registerName">Nombre y apellido</label>
+          <input id="registerName" name="nombre" autocomplete="name" required placeholder="Tu nombre">
+        </div>
+        <div class="form-field">
+          <label for="registerUser">Usuario</label>
+          <input id="registerUser" name="usuario" autocomplete="username" required placeholder="ej. maria.gomez">
+        </div>
+        <div class="form-field">
+          <label for="registerEmail">Correo</label>
+          <input id="registerEmail" name="email" type="email" autocomplete="email" placeholder="tu@correo.com">
+        </div>
+        <div class="form-field">
+          <label for="registerPassword">Contraseña</label>
+          <input id="registerPassword" name="password" type="password" autocomplete="new-password" required placeholder="mínimo 8 caracteres">
+        </div>
+        <div class="form-field">
+          <label for="registerRecovery">Frase de recuperación</label>
+          <input id="registerRecovery" name="recovery" autocomplete="off" required placeholder="una frase que puedas recordar">
+        </div>
+        <button class="btn" type="submit">Crear cuenta e ingresar</button>
+      </form>
+
+      <form id="recoverForm" class="auth-form" data-auth-panel="recover" novalidate>
+        <div class="form-field">
+          <label for="recoverUser">Usuario</label>
+          <input id="recoverUser" name="usuario" autocomplete="username" required placeholder="tu usuario">
+        </div>
+        <div class="form-field">
+          <label for="recoverEmail">Correo registrado</label>
+          <input id="recoverEmail" name="email" type="email" autocomplete="email" placeholder="si lo registraste">
+        </div>
+        <div class="form-field">
+          <label for="recoverPhrase">Frase de recuperación</label>
+          <input id="recoverPhrase" name="recovery" autocomplete="off" required placeholder="tu frase de recuperación">
+        </div>
+        <div class="form-field">
+          <label for="recoverPassword">Nueva contraseña</label>
+          <input id="recoverPassword" name="password" type="password" autocomplete="new-password" required placeholder="mínimo 8 caracteres">
+        </div>
+        <button class="btn" type="submit">Cambiar contraseña</button>
+      </form>
+
+      <div class="status-box" id="loginStatus">Crea una cuenta personal o ingresa con tu usuario. Tu progreso se conserva en este navegador.</div>
 
       <button class="btn secondary" id="installBtn" type="button" hidden>Instalar aula</button>
     </section>
   </main>
 
-  <script src="config.js?v=20260527-9"></script>
-  <script src="js/api.js?v=20260527-9"></script>
+  <script src="config.js?v=20260527-10"></script>
+  <script src="js/api.js?v=20260527-10"></script>
   <script>
     const statusBox = document.getElementById('loginStatus');
     const form = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const recoverForm = document.getElementById('recoverForm');
+
+    function setStatus(message, type = '') {
+      statusBox.className = `status-box ${type}`.trim();
+      statusBox.textContent = message;
+    }
+
+    function setAuthTab(tab) {
+      document.querySelectorAll('[data-auth-tab]').forEach(button => {
+        button.classList.toggle('active', button.dataset.authTab === tab);
+      });
+      document.querySelectorAll('[data-auth-panel]').forEach(panel => {
+        panel.classList.toggle('active', panel.dataset.authPanel === tab);
+      });
+      const messages = {
+        login: 'Ingresa con tu usuario personal.',
+        register: 'Crea tu cuenta una sola vez en este navegador.',
+        recover: 'Usa tu frase de recuperación para definir una nueva contraseña.'
+      };
+      setStatus(messages[tab] || '');
+    }
+
+    function openSession(user) {
+      const session = {
+        usuario: user.usuario,
+        nombre: user.nombre || user.usuario,
+        rol: user.rol || 'estudiante',
+        email: user.email || '',
+        source: user.source || 'browser',
+        sessionId: `sess-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+        startedAt: new Date().toISOString()
+      };
+      sessionStorage.setItem(window.RSALUD_CONFIG.localSessionKey, JSON.stringify(session));
+      sessionStorage.setItem('abd_user', JSON.stringify({
+        username: session.usuario,
+        cedula: session.usuario,
+        nombre: session.nombre,
+        rol: session.rol === 'docente' ? 'profesor' : session.rol,
+        email: session.email,
+        passwordChanged: user.passwordChanged !== false,
+        loginTime: session.startedAt
+      }));
+      localStorage.setItem('rSaludLastUser', user.usuario);
+      return session;
+    }
 
     if (new URLSearchParams(window.location.search).has('reset')) {
       sessionStorage.removeItem('abd_user');
       sessionStorage.removeItem(window.RSALUD_CONFIG.localSessionKey);
-      localStorage.setItem('rSaludLastUser', 'admin');
+      localStorage.removeItem('rSaludLastUser');
+      setStatus('Sesion local reiniciada. Ingresa con tu usuario o crea una cuenta nueva.', 'ok');
     }
+
+    document.querySelectorAll('[data-auth-tab]').forEach(button => {
+      button.addEventListener('click', () => setAuthTab(button.dataset.authTab));
+    });
 
     form.addEventListener('submit', async event => {
       event.preventDefault();
       const usuario = form.usuario.value.trim();
       const password = form.password.value;
       if (!usuario || !password) {
-        statusBox.className = 'status-box error';
-        statusBox.textContent = 'Ingresá usuario y contraseña.';
+        setStatus('Ingresa usuario y contraseña.', 'error');
         return;
       }
 
-      statusBox.className = 'status-box';
-      statusBox.textContent = 'Validando acceso...';
+      setStatus('Validando acceso...');
 
       try {
         const user = await window.RSaludAPI.login(usuario, password);
-        const session = {
-          usuario: user.usuario,
-          nombre: user.nombre || user.usuario,
-          rol: user.rol || 'estudiante',
-          email: user.email || '',
-          source: user.source || 'backend',
-          sessionId: `sess-${Date.now()}-${Math.random().toString(36).slice(2)}`,
-          startedAt: new Date().toISOString()
-        };
-        sessionStorage.setItem(window.RSALUD_CONFIG.localSessionKey, JSON.stringify(session));
-        sessionStorage.setItem('abd_user', JSON.stringify({
-          username: session.usuario,
-          cedula: session.usuario,
-          nombre: session.nombre,
-          rol: session.rol === 'docente' ? 'profesor' : session.rol,
-          email: session.email,
-          passwordChanged: true,
-          loginTime: session.startedAt
-        }));
-        localStorage.setItem('rSaludLastUser', user.usuario);
+        const session = openSession(user);
         await window.RSaludAPI.write('evento', {
           evento: 'login_exitoso',
           usuario: session.usuario,
@@ -136,12 +214,10 @@
           session_id: session.sessionId,
           detalle: { source: session.source }
         });
-        statusBox.className = 'status-box ok';
-        statusBox.textContent = 'Acceso correcto. Abriendo aula...';
+        setStatus('Acceso correcto. Abriendo aula...', 'ok');
         window.location.href = 'dashboard.html#inicio';
       } catch (error) {
-        statusBox.className = 'status-box error';
-        statusBox.textContent = error.message || 'No se pudo validar el acceso.';
+        setStatus(error.message || 'No se pudo validar el acceso.', 'error');
         window.RSaludAPI.write('evento', {
           evento: 'login_fallido',
           usuario,
@@ -150,8 +226,54 @@
       }
     });
 
+    registerForm.addEventListener('submit', async event => {
+      event.preventDefault();
+      setStatus('Creando cuenta...');
+      try {
+        const user = await window.RSaludAPI.registerUser({
+          usuario: registerForm.usuario.value,
+          nombre: registerForm.nombre.value,
+          email: registerForm.email.value,
+          password: registerForm.password.value,
+          recovery: registerForm.recovery.value
+        });
+        const session = openSession(user);
+        await window.RSaludAPI.write('evento', {
+          evento: 'registro_exitoso',
+          usuario: session.usuario,
+          nombre: session.nombre,
+          rol: session.rol,
+          session_id: session.sessionId,
+          detalle: { source: session.source }
+        });
+        setStatus('Cuenta creada. Abriendo aula...', 'ok');
+        window.location.href = 'dashboard.html#inicio';
+      } catch (error) {
+        setStatus(error.message || 'No se pudo crear la cuenta.', 'error');
+      }
+    });
+
+    recoverForm.addEventListener('submit', async event => {
+      event.preventDefault();
+      setStatus('Actualizando contraseña...');
+      try {
+        await window.RSaludAPI.recoverPassword({
+          usuario: recoverForm.usuario.value,
+          email: recoverForm.email.value,
+          recovery: recoverForm.recovery.value,
+          password: recoverForm.password.value
+        });
+        setStatus('Contraseña actualizada. Ahora puedes ingresar.', 'ok');
+        form.usuario.value = recoverForm.usuario.value.trim().toLowerCase();
+        form.password.value = '';
+        setAuthTab('login');
+      } catch (error) {
+        setStatus(error.message || 'No se pudo recuperar el acceso.', 'error');
+      }
+    });
+
     const lastUser = localStorage.getItem('rSaludLastUser');
-    document.getElementById('usuario').value = lastUser === 'admin' ? lastUser : 'admin';
+    if (lastUser) document.getElementById('usuario').value = lastUser;
 
     let installPrompt = null;
     const installBtn = document.getElementById('installBtn');

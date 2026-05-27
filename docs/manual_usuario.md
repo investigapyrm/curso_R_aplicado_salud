@@ -2,12 +2,11 @@
 
 ## Acceso
 
-Abrir `index.html` o la URL de GitHub Pages. Usar el acceso inicial reiniciado:
+Abrir `index.html` o la URL de GitHub Pages. En la pantalla de acceso se puede:
 
-- Usuario: `admin`
-- Contraseña: `123456`
-
-Este acceso no depende del correo ni de recordatorios automáticos.
+- Crear una cuenta personal.
+- Ingresar con usuario y contraseña propios.
+- Recuperar el acceso usando la frase de recuperación definida al registrarse.
 
 Si aparece una pantalla anterior que solo pide contraseña o muestra “paquete de datos publicado”, abrir `entrar.html` para limpiar la caché del aula y volver al acceso actual.
 

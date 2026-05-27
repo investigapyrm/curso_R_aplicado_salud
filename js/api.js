@@ -184,7 +184,45 @@
     return response.json();
   }
 
+  function storedUsers() {
+    try {
+      return JSON.parse(localStorage.getItem('abd_local_users') || '[]');
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function saveStoredUsers(users) {
+    localStorage.setItem('abd_local_users', JSON.stringify(users));
+  }
+
+  function normalizeUser(usuario) {
+    return String(usuario || '').trim().toLowerCase();
+  }
+
+  async function findStoredUser(usuario, password) {
+    const username = normalizeUser(usuario);
+    const passwordHash = await sha256Hex(password);
+    return storedUsers().find(user =>
+      normalizeUser(user.username || user.usuario) === username
+      && user.password_hash === passwordHash
+      && user.activo !== false
+    );
+  }
+
   async function login(usuario, password) {
+    const localUser = await findStoredUser(usuario, password);
+    if (localUser) {
+      return {
+        usuario: localUser.username || localUser.usuario,
+        nombre: localUser.nombre || localUser.username || localUser.usuario,
+        rol: localUser.rol || 'estudiante',
+        email: localUser.email || '',
+        source: 'browser',
+        passwordChanged: localUser.password_changed !== false
+      };
+    }
+
     const users = await loadLocalUsers();
     const found = users.find(user => user.usuario === usuario && user.password === password && user.activo);
     if (found) {
@@ -210,6 +248,85 @@
     }
 
     throw new Error('Usuario o contraseña incorrectos');
+  }
+
+  async function registerUser({ usuario, nombre, email, password, recovery }) {
+    const username = normalizeUser(usuario);
+    const cleanName = String(nombre || '').trim();
+    const cleanEmail = String(email || '').trim();
+    const cleanRecovery = String(recovery || '').trim();
+    if (!/^[a-z0-9._-]{4,40}$/.test(username)) {
+      throw new Error('El usuario debe tener 4 a 40 caracteres: letras, números, punto, guion o guion bajo.');
+    }
+    if (cleanName.length < 3) throw new Error('Ingresa tu nombre completo.');
+    if (cleanEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) throw new Error('El correo no tiene un formato valido.');
+    if (String(password || '').length < 8) throw new Error('La contraseña debe tener al menos 8 caracteres.');
+    if (cleanRecovery.length < 6) throw new Error('La frase de recuperacion debe tener al menos 6 caracteres.');
+
+    const users = storedUsers();
+    if (users.some(user => normalizeUser(user.username || user.usuario) === username)) {
+      throw new Error('Ese usuario ya existe en este navegador.');
+    }
+    const remoteUsers = await loadLocalUsers().catch(() => []);
+    if (remoteUsers.some(user => normalizeUser(user.usuario) === username)) {
+      throw new Error('Ese usuario esta reservado.');
+    }
+
+    const now = nowISO();
+    const user = {
+      username,
+      cedula: username,
+      nombre: cleanName,
+      email: cleanEmail,
+      rol: 'estudiante',
+      password_hash: await sha256Hex(password),
+      recovery_hash: await sha256Hex(cleanRecovery.toLowerCase()),
+      password_changed: true,
+      activo: true,
+      created_at: now,
+      updated_at: now
+    };
+    users.push(user);
+    saveStoredUsers(users);
+    await write('estudiante_autoregistro', {
+      usuario: username,
+      nombre: cleanName,
+      email: cleanEmail,
+      rol: 'estudiante',
+      detalle: { source: 'browser_registration' }
+    });
+    return { usuario: username, nombre: cleanName, rol: 'estudiante', email: cleanEmail, source: 'browser' };
+  }
+
+  async function recoverPassword({ usuario, email, recovery, password }) {
+    const username = normalizeUser(usuario);
+    const users = storedUsers();
+    const idx = users.findIndex(user => normalizeUser(user.username || user.usuario) === username);
+    if (idx < 0) throw new Error('No encontramos ese usuario en este navegador.');
+    const user = users[idx];
+    const cleanEmail = String(email || '').trim().toLowerCase();
+    const cleanRecovery = String(recovery || '').trim().toLowerCase();
+    if (user.email && cleanEmail !== String(user.email).trim().toLowerCase()) {
+      throw new Error('El correo no coincide con el registrado.');
+    }
+    if (!user.recovery_hash || user.recovery_hash !== await sha256Hex(cleanRecovery)) {
+      throw new Error('La frase de recuperacion no coincide.');
+    }
+    if (String(password || '').length < 8) throw new Error('La nueva contraseña debe tener al menos 8 caracteres.');
+    users[idx] = {
+      ...user,
+      password_hash: await sha256Hex(password),
+      password_changed: true,
+      updated_at: nowISO()
+    };
+    saveStoredUsers(users);
+    await write('password_recovered', {
+      usuario: username,
+      nombre: user.nombre || username,
+      email: user.email || '',
+      detalle: { source: 'browser_recovery' }
+    });
+    return { usuario: username, nombre: user.nombre || username, rol: user.rol || 'estudiante', email: user.email || '', source: 'browser' };
   }
 
   async function bootstrap() {
@@ -250,6 +367,8 @@
     nowISO,
     post,
     queueItem,
+    recoverPassword,
+    registerUser,
     sessionMeta,
     setupWorkbook,
     sha256Hex,

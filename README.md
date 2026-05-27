@@ -43,11 +43,9 @@ Guiar a una persona sin experiencia previa desde la instalación de R y RStudio 
 
 ## Acceso inicial
 
-| Rol | Usuario | Contraseña |
-| --- | --- | --- |
-| Administrador | `admin` | `123456` |
-
-Esta credencial reinicia el acceso del aula y no depende del correo. Es una clave de demostración para un sitio público estático; no debe usarse para controlar información sensible.
+Cada estudiante crea su propia cuenta desde la pantalla de acceso. El aula guarda
+usuario, contraseña cifrada y frase de recuperación en el navegador, y sincroniza
+eventos de uso cuando el backend está disponible.
 
 Si el navegador conserva una pantalla anterior que solo pide contraseña, abrir `entrar.html` para limpiar caché y volver al login actual.
 

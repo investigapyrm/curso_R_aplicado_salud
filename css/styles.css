@@ -242,6 +242,38 @@ h1 {
   margin: 18px 0;
 }
 
+.auth-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin: 18px 0 4px;
+}
+
+.auth-tabs button {
+  min-height: 36px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--muted);
+  cursor: pointer;
+  font-weight: 800;
+  padding: 8px;
+}
+
+.auth-tabs button.active {
+  background: var(--primary-soft);
+  border-color: rgba(17, 97, 73, 0.28);
+  color: var(--primary-dark);
+}
+
+.auth-form {
+  display: none;
+}
+
+.auth-form.active {
+  display: block;
+}
+
 .form-field label {
   color: var(--primary-dark);
   font-weight: 800;

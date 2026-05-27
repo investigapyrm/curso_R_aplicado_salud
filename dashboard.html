@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="css/styles-template.css?v=20260527-9">
+    <link rel="stylesheet" href="css/styles-template.css?v=20260527-10">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
 </head>
@@ -247,7 +247,7 @@
 
         const NOTEBOOKLM_INDEX_URL = 'recursos/notebooklm/indice.json';
         const NOTEBOOK_CONTENT_URL = 'recursos/notebooklm/contenido_fichas.json';
-        const APP_VERSION = 'r-salud-template-20260527-9';
+        const APP_VERSION = 'r-salud-template-20260527-10';
 
         const NOTEBOOK_STAGE_CONFIG = [
             {
@@ -916,7 +916,7 @@
             { id: 'early_bird', emoji: '🌅', name: 'Madrugador', desc: 'Acceder antes de las 8 AM' },
             { id: 'practice_lab', emoji: '💻', name: 'Laboratorio Vivo', desc: 'Completar una práctica guiada' },
             { id: 'calendar_ready', emoji: '📅', name: 'Agenda Clara', desc: 'Activar recordatorios del calendario' },
-            { id: 'password_changed', emoji: '🔐', name: 'Cuenta Protegida', desc: 'Cambiar la contraseña inicial' },
+            { id: 'password_changed', emoji: '🔐', name: 'Cuenta Protegida', desc: 'Cambiar tu contraseña' },
         ];
 
         NOTEBOOK_UNITS.filter(unit => unit.id > 4).forEach(unit => {
@@ -8421,7 +8421,7 @@
     <div class="form-grid">
       <div class="card">
         <h3>Cambiar contraseña</h3>
-        <p style="margin:0.5rem 0 1rem">La nueva clave se guarda en este navegador y reemplaza la contraseña inicial de cédula.</p>
+        <p style="margin:0.5rem 0 1rem">La nueva clave se guarda cifrada en este navegador y reemplaza la contraseña anterior.</p>
         <div class="form-row">
           <label>Nueva contraseña</label>
           <input class="form-control" type="password" id="newPassword" autocomplete="new-password">
@@ -8552,7 +8552,7 @@
     <div class="form-grid">
       <div class="card">
         <h3>Registrar estudiante</h3>
-        <p style="margin:0.4rem 0 1rem;font-size:0.86rem">Solo los estudiantes autorizados aquí o en la nómina web pueden ingresar. La contraseña inicial es la cédula.</p>
+        <p style="margin:0.4rem 0 1rem;font-size:0.86rem">También puedes preinscribir estudiantes locales. Si lo haces, avísales que cambien su contraseña al ingresar.</p>
         <div class="form-row">
           <label>Cédula</label>
           <input class="form-control" id="studentCedula" inputmode="numeric" placeholder="Ej. 1234567">
@@ -8611,7 +8611,7 @@
                 password_hash: initialHash,
                 password_changed: false,
                 estado: 'activo',
-                detalle: { cedula, password_inicial: 'cedula' }
+                detalle: { cedula, origen: 'preinscripcion_local' }
             });
             showToast('Estudiante autorizado. Primer acceso: cédula/cédula.', 'success');
             renderAdminStudents();
