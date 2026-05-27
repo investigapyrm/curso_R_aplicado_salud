@@ -1,5 +1,13 @@
 # Bitácora
 
+## 2026-05-27 - Jerarquia clara del panel derecho
+
+- Problema reportado: algunos elementos del panel derecho se solapaban y no quedaba clara la relacion entre niveles, subniveles y contenidos.
+- Se reemplazo la navegacion paralela de subniveles/pasos por una jerarquia anidada: Unidad -> Subnivel -> Pasos.
+- Cada subnivel contiene visualmente sus pasos, con borde lateral, indentacion y estados activo/completado/bloqueado.
+- Se ajusto el espaciado interno del panel para evitar superposiciones en textos largos.
+- Se actualizo cache/versionado a `2026.05.27.7`.
+
 ## 2026-05-27 - Panel lateral plegable en unidades
 
 - Problema reportado: la vista de unidad seguia perdiendo demasiado espacio con acciones superiores, tabs, subniveles y lista de pasos antes del contenido.

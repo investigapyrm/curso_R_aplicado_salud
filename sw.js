@@ -1,4 +1,4 @@
-const CACHE_NAME = 'r-salud-v20260527-6';
+const CACHE_NAME = 'r-salud-v20260527-7';
 
 const APP_SHELL = [
   './',

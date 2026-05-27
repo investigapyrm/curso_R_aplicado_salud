@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="css/styles-template.css?v=20260527-6">
+    <link rel="stylesheet" href="css/styles-template.css?v=20260527-7">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
 </head>
@@ -247,7 +247,7 @@
 
         const NOTEBOOKLM_INDEX_URL = 'recursos/notebooklm/indice.json';
         const NOTEBOOK_CONTENT_URL = 'recursos/notebooklm/contenido_fichas.json';
-        const APP_VERSION = 'r-salud-template-20260527-6';
+        const APP_VERSION = 'r-salud-template-20260527-7';
 
         const NOTEBOOK_STAGE_CONFIG = [
             {
@@ -4555,40 +4555,58 @@
             if (!slides.length) return '';
             const current = getCurrentUnitPathSlide(unitNum, slides);
             const currentSlide = slides[current] || slides[0];
-            const visibleSlides = currentSlide?.sublevelIndex
-                ? slides.filter(slide => slide.sublevelIndex === currentSlide.sublevelIndex)
-                : slides;
             const completed = slides.filter((slide, index) => isUnitPathSlideComplete(unitNum, slide, index)).length;
             const pct = Math.round((completed / slides.length) * 100);
             const maxUnlocked = maxUnlockedPathSlide(unitNum, slides);
+            const sublevels = [...new Set(slides.map(slide => slide.sublevelIndex).filter(Boolean))];
             return `
       <div class="unit-panel-route unit-theme-u${unitNum} sublevel-theme-s${currentSlide?.sublevelIndex || 1}">
-        <div class="learning-path-head">
-          <div class="learning-path-compact-title">
-            <span>${escapeHtml(currentSlide?.sublevelCode || `U${unitNum}`)}</span>
-            <strong>${escapeHtml(currentSlide?.sublevelTitle || unit.title)}</strong>
-            <em>${escapeHtml(currentSlide?.stage || 'Ruta secuencial')}</em>
+        <section class="unit-panel-level">
+          <div class="unit-panel-level-head">
+            <span>Nivel</span>
+            <strong>Unidad ${unitNum}</strong>
+            <em>${escapeHtml(unit.title)}</em>
           </div>
           <div class="learning-path-progress">
             <strong>${completed}/${slides.length}</strong>
             <span>completados</span>
           </div>
+          <div class="unit-progress-bar">
+            <div class="unit-progress-fill" style="width:${pct}%"></div>
+          </div>
+        </section>
+        <div class="unit-panel-current">
+          <span>${escapeHtml(currentSlide?.sublevelCode || `U${unitNum}`)}</span>
+          <strong>${escapeHtml(currentSlide?.stage || 'Ruta secuencial')}</strong>
         </div>
-        <div class="unit-progress-bar">
-          <div class="unit-progress-fill" style="width:${pct}%"></div>
-        </div>
-        ${renderSublevelNavigator(unitNum, slides, current, maxUnlocked)}
-        <div class="learning-stepper" aria-label="Bloques de la unidad">
-          ${visibleSlides.map((slide, localStepIndex) => {
-                const index = slide.globalIndex ?? slides.indexOf(slide);
-                const locked = index > maxUnlocked;
-                const done = isUnitPathSlideComplete(unitNum, slide, index);
+        <div class="unit-panel-hierarchy" aria-label="Subniveles y pasos de la unidad">
+          ${sublevels.map(sublevelIndex => {
+                const group = slides.filter(slide => slide.sublevelIndex === sublevelIndex);
+                const firstIndex = slides.findIndex(slide => slide.sublevelIndex === sublevelIndex);
+                const groupCompleted = group.filter(slide => isUnitPathSlideComplete(unitNum, slide, slide.globalIndex)).length;
+                const locked = firstIndex > maxUnlocked;
+                const activeSublevel = currentSlide?.sublevelIndex === sublevelIndex;
                 return `
-            <button class="learning-step ${index === current ? 'active' : ''} ${done ? 'done' : ''} ${locked ? 'locked' : ''}"
-              onclick="goToUnitPathSlide(${unitNum}, ${index})">
-              <span>${localStepIndex + 1}</span>
-              <small>${escapeHtml(slide.stage)}</small>
-            </button>`;
+            <section class="unit-panel-sublevel sublevel-theme-s${sublevelIndex} ${activeSublevel ? 'active' : ''} ${locked ? 'locked' : ''}">
+              <button class="unit-panel-sublevel-head" onclick="goToUnitPathSlide(${unitNum}, ${firstIndex})">
+                <span>Subnivel ${sublevelIndex}</span>
+                <strong>${escapeHtml(group[0]?.sublevelTitle || `Subnivel ${sublevelIndex}`)}</strong>
+                <em>${locked ? 'Vista previa · ' : ''}${groupCompleted}/${group.length} pasos</em>
+              </button>
+              <div class="unit-panel-steps">
+                ${group.map((slide, localStepIndex) => {
+                    const index = slide.globalIndex ?? slides.indexOf(slide);
+                    const stepLocked = index > maxUnlocked;
+                    const done = isUnitPathSlideComplete(unitNum, slide, index);
+                    return `
+                  <button class="unit-panel-step ${index === current ? 'active' : ''} ${done ? 'done' : ''} ${stepLocked ? 'locked' : ''}"
+                    onclick="goToUnitPathSlide(${unitNum}, ${index})">
+                    <span>${localStepIndex + 1}</span>
+                    <small>${escapeHtml(slide.stage)}</small>
+                  </button>`;
+                }).join('')}
+              </div>
+            </section>`;
             }).join('')}
         </div>
       </div>`;
