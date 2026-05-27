@@ -1,7 +1,38 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Unidad 2 Material</title><link rel="stylesheet" href="../../css/styles.css"></head><body><main class="doc-page"><article class="doc-content"><h1>Material Unidad 2</h1><h2>Importar datos</h2><div class="code-block"><pre><code>library(tidyverse)
-salud <- read.csv("data/salud_muestra.csv")
-glimpse(salud)
-head(salud)</code></pre></div><h2>Revisar calidad</h2><div class="code-block"><pre><code>colSums(is.na(salud))
-table(salud$diagnostico)
-summary(salud[, c("edad", "imc", "glucosa_mg_dl")])</code></pre></div><h2>Ética mínima</h2><p>Si los datos fueran reales, antes de publicar habría que retirar identificadores, revisar permisos y reportar resultados agregados.</p><p><a class="btn" href="../../dashboard.html#unidades">Volver al aula</a></p></article></main></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unidad 2 Material</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <main class="doc-page">
+    <article class="doc-content">
+      <h1>Unidad 2 · Instalacion y primeros comandos</h1>
+      <figure class="doc-figure hero">
+        <img src="../../recursos/imagenes/unidad2/u2_hero.webp" alt="Cuatro paneles flotantes que evocan la disposicion clasica de RStudio." loading="lazy">
+        <figcaption>RStudio organiza el trabajo en script, consola, objetos y salidas.</figcaption>
+      </figure>
 
+      <h2>Instalar R y RStudio</h2>
+      <p>R es el motor de calculo. RStudio es la mesa de trabajo. Instalar ambos y abrir un proyecto evita perder archivos, scripts o resultados.</p>
+
+      <h2>Objetos, vectores y data frames</h2>
+      <div class="code-block"><pre><code>edad <- c(22, 45, 63, 38)
+diagnostico <- c("Control", "Diabetes probable", "Control", "Control")
+salud <- data.frame(edad, diagnostico)
+str(salud)</code></pre></div>
+
+      <h2>Paquetes</h2>
+      <figure class="doc-figure">
+        <img src="../../recursos/imagenes/unidad2/u2_concepto_1.webp" alt="Caja con herramientas que se sacan una vez para usarse siempre, metafora de instalar un paquete." loading="lazy">
+        <figcaption>Un paquete se instala una vez y se carga cada vez que se necesita usar sus funciones.</figcaption>
+      </figure>
+      <div class="code-block"><pre><code>install.packages("tidyverse")
+library(tidyverse)</code></pre></div>
+      <p><a class="btn" href="../../dashboard.html#u2">Volver a la unidad</a></p>
+    </article>
+  </main>
+</body>
+</html>

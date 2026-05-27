@@ -1,7 +1,38 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Unidad 1 Material</title><link rel="stylesheet" href="../../css/styles.css"></head><body><main class="doc-page"><article class="doc-content"><h1>Material Unidad 1</h1><h2>R y RStudio</h2><p>R es un lenguaje estadístico. RStudio es el entorno que facilita escribir scripts, ejecutar código, ver objetos, instalar paquetes y generar reportes.</p><h2>Comandos mínimos</h2><div class="code-block"><pre><code>2 + 2
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unidad 1 Material</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <main class="doc-page">
+    <article class="doc-content">
+      <h1>Unidad 1 · Inicio: R para estudiantes de medicina</h1>
+      <figure class="doc-figure hero">
+        <img src="../../recursos/imagenes/unidad1/u1_hero.webp" alt="Estetoscopio sobre laptop con un tablero de datos, simbolizando la union entre clinica y analisis." loading="lazy">
+        <figcaption>La medicina basada en evidencia tambien se escribe con datos y codigo reproducible.</figcaption>
+      </figure>
+
+      <h2>R y RStudio</h2>
+      <p>R es un lenguaje estadistico. RStudio es el entorno que facilita escribir scripts, ejecutar codigo, ver objetos, instalar paquetes y generar reportes.</p>
+
+      <h2>Comandos minimos</h2>
+      <figure class="doc-figure">
+        <img src="../../recursos/imagenes/unidad1/u1_concepto_1.webp" alt="Tres bloques que crecen desde un valor unico hasta una tabla, ilustrando la jerarquia de objetos en R." loading="lazy">
+        <figcaption>Un dato aislado puede crecer a vector y luego a tabla: esa jerarquia ordena el trabajo en R.</figcaption>
+      </figure>
+      <div class="code-block"><pre><code>2 + 2
 edad <- c(22, 45, 63, 38)
 mean(edad)
 summary(edad)
-sessionInfo()</code></pre></div><h2>Paquetes</h2><p>Instalar un paquete se hace una vez con `install.packages()`. Cargarlo se hace en cada sesión con `library()`.</p><div class="code-block"><pre><code>install.packages("tidyverse")
-library(tidyverse)</code></pre></div><p><a class="btn" href="../../dashboard.html#unidades">Volver al aula</a></p></article></main></body></html>
+sessionInfo()</code></pre></div>
 
+      <h2>Idea clave</h2>
+      <p>El objetivo inicial no es memorizar comandos, sino reconocer que cada instruccion recibe un dato, hace una operacion y devuelve un resultado interpretable.</p>
+      <p><a class="btn" href="../../dashboard.html#u1">Volver a la unidad</a></p>
+    </article>
+  </main>
+</body>
+</html>

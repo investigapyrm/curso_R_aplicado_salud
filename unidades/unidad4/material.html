@@ -1,4 +1,39 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Unidad 4 Material</title><link rel="stylesheet" href="../../css/styles.css"></head><body><main class="doc-page"><article class="doc-content"><h1>Material Unidad 4</h1><h2>Intervalo de confianza para la media</h2><div class="code-block"><pre><code>t.test(salud$glucosa_mg_dl)</code></pre></div><h2>Comparación de medias</h2><div class="code-block"><pre><code>t.test(glucosa_mg_dl ~ tabaquismo, data = salud)</code></pre></div><h2>Asociación entre categorías</h2><div class="code-block"><pre><code>tabla <- table(salud$tabaquismo, salud$diagnostico)
-tabla
-chisq.test(tabla)</code></pre></div><p>Interpretar siempre con cautela porque el dataset es pequeño y ficticio.</p><p><a class="btn" href="../../dashboard.html#unidades">Volver al aula</a></p></article></main></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unidad 4 Material</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <main class="doc-page">
+    <article class="doc-content">
+      <h1>Unidad 4 · Limpieza y preparacion de datos clinicos</h1>
+      <figure class="doc-figure hero">
+        <img src="../../recursos/imagenes/unidad4/u4_hero.webp" alt="Formularios desordenados que se transforman en una tabla limpia y alineada." loading="lazy">
+        <figcaption>La limpieza convierte una base cruda en una tabla lista para describir, analizar y reportar.</figcaption>
+      </figure>
 
+      <h2>Pipeline reproducible</h2>
+      <div class="code-block"><pre><code>salud_limpia <- salud |>
+  filter(!is.na(edad), !is.na(imc)) |>
+  mutate(
+    imc_categoria = case_when(
+      imc < 25 ~ "Normal",
+      imc < 30 ~ "Sobrepeso",
+      TRUE ~ "Obesidad"
+    )
+  )</code></pre></div>
+
+      <h2>Criterios de exclusion</h2>
+      <figure class="doc-figure">
+        <img src="../../recursos/imagenes/unidad4/u4_concepto_1.webp" alt="Diagrama de flujo tipo CONSORT mostrando cohorte inicial, exclusiones y cohorte analitica." loading="lazy">
+        <figcaption>Todo criterio de exclusion debe poder reconstruirse desde la bitacora del analisis.</figcaption>
+      </figure>
+      <p>Registrar por que se excluye un caso evita que la limpieza parezca una decision invisible o arbitraria.</p>
+      <p><a class="btn" href="../../dashboard.html#u4">Volver a la unidad</a></p>
+    </article>
+  </main>
+</body>
+</html>

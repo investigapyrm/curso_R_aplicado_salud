@@ -167,6 +167,11 @@
       </p>
     </div>
 
+    <figure class="doc-figure hero">
+      <img src="../../recursos/imagenes/unidad7/u7_hero.webp" alt="Nube de puntos con una recta de regresion que se transforma en una curva logistica en forma de S." loading="lazy">
+      <figcaption>Los modelos lineales y logisticos responden preguntas distintas sobre datos de salud.</figcaption>
+    </figure>
+
     <div class="u7-nav">
       <a href="#objetivo">Objetivo</a>
       <a href="#archivos">Archivos</a>
@@ -239,6 +244,10 @@ summary(modelo_lineal)</code></pre>
       </div>
 
       <h3>2. Modelo logistico: desenlace si/no</h3>
+      <figure class="doc-figure">
+        <img src="../../recursos/imagenes/unidad7/u7_concepto_1.webp" alt="Dos fichas de distinto tamano sobre una balanza, ilustrando el OR como comparacion entre odds." loading="lazy">
+        <figcaption>El odds ratio compara odds; no debe leerse como probabilidad directa.</figcaption>
+      </figure>
       <pre><code>salud$diabetes_probable &lt;- salud$diagnostico == "Diabetes probable"
 modelo_log &lt;- glm(diabetes_probable ~ edad + imc + tabaquismo,
                   data = salud, family = binomial)
@@ -274,6 +283,10 @@ AIC(modelo_log)</code></pre>
 
     <div class="u7-section" id="limitaciones">
       <h2>Limitaciones minimas a declarar</h2>
+      <figure class="doc-figure">
+        <img src="../../recursos/imagenes/unidad7/u7_concepto_2.webp" alt="Iceberg con la parte visible representando el modelo y la sumergida los confusores no medidos." loading="lazy">
+        <figcaption>Todo modelo muestra una parte del problema; los confusores no medidos siguen bajo la superficie.</figcaption>
+      </figure>
       <ul>
         <li>Un modelo no corrige sesgos de captura o medicion.</li>
         <li>La asociacion puede depender de confusores no medidos.</li>

@@ -1,13 +1,39 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Unidad 3 Material</title><link rel="stylesheet" href="../../css/styles.css"></head><body><main class="doc-page"><article class="doc-content"><h1>Material Unidad 3</h1><h2>Resumen por grupo</h2><div class="code-block"><pre><code>salud |>
-  group_by(diagnostico) |>
-  summarise(
-    n = n(),
-    edad_media = mean(edad),
-    glucosa_media = mean(glucosa_mg_dl),
-    imc_media = mean(imc),
-    .groups = "drop"
-  )</code></pre></div><h2>Gráfico con ggplot2</h2><div class="code-block"><pre><code>ggplot(salud, aes(x = diagnostico, y = glucosa_mg_dl, fill = diagnostico)) +
-  geom_boxplot(show.legend = FALSE) +
-  labs(title = "Glucosa según diagnóstico", x = "Diagnóstico", y = "Glucosa mg/dl") +
-  theme_minimal()</code></pre></div><p><a class="btn" href="../../dashboard.html#unidades">Volver al aula</a></p></article></main></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unidad 3 Material</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <main class="doc-page">
+    <article class="doc-content">
+      <h1>Unidad 3 · Carga y exploracion de datos de salud</h1>
+      <figure class="doc-figure hero">
+        <img src="../../recursos/imagenes/unidad3/u3_hero.webp" alt="Embudo que ordena registros de pacientes en una grilla, descartando inconsistencias." loading="lazy">
+        <figcaption>Explorar datos es transformar registros dispersos en una tabla que se pueda auditar.</figcaption>
+      </figure>
 
+      <h2>Importar datos</h2>
+      <div class="code-block"><pre><code>library(tidyverse)
+salud <- read.csv("data/salud_muestra.csv")
+glimpse(salud)
+head(salud)</code></pre></div>
+
+      <h2>Faltantes, outliers e inconsistencias</h2>
+      <figure class="doc-figure">
+        <img src="../../recursos/imagenes/unidad3/u3_concepto_1.webp" alt="Diagrama de dispersion con tres puntos atipicos resaltados y un valor faltante marcado en linea discontinua." loading="lazy">
+        <figcaption>Un dato faltante no es lo mismo que un valor extremo: ambos se documentan antes de decidir.</figcaption>
+      </figure>
+      <div class="code-block"><pre><code>colSums(is.na(salud))
+summary(salud[, c("edad", "imc", "glucosa_mg_dl")])
+table(salud$diagnostico)</code></pre></div>
+
+      <h2>Decision documentada</h2>
+      <p>Antes de graficar o probar hipotesis, deja por escrito que variables existen, que problemas aparecen y que criterios usaras para conservar, corregir o excluir registros.</p>
+      <p><a class="btn" href="../../dashboard.html#u3">Volver a la unidad</a></p>
+    </article>
+  </main>
+</body>
+</html>

@@ -746,6 +746,34 @@ th {
   color: var(--primary-dark);
 }
 
+.doc-figure {
+  margin: 24px auto;
+  max-width: 620px;
+}
+
+.doc-figure.hero {
+  max-width: 780px;
+  margin-top: 0;
+}
+
+.doc-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 16px 42px rgba(18, 42, 66, 0.1);
+}
+
+.doc-figure figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.35;
+  text-align: center;
+}
+
 .doc-content li {
   margin: 8px 0;
   line-height: 1.55;

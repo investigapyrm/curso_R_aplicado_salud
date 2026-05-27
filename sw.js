@@ -1,4 +1,4 @@
-const CACHE_NAME = 'r-salud-v20260527-7';
+const CACHE_NAME = 'r-salud-v20260527-8';
 
 const APP_SHELL = [
   './',
@@ -107,6 +107,25 @@ const APP_SHELL = [
   './unidades/unidad8/orientaciones.html',
   './unidades/unidad8/actividad.html',
   './unidades/unidad8/tarea.html',
+  './recursos/imagenes/unidad1/u1_hero.webp',
+  './recursos/imagenes/unidad1/u1_concepto_1.webp',
+  './recursos/imagenes/unidad2/u2_hero.webp',
+  './recursos/imagenes/unidad2/u2_concepto_1.webp',
+  './recursos/imagenes/unidad3/u3_hero.webp',
+  './recursos/imagenes/unidad3/u3_concepto_1.webp',
+  './recursos/imagenes/unidad4/u4_hero.webp',
+  './recursos/imagenes/unidad4/u4_concepto_1.webp',
+  './recursos/imagenes/unidad5/u5_hero.webp',
+  './recursos/imagenes/unidad5/u5_concepto_1.webp',
+  './recursos/imagenes/unidad5/u5_concepto_2.webp',
+  './recursos/imagenes/unidad6/u6_hero.webp',
+  './recursos/imagenes/unidad6/u6_concepto_1.webp',
+  './recursos/imagenes/unidad6/u6_concepto_2.webp',
+  './recursos/imagenes/unidad7/u7_hero.webp',
+  './recursos/imagenes/unidad7/u7_concepto_1.webp',
+  './recursos/imagenes/unidad7/u7_concepto_2.webp',
+  './recursos/imagenes/unidad8/u8_hero.webp',
+  './recursos/imagenes/unidad8/u8_concepto_1.webp',
   './recursos/notebooklm/indice.json',
   './recursos/notebooklm/contenido_fichas.json',
   './docs/plan_integracion_notebooklm.html',

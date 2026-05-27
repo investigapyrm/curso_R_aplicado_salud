@@ -1,28 +1,38 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Unidad 6 Material</title><link rel="stylesheet" href="../../css/styles.css"></head><body><main class="doc-page"><article class="doc-content"><h1>Material Unidad 6</h1><h2>Plantilla R Markdown</h2><div class="code-block"><pre><code>---
-title: "Análisis de datos de salud con R"
-author: "Tu nombre"
-output: html_document
----
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unidad 6 Material</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <main class="doc-page">
+    <article class="doc-content">
+      <h1>Unidad 6 · Inferencia basica con R</h1>
+      <figure class="doc-figure hero">
+        <img src="../../recursos/imagenes/unidad6/u6_hero.webp" alt="Balanza comparando dos grupos clinicos, con un intervalo de confianza sobre ellos." loading="lazy">
+        <figcaption>Inferir es comparar grupos y declarar la incertidumbre de la estimacion.</figcaption>
+      </figure>
 
-```{r setup, message=FALSE, warning=FALSE}
-library(tidyverse)
-library(broom)
-salud <- read.csv("data/salud_muestra.csv")
-```
+      <h2>Hipotesis, p-valor e IC95%</h2>
+      <figure class="doc-figure">
+        <img src="../../recursos/imagenes/unidad6/u6_concepto_1.webp" alt="Linea numerica con punto estimado y su intervalo de confianza al 95 por ciento respecto al valor nulo." loading="lazy">
+        <figcaption>El intervalo de confianza cuenta mas historia que un p-valor aislado.</figcaption>
+      </figure>
+      <div class="code-block"><pre><code>t.test(glucosa_mg_dl ~ tabaquismo, data = salud)</code></pre></div>
 
-## Pregunta
+      <h2>Selector de pruebas</h2>
+      <figure class="doc-figure">
+        <img src="../../recursos/imagenes/unidad6/u6_concepto_2.webp" alt="Arbol de decision visual: t de Student, Wilcoxon o chi-cuadrado segun el tipo de variable." loading="lazy">
+        <figcaption>La prueba depende del tipo de variable, la pregunta y los supuestos razonables.</figcaption>
+      </figure>
+      <div class="code-block"><pre><code>tabla <- table(salud$tabaquismo, salud$diagnostico)
+chisq.test(tabla)
 
-Escribe una pregunta simple y medible.
-
-## Resultados
-
-```{r}
-salud |>
-  group_by(diagnostico) |>
-  summarise(n = n(), glucosa_media = mean(glucosa_mg_dl))
-```
-
-## Conclusiones
-
-Redacta hallazgos y limitaciones.</code></pre></div><h2>Publicar en RPubs</h2><ol><li>Renderizar el documento a HTML en RStudio.</li><li>Usar el botón Publish.</li><li>Iniciar sesión o crear cuenta RPubs.</li><li>Copiar el enlace final y registrarlo en el aula.</li></ol><p><a class="btn" href="../../dashboard.html#unidades">Volver al aula</a></p></article></main></body></html>
-
+cor.test(salud$edad, salud$glucosa_mg_dl, method = "spearman")</code></pre></div>
+      <p><a class="btn" href="../../dashboard.html#u6">Volver a la unidad</a></p>
+    </article>
+  </main>
+</body>
+</html>

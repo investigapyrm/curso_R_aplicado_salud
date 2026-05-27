@@ -1,4 +1,29 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Unidad 8 Material</title><link rel="stylesheet" href="../../css/styles.css"></head><body><main class="doc-page"><article class="doc-content"><h1>Material Unidad 8</h1><p>La unidad final integra el curso en un informe reproducible publicado en RPubs.</p><h2>Idea central</h2><p>Un reporte reproducible une pregunta, datos, codigo, resultados y limitaciones en un documento que otro lector puede revisar.</p><div class="code-block"><pre><code>---
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unidad 8 Material</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <main class="doc-page">
+    <article class="doc-content">
+      <h1>Unidad 8 · Reporte reproducible y publicacion en RPubs</h1>
+      <figure class="doc-figure hero">
+        <img src="../../recursos/imagenes/unidad8/u8_hero.webp" alt="Bloque de codigo que se transforma en un articulo publicado y alcanza el mundo." loading="lazy">
+        <figcaption>El cierre del curso convierte codigo, datos y resultados en un informe que otro lector puede revisar.</figcaption>
+      </figure>
+
+      <h2>Idea central</h2>
+      <p>Un reporte reproducible une pregunta, datos, codigo, resultados y limitaciones en un documento que otro lector puede revisar.</p>
+
+      <h2>Knit y R Markdown</h2>
+      <figure class="doc-figure">
+        <img src="../../recursos/imagenes/unidad8/u8_concepto_1.webp" alt="Agujas tejiendo tres hilos, datos, codigo y prosa, en una sola tela: la metafora de Knit." loading="lazy">
+        <figcaption>Knit teje datos, codigo y prosa en un solo HTML publicable.</figcaption>
+      </figure>
+      <div class="code-block"><pre><code>---
 title: "Analisis sencillo de datos de salud"
 author: "Tu nombre"
 output: html_document
@@ -7,4 +32,17 @@ output: html_document
 ```{r}
 salud <- read.csv("data/salud_muestra.csv")
 summary(salud)
-```</code></pre></div><p><a class="btn" href="../../dashboard.html#u8">Volver a la unidad</a></p></article></main></body></html>
+```</code></pre></div>
+
+      <h2>Publicar en RPubs</h2>
+      <ol>
+        <li>Renderiza el documento a HTML en RStudio.</li>
+        <li>Usa el boton Publish.</li>
+        <li>Revisa privacidad y datos sensibles antes de compartir.</li>
+        <li>Copia el enlace final y registralo en el aula.</li>
+      </ol>
+      <p><a class="btn" href="../../dashboard.html#u8">Volver a la unidad</a></p>
+    </article>
+  </main>
+</body>
+</html>

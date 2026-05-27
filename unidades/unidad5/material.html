@@ -1,13 +1,46 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Unidad 5 Material</title><link rel="stylesheet" href="../../css/styles.css"></head><body><main class="doc-page"><article class="doc-content"><h1>Material Unidad 5</h1><h2>Regresión lineal</h2><div class="code-block"><pre><code>modelo_lineal <- lm(glucosa_mg_dl ~ edad + imc, data = salud)
-summary(modelo_lineal)</code></pre></div><h2>Regresión logística</h2><div class="code-block"><pre><code>salud <- salud |>
-  mutate(diabetes_probable = diagnostico == "Diabetes probable")
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unidad 5 Material</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <main class="doc-page">
+    <article class="doc-content">
+      <h1>Unidad 5 · Estadistica descriptiva aplicada a salud</h1>
+      <figure class="doc-figure hero">
+        <img src="../../recursos/imagenes/unidad5/u5_hero.webp" alt="Medica observando una Tabla 1 proyectada con frecuencias y porcentajes." loading="lazy">
+        <figcaption>La Tabla 1 traduce pacientes en evidencia descriptiva antes de cualquier prueba.</figcaption>
+      </figure>
 
-modelo_logistico <- glm(
-  diabetes_probable ~ edad + imc + tabaquismo,
-  data = salud,
-  family = binomial
-)
+      <h2>Tabla 1</h2>
+      <div class="code-block"><pre><code>library(gtsummary)
+salud |>
+  select(edad, sexo, imc, glucosa_mg_dl, diagnostico) |>
+  tbl_summary(by = diagnostico)</code></pre></div>
 
-summary(modelo_logistico)
-broom::tidy(modelo_logistico, exponentiate = TRUE, conf.int = TRUE)</code></pre></div><p>Los odds ratio mayores a 1 sugieren aumento de odds; menores a 1 sugieren reducción, siempre bajo las limitaciones del modelo.</p><p><a class="btn" href="../../dashboard.html#unidades">Volver al aula</a></p></article></main></body></html>
+      <h2>Media o mediana</h2>
+      <figure class="doc-figure">
+        <img src="../../recursos/imagenes/unidad5/u5_concepto_1.webp" alt="Dos distribuciones, una simetrica y una sesgada, mostrando como difieren media y mediana." loading="lazy">
+        <figcaption>La media resume bien distribuciones simetricas; la mediana suele resistir mejor la asimetria.</figcaption>
+      </figure>
+      <div class="code-block"><pre><code>salud |>
+  summarise(
+    media = mean(glucosa_mg_dl, na.rm = TRUE),
+    mediana = median(glucosa_mg_dl, na.rm = TRUE),
+    q1 = quantile(glucosa_mg_dl, 0.25, na.rm = TRUE),
+    q3 = quantile(glucosa_mg_dl, 0.75, na.rm = TRUE)
+  )</code></pre></div>
 
+      <h2>Graficos descriptivos</h2>
+      <figure class="doc-figure">
+        <img src="../../recursos/imagenes/unidad5/u5_concepto_2.webp" alt="Cuatro tipos de graficos basicos: caja, histograma, dispersion y barras." loading="lazy">
+        <figcaption>El grafico se elige por la pregunta: distribucion, comparacion, relacion o frecuencia.</figcaption>
+      </figure>
+      <p><a class="btn" href="../../dashboard.html#u5">Volver a la unidad</a></p>
+    </article>
+  </main>
+</body>
+</html>

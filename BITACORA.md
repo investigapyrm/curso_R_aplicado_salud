@@ -1,5 +1,13 @@
 # Bitácora
 
+## 2026-05-27 - Imagenes editoriales integradas por unidad
+
+- Se incorporaron las 19 imagenes del paquete `curso_r_salud_19_imagenes.zip` como WebP optimizados en `recursos/imagenes/unidad1..8/`.
+- Se insertaron figuras hero y conceptuales en los materiales HTML de las 8 unidades, con `alt`, `figcaption` y carga diferida.
+- Se ajustaron los materiales compactos de unidades 1 a 6 y 8 para que las imagenes queden junto al contenido curricular correcto.
+- Se agregaron estilos globales para figuras documentales en `css/styles.css`.
+- Se agregaron los nuevos WebP al service worker y se actualizo cache/versionado a `2026.05.27.8`.
+
 ## 2026-05-27 - Jerarquia clara del panel derecho
 
 - Problema reportado: algunos elementos del panel derecho se solapaban y no quedaba clara la relacion entre niveles, subniveles y contenidos.
