@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plan de integracion de recursos NotebookLM</title>
+  <link rel="stylesheet" type="text/css" href="../css/styles.css">
+  <style type="text/css">
+    body { background: #f7f8fa; }
+    .doc-html { max-width: 980px; margin: 0 auto; padding: 24px 18px 44px; color: #18212f; line-height: 1.55; }
+    .doc-hero { border-bottom: 1px solid #d9dee7; padding-bottom: 18px; }
+    .doc-hero span { color: #0f766e; display: block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+    .doc-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.08; margin: 0.35rem 0 0; }
+    .doc-hero p { color: #5b6472; font-size: 1.02rem; max-width: 760px; }
+    .doc-nav { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 0 0; }
+    .doc-nav a { background: #fff; border: 1px solid #d9dee7; border-radius: 6px; color: #18212f; min-height: 32px; padding: 5px 10px; text-decoration: none; }
+    .doc-section { padding-top: 28px; }
+    .doc-section h2 { font-size: 1.35rem; margin: 0 0 12px; }
+    .doc-section h3 { font-size: 1.04rem; margin: 22px 0 8px; }
+    .doc-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .doc-card { background: #fff; border: 1px solid #d9dee7; border-radius: 8px; padding: 14px; }
+    .doc-card strong { display: block; margin-bottom: 5px; }
+    .doc-html table { background: #fff; border-collapse: collapse; font-size: 0.94rem; width: 100%; }
+    .doc-html th, .doc-html td { border: 1px solid #d9dee7; padding: 9px 10px; text-align: left; vertical-align: top; }
+    .doc-html th { background: #eef1f5; }
+    .doc-html code, .doc-html pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .doc-html pre { background: #111827; border-radius: 8px; color: #f8fafc; overflow-x: auto; padding: 14px; }
+    .doc-html li { margin-bottom: 7px; }
+    .doc-note { background: #e4f4f1; border-left: 4px solid #0f766e; padding: 14px 16px; }
+  </style>
+</head>
+<body>
+  <div class="doc-html">
+    <div class="doc-hero">
+      <span>Plan interno del aula</span>
+      <h1>Integracion de recursos NotebookLM</h1>
+      <p>Mapa pedagogico-tecnico para convertir los documentos maestros en contenidos navegables, ejecutables y evaluables dentro del aula web.</p>
+    </div>
+
+    <div class="doc-nav">
+      <a href="#diagnostico">Diagnostico</a>
+      <a href="#principio">Principio rector</a>
+      <a href="#inventario">Inventario</a>
+      <a href="#conversion">Conversion</a>
+      <a href="#unidades">Unidades</a>
+      <a href="#tecnico">Cambios tecnicos</a>
+    </div>
+
+    <div class="doc-section" id="diagnostico">
+      <h2>Diagnostico</h2>
+      <p>Los recursos creados con NotebookLM no deben quedar como anexos o lecturas sueltas. En la practica, forman el diseno curricular completo del curso: 8 unidades, evaluaciones, foros, rubricas, checklists, glosarios, codigo R comentado y un proyecto final en RPubs.</p>
+      <p>La version publicada conserva una estructura visual potente heredada del curso ejemplo. Los documentos NotebookLM justifican una ruta secuencial de 8 semanas con diapositivas, laboratorio WebR y actividades por unidad.</p>
+    </div>
+
+    <div class="doc-section" id="principio">
+      <h2>Principio rector</h2>
+      <div class="doc-grid">
+        <div class="doc-card"><strong>Google Docs</strong>Fuente editable y revisable del contenido maestro.</div>
+        <div class="doc-card"><strong>HTML/JSON local</strong>Version rapida, navegable, cacheable y apta para GitHub Pages.</div>
+        <div class="doc-card"><strong>WebR</strong>Ejecucion practica de codigo R dentro del curso.</div>
+        <div class="doc-card"><strong>Sheets/AppScript</strong>Progreso, login, foros, evidencias, tareas y cuestionarios.</div>
+      </div>
+      <p class="doc-note">NotebookLM queda como capa de apoyo posterior; el aula no debe depender de que un documento externo sea publico para funcionar.</p>
+    </div>
+
+    <div class="doc-section" id="inventario">
+      <h2>Inventario de documentos</h2>
+      <table summary="Inventario curricular de documentos del curso">
+        <thead><tr><th>Doc</th><th>Recurso</th><th>Uso principal</th></tr></thead>
+        <tbody>
+          <tr><td>00</td><td>Presentacion maestra</td><td>Configuracion general, perfil de egreso, evaluacion y calendario.</td></tr>
+          <tr><td>01</td><td>Inicio: R para medicina</td><td>Motivacion, alfabetizacion en datos y foro inicial.</td></tr>
+          <tr><td>02</td><td>Instalacion y comandos</td><td>Onboarding tecnico, script inicial y laboratorio base.</td></tr>
+          <tr><td>03</td><td>Carga y exploracion</td><td>Importacion, estructura, faltantes, outliers y reporte inicial.</td></tr>
+          <tr><td>04</td><td>Limpieza clinica</td><td>Pipeline, variables derivadas, bitacora y base limpia.</td></tr>
+          <tr><td>05</td><td>Estadistica descriptiva</td><td>Tabla 1, graficos e interpretacion clinica.</td></tr>
+          <tr><td>06</td><td>Inferencia con R</td><td>Hipotesis, p-valor, IC95%, pruebas y relevancia clinica.</td></tr>
+          <tr><td>07</td><td>Modelos de regresion</td><td>Regresion lineal/logistica, OR, R2 y limitaciones.</td></tr>
+          <tr><td>08</td><td>R Markdown y RPubs</td><td>Informe reproducible, publicacion y cierre del curso.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="doc-section" id="conversion">
+      <h2>Conversion pedagogica por unidad</h2>
+      <ol>
+        <li>Portada de unidad con promesa concreta y producto esperado.</li>
+        <li>Resultados medibles como checklist visible.</li>
+        <li>Microclase en diapositivas con conceptos, errores frecuentes y caso clinico.</li>
+        <li>Codigo R cargable en WebR.</li>
+        <li>Practica guiada con pasos cortos y avance secuencial.</li>
+        <li>Actividad autonoma con evidencia, criterios y tiempo sugerido.</li>
+        <li>Foro, quiz, rubrica, glosario y checklist de cierre.</li>
+      </ol>
+    </div>
+
+    <div class="doc-section" id="unidades">
+      <h2>Mapa recomendado de unidades</h2>
+      <div class="doc-grid">
+        <div class="doc-card"><strong>Unidad 1</strong>R para medicina: pregunta clinica, datos y reproducibilidad.</div>
+        <div class="doc-card"><strong>Unidad 2</strong>Instalacion, objetos, vectores, data frames y paquetes.</div>
+        <div class="doc-card"><strong>Unidad 3</strong>Carga, exploracion, faltantes, outliers e inconsistencias.</div>
+        <div class="doc-card"><strong>Unidad 4</strong>Limpieza, variables derivadas y bitacora de cambios.</div>
+        <div class="doc-card"><strong>Unidad 5</strong>Tabla 1, descriptiva, graficos y comentarios clinicos.</div>
+        <div class="doc-card"><strong>Unidad 6</strong>Pruebas, p-valores, IC95% y significancia vs relevancia.</div>
+        <div class="doc-card"><strong>Unidad 7</strong>Modelos lineales/logisticos, OR, R2 y lectura prudente.</div>
+        <div class="doc-card"><strong>Unidad 8</strong>R Markdown, informe cientifico y publicacion en RPubs.</div>
+      </div>
+    </div>
+
+    <div class="doc-section" id="tecnico">
+      <h2>Cambios tecnicos sugeridos</h2>
+      <ol>
+        <li>Mantener 8 unidades reales en `dashboard.html`.</li>
+        <li>Usar `recursos/notebooklm/indice.json` como inventario estructurado.</li>
+        <li>Usar `recursos/notebooklm/contenido_fichas.json` para fichas resumidas y repaso.</li>
+        <li>Servir lecturas como HTML interno, no como Markdown crudo en iframe.</li>
+        <li>Conservar Google Docs como fuente editable, no como dependencia de lectura.</li>
+      </ol>
+      <pre><code>recursos/notebooklm/
+  indice.json
+  contenido_fichas.json
+unidades/unidadNN/
+  material.html
+  actividad.html</code></pre>
+    </div>
+  </div>
+</body>
+</html>

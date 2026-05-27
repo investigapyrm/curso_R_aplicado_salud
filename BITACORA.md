@@ -1,5 +1,15 @@
 # Bitácora
 
+## 2026-05-26 - Compactacion del lector y plan en HTML
+
+- Problema reportado: el plan de integracion seguia viendose como Markdown crudo dentro del aula (`#`, `##`, listas sin maquetar), y las barras/titulos de los lectores ocupaban demasiado espacio.
+- Se creo `docs/plan_integracion_notebooklm.html` como version HTML interna del plan.
+- Se reemplazaron las referencias de orientaciones y biblioteca desde `docs/plan_integracion_notebooklm.md` hacia el HTML.
+- Se compacto el lector de recursos: panel lateral mas angosto, botones/lista mas densos, toolbar de lectura mas baja e iframe con mayor alto util.
+- Se compacto tambien el encabezado de recursos integrados dentro de la ruta secuencial para priorizar el contenido embebido.
+- Se actualizo cache/versionado a `2026.05.26.2`.
+- Validaciones locales: parseo JSON, sintaxis del JS embebido en `dashboard.html`, `tidy` sobre `docs/plan_integracion_notebooklm.html` y `unidades/unidad7/material.html`.
+
 ## 2026-05-26 - Recurso integrado HTML para Unidad 7
 
 - Problema reportado: el recurso "Documento NotebookLM - Unidad 7" aparecia como un documento externo incrustado, con aspecto de Markdown pegado en Word, y no como contenido propio del aula.

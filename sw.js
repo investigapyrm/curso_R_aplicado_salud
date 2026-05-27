@@ -1,4 +1,4 @@
-const CACHE_NAME = 'r-salud-v20260526-1';
+const CACHE_NAME = 'r-salud-v20260526-2';
 
 const APP_SHELL = [
   './',
@@ -78,7 +78,7 @@ const APP_SHELL = [
   './unidades/unidad7/material.html',
   './recursos/notebooklm/indice.json',
   './recursos/notebooklm/contenido_fichas.json',
-  './docs/plan_integracion_notebooklm.md',
+  './docs/plan_integracion_notebooklm.html',
   './guia_didactica/index.html',
   './laboratorio/index.html',
   './practicas/index.html'
