@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unidad 7 · Modelos sencillos en datos de salud</title>
+  <link rel="stylesheet" type="text/css" href="../../css/styles.css">
+  <style type="text/css">
+    body {
+      background: #f7f8fa;
+    }
+
+    .u7-resource {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 28px 18px 48px;
+      color: #18212f;
+      line-height: 1.55;
+    }
+
+    .u7-header {
+      padding-bottom: 20px;
+      border-bottom: 1px solid #d9dee7;
+    }
+
+    .u7-eyebrow {
+      margin: 0 0 8px;
+      color: #0f766e;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .u7-resource h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .u7-lead {
+      max-width: 760px;
+      margin: 16px 0 0;
+      color: #5b6472;
+      font-size: 1.08rem;
+    }
+
+    .u7-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 18px 0 4px;
+    }
+
+    .u7-nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 6px 10px;
+      border: 1px solid #d9dee7;
+      border-radius: 6px;
+      color: #18212f;
+      background: #fff;
+      text-decoration: none;
+      font-size: 0.92rem;
+    }
+
+    .u7-section {
+      padding-top: 30px;
+    }
+
+    .u7-resource h2 {
+      margin: 0 0 14px;
+      font-size: 1.45rem;
+      line-height: 1.2;
+    }
+
+    .u7-resource h3 {
+      margin: 24px 0 8px;
+      font-size: 1.08rem;
+    }
+
+    .u7-resource p {
+      margin: 0 0 12px;
+    }
+
+    .u7-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .u7-item {
+      min-height: 100%;
+      padding: 14px;
+      border: 1px solid #d9dee7;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .u7-item strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .u7-resource table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 16px;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+
+    .u7-resource th,
+    .u7-resource td {
+      padding: 10px 12px;
+      border: 1px solid #d9dee7;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .u7-resource th {
+      background: #eef1f5;
+    }
+
+    .u7-resource code,
+    .u7-resource pre {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .u7-resource pre {
+      overflow-x: auto;
+      margin: 10px 0 16px;
+      padding: 14px;
+      border-radius: 8px;
+      color: #f8fafc;
+      background: #111827;
+      font-size: 0.9rem;
+    }
+
+    .u7-callout {
+      margin: 14px 0;
+      padding: 14px 16px;
+      border-left: 4px solid #0f766e;
+      background: #e4f4f1;
+    }
+
+    .u7-resource ul {
+      padding-left: 1.2rem;
+    }
+
+    .u7-resource li {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="u7-resource">
+    <div class="u7-header">
+      <p class="u7-eyebrow">Recurso integrado · Unidad 7</p>
+      <h1>Modelos sencillos en datos de salud</h1>
+      <p class="u7-lead">
+        Lectura interna del aula para trabajar regresion lineal, regresion logistica,
+        OR, R2 y limitaciones. Este material reemplaza el documento externo embebido:
+        se lee directamente dentro de la secuencia del curso.
+      </p>
+    </div>
+
+    <div class="u7-nav">
+      <a href="#objetivo">Objetivo</a>
+      <a href="#archivos">Archivos</a>
+      <a href="#ensayos">Ensayos en R</a>
+      <a href="#lectura">Lectura del modelo</a>
+      <a href="#limitaciones">Limitaciones</a>
+    </div>
+
+    <div class="u7-section" id="objetivo">
+      <h2>Objetivo de la unidad</h2>
+      <p>
+        Ajustar modelos simples con datos de salud y comunicar resultados sin
+        convertir una asociacion estadistica en una conclusion causal exagerada.
+      </p>
+      <div class="u7-grid">
+        <div class="u7-item">
+          <strong>Regresion lineal</strong>
+          Para desenlaces continuos: por ejemplo glucosa, IMC, presion arterial
+          o dias de internacion.
+        </div>
+        <div class="u7-item">
+          <strong>Regresion logistica</strong>
+          Para desenlaces binarios: por ejemplo consultar/no consultar, cobertura
+          si/no o evento presente/ausente.
+        </div>
+        <div class="u7-item">
+          <strong>Lectura clinica</strong>
+          Reportar estimado, intervalo de confianza, contexto y limitaciones.
+        </div>
+      </div>
+    </div>
+
+    <div class="u7-section" id="archivos">
+      <h2>Archivos de trabajo</h2>
+      <table summary="Archivos de trabajo de la Unidad 7">
+        <thead>
+          <tr>
+            <th>Archivo</th>
+            <th>Uso dentro de la unidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>data/datasets/salud_muestra.csv</code></td>
+            <td>Base liviana para ejecutar ejemplos en el laboratorio WebR.</td>
+          </tr>
+          <tr>
+            <td><code>data/quizzes/quiz_u7.json</code></td>
+            <td>Cuestionario de autoevaluacion de la Unidad 7.</td>
+          </tr>
+          <tr>
+            <td><code>unidades/unidad7/material.html</code></td>
+            <td>Este recurso integrado, embebible dentro del aula.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="u7-section" id="ensayos">
+      <h2>Ensayos en R</h2>
+
+      <h3>1. Modelo lineal: desenlace continuo</h3>
+      <pre><code>salud &lt;- read.csv("/data/salud_muestra.csv")
+modelo_lineal &lt;- lm(glucosa_mg_dl ~ imc + edad, data = salud)
+summary(modelo_lineal)</code></pre>
+      <div class="u7-callout">
+        Lectura esperada: una pendiente indica el cambio promedio del desenlace
+        por una unidad de la variable explicativa, manteniendo constantes las
+        demas variables del modelo.
+      </div>
+
+      <h3>2. Modelo logistico: desenlace si/no</h3>
+      <pre><code>salud$diabetes_probable &lt;- salud$diagnostico == "Diabetes probable"
+modelo_log &lt;- glm(diabetes_probable ~ edad + imc + tabaquismo,
+                  data = salud, family = binomial)
+exp(coef(modelo_log))</code></pre>
+      <div class="u7-callout">
+        Lectura esperada: <code>exp(coef)</code> devuelve odds ratios. Un OR no es
+        una probabilidad; compara odds entre niveles o por unidad de cambio.
+      </div>
+
+      <h3>3. Intervalos y prudencia</h3>
+      <pre><code>confint(modelo_log)
+AIC(modelo_log)</code></pre>
+      <div class="u7-callout">
+        El intervalo de confianza muestra precision. El AIC ayuda a comparar
+        modelos, pero no reemplaza criterio clinico ni diseno epidemiologico.
+      </div>
+    </div>
+
+    <div class="u7-section" id="lectura">
+      <h2>Como leer un modelo sin sobreinterpretar</h2>
+      <ul>
+        <li>Primero declarar el desenlace y su tipo: continuo o binario.</li>
+        <li>Luego nombrar predictores y ajuste: edad, IMC, sexo, area u otros.</li>
+        <li>Despues reportar estimado e IC95%, no solo p-valor.</li>
+        <li>Finalmente escribir una frase clinica prudente y una limitacion.</li>
+      </ul>
+      <p>
+        Ejemplo: "En este conjunto de practica, mayor IMC se asocio con mayor
+        glucosa promedio, ajustando por edad. El resultado es exploratorio y no
+        permite concluir causalidad".
+      </p>
+    </div>
+
+    <div class="u7-section" id="limitaciones">
+      <h2>Limitaciones minimas a declarar</h2>
+      <ul>
+        <li>Un modelo no corrige sesgos de captura o medicion.</li>
+        <li>La asociacion puede depender de confusores no medidos.</li>
+        <li>La significancia estadistica no garantiza relevancia clinica.</li>
+        <li>La prediccion requiere validacion; ajustar un modelo no basta.</li>
+      </ul>
+      <p><a class="btn" href="../../dashboard.html#u7">Volver a la Unidad 7</a></p>
+    </div>
+  </div>
+</body>
+</html>

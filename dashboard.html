@@ -247,7 +247,7 @@
 
         const NOTEBOOKLM_INDEX_URL = 'recursos/notebooklm/indice.json';
         const NOTEBOOK_CONTENT_URL = 'recursos/notebooklm/contenido_fichas.json';
-        const APP_VERSION = 'r-salud-template-20260523-1';
+        const APP_VERSION = 'r-salud-template-20260526-1';
 
         const NOTEBOOK_STAGE_CONFIG = [
             {
@@ -462,7 +462,7 @@
                 icon: 'M',
                 color: 'var(--u7-color)',
                 desc: 'Ajusta modelos lineales y logisticos, interpreta coeficientes, OR, R2 y limitaciones.',
-                url: 'https://docs.google.com/document/d/1dh7biWi9x9RVhpQW0uQ3jEpYEvo5s4W-495Ni9jBC9w/edit',
+                url: 'unidades/unidad7/material.html',
                 sourceId: '1dh7biWi9x9RVhpQW0uQ3jEpYEvo5s4W-495Ni9jBC9w',
                 deliverable: 'Reporte de regresion con dos modelos y limitaciones',
                 practiceGoal: 'Ajustar modelos simples y explicar lo que si y no permiten concluir.',
@@ -552,14 +552,20 @@
             };
         }
 
+        function notebookUnitResourceName(unit) {
+            return unit.url && !/^https?:\/\//i.test(unit.url)
+                ? `Material integrado - Unidad ${unit.id}`
+                : `Documento NotebookLM - Unidad ${unit.id}`;
+        }
+
         function buildNotebookUnitFiles() {
             return Object.fromEntries(NOTEBOOK_UNITS.map(unit => [String(unit.id), {
                 materiales: [
-                    { name: `Documento NotebookLM - Unidad ${unit.id}`, file: unit.url, type: 'html' },
+                    { name: notebookUnitResourceName(unit), file: unit.url, type: notebookResourceType(unit.url) },
                     { name: 'Indice local NotebookLM', file: 'recursos/notebooklm/indice.json', type: 'json' }
                 ],
                 actividades: [
-                    { name: `Actividad autonoma - ${unit.shortTitle}`, file: unit.url, type: 'html' },
+                    { name: `Actividad autonoma - ${unit.shortTitle}`, file: unit.url, type: notebookResourceType(unit.url) },
                     { name: `Quiz Unidad ${unit.id}`, file: `data/quizzes/quiz_u${unit.id}.json`, type: 'json' }
                 ],
                 orientaciones: [
@@ -1334,14 +1340,16 @@
                 .find(item => Number(item.order) === Number(unitNum) && item.role === 'unit');
             if (!doc) return null;
             const local = NOTEBOOK_UNITS.find(item => Number(item.id) === Number(unitNum));
+            const sourceUrl = local?.url || doc.url;
+            const isLocalResource = sourceUrl && !/^https?:\/\//i.test(sourceUrl);
             return {
                 unit: unitNum,
                 titulo: doc.title,
-                sourceUrl: doc.url,
+                sourceUrl,
                 focus: doc.focus || local?.desc || '',
                 deliverable: doc.deliverable || local?.deliverable || '',
                 archivos: {
-                    documento_google_docs: doc.url,
+                    [isLocalResource ? 'material_integrado_html' : 'documento_google_docs']: sourceUrl,
                     indice_local: 'recursos/notebooklm/indice.json',
                     plan_integracion: 'docs/plan_integracion_notebooklm.md'
                 },
@@ -2635,7 +2643,7 @@
                     practiceId: sublevel.practiceId,
                     practiceStepIndex,
                     notebookResource: resourceUrl ? {
-                        label: `Documento NotebookLM - Unidad ${unitNum}`,
+                        label: notebookUnitResourceName(NOTEBOOK_UNITS.find(item => Number(item.id) === Number(unitNum)) || { id: unitNum, url: resourceUrl }),
                         file: resourceUrl,
                         type: notebookResourceType(resourceUrl),
                         key: 'resumen'
@@ -4626,10 +4634,10 @@
             <a class="material-item" href="${escapeHtml(unitResources.sourceUrl)}" target="_blank" rel="noopener">
               <span class="material-icon">Doc</span>
               <div class="material-info">
-                <h4>Documento completo generado con NotebookLM</h4>
+                <h4>${unitResources.sourceUrl.startsWith('http') ? 'Documento completo generado con NotebookLM' : 'Material integrado del aula'}</h4>
                 <p>${escapeHtml(unitResources.sourceUrl)}</p>
               </div>
-              <span class="material-badge badge-act">Google Docs</span>
+              <span class="material-badge badge-act">${unitResources.sourceUrl.startsWith('http') ? 'Google Docs' : 'HTML interno'}</span>
             </a>
           </div>` : ''}
         ${media.length ? `

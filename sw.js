@@ -1,4 +1,4 @@
-const CACHE_NAME = 'r-salud-v20260523-3';
+const CACHE_NAME = 'r-salud-v20260526-1';
 
 const APP_SHELL = [
   './',
@@ -75,6 +75,7 @@ const APP_SHELL = [
   './data/quizzes/quiz_u6.json',
   './data/quizzes/quiz_u7.json',
   './data/quizzes/quiz_u8.json',
+  './unidades/unidad7/material.html',
   './recursos/notebooklm/indice.json',
   './recursos/notebooklm/contenido_fichas.json',
   './docs/plan_integracion_notebooklm.md',
