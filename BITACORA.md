@@ -1,5 +1,14 @@
 # Bitácora
 
+## 2026-05-27 - Práctica inicial con QR y tablero vivo
+
+- Se agrego `practica_inicial/index.html`, una miniapp de aula con cuestionario de variables basicas de salud, QR proyectable, tablero global, filtros, tabla ordenable y exportaciones Word/Excel.
+- Se creo `apps-script-practica-inicial/` conectado al Sheet `1PtQGtn_ex9ShQxu9p5YVXFFZd6FGz3N5aLjv9p9uoqY`, con acciones `setup`, `save`, `list` y `stats`.
+- Se incorporo la practica como boton nuevo del dashboard y como vista embebida redimensionable para usarla sin salir del aula.
+- Se agregaron enlaces directos para abrir cuestionario, proyectar QR, ver resultados y abrir la planilla.
+- Se actualizo cache/versionado a `2026.05.27.12`.
+- Deployment Apps Script publicado como version `@4`, pero la prueba anonima devuelve `Acceso denegado`; falta confirmar en la consola de Apps Script que el web app quede con acceso publico anonimo.
+
 ## 2026-05-27 - Acceso por cuenta personal
 
 - Problema reportado: la app web mostraba una credencial publica `admin / 123456`, inadecuada para estudiantes.

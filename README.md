@@ -29,6 +29,7 @@ Guiar a una persona sin experiencia previa desde la instalación de R y RStudio 
 - Ruta secuencial con unidades, subniveles, bloqueos pedagógicos y productos.
 - Dashboard principal migrado desde la plantilla funcional del curso ejemplo, con sidebar, topbar, logros, calendario, comunidad, administración y tarjetas de seguimiento.
 - Unidad activa tipo presentación interactiva: diapositivas con transición, concepto, caso clínico, código R ejecutable en WebR, evidencia y foro por subnivel.
+- Práctica inicial con QR: cuestionario de variables básicas de salud, Google Sheet conectado, tablero global, filtros, tabla ordenable y exportaciones Word/Excel.
 - Prácticas guiadas con 8 laboratorios WebR y 24 subniveles paso a paso sobre datos de salud.
 - Recursos NotebookLM integrados como fuente canonica: 9 Google Docs, indice JSON local y fichas resumidas para diapositivas.
 - Flashcards y clasificadores interactivos para repaso activo antes de cuestionarios.
@@ -63,6 +64,9 @@ Si el navegador conserva una pantalla anterior que solo pide contraseña, abrir 
 ├── apps-script/
 │   ├── Code.js
 │   └── appsscript.json
+├── apps-script-practica-inicial/
+│   ├── Code.js
+│   └── appsscript.json
 ├── assets/
 │   └── pedagogical/
 ├── manifest.json
@@ -78,6 +82,7 @@ Si el navegador conserva una pantalla anterior que solo pide contraseña, abrir 
 ├── docs/
 ├── guia_didactica/
 ├── laboratorio/
+├── practica_inicial/
 ├── practicas/
 └── unidades/
 ```
@@ -88,6 +93,17 @@ Si el navegador conserva una pantalla anterior que solo pide contraseña, abrir 
 - Apps Script: <https://script.google.com/home/projects/12qxXJci0JxfJTPEdxPfMw_bTlUTHBUHK2rtcRenpF-RbODAg8FhCYWwC/edit>
 - Web app actual en `config.js`: `https://script.google.com/macros/s/AKfycbxxKpSzXV1u5bhOTMd9Z716MtcGS7naJ2bLsdCx_F2ScDlIPDhdnaiCWvGLcaa7-jRu/exec`
 - Drive evidencias: <https://drive.google.com/drive/folders/1g5rmr_z3wo2JbkPD4GGl3EhvC-Jq1E6v>
+
+Backend de práctica inicial:
+
+- Google Sheet: <https://docs.google.com/spreadsheets/d/1PtQGtn_ex9ShQxu9p5YVXFFZd6FGz3N5aLjv9p9uoqY/edit?usp=sharing>
+- Apps Script: <https://script.google.com/home/projects/17Ho4J01DzdV3KDiFdmDvpEcG9gRUusrCjlHTvs6RarORPSCw2rvFoWjW/edit>
+- Web app actual en `config.js`: `initialPracticeAppsScriptUrl`
+
+Para que el QR guarde respuestas sin login de Google, el deployment de la
+práctica inicial debe quedar publicado como web app con acceso "Anyone" /
+"Anyone, even anonymous". Si Google muestra `Acceso denegado`, revisar esa
+opción en la consola de Apps Script y volver a desplegar.
 
 El libro ya tiene pestañas técnicas (`CONFIG`, `USUARIOS`, `PROGRESO`, `CALIFICACIONES`, `EVENTOS`, `FOROS`, `CALENDARIO`, `EVIDENCIAS`, `ERRORES`, `VERSIONES`). Si el endpoint Apps Script devuelve acceso denegado al abrir el Sheet, hay que conceder permiso de edición a la cuenta que ejecuta el deployment o desplegar el web app desde una cuenta con acceso al libro.
 

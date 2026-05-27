@@ -10,9 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="css/styles-template.css?v=20260527-10">
+    <link rel="stylesheet" href="css/styles-template.css?v=20260527-12">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
+    <script src="config.js?v=20260527-12"></script>
 </head>
 
 <body>
@@ -117,6 +118,10 @@
                 </div>
 
                 <span class="nav-section-label">Herramientas</span>
+                <div class="nav-item" onclick="showPage('initial-practice')" id="nav-initial-practice">
+                    <span class="nav-item-icon">🧬</span>
+                    <span>Práctica inicial</span>
+                </div>
                 <div class="nav-item" onclick="showPage('practices')" id="nav-practices">
                     <span class="nav-item-icon">💻</span>
                     <span>Prácticas guiadas</span>
@@ -193,9 +198,9 @@
                 <span>◇</span>
                 <small>Foro</small>
             </button>
-            <button class="mobile-nav-btn" id="mobile-nav-practices" onclick="showPage('practices')">
+            <button class="mobile-nav-btn" id="mobile-nav-initial-practice" onclick="showPage('initial-practice')">
                 <span>▣</span>
-                <small>Practicas</small>
+                <small>Inicial</small>
             </button>
             <button class="mobile-nav-btn" id="mobile-nav-more" onclick="toggleSidebar(true)">
                 <span>☰</span>
@@ -247,7 +252,7 @@
 
         const NOTEBOOKLM_INDEX_URL = 'recursos/notebooklm/indice.json';
         const NOTEBOOK_CONTENT_URL = 'recursos/notebooklm/contenido_fichas.json';
-        const APP_VERSION = 'r-salud-template-20260527-10';
+        const APP_VERSION = 'r-salud-template-20260527-12';
 
         const NOTEBOOK_STAGE_CONFIG = [
             {
@@ -965,7 +970,7 @@
             await loadNotebookContentIndex();
 
             const route = (window.location.hash || '').replace('#', '');
-            if (['progress', 'badges', 'calendar', 'community', 'practices', 'lab', 'flashcards', 'matching', 'simulators', 'guia', 'account', 'admin'].includes(route)) showPage(route);
+            if (['progress', 'badges', 'calendar', 'community', 'initial-practice', 'practices', 'lab', 'flashcards', 'matching', 'simulators', 'guia', 'account', 'admin'].includes(route)) showPage(route);
             else if (/^u[1-8]$/.test(route)) showUnit(Number(route.slice(1)));
             else showPage('home');
             checkReminders();
@@ -1075,7 +1080,7 @@
 
             const titles = {
                 home: 'Inicio', progress: 'Mi Progreso', badges: 'Mis Logros',
-                calendar: 'Calendario', community: 'Comunidad', practices: 'Prácticas guiadas',
+                calendar: 'Calendario', community: 'Comunidad', 'initial-practice': 'Práctica inicial', practices: 'Prácticas guiadas',
                 lab: 'Laboratorio WebR',
                 flashcards: 'Flashcards', matching: 'Clasificador interactivo', simulators: 'Simuladores', guia: 'Guía Didáctica',
                 account: 'Cuenta', admin: 'Administración'
@@ -1087,6 +1092,7 @@
             else if (page === 'badges') renderBadges();
             else if (page === 'calendar') renderCalendar();
             else if (page === 'community') renderCommunity();
+            else if (page === 'initial-practice') renderInitialPractice();
             else if (page === 'practices') renderPractices();
             else if (page === 'lab') renderLab();
             else if (page === 'flashcards') renderFlashcards();
@@ -7219,6 +7225,51 @@
       </div>`;
         }
 
+        function renderInitialPractice() {
+            const config = window.RSALUD_CONFIG || {};
+            const appUrl = 'practica_inicial/index.html';
+            const formUrl = `${appUrl}#form`;
+            const resultsUrl = `${appUrl}#results`;
+            const qrUrl = `${appUrl}#qr`;
+            document.getElementById('pageContent').innerHTML = `
+    <div class="page-heading initial-practice-heading">
+      <div>
+        <h2>🧬 Práctica inicial: datos de salud en vivo</h2>
+        <p>Cuestionario con QR, tablero global, filtros, tablas ordenables y exportaciones para mostrar cómo una base se convierte en reporte.</p>
+      </div>
+      <div class="practice-actions">
+        <a class="btn-primary as-link" href="${formUrl}" target="_blank" rel="noopener">Abrir cuestionario</a>
+        <a class="btn-secondary as-link" href="${qrUrl}" target="_blank" rel="noopener">Proyectar QR</a>
+        <a class="btn-secondary as-link" href="${config.initialPracticeSheetUrl || '#'}" target="_blank" rel="noopener">Abrir Sheet</a>
+      </div>
+    </div>
+    <div class="initial-practice-summary">
+      <div>
+        <span>Flujo didáctico</span>
+        <strong>QR → formulario → hoja → tablero → informe</strong>
+      </div>
+      <div>
+        <span>Variables</span>
+        <strong>Edad, IMC, presión, glucosa, sueño y hábitos</strong>
+      </div>
+      <div>
+        <span>Salidas</span>
+        <strong>KPIs, gráficos, tabla, Word y Excel</strong>
+      </div>
+    </div>
+    <section class="initial-practice-shell" aria-label="Practica inicial embebida">
+      <div class="initial-practice-toolbar">
+        <strong>Vista embebida redimensionable</strong>
+        <div class="practice-actions">
+          <a class="btn-secondary as-link" href="${resultsUrl}" target="_blank" rel="noopener">Resultados en pestaña</a>
+          <a class="btn-secondary as-link" href="${appUrl}" target="_blank" rel="noopener">Pantalla completa</a>
+        </div>
+      </div>
+      <iframe class="initial-practice-frame" src="${appUrl}" title="Práctica inicial con datos de salud en vivo"></iframe>
+    </section>`;
+            trackEvent('practica_inicial_abierta', { detalle: 'Vista practica inicial' });
+        }
+
         function renderPractices() {
             const completed = PRACTICES.filter(lab => (getPracticeProgress()[lab.id] || []).length >= lab.steps.length).length;
             document.getElementById('pageContent').innerHTML = `
@@ -7228,9 +7279,17 @@
         <p>Laboratorios por fichas, con datos descargables, codigo R base y avance guardado.</p>
       </div>
       <div class="practice-actions">
+        <button class="btn-primary" onclick="showPage('initial-practice')">Práctica inicial con QR</button>
         <a class="btn-primary as-link" href="laboratorio/index.html" target="_blank">Abrir laboratorio WebR</a>
         <a class="btn-secondary as-link" href="practicas/index.html" target="_blank">Abrir versión embebible</a>
       </div>
+    </div>
+    <div class="smart-card warning">
+      <div>
+        <strong>Primer laboratorio del curso</strong>
+        <p>Antes de escribir código, el grupo puede construir una base real con QR y ver el tablero vivo con KPIs, filtros, figuras y exportaciones.</p>
+      </div>
+      <button class="btn-primary" onclick="showPage('initial-practice')">Abrir práctica inicial</button>
     </div>
     <div class="stats-row">
       <div class="stat-card primary">

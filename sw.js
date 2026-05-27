@@ -1,4 +1,4 @@
-const CACHE_NAME = 'r-salud-v20260527-10';
+const CACHE_NAME = 'r-salud-v20260527-12';
 
 const APP_SHELL = [
   './',
@@ -131,7 +131,8 @@ const APP_SHELL = [
   './docs/plan_integracion_notebooklm.html',
   './guia_didactica/index.html',
   './laboratorio/index.html',
-  './practicas/index.html'
+  './practicas/index.html',
+  './practica_inicial/index.html'
 ];
 
 self.addEventListener('install', event => {

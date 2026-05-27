@@ -1,0 +1,857 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Practica inicial · Datos de salud en vivo</title>
+  <meta name="description" content="Cuestionario inicial con tablero de resultados en vivo para R aplicado a la salud.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="../config.js?v=20260527-12"></script>
+  <style>
+    :root {
+      --ink: #12312c;
+      --muted: #60736b;
+      --line: #dce8e4;
+      --paper: #ffffff;
+      --bg: #f4faf7;
+      --teal: #0e5a6b;
+      --green: #116149;
+      --coral: #e37b65;
+      --gold: #d6a93a;
+      --blue: #2563eb;
+      --soft: #e9f6f1;
+      --shadow: 0 18px 48px rgba(18, 49, 44, 0.12);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(120deg, #f7fffb, #eff8f5 56%, #fff8e5);
+      color: var(--ink);
+    }
+    button, input, select, textarea { font: inherit; }
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .app-shell {
+      width: min(1240px, 100%);
+      margin: 0 auto;
+      padding: clamp(14px, 2vw, 24px);
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 260px;
+      gap: 18px;
+      align-items: stretch;
+      margin-bottom: 16px;
+    }
+    .hero-main, .qr-card, .panel, .metric, .chart-card, .table-card {
+      background: rgba(255,255,255,0.94);
+      border: 1px solid rgba(220,232,228,0.9);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+    .hero-main {
+      padding: clamp(18px, 3vw, 32px);
+      display: grid;
+      gap: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+    .eyebrow {
+      color: var(--teal);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 780px;
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 4.2rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+    .hero-main p {
+      max-width: 780px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.55;
+    }
+    .hero-actions, .toolbar, .filters, .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .btn {
+      min-height: 40px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      background: var(--green);
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 900;
+      padding: 9px 13px;
+      text-decoration: none;
+    }
+    .btn.secondary {
+      background: #fff;
+      border-color: var(--line);
+      color: var(--green);
+    }
+    .btn.coral { background: var(--coral); }
+    .btn.gold { background: var(--gold); color: #231902; }
+    .qr-card {
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      text-align: center;
+    }
+    .qr-card img {
+      width: min(100%, 230px);
+      aspect-ratio: 1;
+      margin: 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 8px;
+    }
+    .qr-card strong { color: var(--teal); }
+    .qr-card small { color: var(--muted); line-height: 1.35; }
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .tabs button {
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.92);
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 900;
+    }
+    .tabs button.active {
+      background: var(--soft);
+      border-color: rgba(17,97,73,0.28);
+      color: var(--green);
+    }
+    .view { display: none; }
+    .view.active { display: block; }
+    .panel { padding: clamp(16px, 2.5vw, 28px); }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+    .field.full { grid-column: 1 / -1; }
+    label {
+      color: var(--teal);
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      padding: 10px 11px;
+      outline: none;
+    }
+    input[type="checkbox"] {
+      margin-right: 8px;
+      width: auto;
+    }
+    textarea { min-height: 84px; resize: vertical; }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 4px rgba(17,97,73,0.1);
+    }
+    .status {
+      margin-top: 12px;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fbfa;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .status.ok { border-color: #b7dfcc; background: var(--soft); color: var(--green); }
+    .status.error { border-color: #f4b6a8; background: #fff0ed; color: #a33622; }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .metric {
+      padding: 14px;
+      min-height: 112px;
+      display: grid;
+      align-content: space-between;
+      resize: both;
+      overflow: auto;
+    }
+    .metric span {
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .metric strong {
+      color: var(--teal);
+      font-size: clamp(1.55rem, 3vw, 2.45rem);
+      line-height: 1;
+    }
+    .filters {
+      background: rgba(255,255,255,0.78);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      padding: 10px;
+    }
+    .filters input, .filters select {
+      width: auto;
+      min-width: 160px;
+      flex: 1 1 160px;
+    }
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .chart-card {
+      min-height: 300px;
+      padding: 14px;
+      resize: both;
+      overflow: auto;
+    }
+    .chart-card h3, .table-card h3 {
+      margin: 0 0 10px;
+      font-size: 0.98rem;
+    }
+    canvas {
+      width: 100%;
+      height: 230px;
+      display: block;
+    }
+    .table-card {
+      padding: 14px;
+      resize: both;
+      overflow: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 980px;
+      font-size: 0.86rem;
+    }
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 9px 10px;
+      text-align: left;
+      vertical-align: middle;
+    }
+    th {
+      background: #eef7f4;
+      color: var(--teal);
+      cursor: pointer;
+      font-size: 0.76rem;
+      position: sticky;
+      top: 0;
+      text-transform: uppercase;
+      z-index: 1;
+    }
+    .pill {
+      display: inline-flex;
+      border-radius: 999px;
+      background: #eef7f4;
+      color: var(--green);
+      font-size: 0.75rem;
+      font-weight: 900;
+      padding: 4px 8px;
+      white-space: nowrap;
+    }
+    .qr-big {
+      display: grid;
+      grid-template-columns: 360px minmax(0, 1fr);
+      gap: 18px;
+      align-items: center;
+    }
+    .qr-big img {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+    .mini-note {
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
+    @media print {
+      .tabs, .hero-actions, .filters, .actions, .btn, .qr-card { display: none !important; }
+      body { background: #fff; }
+      .hero, .chart-grid, .metric-grid { display: block; }
+      .chart-card, .metric, .table-card, .panel, .hero-main { box-shadow: none; break-inside: avoid; margin-bottom: 12px; }
+    }
+    @media (max-width: 920px) {
+      .hero, .qr-big, .chart-grid, .metric-grid, .form-grid { grid-template-columns: 1fr; }
+      .tabs { grid-template-columns: 1fr; }
+      .filters input, .filters select { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <section class="hero">
+      <div class="hero-main">
+        <span class="eyebrow">Practica inicial · datos reales de aula</span>
+        <h1>Del cuestionario al tablero en vivo</h1>
+        <p>Los estudiantes completan variables basicas de salud y el curso muestra al instante como una base se transforma en indicadores, tablas y figuras.</p>
+        <div class="hero-actions">
+          <button class="btn" data-tab-target="form">Completar cuestionario</button>
+          <button class="btn secondary" data-tab-target="results">Ver resultados</button>
+          <button class="btn gold" data-tab-target="qr">Proyectar QR</button>
+        </div>
+      </div>
+      <aside class="qr-card">
+        <strong>QR de acceso al aula</strong>
+        <img id="qrMini" alt="Codigo QR para abrir la practica inicial">
+        <small>Proyecta este codigo para que entren directo al cuestionario.</small>
+      </aside>
+    </section>
+
+    <nav class="tabs" aria-label="Vistas de la practica">
+      <button class="active" data-tab-target="form">Cuestionario</button>
+      <button data-tab-target="results">Resultados globales</button>
+      <button data-tab-target="qr">QR para proyectar</button>
+    </nav>
+
+    <section class="view active" id="view-form">
+      <form class="panel" id="studentForm">
+        <div class="form-grid">
+          <div class="field">
+            <label for="nombre">Nombre o alias</label>
+            <input id="nombre" name="nombre" required placeholder="Ej. Ana M.">
+          </div>
+          <div class="field">
+            <label for="correo">Correo</label>
+            <input id="correo" name="correo" type="email" placeholder="opcional">
+          </div>
+          <div class="field">
+            <label for="fechaNacimiento">Fecha de nacimiento</label>
+            <input id="fechaNacimiento" name="fecha_nacimiento" type="date" required>
+          </div>
+          <div class="field">
+            <label for="sexo">Sexo registrado</label>
+            <select id="sexo" name="sexo" required>
+              <option value="">Seleccionar</option>
+              <option>Femenino</option>
+              <option>Masculino</option>
+              <option>Intersexual</option>
+              <option>Prefiero no responder</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="semestre">Semestre</label>
+            <select id="semestre" name="semestre" required>
+              <option value="">Seleccionar</option>
+              <option>1</option><option>2</option><option>3</option><option>4</option>
+              <option>5</option><option>6</option><option>7</option><option>8</option>
+              <option>9</option><option>10</option><option>11</option><option>12</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="turno">Turno</label>
+            <select id="turno" name="turno">
+              <option value="">Seleccionar</option>
+              <option>Mañana</option>
+              <option>Tarde</option>
+              <option>Noche</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="estatura">Estatura (cm)</label>
+            <input id="estatura" name="estatura_cm" type="number" min="120" max="220" step="0.1" required>
+          </div>
+          <div class="field">
+            <label for="peso">Peso (kg)</label>
+            <input id="peso" name="peso_kg" type="number" min="30" max="220" step="0.1" required>
+          </div>
+          <div class="field">
+            <label for="actividad">Actividad fisica</label>
+            <select id="actividad" name="actividad_fisica">
+              <option value="">Seleccionar</option>
+              <option>Baja</option>
+              <option>Moderada</option>
+              <option>Alta</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sueno">Horas de sueño</label>
+            <input id="sueno" name="horas_sueno" type="number" min="2" max="14" step="0.5">
+          </div>
+          <div class="field">
+            <label for="fuma">Tabaquismo</label>
+            <select id="fuma" name="fuma">
+              <option value="">Seleccionar</option>
+              <option>No</option>
+              <option>Si</option>
+              <option>Exfumador/a</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="presion">Presion sistolica</label>
+            <input id="presion" name="presion_sistolica" type="number" min="70" max="230" placeholder="opcional">
+          </div>
+          <div class="field">
+            <label for="diastolica">Presion diastolica</label>
+            <input id="diastolica" name="presion_diastolica" type="number" min="40" max="140" placeholder="opcional">
+          </div>
+          <div class="field">
+            <label for="frecuencia">Frecuencia cardiaca</label>
+            <input id="frecuencia" name="frecuencia_cardiaca" type="number" min="35" max="180" placeholder="opcional">
+          </div>
+          <div class="field">
+            <label for="glucosa">Glucosa capilar</label>
+            <input id="glucosa" name="glucosa_mg_dl" type="number" min="40" max="400" placeholder="opcional">
+          </div>
+          <div class="field full">
+            <label for="objetivo">Pregunta que te gustaria responder con estos datos</label>
+            <textarea id="objetivo" name="objetivo" placeholder="Ej. ¿El sueño se relaciona con el IMC en nuestro grupo?"></textarea>
+          </div>
+          <div class="field full">
+            <label>
+              <input type="checkbox" id="consentimiento" required>
+              Acepto usar estos datos con fines didacticos dentro de esta practica.
+            </label>
+          </div>
+        </div>
+        <div class="actions" style="margin-top:14px">
+          <button class="btn" type="submit">Guardar y ver tablero</button>
+          <button class="btn secondary" type="reset">Limpiar</button>
+        </div>
+        <div class="status" id="formStatus">Los campos se guardan en la hoja conectada del aula. Evita ingresar datos sensibles no solicitados.</div>
+      </form>
+    </section>
+
+    <section class="view" id="view-results">
+      <div class="metric-grid" id="metricGrid"></div>
+      <div class="filters">
+        <input id="searchInput" placeholder="Buscar nombre, semestre, turno...">
+        <select id="sexFilter"><option value="">Sexo: todos</option></select>
+        <select id="semesterFilter"><option value="">Semestre: todos</option></select>
+        <select id="imcFilter"><option value="">IMC: todos</option></select>
+        <select id="activityFilter"><option value="">Actividad: todas</option></select>
+        <button class="btn secondary" id="refreshButton">Actualizar</button>
+      </div>
+      <div class="actions" style="margin-bottom:12px">
+        <button class="btn" id="printButton">Imprimir tablero</button>
+        <button class="btn secondary" id="wordButton">Informe Word</button>
+        <button class="btn secondary" id="excelButton">Bajar Excel</button>
+        <a class="btn secondary" id="sheetLink" target="_blank" rel="noopener">Abrir Sheet</a>
+      </div>
+      <div class="chart-grid">
+        <section class="chart-card"><h3>Distribucion por IMC</h3><canvas id="imcChart"></canvas></section>
+        <section class="chart-card"><h3>Actividad fisica</h3><canvas id="activityChart"></canvas></section>
+        <section class="chart-card"><h3>Peso vs estatura</h3><canvas id="scatterChart"></canvas></section>
+      </div>
+      <section class="table-card">
+        <h3>Base de respuestas</h3>
+        <table id="dataTable"></table>
+      </section>
+      <div class="status" id="resultStatus">Cargando datos...</div>
+    </section>
+
+    <section class="view" id="view-qr">
+      <div class="panel qr-big">
+        <img id="qrLarge" alt="Codigo QR grande para proyectar la practica inicial">
+        <div>
+          <span class="eyebrow">Proyectar en clase</span>
+          <h2>Escanea y completa el cuestionario</h2>
+          <p class="mini-note">Cada nueva respuesta alimenta el tablero en vivo. Luego se puede discutir como los datos pasan de formulario a tabla, indicadores, graficos y reporte.</p>
+          <p><a id="directLink" target="_blank" rel="noopener"></a></p>
+          <div class="actions">
+            <button class="btn" onclick="window.print()">Imprimir QR</button>
+            <button class="btn secondary" data-tab-target="results">Ver tablero</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const CONFIG = {
+      scriptUrl: window.RSALUD_CONFIG?.initialPracticeAppsScriptUrl || '',
+      sheetUrl: window.RSALUD_CONFIG?.initialPracticeSheetUrl || 'https://docs.google.com/spreadsheets/d/1PtQGtn_ex9ShQxu9p5YVXFFZd6FGz3N5aLjv9p9uoqY/edit?usp=sharing',
+      formUrl: `${location.origin}${location.pathname}#form`
+    };
+
+    const state = {
+      rows: [],
+      filtered: [],
+      sortKey: 'fecha_hora',
+      sortDir: 'desc'
+    };
+
+    const fields = [
+      ['fecha_hora', 'Fecha'],
+      ['nombre', 'Nombre'],
+      ['edad', 'Edad'],
+      ['sexo', 'Sexo'],
+      ['semestre', 'Semestre'],
+      ['turno', 'Turno'],
+      ['estatura_cm', 'Estatura'],
+      ['peso_kg', 'Peso'],
+      ['imc', 'IMC'],
+      ['categoria_imc', 'Categoria IMC'],
+      ['actividad_fisica', 'Actividad'],
+      ['horas_sueno', 'Sueño'],
+      ['fuma', 'Fuma']
+    ];
+
+    function $(id) { return document.getElementById(id); }
+    function num(value) { const n = Number(value); return Number.isFinite(n) ? n : null; }
+    function mean(values) {
+      const clean = values.map(num).filter(value => value !== null);
+      return clean.length ? clean.reduce((a, b) => a + b, 0) / clean.length : 0;
+    }
+    function pct(part, total) { return total ? Math.round((part / total) * 100) : 0; }
+    function ageFromBirth(value) {
+      if (!value) return '';
+      const birth = new Date(value);
+      if (Number.isNaN(birth.getTime())) return '';
+      const today = new Date();
+      let age = today.getFullYear() - birth.getFullYear();
+      const m = today.getMonth() - birth.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+      return age;
+    }
+    function bmiCategory(imc) {
+      const value = num(imc);
+      if (value === null) return '';
+      if (value < 18.5) return 'Bajo peso';
+      if (value < 25) return 'Normal';
+      if (value < 30) return 'Sobrepeso';
+      return 'Obesidad';
+    }
+    function encodePayload(payload) {
+      return btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+    }
+    function jsonp(action, params = {}) {
+      if (!CONFIG.scriptUrl) return Promise.reject(new Error('Falta configurar la URL desplegada de Apps Script.'));
+      return new Promise((resolve, reject) => {
+        const callback = `pi_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+        const url = new URL(CONFIG.scriptUrl);
+        url.searchParams.set('action', action);
+        url.searchParams.set('callback', callback);
+        Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, value));
+        const script = document.createElement('script');
+        const timer = setTimeout(() => cleanup(() => reject(new Error('Tiempo de espera agotado.'))), 9000);
+        function cleanup(done) {
+          clearTimeout(timer);
+          delete window[callback];
+          script.remove();
+          if (done) done();
+        }
+        window[callback] = data => cleanup(() => resolve(data));
+        script.onerror = () => cleanup(() => reject(new Error('No se pudo contactar Apps Script.')));
+        script.src = url.toString();
+        document.head.appendChild(script);
+      });
+    }
+    function localRows() {
+      try { return JSON.parse(localStorage.getItem('practicaInicialRows') || '[]'); }
+      catch (error) { return []; }
+    }
+    function saveLocalRow(row) {
+      const rows = localRows();
+      rows.push(row);
+      localStorage.setItem('practicaInicialRows', JSON.stringify(rows.slice(-300)));
+    }
+    function setTab(name) {
+      document.querySelectorAll('[data-tab-target]').forEach(button => button.classList.toggle('active', button.dataset.tabTarget === name));
+      document.querySelectorAll('.view').forEach(view => view.classList.toggle('active', view.id === `view-${name}`));
+      history.replaceState(null, '', `#${name}`);
+      if (name === 'results') refreshData();
+    }
+    function setStatus(id, text, type = '') {
+      const box = $(id);
+      box.className = `status ${type}`.trim();
+      box.textContent = text;
+    }
+    function currentFormUrl() {
+      return `${location.href.split('#')[0]}#form`;
+    }
+    function setupQr() {
+      const url = currentFormUrl();
+      const qr = `https://api.qrserver.com/v1/create-qr-code/?size=420x420&margin=16&data=${encodeURIComponent(url)}`;
+      $('qrMini').src = qr;
+      $('qrLarge').src = qr;
+      $('directLink').href = url;
+      $('directLink').textContent = url;
+      $('sheetLink').href = CONFIG.sheetUrl;
+    }
+    function formPayload() {
+      const fd = new FormData($('studentForm'));
+      const row = Object.fromEntries(fd.entries());
+      row.id = crypto.randomUUID ? crypto.randomUUID() : `resp-${Date.now()}`;
+      row.fecha_hora = new Date().toISOString();
+      row.edad = ageFromBirth(row.fecha_nacimiento);
+      const h = num(row.estatura_cm);
+      const w = num(row.peso_kg);
+      row.imc = h && w ? Number((w / ((h / 100) ** 2)).toFixed(1)) : '';
+      row.categoria_imc = bmiCategory(row.imc);
+      row.consentimiento = $('consentimiento').checked ? 'Si' : 'No';
+      row.origen_url = location.href;
+      row.user_agent = navigator.userAgent;
+      row.usuario_aula = JSON.parse(sessionStorage.getItem('abd_user') || 'null')?.username || '';
+      return row;
+    }
+    async function submitForm(event) {
+      event.preventDefault();
+      if (!$('consentimiento').checked) {
+        setStatus('formStatus', 'Debes aceptar el uso didactico de los datos.', 'error');
+        return;
+      }
+      const row = formPayload();
+      setStatus('formStatus', 'Guardando respuesta...');
+      try {
+        const result = await jsonp('save', { payload: encodePayload(row) });
+        if (result.status !== 'ok') throw new Error(result.message || 'No se pudo guardar.');
+        saveLocalRow(row);
+        $('studentForm').reset();
+        setStatus('formStatus', `Respuesta guardada. Ya hay ${result.count || ''} registros.`, 'ok');
+        setTab('results');
+      } catch (error) {
+        saveLocalRow(row);
+        setStatus('formStatus', `${error.message} Guardé una copia local para esta demostracion.`, 'error');
+        setTab('results');
+      }
+    }
+    async function refreshData() {
+      setStatus('resultStatus', 'Actualizando tablero...');
+      try {
+        const result = await jsonp('list', { limit: '1000' });
+        if (result.status !== 'ok') throw new Error(result.message || 'No se pudieron leer datos.');
+        const merged = [...result.items, ...localRows()];
+        state.rows = dedupeRows(merged);
+        setStatus('resultStatus', `Datos actualizados: ${state.rows.length} respuestas.`, 'ok');
+      } catch (error) {
+        state.rows = localRows();
+        setStatus('resultStatus', `${error.message} Mostrando datos locales de este navegador.`, state.rows.length ? 'error' : 'error');
+      }
+      populateFilters();
+      applyFilters();
+    }
+    function dedupeRows(rows) {
+      const map = new Map();
+      rows.forEach(row => map.set(row.id || JSON.stringify(row), row));
+      return [...map.values()];
+    }
+    function populateFilters() {
+      const filters = [
+        ['sexFilter', 'sexo', 'Sexo: todos'],
+        ['semesterFilter', 'semestre', 'Semestre: todos'],
+        ['imcFilter', 'categoria_imc', 'IMC: todos'],
+        ['activityFilter', 'actividad_fisica', 'Actividad: todas']
+      ];
+      filters.forEach(([id, key, label]) => {
+        const selected = $(id).value;
+        const values = [...new Set(state.rows.map(row => row[key]).filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b), 'es', { numeric: true }));
+        $(id).innerHTML = `<option value="">${label}</option>${values.map(value => `<option>${escapeHtml(value)}</option>`).join('')}`;
+        $(id).value = values.includes(selected) ? selected : '';
+      });
+    }
+    function applyFilters() {
+      const q = $('searchInput').value.trim().toLowerCase();
+      state.filtered = state.rows.filter(row => {
+        const haystack = Object.values(row).join(' ').toLowerCase();
+        return (!q || haystack.includes(q))
+          && (!$('sexFilter').value || row.sexo === $('sexFilter').value)
+          && (!$('semesterFilter').value || String(row.semestre) === $('semesterFilter').value)
+          && (!$('imcFilter').value || row.categoria_imc === $('imcFilter').value)
+          && (!$('activityFilter').value || row.actividad_fisica === $('activityFilter').value);
+      });
+      sortRows();
+      renderMetrics();
+      renderCharts();
+      renderTable();
+    }
+    function sortRows() {
+      const dir = state.sortDir === 'asc' ? 1 : -1;
+      state.filtered.sort((a, b) => {
+        const av = a[state.sortKey] ?? '';
+        const bv = b[state.sortKey] ?? '';
+        return String(av).localeCompare(String(bv), 'es', { numeric: true }) * dir;
+      });
+    }
+    function renderMetrics() {
+      const rows = state.filtered;
+      const normal = rows.filter(row => row.categoria_imc === 'Normal').length;
+      const active = rows.filter(row => ['Moderada', 'Alta'].includes(row.actividad_fisica)).length;
+      const metrics = [
+        ['Respuestas', rows.length || 0, 'formularios recibidos'],
+        ['Edad media', mean(rows.map(row => row.edad)).toFixed(1), 'años'],
+        ['IMC medio', mean(rows.map(row => row.imc)).toFixed(1), 'kg/m2'],
+        ['IMC normal', `${pct(normal, rows.length)}%`, 'del grupo filtrado'],
+        ['Actividad', `${pct(active, rows.length)}%`, 'moderada o alta']
+      ];
+      $('metricGrid').innerHTML = metrics.map(([label, value, sub]) => `
+        <div class="metric"><span>${label}</span><strong>${value}</strong><small>${sub}</small></div>
+      `).join('');
+    }
+    function counts(key) {
+      return state.filtered.reduce((acc, row) => {
+        const value = row[key] || 'Sin dato';
+        acc[value] = (acc[value] || 0) + 1;
+        return acc;
+      }, {});
+    }
+    function renderCharts() {
+      drawBars('imcChart', counts('categoria_imc'), ['#0e5a6b', '#116149', '#d6a93a', '#e37b65', '#2563eb']);
+      drawBars('activityChart', counts('actividad_fisica'), ['#116149', '#0e5a6b', '#e37b65', '#d6a93a']);
+      drawScatter('scatterChart', state.filtered);
+    }
+    function prepCanvas(id) {
+      const canvas = $(id);
+      const rect = canvas.getBoundingClientRect();
+      const scale = window.devicePixelRatio || 1;
+      canvas.width = Math.max(320, rect.width * scale);
+      canvas.height = Math.max(220, rect.height * scale);
+      const ctx = canvas.getContext('2d');
+      ctx.setTransform(scale, 0, 0, scale, 0, 0);
+      ctx.clearRect(0, 0, rect.width, rect.height);
+      return { canvas, ctx, w: rect.width, h: rect.height };
+    }
+    function drawBars(id, data, colors) {
+      const { ctx, w, h } = prepCanvas(id);
+      const entries = Object.entries(data);
+      if (!entries.length) { ctx.fillText('Sin datos', 20, 30); return; }
+      const max = Math.max(...entries.map(([, value]) => value), 1);
+      const gap = 10;
+      const barW = (w - 32 - gap * (entries.length - 1)) / entries.length;
+      entries.forEach(([label, value], index) => {
+        const barH = (h - 72) * value / max;
+        const x = 16 + index * (barW + gap);
+        const y = h - 42 - barH;
+        ctx.fillStyle = colors[index % colors.length];
+        roundRect(ctx, x, y, barW, barH, 8);
+        ctx.fill();
+        ctx.fillStyle = '#12312c';
+        ctx.font = '700 12px Inter';
+        ctx.fillText(String(value), x + 4, y - 6);
+        ctx.save();
+        ctx.translate(x + barW / 2, h - 28);
+        ctx.rotate(-0.35);
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#60736b';
+        ctx.font = '600 11px Inter';
+        ctx.fillText(label.slice(0, 16), 0, 0);
+        ctx.restore();
+      });
+    }
+    function drawScatter(id, rows) {
+      const { ctx, w, h } = prepCanvas(id);
+      const pts = rows.map(row => ({ x: num(row.estatura_cm), y: num(row.peso_kg), c: row.categoria_imc })).filter(p => p.x && p.y);
+      if (!pts.length) { ctx.fillText('Sin datos', 20, 30); return; }
+      const minX = Math.min(...pts.map(p => p.x)) - 4, maxX = Math.max(...pts.map(p => p.x)) + 4;
+      const minY = Math.min(...pts.map(p => p.y)) - 4, maxY = Math.max(...pts.map(p => p.y)) + 4;
+      ctx.strokeStyle = '#dce8e4';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(42, 12); ctx.lineTo(42, h - 34); ctx.lineTo(w - 14, h - 34); ctx.stroke();
+      pts.forEach(p => {
+        const x = 42 + ((p.x - minX) / (maxX - minX || 1)) * (w - 62);
+        const y = h - 34 - ((p.y - minY) / (maxY - minY || 1)) * (h - 54);
+        ctx.fillStyle = p.c === 'Normal' ? '#116149' : p.c === 'Sobrepeso' ? '#d6a93a' : p.c === 'Obesidad' ? '#e37b65' : '#0e5a6b';
+        ctx.beginPath(); ctx.arc(x, y, 5, 0, Math.PI * 2); ctx.fill();
+      });
+      ctx.fillStyle = '#60736b';
+      ctx.font = '600 11px Inter';
+      ctx.fillText('Estatura cm', w - 90, h - 12);
+      ctx.save(); ctx.translate(14, 78); ctx.rotate(-Math.PI / 2); ctx.fillText('Peso kg', 0, 0); ctx.restore();
+    }
+    function roundRect(ctx, x, y, width, height, radius) {
+      const r = Math.min(radius, width / 2, height / 2);
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + width, y, x + width, y + height, r);
+      ctx.arcTo(x + width, y + height, x, y + height, r);
+      ctx.arcTo(x, y + height, x, y, r);
+      ctx.arcTo(x, y, x + width, y, r);
+      ctx.closePath();
+    }
+    function renderTable() {
+      $('dataTable').innerHTML = `
+        <thead><tr>${fields.map(([key, label]) => `<th data-sort="${key}">${label}${state.sortKey === key ? (state.sortDir === 'asc' ? ' ▲' : ' ▼') : ''}</th>`).join('')}</tr></thead>
+        <tbody>${state.filtered.map(row => `<tr>${fields.map(([key]) => `<td>${formatCell(key, row[key])}</td>`).join('')}</tr>`).join('')}</tbody>
+      `;
+      document.querySelectorAll('[data-sort]').forEach(th => {
+        th.addEventListener('click', () => {
+          const key = th.dataset.sort;
+          state.sortDir = state.sortKey === key && state.sortDir === 'asc' ? 'desc' : 'asc';
+          state.sortKey = key;
+          applyFilters();
+        });
+      });
+    }
+    function formatCell(key, value) {
+      const safe = escapeHtml(value ?? '');
+      if (key === 'categoria_imc') return `<span class="pill">${safe || 'Sin dato'}</span>`;
+      if (key === 'fecha_hora' && value) return escapeHtml(new Date(value).toLocaleString('es-PY'));
+      return safe;
+    }
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+    }
+    function exportExcel() {
+      const html = `<table><thead><tr>${fields.map(([, label]) => `<th>${label}</th>`).join('')}</tr></thead><tbody>${state.filtered.map(row => `<tr>${fields.map(([key]) => `<td>${escapeHtml(row[key] ?? '')}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+      downloadBlob(html, 'practica_inicial_datos.xls', 'application/vnd.ms-excel;charset=utf-8');
+    }
+    function exportWord() {
+      const metrics = $('metricGrid').innerText.replace(/\n/g, ' · ');
+      const html = `<!doctype html><html><head><meta charset="utf-8"><title>Informe practica inicial</title></head><body><h1>Informe de practica inicial</h1><p>${escapeHtml(metrics)}</p>${$('dataTable').outerHTML}</body></html>`;
+      downloadBlob(html, 'informe_practica_inicial.doc', 'application/msword;charset=utf-8');
+    }
+    function downloadBlob(content, filename, type) {
+      const blob = new Blob([content], { type });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+    document.querySelectorAll('[data-tab-target]').forEach(button => button.addEventListener('click', () => setTab(button.dataset.tabTarget)));
+    document.querySelectorAll('.filters input, .filters select').forEach(input => input.addEventListener('input', applyFilters));
+    $('studentForm').addEventListener('submit', submitForm);
+    $('refreshButton').addEventListener('click', refreshData);
+    $('printButton').addEventListener('click', () => window.print());
+    $('wordButton').addEventListener('click', exportWord);
+    $('excelButton').addEventListener('click', exportExcel);
+    window.addEventListener('resize', () => renderCharts());
+    setupQr();
+    const requestedTab = (location.hash || '#form').replace('#', '') || 'form';
+    setTab(['form', 'results', 'qr'].includes(requestedTab) ? requestedTab : 'form');
+  </script>
+</body>
+</html>
