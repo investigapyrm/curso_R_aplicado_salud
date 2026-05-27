@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="css/styles-template.css?v=20260527-2">
+    <link rel="stylesheet" href="css/styles-template.css?v=20260527-3">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
 </head>
@@ -247,7 +247,7 @@
 
         const NOTEBOOKLM_INDEX_URL = 'recursos/notebooklm/indice.json';
         const NOTEBOOK_CONTENT_URL = 'recursos/notebooklm/contenido_fichas.json';
-        const APP_VERSION = 'r-salud-template-20260527-2';
+        const APP_VERSION = 'r-salud-template-20260527-3';
 
         const NOTEBOOK_STAGE_CONFIG = [
             {
@@ -552,24 +552,25 @@
             };
         }
 
+        function localUnitFile(unitId, filename) {
+            return `unidades/unidad${unitId}/${filename}`;
+        }
+
         function notebookUnitResourceName(unit) {
-            return unit.url && !/^https?:\/\//i.test(unit.url)
-                ? `Material integrado - Unidad ${unit.id}`
-                : `Documento NotebookLM - Unidad ${unit.id}`;
+            return `Material integrado - Unidad ${unit.id}`;
         }
 
         function buildNotebookUnitFiles() {
             return Object.fromEntries(NOTEBOOK_UNITS.map(unit => [String(unit.id), {
                 materiales: [
-                    { name: notebookUnitResourceName(unit), file: unit.url, type: notebookResourceType(unit.url) },
-                    { name: 'Indice local NotebookLM', file: 'recursos/notebooklm/indice.json', type: 'json' }
+                    { name: notebookUnitResourceName(unit), file: localUnitFile(unit.id, 'material.html'), type: 'html' }
                 ],
                 actividades: [
-                    { name: `Actividad autonoma - ${unit.shortTitle}`, file: unit.url, type: notebookResourceType(unit.url) },
-                    { name: `Quiz Unidad ${unit.id}`, file: `data/quizzes/quiz_u${unit.id}.json`, type: 'json' }
+                    { name: `Actividad autonoma - ${unit.shortTitle}`, file: localUnitFile(unit.id, 'actividad.html'), type: 'html' },
+                    { name: `Tarea de cierre - ${unit.shortTitle}`, file: localUnitFile(unit.id, 'tarea.html'), type: 'html' }
                 ],
                 orientaciones: [
-                    { name: `Plan de estudio - Unidad ${unit.id}`, file: 'docs/plan_integracion_notebooklm.html', type: 'html' }
+                    { name: `Orientaciones - Unidad ${unit.id}`, file: localUnitFile(unit.id, 'orientaciones.html'), type: 'html' }
                 ]
             }]));
         }
@@ -577,7 +578,7 @@
         function buildNotebookSublevelMap() {
             return Object.fromEntries(NOTEBOOK_UNITS.map(unit => [String(unit.id), unit.sublevels.map(sublevel => ({
                 ...sublevel,
-                sourceUrl: unit.url,
+                sourceUrl: localUnitFile(unit.id, 'material.html'),
                 practiceId: `lab_u${unit.id}_notebooklm`
             }))]));
         }
@@ -1340,8 +1341,7 @@
                 .find(item => Number(item.order) === Number(unitNum) && item.role === 'unit');
             if (!doc) return null;
             const local = NOTEBOOK_UNITS.find(item => Number(item.id) === Number(unitNum));
-            const sourceUrl = local?.url || doc.url;
-            const isLocalResource = sourceUrl && !/^https?:\/\//i.test(sourceUrl);
+            const sourceUrl = localUnitFile(unitNum, 'material.html');
             return {
                 unit: unitNum,
                 titulo: doc.title,
@@ -1349,9 +1349,9 @@
                 focus: doc.focus || local?.desc || '',
                 deliverable: doc.deliverable || local?.deliverable || '',
                 archivos: {
-                    [isLocalResource ? 'material_integrado_html' : 'documento_google_docs']: sourceUrl,
-                    indice_local: 'recursos/notebooklm/indice.json',
-                    plan_integracion: 'docs/plan_integracion_notebooklm.html'
+                    material_integrado_html: sourceUrl,
+                    orientaciones_html: localUnitFile(unitNum, 'orientaciones.html'),
+                    actividad_html: localUnitFile(unitNum, 'actividad.html')
                 },
                 media: []
             };
@@ -2643,7 +2643,7 @@
                     practiceId: sublevel.practiceId,
                     practiceStepIndex,
                     notebookResource: resourceUrl ? {
-                        label: notebookUnitResourceName(NOTEBOOK_UNITS.find(item => Number(item.id) === Number(unitNum)) || { id: unitNum, url: resourceUrl }),
+                        label: notebookUnitResourceName(NOTEBOOK_UNITS.find(item => Number(item.id) === Number(unitNum)) || { id: unitNum }),
                         file: resourceUrl,
                         type: notebookResourceType(resourceUrl),
                         key: 'resumen'

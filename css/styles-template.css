@@ -7570,7 +7570,9 @@ a:hover { text-decoration: underline; }
   gap: 0.55rem;
   height: 100%;
   min-height: 0;
-  overflow: hidden;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+  scrollbar-width: thin;
 }
 
 .learning-focus-card.has-art {
@@ -7580,6 +7582,7 @@ a:hover { text-decoration: underline; }
 .learning-focus-main {
   gap: 0.52rem;
   min-height: 0;
+  overflow: visible;
 }
 
 .learning-focus-card.has-art .learning-pedagogical-figure {

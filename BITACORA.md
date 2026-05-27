@@ -1,5 +1,17 @@
 # Bitácora
 
+## 2026-05-27 - Scroll interno y recursos integrados solo HTML
+
+- Problema reportado: la vista compacta ya no permitia desplazamiento vertical dentro de las fichas, y aun aparecian recursos integrados con aspecto de Word/texto crudo.
+- Se cambio la ficha activa para permitir `overflow-y: auto` dentro del panel de contenido, manteniendo la pantalla general sin scroll vertical innecesario.
+- Se dejo de insertar `indice.json`, `quiz_uX.json`, Markdown o Google Docs como recursos embebidos en Materiales, Actividades y Ruta.
+- `buildNotebookUnitFiles()` ahora construye recursos desde `unidades/unidadX/material.html`, `orientaciones.html`, `actividad.html` y `tarea.html`.
+- La ruta secuencial tambien usa `unidades/unidadX/material.html` como recurso integrado, en vez de `unit.url` de Google Docs.
+- Se agregaron HTML internos faltantes para Unidad 7 y Unidad 8: orientaciones, actividad y tarea; y material completo de Unidad 8.
+- Se agregaron los HTML de unidades 1 a 8 al service worker para cachearlos como recursos del aula.
+- Se actualizo cache/versionado a `2026.05.27.3`.
+- Validaciones locales: sintaxis del JS embebido, parseo JSON, `bodyScroll: 0`, `overflow-y: auto` en ficha activa y cero recursos embebidos `.json`, `.md` o `docs.google.com` en Materiales/Actividades de unidades 1, 7 y 8.
+
 ## 2026-05-27 - Rediseño compacto de vistas del aula
 
 - Problema reportado: varias vistas desperdiciaban espacio vertical y horizontal con elementos redundantes, como el circulo conceptual gigante, el titulo de unidad repetido y bloques con bajo contraste.
