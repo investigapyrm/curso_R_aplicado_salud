@@ -1,5 +1,17 @@
 # Bitácora
 
+## 2026-05-26 - Recurso integrado HTML para Unidad 7
+
+- Problema reportado: el recurso "Documento NotebookLM - Unidad 7" aparecia como un documento externo incrustado, con aspecto de Markdown pegado en Word, y no como contenido propio del aula.
+- Decision aplicada: reemplazar el recurso principal de la Unidad 7 por un HTML interno del aula, embebible en la ruta secuencial y en la seccion de materiales.
+- Se creo `unidades/unidad7/material.html` con lectura, objetivos, ensayos en R, lectura de modelos y limitaciones.
+- Se actualizo `dashboard.html` para que la Unidad 7 apunte a `unidades/unidad7/material.html` y muestre "Material integrado - Unidad 7" en vez de "Documento NotebookLM - Unidad 7" cuando el recurso es local.
+- Se actualizo `recursos/notebooklm/indice.json` y `documentos.html` para enlazar el HTML interno, conservando el Google Doc original como `sourceUrl` de referencia.
+- Se actualizo cache/versionado a `2026.05.26.1` y se agrego el HTML nuevo al service worker.
+- Validaciones locales: parseo de JSON, sintaxis del JS embebido de `dashboard.html` y `tidy` sobre `unidades/unidad7/material.html`.
+- Publicacion GitHub: commit `5bc7ee9 Integrar recurso HTML de unidad 7` empujado a `origin/main`.
+- Validacion publica con cache-busting: `dashboard.html`, `recursos/notebooklm/indice.json` y `unidades/unidad7/material.html` responden desde GitHub Pages con la ruta HTML interna.
+
 ## 2026-05-23 - Reset contra cache de acceso viejo
 
 - Problema reportado: el sitio muestra una pantalla que solo pide contrasena y responde "Contrasena incorrecta para el paquete de datos publicado" al usar `123456`.
