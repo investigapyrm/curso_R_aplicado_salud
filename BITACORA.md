@@ -1,5 +1,12 @@
 # Bitácora
 
+## 2026-05-27 - Corrección URL Apps Script práctica inicial
+
+- Problema reportado: la práctica inicial mostraba `No se pudo contactar Apps Script` y usaba datos locales del navegador.
+- Se cambio `initialPracticeAppsScriptUrl` al deployment funcional `AKfycbzh9lWdhd7KrDzJX1TULGDZkNCg7Vj_DlbVzPkKNnINVhN2bp-dB9iSYOpogLI509Z8`.
+- Se verifico que `action=ping` y `action=list` respondan `status: ok` desde el endpoint nuevo.
+- Se actualizo cache/versionado a `2026.05.27.13`.
+
 ## 2026-05-27 - Práctica inicial con QR y tablero vivo
 
 - Se agrego `practica_inicial/index.html`, una miniapp de aula con cuestionario de variables basicas de salud, QR proyectable, tablero global, filtros, tabla ordenable y exportaciones Word/Excel.

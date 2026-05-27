@@ -1,6 +1,6 @@
 window.RSALUD_CONFIG = {
   appName: 'R aplicado a la salud',
-  appVersion: '2026.05.27.12',
+  appVersion: '2026.05.27.13',
   repositoryUrl: 'https://github.com/investigapyrm/curso_R_aplicado_salud',
   pagesUrl: 'https://investigapyrm.github.io/curso_R_aplicado_salud/',
   sheetId: '1mlgNE-pDQZuAuUNj524dHn-zF9cbYvv6a6shvTDDtTg',
@@ -10,7 +10,7 @@ window.RSALUD_CONFIG = {
   initialPracticeSheetId: '1PtQGtn_ex9ShQxu9p5YVXFFZd6FGz3N5aLjv9p9uoqY',
   initialPracticeSheetUrl: 'https://docs.google.com/spreadsheets/d/1PtQGtn_ex9ShQxu9p5YVXFFZd6FGz3N5aLjv9p9uoqY/edit?usp=sharing',
   initialPracticeScriptId: '17Ho4J01DzdV3KDiFdmDvpEcG9gRUusrCjlHTvs6RarORPSCw2rvFoWjW',
-  initialPracticeAppsScriptUrl: 'https://script.google.com/macros/s/AKfycbx6IjEOn96WNaEPvpNsyIx2niAGOq_XDULMHTvOXxEs37_NtCGoVDfSf9e_Lwa9OHIw/exec',
+  initialPracticeAppsScriptUrl: 'https://script.google.com/macros/s/AKfycbzh9lWdhd7KrDzJX1TULGDZkNCg7Vj_DlbVzPkKNnINVhN2bp-dB9iSYOpogLI509Z8/exec',
   driveFolderId: '1g5rmr_z3wo2JbkPD4GGl3EhvC-Jq1E6v',
   driveFolderUrl: 'https://drive.google.com/drive/folders/1g5rmr_z3wo2JbkPD4GGl3EhvC-Jq1E6v',
   rpubsReference: 'https://rpubs.com/diegomeza/inferencia_con_R',
