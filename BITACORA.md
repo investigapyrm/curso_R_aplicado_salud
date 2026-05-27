@@ -1,5 +1,14 @@
 # Bitácora
 
+## 2026-05-27 - Scroll libre y paneles redimensionables
+
+- Problema reportado: la navegacion con scroll fallaba en varias zonas y el usuario necesitaba ajustar anchos estirando bloques.
+- Se habilito scroll vertical natural en modo unidad, evitando que `body`, `main-content` o `page-content` bloqueen el desplazamiento.
+- Se agregaron manijas de arrastre para ajustar el ancho del panel derecho de unidad y del panel de lista de recursos.
+- Se guardan los anchos elegidos en el navegador para conservar la preferencia.
+- Se habilito `resize` y `overflow:auto` en bloques de contenido, tarjetas, lectores y paneles principales.
+- Se actualizo cache/versionado a `2026.05.27.9`.
+
 ## 2026-05-27 - Imagenes editoriales integradas por unidad
 
 - Se incorporaron las 19 imagenes del paquete `curso_r_salud_19_imagenes.zip` como WebP optimizados en `recursos/imagenes/unidad1..8/`.

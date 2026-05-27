@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="css/styles-template.css?v=20260527-8">
+    <link rel="stylesheet" href="css/styles-template.css?v=20260527-9">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
 </head>
@@ -247,7 +247,7 @@
 
         const NOTEBOOKLM_INDEX_URL = 'recursos/notebooklm/indice.json';
         const NOTEBOOK_CONTENT_URL = 'recursos/notebooklm/contenido_fichas.json';
-        const APP_VERSION = 'r-salud-template-20260527-8';
+        const APP_VERSION = 'r-salud-template-20260527-9';
 
         const NOTEBOOK_STAGE_CONFIG = [
             {
@@ -1100,6 +1100,7 @@
         function showUnit(n) {
             document.body.classList.add('unit-workspace-mode');
             syncUnitPanelState();
+            syncResizablePanelWidths();
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             document.getElementById(`nav-u${n}`)?.classList.add('active');
             STATE.currentUnit = n;
@@ -1124,6 +1125,68 @@
             const collapsed = !document.body.classList.contains('unit-panel-collapsed');
             document.body.classList.toggle('unit-panel-collapsed', collapsed);
             localStorage.setItem('rSaludUnitPanelCollapsed', collapsed ? '1' : '0');
+        }
+
+        function clampNumber(value, min, max) {
+            return Math.max(min, Math.min(max, Number(value) || min));
+        }
+
+        function syncResizablePanelWidths() {
+            const unitWidth = clampNumber(localStorage.getItem('rSaludUnitPanelWidth') || 300, 230, Math.min(560, Math.round(window.innerWidth * 0.48)));
+            const resourceWidth = clampNumber(localStorage.getItem('rSaludResourceListWidth') || 270, 210, Math.min(520, Math.round(window.innerWidth * 0.45)));
+            document.documentElement.style.setProperty('--unit-panel-width', `${unitWidth}px`);
+            document.documentElement.style.setProperty('--resource-list-width', `${resourceWidth}px`);
+        }
+
+        function startUnitPanelResize(event) {
+            event.preventDefault();
+            const panel = document.querySelector('.unit-right-panel');
+            if (!panel) return;
+            const startX = event.clientX;
+            const startWidth = panel.getBoundingClientRect().width;
+            const maxWidth = Math.min(620, Math.round(window.innerWidth * 0.56));
+            event.currentTarget.setPointerCapture?.(event.pointerId);
+            document.body.classList.add('is-resizing-panel');
+            const onMove = moveEvent => {
+                const width = clampNumber(startWidth - (moveEvent.clientX - startX), 230, maxWidth);
+                document.documentElement.style.setProperty('--unit-panel-width', `${width}px`);
+                localStorage.setItem('rSaludUnitPanelWidth', String(Math.round(width)));
+            };
+            const onUp = () => {
+                document.body.classList.remove('is-resizing-panel');
+                window.removeEventListener('pointermove', onMove);
+                window.removeEventListener('pointerup', onUp);
+                window.removeEventListener('pointercancel', onUp);
+            };
+            window.addEventListener('pointermove', onMove);
+            window.addEventListener('pointerup', onUp, { once: true });
+            window.addEventListener('pointercancel', onUp, { once: true });
+        }
+
+        function startResourceListResize(event) {
+            event.preventDefault();
+            const workspace = event.currentTarget.closest('.resource-workspace');
+            const panel = workspace?.querySelector('.resource-list-panel');
+            if (!workspace || !panel) return;
+            const startX = event.clientX;
+            const startWidth = panel.getBoundingClientRect().width;
+            const maxWidth = Math.min(620, Math.round(window.innerWidth * 0.52));
+            event.currentTarget.setPointerCapture?.(event.pointerId);
+            document.body.classList.add('is-resizing-panel');
+            const onMove = moveEvent => {
+                const width = clampNumber(startWidth + (moveEvent.clientX - startX), 210, maxWidth);
+                document.documentElement.style.setProperty('--resource-list-width', `${width}px`);
+                localStorage.setItem('rSaludResourceListWidth', String(Math.round(width)));
+            };
+            const onUp = () => {
+                document.body.classList.remove('is-resizing-panel');
+                window.removeEventListener('pointermove', onMove);
+                window.removeEventListener('pointerup', onUp);
+                window.removeEventListener('pointercancel', onUp);
+            };
+            window.addEventListener('pointermove', onMove);
+            window.addEventListener('pointerup', onUp, { once: true });
+            window.addEventListener('pointercancel', onUp, { once: true });
         }
 
         function openIntegratedToolInUnit(unitNum = 1, microKind = 'simulator') {
@@ -1566,6 +1629,7 @@
             ${resources.map((resource, index) => resourceButtonHTML(resource, index, unit, kind)).join('')}
           </div>
         </aside>
+        <div class="resource-resize-handle" role="separator" aria-orientation="vertical" title="Arrastrar para ajustar ancho" onpointerdown="startResourceListResize(event)"></div>
         <section class="resource-reader-panel">
           <div class="resource-reader-toolbar">
             <div>
@@ -4769,6 +4833,7 @@
         <div id="unitTabContent"></div>
       </main>
       <aside class="unit-right-panel" aria-label="Navegacion de unidad">
+        <div class="unit-panel-resize-handle" role="separator" aria-orientation="vertical" title="Arrastrar para ajustar ancho" onpointerdown="startUnitPanelResize(event)"></div>
         <div class="unit-panel-title">
           <span>${escapeHtml(unit.code || `Unidad ${n}`)}</span>
           <strong>${escapeHtml(unit.title)}</strong>
