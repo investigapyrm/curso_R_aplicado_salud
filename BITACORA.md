@@ -1,5 +1,16 @@
 # Bitácora
 
+## 2026-05-27 - Panel lateral plegable en unidades
+
+- Problema reportado: la vista de unidad seguia perdiendo demasiado espacio con acciones superiores, tabs, subniveles y lista de pasos antes del contenido.
+- Se reorganizo la vista en un area principal de contenido y un panel lateral derecho.
+- El panel lateral agrupa Inicio, Ruta, Materiales, Actividades, Practica, Quiz, Recursos e Info, mas el avance, subniveles y pasos cuando se esta en Ruta.
+- Se agrego un boton `Panel` para ocultar o mostrar el lateral; la preferencia queda guardada en el navegador.
+- Se ocultaron titulo y acciones de la barra superior dentro de las unidades para liberar altura util.
+- La ficha activa, recursos embebidos y lector mantienen scroll interno sin forzar desplazamiento vertical general.
+- Se corrigieron etiquetas residuales de Recursos NLM que aun llamaban `JSON` a materiales HTML internos.
+- Se actualizo cache/versionado a `2026.05.27.6`.
+
 ## 2026-05-27 - Scroll interno y recursos integrados solo HTML
 
 - Problema reportado: la vista compacta ya no permitia desplazamiento vertical dentro de las fichas, y aun aparecian recursos integrados con aspecto de Word/texto crudo.
