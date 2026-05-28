@@ -1,5 +1,15 @@
 # Bitácora
 
+## 2026-05-28 - Ensayo R particionado y evaluación separada
+
+- Problema reportado: el ensayo R no dejaba ejecutar con claridad y mezclaba codigo, resultados y cuestionario en una sola vista.
+- Se particiono el ensayo en subpartes: leer tabla, revisar campos, pruebas de una muestra, comparacion de grupos y evaluacion.
+- Cada subparte carga un bloque corto de codigo R y el boton ejecuta solo ese paso en WebR.
+- Se agrego un boton de ejecucion junto al editor para correr el codigo ahi mismo.
+- El cuestionario de evaluacion paso a una subvista propia dentro del ensayo.
+- Se agregaron estados de ejecucion mas claros y un mensaje especifico si WebR no puede cargarse por conexion, bloqueo de scripts o vista embebida.
+- Se actualizo cache/versionado a `2026.05.28.2`.
+
 ## 2026-05-28 - Ensayo RStudio/WebR con datos del aula
 
 - Se agrego a la practica inicial una pestaña `Ensayo R` que toma los datos del Google Sheet, arma un CSV para R y permite ejecutar pruebas de hipotesis en WebR dentro de la vista.

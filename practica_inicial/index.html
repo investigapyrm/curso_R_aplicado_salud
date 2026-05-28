@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <script src="../config.js?v=20260528-1"></script>
+  <script src="../config.js?v=20260528-2"></script>
   <style>
     :root {
       --ink: #12312c;
@@ -343,6 +343,43 @@
       line-height: 1;
       margin-top: 6px;
     }
+    .analysis-steps {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .analysis-steps button {
+      min-height: 46px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 900;
+      padding: 8px 10px;
+    }
+    .analysis-steps button.active {
+      background: var(--soft);
+      border-color: rgba(17,97,73,0.28);
+      color: var(--green);
+    }
+    .analysis-step-panel {
+      display: none;
+      margin-bottom: 12px;
+    }
+    .analysis-step-panel.active {
+      display: block;
+    }
+    .step-checklist {
+      margin: 10px 0 0;
+      padding-left: 1.2rem;
+    }
+    .step-checklist li {
+      color: var(--muted);
+      line-height: 1.5;
+      margin: 4px 0;
+    }
     .r-lab {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -418,7 +455,7 @@
       .chart-card, .metric, .table-card, .panel, .hero-main { box-shadow: none; break-inside: avoid; margin-bottom: 12px; }
     }
     @media (max-width: 920px) {
-      .hero, .qr-big, .chart-grid, .metric-grid, .form-grid, .analysis-grid, .r-lab { grid-template-columns: 1fr; }
+      .hero, .qr-big, .chart-grid, .metric-grid, .form-grid, .analysis-grid, .analysis-steps, .r-lab { grid-template-columns: 1fr; }
       .tabs { grid-template-columns: 1fr; }
       .filters input, .filters select { width: 100%; }
     }
@@ -597,10 +634,11 @@
             <p class="mini-note">La app lee la hoja en linea, arma un CSV para R y completa con datos simulados cuando todavía hay pocas respuestas. Es un ensayo didáctico, no un diagnóstico clínico.</p>
           </div>
           <div class="actions">
-            <button class="btn" id="runRButton">Ejecutar análisis en R</button>
-            <button class="btn secondary" id="refreshAnalysisButton">Actualizar desde Sheet</button>
-            <button class="btn secondary" id="seedLocalButton">Usar muestra simulada local</button>
-            <button class="btn secondary" id="seedSheetButton">Guardar muestra simulada en Sheet</button>
+            <button class="btn" id="runRButton" type="button">Ejecutar paso en R</button>
+            <button class="btn secondary" id="refreshAnalysisButton" type="button">Actualizar desde Sheet</button>
+            <button class="btn secondary" id="seedLocalButton" type="button">Usar muestra simulada local</button>
+            <button class="btn secondary" id="seedSheetButton" type="button">Guardar muestra simulada en Sheet</button>
+            <a class="btn secondary" href="index.html#analysis" target="_blank" rel="noopener">Pantalla completa</a>
           </div>
           <div class="status" id="analysisStatus">Abre esta pestaña para preparar el ensayo con R.</div>
         </section>
@@ -611,18 +649,35 @@
         </section>
       </div>
 
-      <section class="r-lab">
+      <nav class="analysis-steps" aria-label="Partes del ensayo con R">
+        <button class="active" type="button" data-analysis-step="read">1. Leer tabla</button>
+        <button type="button" data-analysis-step="fields">2. Revisar campos</button>
+        <button type="button" data-analysis-step="one">3. Una muestra</button>
+        <button type="button" data-analysis-step="groups">4. Grupos</button>
+        <button type="button" data-analysis-step="quiz">5. Evaluación</button>
+      </nav>
+
+      <section class="panel analysis-step-panel active" id="analysisStepPanel">
+        <span class="eyebrow" id="analysisStepEyebrow">Parte 1</span>
+        <h3 id="analysisStepTitle">Leer la tabla</h3>
+        <p class="mini-note" id="analysisStepText"></p>
+        <ul class="step-checklist" id="analysisStepChecklist"></ul>
+      </section>
+
+      <section class="r-lab" id="analysisWorkbench">
         <div class="panel">
           <h3>Código R editable</h3>
           <textarea class="r-editor" id="rCodeEditor" spellcheck="false"></textarea>
           <div class="actions" style="margin-top:10px">
-            <button class="btn secondary" id="copyRButton">Copiar código</button>
-            <button class="btn secondary" id="downloadCsvButton">Bajar CSV del ensayo</button>
+            <button class="btn" id="runStepInlineButton" type="button">Ejecutar este código</button>
+            <button class="btn secondary" id="resetStepCodeButton" type="button">Restaurar código del paso</button>
+            <button class="btn secondary" id="copyRButton" type="button">Copiar código</button>
+            <button class="btn secondary" id="downloadCsvButton" type="button">Bajar CSV del ensayo</button>
           </div>
         </div>
         <div class="panel">
           <h3>Salida de R</h3>
-          <pre class="r-output" id="rOutput">Pulsa “Ejecutar análisis en R” para cargar WebR y correr el script.</pre>
+          <pre class="r-output" id="rOutput">Pulsa “Ejecutar paso en R” o “Ejecutar este código” para cargar WebR y correr el script.</pre>
         </div>
       </section>
 
@@ -631,12 +686,12 @@
         <p class="mini-note">Todavía no se ejecutó el análisis.</p>
       </section>
 
-      <div class="actions" style="margin-bottom:12px">
-        <button class="btn" id="printAnalysisButton">Imprimir reporte</button>
-        <button class="btn secondary" id="wordAnalysisButton">Informe Word del ensayo</button>
+      <div class="actions" id="analysisReportActions" style="margin-bottom:12px">
+        <button class="btn" id="printAnalysisButton" type="button">Imprimir reporte</button>
+        <button class="btn secondary" id="wordAnalysisButton" type="button">Informe Word del ensayo</button>
       </div>
 
-      <section class="panel quiz-card">
+      <section class="panel quiz-card analysis-step-panel" id="analysisQuizPanel">
         <span class="eyebrow">Chequeo rápido</span>
         <h3>¿Qué captaste del ensayo?</h3>
         <p>Responde y recibe puntaje inmediato con retroalimentación.</p>
@@ -680,6 +735,7 @@
       sortDir: 'desc',
       analysisRows: [],
       analysisMeta: { real: 0, simulated: 0 },
+      analysisStep: 'read',
       webR: null,
       webRReady: false
     };
@@ -706,6 +762,39 @@
       'fuma',
       'origen'
     ];
+
+    const ANALYSIS_STEPS = {
+      read: {
+        eyebrow: 'Parte 1',
+        title: 'Leer la tabla desde la hoja',
+        text: 'R recibe un CSV creado a partir de las respuestas del aula. El primer objetivo es comprobar que la tabla existe, contar filas y mirar las primeras observaciones.',
+        checklist: ['Confirmar n de filas y columnas.', 'Ver los nombres de campos.', 'Distinguir respuestas reales y simuladas.']
+      },
+      fields: {
+        eyebrow: 'Parte 2',
+        title: 'Revisar campos y calidad mínima',
+        text: 'Antes de hacer inferencia, R convierte variables numéricas y revisa campos faltantes, tipos de variables y distribuciones básicas.',
+        checklist: ['Convertir IMC, edad, peso, estatura y sueño a números.', 'Revisar valores faltantes por campo.', 'Construir tablas simples de categorías.']
+      },
+      one: {
+        eyebrow: 'Parte 3',
+        title: 'Pruebas para un solo grupo',
+        text: 'Con una sola muestra se puede comparar una media observada contra un valor de referencia y una proporción observada contra una proporción esperada.',
+        checklist: ['t de una muestra: IMC medio contra 25.', 'Prueba de proporción: IMC normal contra 50%.', 'Leer p-valor junto con intervalo de confianza.']
+      },
+      groups: {
+        eyebrow: 'Parte 4',
+        title: 'Comparar grupos y categorías',
+        text: 'Ahora R compara IMC entre dos grupos y explora asociación entre categorías como IMC y actividad física.',
+        checklist: ['Comparar medias por sexo registrado.', 'Ejecutar t de Student para dos grupos cuando existan.', 'Aplicar chi-cuadrado simulado para tablas categóricas.']
+      },
+      quiz: {
+        eyebrow: 'Parte 5',
+        title: 'Evaluación rápida del ensayo',
+        text: 'El cuestionario queda separado del código para que el estudiante cierre la práctica verificando qué entendió.',
+        checklist: ['Responder sin mirar solo el p-valor.', 'Revisar retroalimentación.', 'Reintentar si el puntaje queda bajo.']
+      }
+    };
 
     const fields = [
       ['fecha_hora', 'Fecha'],
@@ -1166,7 +1255,7 @@
         simulated: state.analysisRows.filter(row => row.origen === 'simulado').length
       };
       renderAnalysisKpis();
-      $('rCodeEditor').value = $('rCodeEditor').value.trim() ? $('rCodeEditor').value : analysisRCode();
+      if (!$('rCodeEditor').value.trim()) $('rCodeEditor').value = analysisRCode(state.analysisStep);
       return state.analysisRows;
     }
     async function prepareAnalysis() {
@@ -1182,6 +1271,7 @@
         setStatus('analysisStatus', `${error.message} Se preparo el ensayo con datos locales y simulados.`, 'error');
       }
       renderAnalysisReport('');
+      selectAnalysisStep(state.analysisStep, true);
     }
     function renderAnalysisKpis() {
       const rows = state.analysisRows;
@@ -1211,7 +1301,7 @@
         ...rows.map(row => ANALYSIS_FIELDS.map(key => csvEscape(row[key])).join(','))
       ].join('\n');
     }
-    function analysisRCode() {
+    function analysisPrelude() {
       const sheetCsv = `https://docs.google.com/spreadsheets/d/${window.RSALUD_CONFIG?.initialPracticeSheetId || '1PtQGtn_ex9ShQxu9p5YVXFFZd6FGz3N5aLjv9p9uoqY'}/gviz/tq?tqx=out:csv&sheet=RESPUESTAS`;
       return `# Ensayo RStudio/WebR: datos de salud recolectados en el aula
 # En esta consola, la app descarga la hoja Google Sheet via Apps Script
@@ -1229,6 +1319,67 @@ datos$horas_sueno <- as.numeric(datos$horas_sueno)
 mostrar <- function(expr) {
   tryCatch(print(expr), error = function(e) cat("No se pudo ejecutar:", conditionMessage(e), "\\n"))
 }
+`;
+    }
+    function analysisRCode(step = state.analysisStep) {
+      const prelude = analysisPrelude();
+      const codes = {
+        read: `${prelude}
+cat("PARTE 1: LEER LA TABLA\\n")
+cat("Filas:", nrow(datos), " | Columnas:", ncol(datos), "\\n\\n")
+cat("Campos disponibles:\\n")
+print(names(datos))
+cat("\\nPrimeras filas:\\n")
+print(head(datos, 8))
+cat("\\nOrigen de los datos:\\n")
+print(table(datos$origen))
+`,
+        fields: `${prelude}
+cat("PARTE 2: REVISAR CAMPOS\\n")
+cat("Estructura general:\\n")
+str(datos)
+cat("\\nFaltantes por campo:\\n")
+print(sort(colSums(is.na(datos) | datos == ""), decreasing = TRUE))
+cat("\\nResumen numerico:\\n")
+print(summary(datos[, c("edad", "estatura_cm", "peso_kg", "imc", "horas_sueno")]))
+cat("\\nTablas de categorias:\\n")
+print(table(datos$categoria_imc, useNA = "ifany"))
+print(table(datos$actividad_fisica, useNA = "ifany"))
+print(table(datos$sexo, useNA = "ifany"))
+`,
+        one: `${prelude}
+cat("PARTE 3: PRUEBAS PARA UN SOLO GRUPO\\n")
+cat("Pregunta A: ¿el IMC medio difiere de 25?\\n")
+mostrar(t.test(datos$imc, mu = 25))
+
+cat("\\nPregunta B: ¿la proporcion con IMC normal difiere de 50%?\\n")
+normal <- sum(datos$categoria_imc == "Normal", na.rm = TRUE)
+total_imc <- sum(datos$categoria_imc != "" & !is.na(datos$categoria_imc))
+cat("Normal:", normal, "de", total_imc, "\\n")
+mostrar(prop.test(normal, total_imc, p = 0.50, correct = FALSE))
+`,
+        groups: `${prelude}
+cat("PARTE 4: COMPARAR GRUPOS\\n")
+cat("IMC medio por sexo registrado:\\n")
+dos_grupos <- subset(datos, sexo %in% c("Femenino", "Masculino") & !is.na(imc))
+print(aggregate(imc ~ sexo, dos_grupos, function(x) c(n = length(x), media = mean(x))))
+if (length(unique(dos_grupos$sexo)) == 2) {
+  cat("\\nPrueba t para IMC por sexo registrado:\\n")
+  mostrar(t.test(imc ~ sexo, data = dos_grupos))
+} else {
+  cat("Faltan dos grupos con datos para ejecutar esta comparacion.\\n")
+}
+
+cat("\\nAsociacion entre categoria IMC y actividad fisica:\\n")
+tab <- table(datos$categoria_imc, datos$actividad_fisica)
+print(tab)
+if (all(dim(tab) > 1)) {
+  mostrar(chisq.test(tab, simulate.p.value = TRUE, B = 2000))
+} else {
+  cat("Faltan categorias para chi-cuadrado.\\n")
+}
+`,
+        all: `${prelude}
 
 cat("DATOS DEL ENSAYO\\n")
 cat("Filas:", nrow(datos), "\\n")
@@ -1268,14 +1419,42 @@ if (all(dim(tab) > 1)) {
 cat("\\nLECTURA RAPIDA\\n")
 cat("- p < 0.05 sugiere diferencia/asociacion estadistica en este ensayo.\\n")
 cat("- Siempre mirar n, medias, intervalos de confianza y si hay datos simulados.\\n")
-cat("- Estos datos son didacticos: no equivalen a evidencia clinica real.\\n")`;
+cat("- Estos datos son didacticos: no equivalen a evidencia clinica real.\\n")`
+      };
+      return codes[step] || codes.read;
+    }
+    function selectAnalysisStep(step, keepCode = false) {
+      state.analysisStep = ANALYSIS_STEPS[step] ? step : 'read';
+      const info = ANALYSIS_STEPS[state.analysisStep];
+      document.querySelectorAll('[data-analysis-step]').forEach(button => {
+        button.classList.toggle('active', button.dataset.analysisStep === state.analysisStep);
+      });
+      $('analysisStepPanel').classList.toggle('active', state.analysisStep !== 'quiz');
+      $('analysisQuizPanel').classList.toggle('active', state.analysisStep === 'quiz');
+      $('analysisWorkbench').style.display = state.analysisStep === 'quiz' ? 'none' : '';
+      $('analysisReport').style.display = state.analysisStep === 'quiz' ? 'none' : '';
+      $('analysisReportActions').style.display = state.analysisStep === 'quiz' ? 'none' : '';
+      $('runRButton').style.display = state.analysisStep === 'quiz' ? 'none' : '';
+      $('runStepInlineButton').style.display = state.analysisStep === 'quiz' ? 'none' : '';
+      $('analysisStepEyebrow').textContent = info.eyebrow;
+      $('analysisStepTitle').textContent = info.title;
+      $('analysisStepText').textContent = info.text;
+      $('analysisStepChecklist').innerHTML = info.checklist.map(item => `<li>${escapeHtml(item)}</li>`).join('');
+      if (state.analysisStep !== 'quiz' && !keepCode) {
+        $('rCodeEditor').value = analysisRCode(state.analysisStep);
+        $('rOutput').textContent = `Código listo para: ${info.title}. Pulsa “Ejecutar paso en R”.`;
+      }
     }
     async function ensureAnalysisR() {
       if (state.webRReady) return;
       setStatus('analysisStatus', 'Cargando WebR en el navegador...', 'loading');
-      const { WebR, ChannelType } = await import('https://webr.r-wasm.org/latest/webr.mjs');
-      state.webR = new WebR({ channelType: ChannelType.PostMessage });
-      await state.webR.init();
+      try {
+        const { WebR, ChannelType } = await import('https://webr.r-wasm.org/latest/webr.mjs');
+        state.webR = new WebR({ channelType: ChannelType.PostMessage });
+        await state.webR.init();
+      } catch (error) {
+        throw new Error(`No se pudo cargar WebR. Revisa conexion, bloqueo de scripts o abre la practica en pantalla completa. Detalle: ${error.message || error}`);
+      }
       try { await state.webR.FS.mkdir('/data'); } catch (error) {}
       state.webRReady = true;
       setStatus('analysisStatus', 'WebR listo para ejecutar el ensayo.', 'ok');
@@ -1304,16 +1483,25 @@ paste(.__curso_output, collapse = "\\n")
       return text;
     }
     async function runAnalysisR() {
+      if (state.analysisStep === 'quiz') return;
       if (!state.analysisRows.length) buildAnalysisDataset();
-      $('rOutput').textContent = 'Ejecutando R...';
+      const runButton = $('runRButton');
+      const inlineRunButton = $('runStepInlineButton');
+      runButton.disabled = true;
+      inlineRunButton.disabled = true;
+      $('rOutput').textContent = 'Ejecutando R... La primera carga de WebR puede tardar unos segundos.';
+      setStatus('analysisStatus', `Ejecutando ${ANALYSIS_STEPS[state.analysisStep].title}...`, 'loading');
       try {
         const output = await runRCode($('rCodeEditor').value);
         $('rOutput').textContent = output || '(sin salida)';
         renderAnalysisReport(output || '');
-        setStatus('analysisStatus', 'Analisis ejecutado. Revisa salida y reporte.', 'ok');
+        setStatus('analysisStatus', 'Paso ejecutado. Revisa salida y reporte.', 'ok');
       } catch (error) {
         $('rOutput').textContent = error && error.stack ? error.stack : String(error);
         setStatus('analysisStatus', 'No se pudo ejecutar WebR.', 'error');
+      } finally {
+        runButton.disabled = false;
+        inlineRunButton.disabled = false;
       }
     }
     function renderAnalysisReport(rOutput = '') {
@@ -1422,8 +1610,13 @@ paste(.__curso_output, collapse = "\\n")
     $('excelButton').addEventListener('click', exportExcel);
     $('refreshAnalysisButton').addEventListener('click', prepareAnalysis);
     $('runRButton').addEventListener('click', runAnalysisR);
+    $('runStepInlineButton').addEventListener('click', runAnalysisR);
     $('seedLocalButton').addEventListener('click', seedLocalSimulation);
     $('seedSheetButton').addEventListener('click', seedSheetSimulation);
+    document.querySelectorAll('[data-analysis-step]').forEach(button => {
+      button.addEventListener('click', () => selectAnalysisStep(button.dataset.analysisStep));
+    });
+    $('resetStepCodeButton').addEventListener('click', () => selectAnalysisStep(state.analysisStep));
     $('copyRButton').addEventListener('click', () => navigator.clipboard?.writeText($('rCodeEditor').value));
     $('downloadCsvButton').addEventListener('click', () => downloadBlob(analysisCsv(), 'practica_inicial_ensayo.csv', 'text/csv;charset=utf-8'));
     $('printAnalysisButton').addEventListener('click', () => window.print());
