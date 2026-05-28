@@ -29,7 +29,7 @@ Guiar a una persona sin experiencia previa desde la instalación de R y RStudio 
 - Ruta secuencial con unidades, subniveles, bloqueos pedagógicos y productos.
 - Dashboard principal migrado desde la plantilla funcional del curso ejemplo, con sidebar, topbar, logros, calendario, comunidad, administración y tarjetas de seguimiento.
 - Unidad activa tipo presentación interactiva: diapositivas con transición, concepto, caso clínico, código R ejecutable en WebR, evidencia y foro por subnivel.
-- Práctica inicial con QR: cuestionario de variables básicas de salud, Google Sheet conectado, tablero global, filtros, tabla ordenable y exportaciones Word/Excel.
+- Práctica inicial con QR: cuestionario de variables básicas de salud, Google Sheet conectado, tablero global, ensayo RStudio/WebR con pruebas de hipótesis, quiz, filtros, tabla ordenable y exportaciones Word/Excel.
 - Prácticas guiadas con 8 laboratorios WebR y 24 subniveles paso a paso sobre datos de salud.
 - Recursos NotebookLM integrados como fuente canonica: 9 Google Docs, indice JSON local y fichas resumidas para diapositivas.
 - Flashcards y clasificadores interactivos para repaso activo antes de cuestionarios.

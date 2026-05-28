@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <script src="../config.js?v=20260527-13"></script>
+  <script src="../config.js?v=20260528-1"></script>
   <style>
     :root {
       --ink: #12312c;
@@ -308,14 +308,117 @@
       font-size: 0.86rem;
       line-height: 1.45;
     }
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .analysis-card {
+      display: grid;
+      gap: 12px;
+    }
+    .analysis-kpis {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .analysis-kpis div {
+      background: #f8fbfa;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+    }
+    .analysis-kpis span {
+      color: var(--muted);
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+    .analysis-kpis strong {
+      color: var(--teal);
+      display: block;
+      font-size: 1.65rem;
+      line-height: 1;
+      margin-top: 6px;
+    }
+    .r-lab {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .r-editor,
+    .r-output {
+      min-height: 430px;
+      resize: vertical;
+      overflow: auto;
+      border-radius: 10px;
+      font-family: Consolas, "Liberation Mono", monospace;
+      font-size: 0.86rem;
+      line-height: 1.55;
+      padding: 14px;
+    }
+    .r-editor {
+      width: 100%;
+      border: 1px solid #123f34;
+      background: #102b25;
+      color: #e6fff7;
+      outline: none;
+    }
+    .r-output {
+      border: 1px solid #263244;
+      background: #111827;
+      color: #e5e7eb;
+      white-space: pre-wrap;
+    }
+    .report-box {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .report-box h3,
+    .quiz-card h3 {
+      margin: 0;
+    }
+    .report-box ul {
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+    .report-box li,
+    .quiz-card p {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .quiz-grid {
+      display: grid;
+      gap: 10px;
+    }
+    .quiz-item {
+      background: #f8fbfa;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+    }
+    .quiz-item strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+    .quiz-item label {
+      color: var(--ink);
+      display: block;
+      font-weight: 700;
+      margin: 6px 0;
+    }
     @media print {
-      .tabs, .hero-actions, .filters, .actions, .btn, .qr-card { display: none !important; }
+      .tabs, .hero-actions, .filters, .actions, .btn, .qr-card, .r-lab, .quiz-card { display: none !important; }
       body { background: #fff; }
-      .hero, .chart-grid, .metric-grid { display: block; }
+      .hero, .chart-grid, .metric-grid, .analysis-grid { display: block; }
       .chart-card, .metric, .table-card, .panel, .hero-main { box-shadow: none; break-inside: avoid; margin-bottom: 12px; }
     }
     @media (max-width: 920px) {
-      .hero, .qr-big, .chart-grid, .metric-grid, .form-grid { grid-template-columns: 1fr; }
+      .hero, .qr-big, .chart-grid, .metric-grid, .form-grid, .analysis-grid, .r-lab { grid-template-columns: 1fr; }
       .tabs { grid-template-columns: 1fr; }
       .filters input, .filters select { width: 100%; }
     }
@@ -331,6 +434,7 @@
         <div class="hero-actions">
           <button class="btn" data-tab-target="form">Completar cuestionario</button>
           <button class="btn secondary" data-tab-target="results">Ver resultados</button>
+          <button class="btn secondary" data-tab-target="analysis">Ensayo R</button>
           <button class="btn gold" data-tab-target="qr">Proyectar QR</button>
         </div>
       </div>
@@ -344,6 +448,7 @@
     <nav class="tabs" aria-label="Vistas de la practica">
       <button class="active" data-tab-target="form">Cuestionario</button>
       <button data-tab-target="results">Resultados globales</button>
+      <button data-tab-target="analysis">Ensayo R</button>
       <button data-tab-target="qr">QR para proyectar</button>
     </nav>
 
@@ -483,6 +588,67 @@
       <div class="status" id="resultStatus">Cargando datos...</div>
     </section>
 
+    <section class="view" id="view-analysis">
+      <div class="analysis-grid">
+        <section class="panel analysis-card">
+          <div>
+            <span class="eyebrow">Ensayo RStudio / WebR</span>
+            <h2>Pruebas de hipótesis con los datos del aula</h2>
+            <p class="mini-note">La app lee la hoja en linea, arma un CSV para R y completa con datos simulados cuando todavía hay pocas respuestas. Es un ensayo didáctico, no un diagnóstico clínico.</p>
+          </div>
+          <div class="actions">
+            <button class="btn" id="runRButton">Ejecutar análisis en R</button>
+            <button class="btn secondary" id="refreshAnalysisButton">Actualizar desde Sheet</button>
+            <button class="btn secondary" id="seedLocalButton">Usar muestra simulada local</button>
+            <button class="btn secondary" id="seedSheetButton">Guardar muestra simulada en Sheet</button>
+          </div>
+          <div class="status" id="analysisStatus">Abre esta pestaña para preparar el ensayo con R.</div>
+        </section>
+        <section class="panel analysis-card">
+          <h3>Datos usados por R</h3>
+          <div class="analysis-kpis" id="analysisKpis"></div>
+          <p class="mini-note" id="analysisSourceNote"></p>
+        </section>
+      </div>
+
+      <section class="r-lab">
+        <div class="panel">
+          <h3>Código R editable</h3>
+          <textarea class="r-editor" id="rCodeEditor" spellcheck="false"></textarea>
+          <div class="actions" style="margin-top:10px">
+            <button class="btn secondary" id="copyRButton">Copiar código</button>
+            <button class="btn secondary" id="downloadCsvButton">Bajar CSV del ensayo</button>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Salida de R</h3>
+          <pre class="r-output" id="rOutput">Pulsa “Ejecutar análisis en R” para cargar WebR y correr el script.</pre>
+        </div>
+      </section>
+
+      <section class="panel report-box" id="analysisReport">
+        <h3>Reporte automático</h3>
+        <p class="mini-note">Todavía no se ejecutó el análisis.</p>
+      </section>
+
+      <div class="actions" style="margin-bottom:12px">
+        <button class="btn" id="printAnalysisButton">Imprimir reporte</button>
+        <button class="btn secondary" id="wordAnalysisButton">Informe Word del ensayo</button>
+      </div>
+
+      <section class="panel quiz-card">
+        <span class="eyebrow">Chequeo rápido</span>
+        <h3>¿Qué captaste del ensayo?</h3>
+        <p>Responde y recibe puntaje inmediato con retroalimentación.</p>
+        <form class="quiz-grid" id="analysisQuiz"></form>
+        <div class="actions" style="margin-top:12px">
+          <button class="btn" id="gradeQuizButton" type="button">Corregir cuestionario</button>
+          <button class="btn secondary" id="resetQuizButton" type="button">Reintentar</button>
+        </div>
+        <div class="status" id="quizStatus">Sin responder.</div>
+      </section>
+    </section>
+
     <section class="view" id="view-qr">
       <div class="panel qr-big">
         <img id="qrLarge" alt="Codigo QR grande para proyectar la practica inicial">
@@ -511,8 +677,35 @@
       rows: [],
       filtered: [],
       sortKey: 'fecha_hora',
-      sortDir: 'desc'
+      sortDir: 'desc',
+      analysisRows: [],
+      analysisMeta: { real: 0, simulated: 0 },
+      webR: null,
+      webRReady: false
     };
+
+    const ANALYSIS_MIN_ROWS = 24;
+    const ANALYSIS_FIELDS = [
+      'id',
+      'fecha_hora',
+      'nombre',
+      'edad',
+      'sexo',
+      'semestre',
+      'turno',
+      'estatura_cm',
+      'peso_kg',
+      'imc',
+      'categoria_imc',
+      'presion_sistolica',
+      'presion_diastolica',
+      'frecuencia_cardiaca',
+      'glucosa_mg_dl',
+      'actividad_fisica',
+      'horas_sueno',
+      'fuma',
+      'origen'
+    ];
 
     const fields = [
       ['fecha_hora', 'Fecha'],
@@ -528,6 +721,64 @@
       ['actividad_fisica', 'Actividad'],
       ['horas_sueno', 'Sueño'],
       ['fuma', 'Fuma']
+    ];
+
+    const QUIZ_ITEMS = [
+      {
+        id: 'q1',
+        prompt: '¿Qué significa que R lea un CSV armado desde el Sheet?',
+        options: [
+          ['a', 'Que los datos pueden pasar de una recolección en línea a un objeto analizable.'],
+          ['b', 'Que R cambia automáticamente los valores incorrectos.'],
+          ['c', 'Que ya no hace falta revisar calidad de datos.']
+        ],
+        answer: 'a',
+        feedback: 'Correcto: la conexión es el puente formulario → hoja → objeto de datos en R.'
+      },
+      {
+        id: 'q2',
+        prompt: 'En la prueba t de una muestra del ensayo, ¿cuál es la hipótesis nula?',
+        options: [
+          ['a', 'Que todos tienen el mismo IMC.'],
+          ['b', 'Que el IMC medio de la muestra es igual al valor de referencia usado.'],
+          ['c', 'Que el IMC siempre sigue distribución normal.']
+        ],
+        answer: 'b',
+        feedback: 'Bien: la prueba compara la media observada contra un valor fijo de referencia.'
+      },
+      {
+        id: 'q3',
+        prompt: '¿Para qué sirve comparar IMC entre dos grupos?',
+        options: [
+          ['a', 'Para probar si las medias parecen distintas entre categorías, por ejemplo sexo registrado.'],
+          ['b', 'Para demostrar causalidad clínica definitiva.'],
+          ['c', 'Para reemplazar los gráficos descriptivos.']
+        ],
+        answer: 'a',
+        feedback: 'Exacto: compara patrones entre grupos, pero no demuestra causalidad por sí sola.'
+      },
+      {
+        id: 'q4',
+        prompt: '¿Por qué se agregan datos simulados cuando hay pocas respuestas?',
+        options: [
+          ['a', 'Para practicar el flujo estadístico sin esperar a que todo el curso responda.'],
+          ['b', 'Para ocultar los datos reales.'],
+          ['c', 'Para que el p-valor siempre sea significativo.']
+        ],
+        answer: 'a',
+        feedback: 'Sí: la simulación es un andamio didáctico, separado de la interpretación clínica real.'
+      },
+      {
+        id: 'q5',
+        prompt: 'Si el p-valor es pequeño en este ensayo, ¿qué conviene reportar además?',
+        options: [
+          ['a', 'Solo el p-valor, porque resume todo.'],
+          ['b', 'Media, intervalo de confianza, tamaño muestral y contexto de la muestra.'],
+          ['c', 'El nombre del paquete usado.']
+        ],
+        answer: 'b',
+        feedback: 'Muy bien: el resultado necesita magnitud, incertidumbre y contexto.'
+      }
     ];
 
     function $(id) { return document.getElementById(id); }
@@ -589,11 +840,17 @@
       rows.push(row);
       localStorage.setItem('practicaInicialRows', JSON.stringify(rows.slice(-300)));
     }
+    async function loadRemoteRows(limit = 1000) {
+      const result = await jsonp('list', { limit: String(limit) });
+      if (result.status !== 'ok') throw new Error(result.message || 'No se pudieron leer datos.');
+      return result.items || [];
+    }
     function setTab(name) {
       document.querySelectorAll('[data-tab-target]').forEach(button => button.classList.toggle('active', button.dataset.tabTarget === name));
       document.querySelectorAll('.view').forEach(view => view.classList.toggle('active', view.id === `view-${name}`));
       history.replaceState(null, '', `#${name}`);
       if (name === 'results') refreshData();
+      if (name === 'analysis') prepareAnalysis();
     }
     function setStatus(id, text, type = '') {
       const box = $(id);
@@ -652,9 +909,7 @@
     async function refreshData() {
       setStatus('resultStatus', 'Actualizando tablero...');
       try {
-        const result = await jsonp('list', { limit: '1000' });
-        if (result.status !== 'ok') throw new Error(result.message || 'No se pudieron leer datos.');
-        const merged = [...result.items, ...localRows()];
+        const merged = [...await loadRemoteRows(1000), ...localRows()];
         state.rows = dedupeRows(merged);
         setStatus('resultStatus', `Datos actualizados: ${state.rows.length} respuestas.`, 'ok');
       } catch (error) {
@@ -833,6 +1088,323 @@
       const html = `<!doctype html><html><head><meta charset="utf-8"><title>Informe practica inicial</title></head><body><h1>Informe de practica inicial</h1><p>${escapeHtml(metrics)}</p>${$('dataTable').outerHTML}</body></html>`;
       downloadBlob(html, 'informe_practica_inicial.doc', 'application/msword;charset=utf-8');
     }
+    function coerceAnalysisRow(row, index = 0, origin = 'sheet') {
+      const estatura = num(row.estatura_cm);
+      const peso = num(row.peso_kg);
+      const imc = num(row.imc) || (estatura && peso ? Number((peso / ((estatura / 100) ** 2)).toFixed(1)) : '');
+      const edad = num(row.edad) || ageFromBirth(row.fecha_nacimiento) || '';
+      return {
+        id: row.id || `${origin}-${index + 1}`,
+        fecha_hora: row.fecha_hora || new Date().toISOString(),
+        nombre: row.nombre || `${origin === 'simulado' ? 'Simulado' : 'Estudiante'} ${index + 1}`,
+        edad,
+        sexo: row.sexo || 'Prefiero no responder',
+        semestre: row.semestre || '',
+        turno: row.turno || '',
+        estatura_cm: estatura || '',
+        peso_kg: peso || '',
+        imc,
+        categoria_imc: row.categoria_imc || bmiCategory(imc),
+        presion_sistolica: num(row.presion_sistolica) || '',
+        presion_diastolica: num(row.presion_diastolica) || '',
+        frecuencia_cardiaca: num(row.frecuencia_cardiaca) || '',
+        glucosa_mg_dl: num(row.glucosa_mg_dl) || '',
+        actividad_fisica: row.actividad_fisica || '',
+        horas_sueno: num(row.horas_sueno) || '',
+        fuma: row.fuma || '',
+        origen: origin
+      };
+    }
+    function makeSimulatedRows(total = ANALYSIS_MIN_ROWS) {
+      const sex = ['Femenino', 'Masculino'];
+      const turns = ['Mañana', 'Tarde', 'Noche'];
+      const activities = ['Baja', 'Moderada', 'Alta'];
+      const rows = [];
+      for (let i = 0; i < total; i++) {
+        const edad = 19 + (i % 17);
+        const sexo = sex[i % 2];
+        const estatura = sexo === 'Femenino' ? 154 + (i * 3 % 22) : 164 + (i * 4 % 24);
+        const imcBase = 21.4 + (i % 6) * 0.9 + (sexo === 'Masculino' ? 0.8 : 0);
+        const imc = Number((imcBase + (i % 5 === 0 ? 3.2 : 0) - (i % 7 === 0 ? 1.4 : 0)).toFixed(1));
+        const peso = Number((imc * ((estatura / 100) ** 2)).toFixed(1));
+        rows.push(coerceAnalysisRow({
+          id: `sim-ensayo-r-${String(i + 1).padStart(2, '0')}`,
+          fecha_hora: new Date(Date.UTC(2026, 4, 28, 12, i)).toISOString(),
+          nombre: `Caso simulado ${i + 1}`,
+          edad,
+          sexo,
+          semestre: String(1 + (i % 6)),
+          turno: turns[i % turns.length],
+          estatura_cm: estatura,
+          peso_kg: peso,
+          imc,
+          categoria_imc: bmiCategory(imc),
+          presion_sistolica: 106 + (i % 9) * 3 + (imc > 27 ? 8 : 0),
+          presion_diastolica: 66 + (i % 7) * 2 + (imc > 27 ? 4 : 0),
+          frecuencia_cardiaca: 62 + (i % 12),
+          glucosa_mg_dl: 78 + (i % 10) * 4 + (imc > 27 ? 10 : 0),
+          actividad_fisica: activities[(i + (imc > 27 ? 0 : 1)) % activities.length],
+          horas_sueno: 5.5 + (i % 6) * 0.5,
+          fuma: i % 8 === 0 ? 'Si' : (i % 5 === 0 ? 'Exfumador/a' : 'No')
+        }, i, 'simulado'));
+      }
+      return rows;
+    }
+    function buildAnalysisDataset() {
+      const real = dedupeRows(state.rows).map((row, index) => {
+        const origin = row.origen === 'simulado' || String(row.id || '').startsWith('sim-ensayo-r-') ? 'simulado' : 'sheet';
+        return coerceAnalysisRow(row, index, origin);
+      });
+      const realIds = new Set(real.map(row => row.id));
+      const needed = Math.max(0, ANALYSIS_MIN_ROWS - real.length);
+      const simulated = makeSimulatedRows(ANALYSIS_MIN_ROWS)
+        .filter(row => !realIds.has(row.id))
+        .slice(0, needed);
+      state.analysisRows = [...real, ...simulated];
+      state.analysisMeta = {
+        real: real.filter(row => row.origen !== 'simulado').length,
+        simulated: state.analysisRows.filter(row => row.origen === 'simulado').length
+      };
+      renderAnalysisKpis();
+      $('rCodeEditor').value = $('rCodeEditor').value.trim() ? $('rCodeEditor').value : analysisRCode();
+      return state.analysisRows;
+    }
+    async function prepareAnalysis() {
+      renderQuiz();
+      setStatus('analysisStatus', 'Leyendo respuestas desde Google Sheet...');
+      try {
+        state.rows = dedupeRows([...await loadRemoteRows(1000), ...localRows()]);
+        buildAnalysisDataset();
+        setStatus('analysisStatus', `Ensayo listo: ${state.analysisMeta.real} reales y ${state.analysisMeta.simulated} simulados.`, 'ok');
+      } catch (error) {
+        state.rows = localRows();
+        buildAnalysisDataset();
+        setStatus('analysisStatus', `${error.message} Se preparo el ensayo con datos locales y simulados.`, 'error');
+      }
+      renderAnalysisReport('');
+    }
+    function renderAnalysisKpis() {
+      const rows = state.analysisRows;
+      const normal = rows.filter(row => row.categoria_imc === 'Normal').length;
+      const female = rows.filter(row => row.sexo === 'Femenino');
+      const male = rows.filter(row => row.sexo === 'Masculino');
+      $('analysisKpis').innerHTML = [
+        ['n total', rows.length, 'filas para R'],
+        ['reales', state.analysisMeta.real, 'desde Sheet/local'],
+        ['simuladas', state.analysisMeta.simulated, 'solo para ensayo'],
+        ['IMC medio', mean(rows.map(row => row.imc)).toFixed(1), 'kg/m2'],
+        ['IMC normal', `${pct(normal, rows.length)}%`, 'del ensayo'],
+        ['grupos', `${female.length}/${male.length}`, 'F/M']
+      ].map(([label, value, sub]) => `<div><span>${label}</span><strong>${value}</strong><small>${sub}</small></div>`).join('');
+      $('analysisSourceNote').textContent = state.analysisMeta.simulated
+        ? 'La muestra simulada permite practicar pruebas de hipótesis cuando todavía hay pocas respuestas reales. No debe interpretarse como resultado clínico.'
+        : 'El ensayo está usando respuestas reales disponibles en la hoja y en este navegador.';
+    }
+    function csvEscape(value) {
+      const text = String(value ?? '');
+      return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+    }
+    function analysisCsv() {
+      const rows = state.analysisRows.length ? state.analysisRows : buildAnalysisDataset();
+      return [
+        ANALYSIS_FIELDS.join(','),
+        ...rows.map(row => ANALYSIS_FIELDS.map(key => csvEscape(row[key])).join(','))
+      ].join('\n');
+    }
+    function analysisRCode() {
+      const sheetCsv = `https://docs.google.com/spreadsheets/d/${window.RSALUD_CONFIG?.initialPracticeSheetId || '1PtQGtn_ex9ShQxu9p5YVXFFZd6FGz3N5aLjv9p9uoqY'}/gviz/tq?tqx=out:csv&sheet=RESPUESTAS`;
+      return `# Ensayo RStudio/WebR: datos de salud recolectados en el aula
+# En esta consola, la app descarga la hoja Google Sheet via Apps Script
+# y deja una copia CSV disponible para R como /data/practica_inicial.csv.
+# En RStudio local puedes intentar leer la hoja directamente:
+sheet_csv_url <- "${sheetCsv}"
+# datos <- tryCatch(read.csv(sheet_csv_url), error = function(e) read.csv("practica_inicial.csv"))
+
+datos <- read.csv("/data/practica_inicial.csv", stringsAsFactors = FALSE)
+datos$imc <- as.numeric(datos$imc)
+datos$edad <- as.numeric(datos$edad)
+datos$estatura_cm <- as.numeric(datos$estatura_cm)
+datos$peso_kg <- as.numeric(datos$peso_kg)
+datos$horas_sueno <- as.numeric(datos$horas_sueno)
+mostrar <- function(expr) {
+  tryCatch(print(expr), error = function(e) cat("No se pudo ejecutar:", conditionMessage(e), "\\n"))
+}
+
+cat("DATOS DEL ENSAYO\\n")
+cat("Filas:", nrow(datos), "\\n")
+cat("Reales:", sum(datos$origen != "simulado"), " | Simuladas:", sum(datos$origen == "simulado"), "\\n\\n")
+
+cat("RESUMEN DESCRIPTIVO\\n")
+print(summary(datos[, c("edad", "estatura_cm", "peso_kg", "imc", "horas_sueno")]))
+cat("\\nTabla IMC x actividad\\n")
+print(table(datos$categoria_imc, datos$actividad_fisica))
+
+cat("\\n1) UNA MUESTRA: t de Student para IMC medio = 25\\n")
+mostrar(t.test(datos$imc, mu = 25))
+
+cat("\\n2) UNA PROPORCION: porcentaje de IMC normal = 50%\\n")
+normal <- sum(datos$categoria_imc == "Normal", na.rm = TRUE)
+total_imc <- sum(datos$categoria_imc != "" & !is.na(datos$categoria_imc))
+mostrar(prop.test(normal, total_imc, p = 0.50, correct = FALSE))
+
+cat("\\n3) COMPARACION DE GRUPOS: IMC por sexo registrado\\n")
+dos_grupos <- subset(datos, sexo %in% c("Femenino", "Masculino") & !is.na(imc))
+print(aggregate(imc ~ sexo, dos_grupos, mean))
+if (length(unique(dos_grupos$sexo)) == 2) {
+  mostrar(t.test(imc ~ sexo, data = dos_grupos))
+} else {
+  cat("Faltan dos grupos con datos para ejecutar esta comparacion.\\n")
+}
+
+cat("\\n4) ASOCIACION ENTRE CATEGORIAS: IMC y actividad fisica\\n")
+tab <- table(datos$categoria_imc, datos$actividad_fisica)
+print(tab)
+if (all(dim(tab) > 1)) {
+  mostrar(chisq.test(tab, simulate.p.value = TRUE, B = 2000))
+} else {
+  cat("Faltan categorias para chi-cuadrado.\\n")
+}
+
+cat("\\nLECTURA RAPIDA\\n")
+cat("- p < 0.05 sugiere diferencia/asociacion estadistica en este ensayo.\\n")
+cat("- Siempre mirar n, medias, intervalos de confianza y si hay datos simulados.\\n")
+cat("- Estos datos son didacticos: no equivalen a evidencia clinica real.\\n")`;
+    }
+    async function ensureAnalysisR() {
+      if (state.webRReady) return;
+      setStatus('analysisStatus', 'Cargando WebR en el navegador...', 'loading');
+      const { WebR, ChannelType } = await import('https://webr.r-wasm.org/latest/webr.mjs');
+      state.webR = new WebR({ channelType: ChannelType.PostMessage });
+      await state.webR.init();
+      try { await state.webR.FS.mkdir('/data'); } catch (error) {}
+      state.webRReady = true;
+      setStatus('analysisStatus', 'WebR listo para ejecutar el ensayo.', 'ok');
+    }
+    async function runRCode(code) {
+      await ensureAnalysisR();
+      await state.webR.FS.writeFile('/data/practica_inicial.csv', new TextEncoder().encode(analysisCsv()));
+      const wrapped = `
+.__curso_code <- ${JSON.stringify(code)}
+.__curso_output <- capture.output({
+  tryCatch({
+    .__curso_expr <- parse(text = .__curso_code)
+    .__curso_value <- withVisible(eval(.__curso_expr, envir = .GlobalEnv))
+    if (.__curso_value$visible) print(.__curso_value$value)
+  }, warning = function(w) {
+    message("Advertencia: ", conditionMessage(w))
+  }, error = function(e) {
+    message("Error: ", conditionMessage(e))
+  })
+})
+paste(.__curso_output, collapse = "\\n")
+`;
+      const result = await state.webR.evalR(wrapped);
+      const text = await result.toString();
+      result.destroy?.();
+      return text;
+    }
+    async function runAnalysisR() {
+      if (!state.analysisRows.length) buildAnalysisDataset();
+      $('rOutput').textContent = 'Ejecutando R...';
+      try {
+        const output = await runRCode($('rCodeEditor').value);
+        $('rOutput').textContent = output || '(sin salida)';
+        renderAnalysisReport(output || '');
+        setStatus('analysisStatus', 'Analisis ejecutado. Revisa salida y reporte.', 'ok');
+      } catch (error) {
+        $('rOutput').textContent = error && error.stack ? error.stack : String(error);
+        setStatus('analysisStatus', 'No se pudo ejecutar WebR.', 'error');
+      }
+    }
+    function renderAnalysisReport(rOutput = '') {
+      const rows = state.analysisRows.length ? state.analysisRows : buildAnalysisDataset();
+      const female = rows.filter(row => row.sexo === 'Femenino');
+      const male = rows.filter(row => row.sexo === 'Masculino');
+      const imcMean = mean(rows.map(row => row.imc)).toFixed(1);
+      const femaleMean = female.length ? mean(female.map(row => row.imc)).toFixed(1) : 'NA';
+      const maleMean = male.length ? mean(male.map(row => row.imc)).toFixed(1) : 'NA';
+      const normal = rows.filter(row => row.categoria_imc === 'Normal').length;
+      $('analysisReport').innerHTML = `
+        <h3>Reporte automático del ensayo</h3>
+        <p class="mini-note">Generado con ${rows.length} filas: ${state.analysisMeta.real} reales y ${state.analysisMeta.simulated} simuladas.</p>
+        <ul>
+          <li>IMC medio del ensayo: <strong>${imcMean} kg/m2</strong>.</li>
+          <li>IMC normal: <strong>${pct(normal, rows.length)}%</strong> de las filas usadas.</li>
+          <li>Media de IMC por sexo registrado: Femenino <strong>${femaleMean}</strong>, Masculino <strong>${maleMean}</strong>.</li>
+          <li>Pruebas incluidas: t de una muestra, prueba de una proporción, t para dos grupos y chi-cuadrado simulado.</li>
+        </ul>
+        ${rOutput ? `<h4>Salida de R incluida en el reporte</h4><pre class="r-output" style="min-height:160px">${escapeHtml(rOutput)}</pre>` : ''}
+      `;
+    }
+    function seedLocalSimulation() {
+      const current = dedupeRows([...localRows(), ...state.rows]);
+      const ids = new Set(current.map(row => row.id));
+      const add = makeSimulatedRows(ANALYSIS_MIN_ROWS).filter(row => !ids.has(row.id)).slice(0, Math.max(0, ANALYSIS_MIN_ROWS - current.length));
+      add.forEach(saveLocalRow);
+      state.rows = dedupeRows([...current, ...add]);
+      buildAnalysisDataset();
+      setStatus('analysisStatus', `Muestra simulada local lista: se agregaron ${add.length} filas en este navegador.`, 'ok');
+    }
+    async function seedSheetSimulation() {
+      setStatus('analysisStatus', 'Revisando cuantas filas simuladas faltan en el Sheet...');
+      try {
+        const remote = await loadRemoteRows(2000);
+        const ids = new Set(remote.map(row => row.id));
+        const needed = Math.max(0, ANALYSIS_MIN_ROWS - remote.length);
+        const add = makeSimulatedRows(ANALYSIS_MIN_ROWS).filter(row => !ids.has(row.id)).slice(0, needed);
+        if (!add.length) {
+          setStatus('analysisStatus', 'El Sheet ya tiene suficientes filas para el ensayo.', 'ok');
+          state.rows = dedupeRows([...remote, ...localRows()]);
+          buildAnalysisDataset();
+          return;
+        }
+        if (!confirm(`Se guardaran ${add.length} filas simuladas en el Google Sheet real para el ensayo. ¿Continuar?`)) {
+          setStatus('analysisStatus', 'Simulacion en Sheet cancelada.');
+          return;
+        }
+        for (const row of add) {
+          await jsonp('save', { payload: encodePayload(row) });
+        }
+        state.rows = dedupeRows([...await loadRemoteRows(2000), ...localRows()]);
+        buildAnalysisDataset();
+        setStatus('analysisStatus', `Se guardaron ${add.length} filas simuladas en el Sheet.`, 'ok');
+      } catch (error) {
+        setStatus('analysisStatus', `${error.message} No se pudo guardar simulacion en Sheet.`, 'error');
+      }
+    }
+    function exportAnalysisWord() {
+      const html = `<!doctype html><html><head><meta charset="utf-8"><title>Ensayo R datos de salud</title></head><body>${$('analysisReport').innerHTML}</body></html>`;
+      downloadBlob(html, 'ensayo_r_datos_salud.doc', 'application/msword;charset=utf-8');
+    }
+    function renderQuiz() {
+      if ($('analysisQuiz').dataset.ready === '1') return;
+      $('analysisQuiz').innerHTML = QUIZ_ITEMS.map((item, index) => `
+        <div class="quiz-item">
+          <strong>${index + 1}. ${escapeHtml(item.prompt)}</strong>
+          ${item.options.map(([value, label]) => `
+            <label><input type="radio" name="${item.id}" value="${value}"> ${escapeHtml(label)}</label>
+          `).join('')}
+        </div>
+      `).join('');
+      $('analysisQuiz').dataset.ready = '1';
+    }
+    function gradeQuiz() {
+      let score = 0;
+      const feedback = [];
+      QUIZ_ITEMS.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="${item.id}"]:checked`)?.value || '';
+        const ok = selected === item.answer;
+        if (ok) score += 1;
+        feedback.push(`${index + 1}. ${ok ? 'Correcta' : 'Revisar'}: ${item.feedback}`);
+      });
+      const pctScore = Math.round((score / QUIZ_ITEMS.length) * 100);
+      const tone = pctScore >= 80 ? 'ok' : 'error';
+      setStatus('quizStatus', `Puntaje: ${score}/${QUIZ_ITEMS.length} (${pctScore}%). ${feedback.join(' ')}`, tone);
+    }
+    function resetQuiz() {
+      $('analysisQuiz').reset();
+      setStatus('quizStatus', 'Sin responder.');
+    }
     function downloadBlob(content, filename, type) {
       const blob = new Blob([content], { type });
       const a = document.createElement('a');
@@ -848,10 +1420,21 @@
     $('printButton').addEventListener('click', () => window.print());
     $('wordButton').addEventListener('click', exportWord);
     $('excelButton').addEventListener('click', exportExcel);
+    $('refreshAnalysisButton').addEventListener('click', prepareAnalysis);
+    $('runRButton').addEventListener('click', runAnalysisR);
+    $('seedLocalButton').addEventListener('click', seedLocalSimulation);
+    $('seedSheetButton').addEventListener('click', seedSheetSimulation);
+    $('copyRButton').addEventListener('click', () => navigator.clipboard?.writeText($('rCodeEditor').value));
+    $('downloadCsvButton').addEventListener('click', () => downloadBlob(analysisCsv(), 'practica_inicial_ensayo.csv', 'text/csv;charset=utf-8'));
+    $('printAnalysisButton').addEventListener('click', () => window.print());
+    $('wordAnalysisButton').addEventListener('click', exportAnalysisWord);
+    $('gradeQuizButton').addEventListener('click', gradeQuiz);
+    $('resetQuizButton').addEventListener('click', resetQuiz);
     window.addEventListener('resize', () => renderCharts());
     setupQr();
+    renderQuiz();
     const requestedTab = (location.hash || '#form').replace('#', '') || 'form';
-    setTab(['form', 'results', 'qr'].includes(requestedTab) ? requestedTab : 'form');
+    setTab(['form', 'results', 'analysis', 'qr'].includes(requestedTab) ? requestedTab : 'form');
   </script>
 </body>
 </html>

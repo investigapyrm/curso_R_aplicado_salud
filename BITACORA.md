@@ -1,5 +1,13 @@
 # Bitácora
 
+## 2026-05-28 - Ensayo RStudio/WebR con datos del aula
+
+- Se agrego a la practica inicial una pestaña `Ensayo R` que toma los datos del Google Sheet, arma un CSV para R y permite ejecutar pruebas de hipotesis en WebR dentro de la vista.
+- Se incorporo una muestra simulada minima para ensayar inferencia cuando aun hay pocas respuestas reales, con opcion local y opcion para guardar filas simuladas en el Sheet.
+- El script R editable incluye resumen descriptivo, t de una muestra, prueba de una proporcion, comparacion de IMC por sexo y chi-cuadrado para categorias.
+- Se agrego reporte automatico imprimible/exportable a Word y un cuestionario breve con puntaje y retroalimentacion.
+- Se actualizo cache/versionado a `2026.05.28.1`.
+
 ## 2026-05-27 - Corrección URL Apps Script práctica inicial
 
 - Problema reportado: la práctica inicial mostraba `No se pudo contactar Apps Script` y usaba datos locales del navegador.
